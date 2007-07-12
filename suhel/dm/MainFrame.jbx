@@ -1,0 +1,56 @@
+[PropertyInfo]
+borderLayout1,BorderLayout,false,false, , ,false,<default>
+btnGenerate,JButton,false,false, , ,false,<default>
+btnSaveTo,JButton,false,false, , ,false,<default>
+confidence,double,false,false, , ,false,<default>
+iteration,int,false,false, , ,false,<default>
+jLabel1,JLabel,false,false, , ,false,<default>
+jLabel2,JLabel,false,false, , ,false,<default>
+jLabel3,JLabel,false,false, , ,false,<default>
+jLabel4,JLabel,false,false, , ,false,<default>
+jLabel5,JLabel,false,false, , ,false,<default>
+jMenu1,JMenu,false,false, , ,false,<default>
+jMenu2,JMenu,false,false, , ,false,<default>
+jMenu3,JMenu,false,false, , ,false,<default>
+jMenu4,JMenu,false,false, , ,false,<default>
+jMenu5,JMenu,false,false, , ,false,<default>
+jMenuItem1,JMenuItem,false,false, , ,false,<default>
+jMenuItem10,JMenuItem,false,false, , ,false,<default>
+jMenuItem11,JMenuItem,false,false, , ,false,<default>
+jMenuItem12,JMenuItem,false,false, , ,false,<default>
+jMenuItem13,JMenuItem,false,false, , ,false,<default>
+jMenuItem14,JMenuItem,false,false, , ,false,<default>
+jMenuItem15,JMenuItem,false,false, , ,false,<default>
+jMenuItem16,JMenuItem,false,false, , ,false,<default>
+jMenuItem17,JMenuItem,false,false, , ,false,<default>
+jMenuItem18,JMenuItem,false,false, , ,false,<default>
+jMenuItem19,JMenuItem,false,false, , ,false,<default>
+jMenuItem2,JMenuItem,false,false, , ,false,<default>
+jMenuItem20,JMenuItem,false,false, , ,false,<default>
+jMenuItem3,JMenuItem,false,false, , ,false,<default>
+jMenuItem4,JMenuItem,false,false, , ,false,<default>
+jMenuItem5,JMenuItem,false,false, , ,false,<default>
+jMenuItem6,JMenuItem,false,false, , ,false,<default>
+jMenuItem7,JMenuItem,false,false, , ,false,<default>
+jMenuItem8,JMenuItem,false,false, , ,false,<default>
+jMenuItem9,JMenuItem,false,false, , ,false,<default>
+jScrollPane1,JScrollPane,false,false, , ,false,<default>
+jToolBar1,JToolBar,false,false, , ,false,<default>
+jToolBar2,JToolBar,false,false, , ,false,<default>
+MenuBar,JMenuBar,false,false, , ,false,<default>
+sss,JMenuItem,false,false, , ,false,<default>
+support,double,false,false, , ,false,<default>
+testDatamine,DataMine,false,false, , ,false,<default>
+trainDatamine,DataMine,false,false, , ,false,<default>
+txtAreaMain,JTextArea,false,false, , ,false,<default>
+txtconfidence,JTextField,false,false, , ,false,<default>
+txtIteration,JTextField,false,false, , ,false,<default>
+txtSaveTo,JTextField,false,false, , ,false,<default>
+txtSupport,JTextField,false,false, , ,false,<default>
+txtTestFile,JTextField,false,false, , ,false,<default>
+txtTrainFile,JTextField,false,false, , ,false,<default>
+[IconNames]
+
+
+
+
