@@ -27,6 +27,7 @@ weka.classifiers.Classifier=\
  weka.classifiers.trees,\
  weka.classifiers.rules,\
  weka.classifiers.mcar
+ 
 
 # Lists the Filters-Packages I want to choose from
 weka.filters.Filter= \
