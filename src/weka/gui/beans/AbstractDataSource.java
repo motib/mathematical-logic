@@ -23,9 +23,6 @@
 package weka.gui.beans;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import java.util.Vector;
 import java.awt.*;
 import java.io.Serializable;
@@ -173,6 +170,7 @@ public abstract class AbstractDataSource extends JPanel
    * @param name the name of the property of interest
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(String name,
 					PropertyChangeListener pcl) {
     m_bcSupport.addPropertyChangeListener(name, pcl);
@@ -184,6 +182,7 @@ public abstract class AbstractDataSource extends JPanel
    * @param name the name of the property of interest
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(String name,
 					   PropertyChangeListener pcl) {
     m_bcSupport.removePropertyChangeListener(name, pcl);

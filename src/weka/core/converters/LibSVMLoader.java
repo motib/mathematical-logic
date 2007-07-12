@@ -115,6 +115,7 @@ public class LibSVMLoader
    * 
    * @throws IOException 	if something goes wrong
    */
+  @Override
   public void reset() throws IOException {
     m_structure = null;
     m_Buffer    = null;
@@ -174,6 +175,7 @@ public class LibSVMLoader
    * @param in 			the source InputStream.
    * @throws IOException 	if initialization of reader fails.
    */
+  @Override
   public void setSource(InputStream in) throws IOException {
     m_File = (new File(System.getProperty("user.dir"))).getAbsolutePath();
     m_URL  = "http://";
@@ -255,6 +257,7 @@ public class LibSVMLoader
    * 				of Instances
    * @throws IOException 	if an error occurs
    */
+  @Override
   public Instances getStructure() throws IOException {
     StringBuffer	line;
     int			cInt;
@@ -324,6 +327,7 @@ public class LibSVMLoader
    * 				set of Instances
    * @throws IOException 	if there is no source or parsing fails
    */
+  @Override
   public Instances getDataSet() throws IOException {
     Instances 	result;
     double[]	sparse;
@@ -370,6 +374,7 @@ public class LibSVMLoader
    * @throws IOException 	always. LibSVMLoader is unable to process a 
    * 				data set incrementally.
    */
+  @Override
   public Instance getNextInstance() throws IOException {
     throw new IOException("LibSVMLoader can't read data sets incrementally.");
   }

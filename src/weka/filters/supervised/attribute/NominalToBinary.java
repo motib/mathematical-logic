@@ -145,6 +145,7 @@ public class NominalToBinary
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -170,6 +171,7 @@ public class NominalToBinary
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -195,6 +197,7 @@ public class NominalToBinary
    * collected with output().
    * @throws IllegalStateException if no input format has been set
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {
@@ -221,6 +224,7 @@ public class NominalToBinary
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined
    */
+  @Override
   public boolean batchFinished() {
 
     if (getInputFormat() == null) {
@@ -407,9 +411,9 @@ public class NominalToBinary
 	if (Utils.gr(totalCounts, 0)) {
 	  for (int k = 0; k < att.numValues(); k++) {
 	    if (Utils.gr(counts[k], 0)) {
-	      avgClassValues[j][k] /= (double)counts[k];
+	      avgClassValues[j][k] /= counts[k];
 	    } else {
-	      avgClassValues[j][k] = sum / (double)totalCounts;
+	      avgClassValues[j][k] = sum / totalCounts;
 	    }
 	  }
 	}

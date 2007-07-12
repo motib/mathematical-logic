@@ -207,6 +207,7 @@ public class VFI
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(2);
@@ -240,6 +241,7 @@ public class VFI
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String optionString;
     
@@ -309,6 +311,7 @@ public class VFI
    *
    * @return an array of strings suitable for passing to setOptions()
    */
+  @Override
   public String[] getOptions () {
     String[] options = new String[3];
     int current = 0;
@@ -331,6 +334,7 @@ public class VFI
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -357,6 +361,7 @@ public class VFI
    * @param instances set of instances serving as training data 
    * @throws Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     if (!m_weightByConfidence) {
@@ -490,6 +495,7 @@ public class VFI
    *
    * @return a description of this classifier as a string.
    */
+  @Override
   public String toString() {
     if (m_Instances == null) {
       return "FVI: Classifier not built yet!";
@@ -532,6 +538,7 @@ public class VFI
    * @return the predicted class for the instance 
    * @throws Exception if the instance can't be classified
    */
+  @Override
   public double [] distributionForInstance(Instance instance) 
     throws Exception {
     double [] dist = new double[m_NumClasses];
@@ -583,7 +590,7 @@ public class VFI
 	double sum = Utils.sum(temp);
 	if (sum <= 0) {
 	  for (int j = 0; j < temp.length; j++) {
-	    temp[j] = 1.0 / (double)temp.length;
+	    temp[j] = 1.0 / temp.length;
 	  }
 	} else {
 	  Utils.normalize(temp, sum);
@@ -606,7 +613,7 @@ public class VFI
     double sum = Utils.sum(dist);
     if (sum <= 0) {
       for (int j = 0; j < dist.length; j++) {
-	dist[j] = 1.0 / (double)dist.length;
+	dist[j] = 1.0 / dist.length;
       }
       return dist;
     } else {

@@ -173,7 +173,7 @@ public class ContingencyTables {
     min = nrows < ncols ? nrows-1 : ncols-1;
     if ((min == 0) || Utils.eq(n, 0))
       return 0;
-    return Math.sqrt(chiVal(matrix, false) / (n * (double)min)); 
+    return Math.sqrt(chiVal(matrix, false) / (n * min)); 
   } 
 
   /**

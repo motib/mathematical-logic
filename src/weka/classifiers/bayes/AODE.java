@@ -223,6 +223,7 @@ public class AODE extends Classifier
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -247,6 +248,7 @@ public class AODE extends Classifier
    * @throws Exception if the classifier has not been generated
    * successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     // can classifier handle the data?
@@ -288,7 +290,7 @@ public class AODE extends Classifier
 
     // calculate the counts
     for(int k = 0; k < m_NumInstances; k++) {
-       addToCounts((Instance)m_Instances.instance(k));
+       addToCounts(m_Instances.instance(k));
     }
 
     // free up some space
@@ -369,6 +371,7 @@ public class AODE extends Classifier
    * @return predicted class probability distribution
    * @throws Exception if there is a problem generating the prediction
    */
+  @Override
   public double [] distributionForInstance(Instance instance) throws Exception {
  
     // accumulates posterior probabilities for each class
@@ -475,7 +478,7 @@ public class AODE extends Classifier
        } else {
  
           // divide by number of parent atts to get the mean
-          probs[classVal] /= (double)(parentCount);
+          probs[classVal] /= (parentCount);
        }
     }
  
@@ -516,12 +519,12 @@ public class AODE extends Classifier
        int aIndex = m_StartAttIndex[att] + (int)instance.value(att);
 
        if(!m_MEstimates) {
-          prob *= (double)(pointer[aIndex][aIndex] + 1.0)
-              / ((double)m_SumForCounts[classVal][att] + m_NumAttValues[att]);
+          prob *= (pointer[aIndex][aIndex] + 1.0)
+              / (m_SumForCounts[classVal][att] + m_NumAttValues[att]);
        } else {
-          prob *= (double)(pointer[aIndex][aIndex] 
+          prob *= (pointer[aIndex][aIndex] 
                     + ((double)m_Weight / (double)m_NumAttValues[att]))
-                 / (double)(m_SumForCounts[classVal][att] + m_Weight);
+                 / (m_SumForCounts[classVal][att] + m_Weight);
        }
     }
     return prob;
@@ -533,6 +536,7 @@ public class AODE extends Classifier
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
         
     Vector newVector = new Vector(4);
@@ -580,6 +584,7 @@ public class AODE extends Classifier
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     m_Debug = Utils.getFlag('D', options);
@@ -610,6 +615,7 @@ public class AODE extends Classifier
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
     Vector result  = new Vector();
 
@@ -724,6 +730,7 @@ public class AODE extends Classifier
    *
    * @return a description of the classifier as a string.
    */
+  @Override
   public String toString() {
  
     StringBuffer text = new StringBuffer();

@@ -125,6 +125,7 @@ public class MILR
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -152,6 +153,7 @@ public class MILR
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String      tmpStr;
 
@@ -176,6 +178,7 @@ public class MILR
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     
@@ -275,6 +278,7 @@ public class MILR
      * @param x the current values of variables
      * @return the value of the objective function 
      */
+    @Override
     protected double objectiveFunction(double[] x){
       double nll = 0; // -LogLikelihood
       
@@ -322,7 +326,7 @@ public class MILR
               else
                 bag += 1.0/(1.0+exp);                  
             }   
-            bag /= (double)nI;
+            bag /= nI;
 
             nll -= Math.log(bag);
           }   
@@ -340,9 +344,9 @@ public class MILR
               exp += x[0];
 
               if(m_Classes[i]==1)
-                bag -= exp/(double)nI;
+                bag -= exp/nI;
               else
-                bag += exp/(double)nI;
+                bag += exp/nI;
             }
 
             nll += Math.log(1.0+Math.exp(bag));
@@ -362,6 +366,7 @@ public class MILR
      * @param x the current values of variables
      * @return the gradient vector 
      */
+    @Override
     protected double[] evaluateGradient(double[] x){
       double[] grad = new double[x.length];
       
@@ -456,19 +461,19 @@ public class MILR
               exp += x[0];
 
               if(m_Classes[i]==1){
-                bag -= exp/(double)nI;
+                bag -= exp/nI;
                 for(int q=0; q<grad.length; q++){
                   double m = 1.0;
                   if(q>0) m=m_Data[i][q-1][j];
-                  sumX[q] -= m/(double)nI;
+                  sumX[q] -= m/nI;
                 }
               }
               else{
-                bag += exp/(double)nI;
+                bag += exp/nI;
                 for(int q=0; q<grad.length; q++){
                   double m = 1.0;
                   if(q>0) m=m_Data[i][q-1][j];
-                  sumX[q] += m/(double)nI;
+                  sumX[q] += m/nI;
                 }     
               }
             }
@@ -493,6 +498,7 @@ public class MILR
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -541,6 +547,7 @@ public class MILR
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances train) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(train);
@@ -573,7 +580,7 @@ public class MILR
       m_Classes[h] = (int)current.classValue();  // Class value starts from 0
       Instances currInsts = current.relationalValue(1);
       int nI = currInsts.numInstances();
-      totIns += (double)nI;
+      totIns += nI;
 
       for (int i = 0; i < nR; i++) {  		
         // initialize m_data[][][]		
@@ -606,10 +613,10 @@ public class MILR
     }
 
     for (int j = 0; j < nR; j++) {
-      xMean[j] = xMean[j]/(double)(nC-missingbags[j]);
-      xSD[j] = Math.sqrt(Math.abs(xSD[j]/((double)(nC-missingbags[j])-1.0)
-            -xMean[j]*xMean[j]*(double)(nC-missingbags[j])/
-            ((double)(nC-missingbags[j])-1.0)));
+      xMean[j] = xMean[j]/(nC-missingbags[j]);
+      xSD[j] = Math.sqrt(Math.abs(xSD[j]/((nC-missingbags[j])-1.0)
+            -xMean[j]*xMean[j]*(nC-missingbags[j])/
+            ((nC-missingbags[j])-1.0)));
     }
 
     if (m_Debug) {	    
@@ -692,6 +699,7 @@ public class MILR
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance exmp) 
     throws Exception {
 
@@ -747,7 +755,7 @@ public class MILR
         }
 
         // Prob. for class 0
-        distribution[0] /= (double)nI;
+        distribution[0] /= nI;
         // Prob. for class 1
         distribution[1] = 1.0 - distribution[0];
         break;
@@ -757,7 +765,7 @@ public class MILR
           double exp = 0.0;
           for(int r=0; r<m_Par.length; r++)
             exp += m_Par[r]*dat[i][r];
-          distribution[1] += exp/(double)nI; 
+          distribution[1] += exp/nI; 
         }
 
         // Prob. for class 1
@@ -775,6 +783,7 @@ public class MILR
    *
    * @return a string describing the classifer built.
    */
+  @Override
   public String toString() {
 
     String result = "Modified Logistic Regression";

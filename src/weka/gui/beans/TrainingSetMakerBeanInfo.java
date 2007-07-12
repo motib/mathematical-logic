@@ -22,8 +22,6 @@
 
 package weka.gui.beans;
 
-import java.beans.*;
-
 /**
  * Bean info class for the training set maker bean
  *

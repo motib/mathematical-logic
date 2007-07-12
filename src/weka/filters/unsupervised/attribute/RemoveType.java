@@ -93,6 +93,7 @@ public class RemoveType
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -121,6 +122,7 @@ public class RemoveType
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if the inputFormat can't be set successfully 
    */ 
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
     
     super.setInputFormat(instanceInfo);
@@ -158,6 +160,7 @@ public class RemoveType
    * @return true if the filtered instance may now be
    * collected with output().
    */
+  @Override
   public boolean input(Instance instance) {
     
     return m_attributeFilter.input(instance);
@@ -169,6 +172,7 @@ public class RemoveType
    * @return true if there are instances pending output
    * @throws Exception if something goes wrong
    */  
+  @Override
   public boolean batchFinished() throws Exception {
 
     return m_attributeFilter.batchFinished();
@@ -180,6 +184,7 @@ public class RemoveType
    * @return the instance that has most recently been filtered (or null if
    * the queue is empty).
    */
+  @Override
   public Instance output() {
 
     return m_attributeFilter.output();
@@ -192,6 +197,7 @@ public class RemoveType
    * @return the instance that has most recently been filtered (or null if
    * the queue is empty).
    */
+  @Override
   public Instance outputPeek() {
 
     return m_attributeFilter.outputPeek();
@@ -202,6 +208,7 @@ public class RemoveType
    *
    * @return the number of instances  pending output
    */  
+  @Override
   public int numPendingOutput() {
   
     return m_attributeFilter.numPendingOutput();
@@ -212,6 +219,7 @@ public class RemoveType
    *
    * @return true if the output format is set
    */  
+  @Override
   public boolean isOutputFormatDefined() {
 
     return m_attributeFilter.isOutputFormatDefined();

@@ -233,6 +233,7 @@ public class Dagging
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     return weka.classifiers.functions.SMO.class.getName();
   }
@@ -242,6 +243,7 @@ public class Dagging
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -367,6 +369,7 @@ public class Dagging
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String        tmpStr;
 
@@ -386,6 +389,7 @@ public class Dagging
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -472,6 +476,7 @@ public class Dagging
    * bagged classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
     Classifier[]        base;
     int                 i;
@@ -507,7 +512,7 @@ public class Dagging
           System.out.print(".");
         
         train     = new Instances(data, 0);
-        fromIndex = (int) ((double) i * chunkSize);
+        fromIndex = (int) (i * chunkSize);
         toIndex   = (int) (((double) i + 1) * chunkSize) - 1;
         if (i == getNumFolds() - 1)
           toIndex = data.numInstances() - 1;
@@ -537,6 +542,7 @@ public class Dagging
    * @return preedicted class probability distribution
    * @throws Exception if distribution can't be computed successfully 
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
     return m_Vote.distributionForInstance(instance);
   }
@@ -546,6 +552,7 @@ public class Dagging
    *
    * @return description of the classifier as a string
    */
+  @Override
   public String toString() {
     if (m_Vote == null)
       return this.getClass().getName().replaceAll(".*\\.", "") 

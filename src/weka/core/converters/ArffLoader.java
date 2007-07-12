@@ -109,6 +109,7 @@ public class ArffLoader
    * 
    * @throws IOException if something goes wrong
    */
+  @Override
   public void reset() throws IOException {
     m_structure = null;
     setRetrieval(NONE);
@@ -142,6 +143,7 @@ public class ArffLoader
    *
    * @return the source file
    */
+  @Override
   public File retrieveFile() {
     return new File(m_File);
   }
@@ -152,6 +154,7 @@ public class ArffLoader
    * @param file the source file
    * @throws IOException if an error occurs
    */
+  @Override
   public void setFile(File file) throws IOException {
     m_File = file.getAbsolutePath();
     setSource(file);
@@ -164,6 +167,7 @@ public class ArffLoader
    * @param file 		the source file.
    * @throws IOException 	if an error occurs
    */
+  @Override
   public void setSource(File file) throws IOException {
     m_structure    = null;
     
@@ -213,6 +217,7 @@ public class ArffLoader
    * @param in the source InputStream.
    * @throws IOException always thrown.
    */
+  @Override
   public void setSource(InputStream in) throws IOException {
     // m_File = null;
     m_File = (new File(System.getProperty("user.dir"))).
@@ -229,6 +234,7 @@ public class ArffLoader
    * @return the structure of the data set as an empty set of Instances
    * @throws IOException if an error occurs
    */
+  @Override
   public Instances getStructure() throws IOException {
 
     if (m_sourceReader == null) {
@@ -254,6 +260,7 @@ public class ArffLoader
    * @return the structure of the data set as an empty set of Instances
    * @throws IOException if there is no source or parsing fails
    */
+  @Override
   public Instances getDataSet() throws IOException {
 
     if (m_sourceReader == null) {
@@ -295,6 +302,7 @@ public class ArffLoader
    * if there are no more instances to be read
    * @throws IOException if there is an error during parsing
    */
+  @Override
   public Instance getNextInstance() throws IOException {
 
     if (m_structure == null) {

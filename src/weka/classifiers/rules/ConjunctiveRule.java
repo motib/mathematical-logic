@@ -214,6 +214,7 @@ public class ConjunctiveRule
     /* The abstract members for inheritance */
     public abstract Instances[] splitData(Instances data, double defInfo);
     public abstract boolean isCover(Instance inst);
+    @Override
     public abstract String toString();
 	
     /* Get functions of this antecedent */
@@ -310,6 +311,7 @@ public class ConjunctiveRule
      * @param defInfo the default information for data
      * @return the array of data after split
      */
+    @Override
     public Instances[] splitData(Instances insts, double defInfo){	
       Instances data = new Instances(insts);
       data.sort(att);
@@ -322,7 +324,7 @@ public class ConjunctiveRule
       double minSplit;
       if(m_ClassAttribute.isNominal()){
 	minSplit =  0.1 * (data.sumOfWeights()) /
-	  ((double)m_ClassAttribute.numValues());
+	  (m_ClassAttribute.numValues());
 	if (Utils.smOrEq(minSplit,m_MinNo)) 
 	  minSplit = m_MinNo;
 	else if (Utils.gr(minSplit,25)) 
@@ -509,6 +511,7 @@ public class ConjunctiveRule
      * @return the boolean value indicating whether the instance is covered 
      *         by this antecedent
      */
+    @Override
     public boolean isCover(Instance inst){
       boolean isCover=false;
       if(!inst.isMissing(att)){
@@ -527,6 +530,7 @@ public class ConjunctiveRule
      *
      * @return a textual description of this antecedent
      */
+    @Override
     public String toString() {
       String symbol = Utils.eq(value, 0.0) ? " <= " : " > ";
       return (att.name() + symbol + Utils.doubleToString(splitPoint, 6));
@@ -581,6 +585,7 @@ public class ConjunctiveRule
      * @param defInfo the default information for data
      * @return the array of data after split
      */
+    @Override
     public Instances[] splitData(Instances data, double defInfo){
       int bag = att.numValues();
       Instances[] splitData = new Instances[bag+1];
@@ -732,7 +737,7 @@ public class ConjunctiveRule
 	// Test this split
 	if (Utils.gr(infoGain, maxInfoGain) ||
 	    (Utils.eq(infoGain, maxInfoGain) && Utils.sm(entrp, minEntrp))){
-	  value = (double)x;
+	  value = x;
 	  maxInfoGain = infoGain;
 	  inform = maxInfoGain - defInfo;
 	  minEntrp = entrp;
@@ -750,6 +755,7 @@ public class ConjunctiveRule
      * @return the boolean value indicating whether the instance is covered 
      *         by this antecedent
      */
+    @Override
     public boolean isCover(Instance inst){	  
       boolean isCover=false;
       if(!inst.isMissing(att)){
@@ -779,6 +785,7 @@ public class ConjunctiveRule
      *
      * @return a textual description of this antecedent
      */
+    @Override
     public String toString() {
       String symbol = isIn ? " = " : " != ";	    
       return (att.name() + symbol + att.value((int)value));
@@ -816,6 +823,7 @@ public class ConjunctiveRule
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector newVector = new Vector(6);
 	
@@ -883,6 +891,7 @@ public class ConjunctiveRule
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 	
     String numFoldsString = Utils.getOption('N', options);
@@ -917,6 +926,7 @@ public class ConjunctiveRule
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 	
     String [] options = new String [9];
@@ -1085,6 +1095,7 @@ public class ConjunctiveRule
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -1113,6 +1124,7 @@ public class ConjunctiveRule
    * @param instances the training data
    * @throws Exception if classifier can't be built successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(instances);

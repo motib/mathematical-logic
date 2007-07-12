@@ -159,6 +159,7 @@ public class SortedTableModel
    * @param columnIndex     the index of the column
    * @return                the class of the specified column
    */
+  @Override
   public Class getColumnClass(int columnIndex) {
     if (!isInitialized())
       return null;
@@ -184,6 +185,7 @@ public class SortedTableModel
    * @param columnIndex   the column to retrieve the name for
    * @return              the name of the specified column
    */
+  @Override
   public String getColumnName(int columnIndex) {
     if (!isInitialized())
       return null;
@@ -224,6 +226,7 @@ public class SortedTableModel
    * @param columnIndex   the column
    * @return              true if the cell is editable
    */
+  @Override
   public boolean isCellEditable(int rowIndex, int columnIndex) {
     if (!isInitialized())
       return false;
@@ -238,6 +241,7 @@ public class SortedTableModel
    * @param rowIndex      the row
    * @param columnIndex   the column
    */
+  @Override
   public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
     if (isInitialized())
       getModel().setValueAt(aValue, mIndices[rowIndex], columnIndex);
@@ -396,7 +400,8 @@ public class SortedTableModel
 
     if (header != null) {
       MouseAdapter listMouseListener = new MouseAdapter() {
-        public void mouseClicked(MouseEvent e) {
+        @Override
+	public void mouseClicked(MouseEvent e) {
           TableColumnModel columnModel = tableFinal.getColumnModel();
           int viewColumn = columnModel.getColumnIndexAtX(e.getX());
           int column = tableFinal.convertColumnIndexToModel(viewColumn);

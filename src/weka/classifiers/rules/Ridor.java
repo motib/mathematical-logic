@@ -273,7 +273,7 @@ public class Ridor
       }
 	    
       if(numMajority <= 1){	                   // The data is pure or not enough
-	defClass = (double)Utils.maxIndex(isPure);
+	defClass = Utils.maxIndex(isPure);
 	return;
       }
       double total = Utils.sum(isPure);	 

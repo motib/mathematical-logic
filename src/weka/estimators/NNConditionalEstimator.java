@@ -210,6 +210,7 @@ public class NNConditionalEstimator implements ConditionalEstimator {
   }
 
   /** Display a representation of this estimator */
+  @Override
   public String toString() {
     
     if (m_Covariance == null) {

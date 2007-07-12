@@ -37,6 +37,7 @@ public class IncrementalClassifierEvaluatorBeanInfo extends SimpleBeanInfo {
    *
    * @return an <code>EventSetDescriptor[]</code> value
    */
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = { 

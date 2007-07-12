@@ -98,6 +98,7 @@ public class ModelTreeNodeEditor
    * @param event	the event
    * @return		true if editable
    */
+  @Override
   public boolean isCellEditable(EventObject event) {
     boolean returnValue = false;
     if (event instanceof MouseEvent) {
@@ -173,7 +174,7 @@ public class ModelTreeNodeEditor
       PropertyEditor nodeEditor = node.getEditor();
       customRenderer = (JComponent) EnsembleLibraryEditor
       .getDefaultRenderer(nodeEditor);
-      ((JComponent) customRenderer).setToolTipText(node.getToolTipText());
+      (customRenderer).setToolTipText(node.getToolTipText());
       nodeEditor.addPropertyChangeListener(this);
       
     }

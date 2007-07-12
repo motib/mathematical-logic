@@ -52,6 +52,7 @@ public final class RandomVariates extends Random{
      * @return the next pseudorandom value from this random number 
      * generator's sequence.
      */
+    @Override
     protected int next(int bits) {return super.next(bits);}
     
     /**

@@ -82,7 +82,8 @@ public class XMLExperiment extends XMLBasicSerialization {
     * 
     * @throws Exception if initializing fails
     */
-   public void clear() throws Exception {
+   @Override
+  public void clear() throws Exception {
       super.clear();
 
       // ignore
@@ -108,7 +109,8 @@ public class XMLExperiment extends XMLBasicSerialization {
     * @param o the object that is serialized into XML
     * @throws Exception if post-processing fails
     */
-   protected void writePostProcess(Object o) throws Exception {
+   @Override
+  protected void writePostProcess(Object o) throws Exception {
       Element              node;
       Experiment           exp;
 
@@ -127,7 +129,8 @@ public class XMLExperiment extends XMLBasicSerialization {
     * @return the processed object
     * @throws Exception if post-processing fails
     */
-   protected Object readPostProcess(Object o) throws Exception {
+   @Override
+  protected Object readPostProcess(Object o) throws Exception {
       Element              node;
       Experiment           exp;
       int                  i;

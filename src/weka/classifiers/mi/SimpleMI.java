@@ -119,6 +119,7 @@ public class SimpleMI
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
 
@@ -182,6 +183,7 @@ public class SimpleMI
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {	
 
     setDebug(Utils.getFlag('D', options));
@@ -205,6 +207,7 @@ public class SimpleMI
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -264,7 +267,7 @@ public class SimpleMI
   public Instances transform(Instances train) throws Exception{
 
     Attribute classAttribute = (Attribute) train.classAttribute().copy();
-    Attribute bagLabel = (Attribute) train.attribute(0);
+    Attribute bagLabel = train.attribute(0);
     double labelValue;
 
     Instances newData = train.attribute(1).relation().stringFreeStructure();
@@ -373,6 +376,7 @@ public class SimpleMI
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -426,6 +430,7 @@ public class SimpleMI
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances train) throws Exception {
 
     // can classifier handle the data?
@@ -457,6 +462,7 @@ public class SimpleMI
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance newBag)
     throws Exception {
 
@@ -478,6 +484,7 @@ public class SimpleMI
    *
    * @return a string describing the classifer built.
    */
+  @Override
   public String toString() {	
     return "SimpleMI with base classifier: \n"+m_Classifier.toString();
   }

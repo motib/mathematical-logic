@@ -87,6 +87,7 @@ public class KDConditionalEstimator implements ConditionalEstimator {
   }
 
   /** Display a representation of this estimator */
+  @Override
   public String toString() {
 
     String result = "KD Conditional Estimator. " 

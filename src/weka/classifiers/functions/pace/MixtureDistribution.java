@@ -128,13 +128,13 @@ public abstract class MixtureDistribution
     for( int i = 0; i < n-1; i++ ) {
       if( separable( data2, start, i, data2.get(i+1) ) &&
 	  separable( data2, i+1, n-1, data2.get(i) ) ) {
-	subset = (DoubleVector) data2.subvector( start, i );
+	subset = data2.subvector( start, i );
 	d.plusEquals( fitForSingleCluster( subset, method ).
 		      timesEquals(i - start + 1) );
 	start = i + 1;
       }
     }
-    subset = (DoubleVector) data2.subvector( start, n-1 );
+    subset = data2.subvector( start, n-1 );
     d.plusEquals( fitForSingleCluster( subset, method ).
 		  timesEquals(n - start) ); 
     d.sort();
@@ -162,7 +162,7 @@ public abstract class MixtureDistribution
       PaceMatrix( empiricalProbability( data, fi ).
 		  timesEquals( 1. / data.size() ) );
     
-    IntVector pvt = (IntVector) IntVector.seq(0, sp.size()-1);
+    IntVector pvt = IntVector.seq(0, sp.size()-1);
     DoubleVector weights;
     
     switch( method ) {
@@ -263,6 +263,7 @@ public abstract class MixtureDistribution
    * 
    * @return a string representation
    */
+  @Override
   public String  toString() 
   {
     return "The mixing distribution:\n" + mixingDistribution.toString();

@@ -237,6 +237,7 @@ public class MultiInstanceToPropositional
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -292,6 +293,7 @@ public class MultiInstanceToPropositional
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
     throws Exception {
 
@@ -332,6 +334,7 @@ public class MultiInstanceToPropositional
    * collected with output().
    * @throws IllegalStateException if no input format has been set.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {
@@ -355,6 +358,7 @@ public class MultiInstanceToPropositional
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined
    */
+  @Override
   public boolean batchFinished() {
 
     if (getInputFormat() == null) {
@@ -392,11 +396,11 @@ public class MultiInstanceToPropositional
     if (m_WeightMethod == WEIGHTMETHOD_1)
       weight = 1.0;
     else if (m_WeightMethod == WEIGHTMETHOD_INVERSE1)
-      weight = (double) 1.0 / bagSize;
+      weight = 1.0 / bagSize;
     else if (m_WeightMethod == WEIGHTMETHOD_INVERSE2)
       weight=(double) m_NumInstances / (m_NumBags * bagSize);
     else 
-      weight = (double) bag.weight() / bagSize;
+      weight = bag.weight() / bagSize;
 
     Instance newInst;
     Instances outputFormat = getOutputFormat().stringFreeStructure();

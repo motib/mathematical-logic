@@ -108,6 +108,7 @@ public abstract class PotentialClassIgnorer
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if the inputFormat can't be set successfully 
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     boolean result = super.setInputFormat(instanceInfo);
@@ -129,6 +130,7 @@ public abstract class PotentialClassIgnorer
    * @throws NullPointerException if no input structure has been
    * defined (or the output format hasn't been determined yet) 
    */
+  @Override
   public final Instances getOutputFormat() {
 
     if (m_IgnoreClass) {

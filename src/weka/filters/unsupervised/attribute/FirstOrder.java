@@ -176,6 +176,7 @@ public class FirstOrder
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -202,6 +203,7 @@ public class FirstOrder
    * selected attributes are not numeric 
    * @throws Exception if only one attribute has been selected.
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     super.setInputFormat(instanceInfo);
@@ -235,7 +237,7 @@ public class FirstOrder
         foName = "'FO " + foName.replace('\'', ' ').trim() + '\'';
         inRange = true;
       } else {
-	newAtts.addElement((Attribute)instanceInfo.attribute(i).copy());
+	newAtts.addElement(instanceInfo.attribute(i).copy());
 	if ((i == instanceInfo.classIndex()))
 	  clsIndex = newAtts.size() - 1;
       }      
@@ -257,6 +259,7 @@ public class FirstOrder
    * collected with output().
    * @throws IllegalStateException if no input format has been defined.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {

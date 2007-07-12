@@ -131,6 +131,7 @@ public class ChisqMixture
    *  @param x the value
    *  @return true if the value can be considered
    */
+  @Override
   public boolean separable( DoubleVector data, int i0, int i1, double x ) {
 
     DoubleVector dataSqrt = data.sqrt();
@@ -149,6 +150,7 @@ public class ChisqMixture
    *  earlier and not passed into here
    *  @return the set of support points
    */
+  @Override
   public DoubleVector  supportPoints( DoubleVector data, int ne ) {
 
     DoubleVector sp = new DoubleVector();
@@ -173,6 +175,7 @@ public class ChisqMixture
    *  @param data the data supposedly generated from the mixture 
    *  @return the set of fitting intervals
    */
+  @Override
   public PaceMatrix  fittingIntervals( DoubleVector data ) {
 
     PaceMatrix a = new PaceMatrix( data.size() * 2, 2 );
@@ -212,6 +215,7 @@ public class ChisqMixture
    *  @param intervals the intervals
    *  @return the probability matrix
    */
+  @Override
   public PaceMatrix  probabilityMatrix(DoubleVector s, PaceMatrix intervals) {
     
     int ns = s.size();
@@ -412,6 +416,7 @@ public class ChisqMixture
    * 
    * @return a string representation
    */
+  @Override
   public String  toString() {
     return mixingDistribution.toString();
   }

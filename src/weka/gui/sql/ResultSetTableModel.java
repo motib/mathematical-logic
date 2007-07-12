@@ -24,8 +24,6 @@
 package weka.gui.sql;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Types;
 import java.util.Iterator;
 import java.util.HashSet;
 
@@ -227,6 +225,7 @@ public class ResultSetTableModel implements TableModel {
   /**
    * frees up the memory
    */
+  @Override
   public void finalize() throws Throwable {
     try {
       m_Helper.getResultSet().close();

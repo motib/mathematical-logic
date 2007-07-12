@@ -23,10 +23,6 @@
 package weka.gui.beans;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import java.util.Vector;
 import java.awt.*;
 import java.io.Serializable;
 import java.beans.EventSetDescriptor;

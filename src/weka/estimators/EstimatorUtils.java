@@ -199,7 +199,7 @@ public class EstimatorUtils {
       return;
     }
 
-    double diff = (max - min) / ((double)numPoints - 1.0);
+    double diff = (max - min) / (numPoints - 1.0);
     try {
       text.append("" + min + " " + est.getProbability(min) + " \n");
 
@@ -249,7 +249,7 @@ public class EstimatorUtils {
       return;
     }
 
-    double diff = (max - min) / ((double)numPoints - 1.0);
+    double diff = (max - min) / (numPoints - 1.0);
     try {
       text.append("" + min + " " + 
 		  est.getProbability(min) * classEst.getProbability(classIndex)

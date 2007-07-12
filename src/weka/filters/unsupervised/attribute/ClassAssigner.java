@@ -78,6 +78,7 @@ public class ClassAssigner
    * @return 		a description of the classifier suitable for
    * 			displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "Filter that can set and unset the class index.";
@@ -88,6 +89,7 @@ public class ClassAssigner
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     Enumeration enm = super.listOptions();
@@ -122,6 +124,7 @@ public class ClassAssigner
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String        tmpStr;
 
@@ -139,6 +142,7 @@ public class ClassAssigner
    *
    * @return 		an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -215,6 +219,7 @@ public class ClassAssigner
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -238,6 +243,7 @@ public class ClassAssigner
    * @return                the output format
    * @throws Exception      in case the class index is invalid
    */
+  @Override
   protected Instances determineOutputFormat(Instances inputFormat)
       throws Exception {
     
@@ -263,6 +269,7 @@ public class ClassAssigner
    * @return            the modified data
    * @throws Exception  in case the processing goes wrong
    */
+  @Override
   protected Instance process(Instance instance) throws Exception {
     return instance;
   }

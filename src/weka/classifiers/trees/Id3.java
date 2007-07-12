@@ -135,6 +135,7 @@ public class Id3
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -157,6 +158,7 @@ public class Id3
    * @param data the training data
    * @exception Exception if classifier can't be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -224,6 +226,7 @@ public class Id3
    * @return the classification
    * @throws NoSupportForMissingValuesException if instance has missing values
    */
+  @Override
   public double classifyInstance(Instance instance) 
     throws NoSupportForMissingValuesException {
 
@@ -246,6 +249,7 @@ public class Id3
    * @return the class distribution for the given instance
    * @throws NoSupportForMissingValuesException if instance has missing values
    */
+  @Override
   public double[] distributionForInstance(Instance instance) 
     throws NoSupportForMissingValuesException {
 
@@ -266,6 +270,7 @@ public class Id3
    *
    * @return a textual description of the classifier
    */
+  @Override
   public String toString() {
 
     if ((m_Distribution == null) && (m_Successors == null)) {
@@ -318,7 +323,7 @@ public class Id3
         entropy -= classCounts[j] * Utils.log2(classCounts[j]);
       }
     }
-    entropy /= (double) data.numInstances();
+    entropy /= data.numInstances();
     return entropy + Utils.log2(data.numInstances());
   }
 

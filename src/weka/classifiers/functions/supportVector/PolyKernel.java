@@ -114,6 +114,7 @@ public class PolyKernel
    * @return a description suitable for displaying in the
    *         explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "The polynomial kernel : K(x, y) = <x, y>^p or K(x, y) = (<x, y>+1)^p";
@@ -124,6 +125,7 @@ public class PolyKernel
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector		result;
     Enumeration		en;
@@ -178,6 +180,7 @@ public class PolyKernel
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     
@@ -197,6 +200,7 @@ public class PolyKernel
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       i;
     Vector    result;
@@ -224,6 +228,7 @@ public class PolyKernel
    * @return 		the dot product
    * @throws Exception 	if something goes wrong
    */
+  @Override
   protected double evaluate(int id1, int id2, Instance inst1)
     throws Exception {
 		
@@ -249,6 +254,7 @@ public class PolyKernel
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -319,6 +325,7 @@ public class PolyKernel
    * 
    * @return 		a string representaiton of the kernel
    */
+  @Override
   public String toString() {
     String	result;
     

@@ -54,9 +54,9 @@ public final class EnsembleLibraryModelComparator
     if (o1 instanceof EnsembleLibraryModel
 	&& o2 instanceof EnsembleLibraryModel) {
       
-      comparison = ((String) ((EnsembleLibraryModel) o1)
+      comparison = (((EnsembleLibraryModel) o1)
 	  .getStringRepresentation())
-	  .compareTo(((String) ((EnsembleLibraryModel) o2)
+	  .compareTo((((EnsembleLibraryModel) o2)
 	      .getStringRepresentation()));
       
     }

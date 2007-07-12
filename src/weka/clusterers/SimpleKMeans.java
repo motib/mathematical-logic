@@ -145,6 +145,7 @@ public class SimpleKMeans
    *
    * @return      the capabilities of this clusterer
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -164,6 +165,7 @@ public class SimpleKMeans
    * @throws Exception if the clusterer has not been 
    * generated successfully
    */
+  @Override
   public void buildClusterer(Instances data) throws Exception {
 
     // can clusterer handle the data?
@@ -311,6 +313,7 @@ public class SimpleKMeans
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public int clusterInstance(Instance instance) throws Exception {
     m_ReplaceMissingFilter.input(instance);
     m_ReplaceMissingFilter.batchFinished();
@@ -470,6 +473,7 @@ public class SimpleKMeans
    * @throws Exception if number of clusters could not be returned
    * successfully
    */
+  @Override
   public int numberOfClusters() throws Exception {
     return m_NumClusters;
   }
@@ -479,6 +483,7 @@ public class SimpleKMeans
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions () {
     Vector result = new Vector();
 
@@ -544,6 +549,7 @@ public class SimpleKMeans
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions (String[] options)
     throws Exception {
 
@@ -561,6 +567,7 @@ public class SimpleKMeans
    *
    * @return an array of strings suitable for passing to setOptions()
    */
+  @Override
   public String[] getOptions () {
     int       	i;
     Vector    	result;
@@ -583,6 +590,7 @@ public class SimpleKMeans
    *
    * @return a description of the clusterer as a string
    */
+  @Override
   public String toString() {
     int maxWidth = 0;
     for (int i = 0; i < m_NumClusters; i++) {

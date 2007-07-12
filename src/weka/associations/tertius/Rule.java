@@ -27,8 +27,6 @@ package weka.associations.tertius;
 import weka.core.Instances;
 import weka.core.Instance;
 import java.util.Enumeration;
-import java.util.ListIterator;
-import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.io.Serializable;
@@ -145,6 +143,7 @@ public class Rule implements Serializable, Cloneable {
    *
    * @return A copy of this Rule.
    */
+  @Override
   public Object clone() {
 
     Object result = null;
@@ -230,7 +229,7 @@ public class Rule implements Serializable, Cloneable {
 
     return (double) m_body.getCounterInstancesNumber() 
       * (double) m_head.getCounterInstancesNumber() 
-      / (double) m_numInstances;
+      / m_numInstances;
   }
 
   /**
@@ -240,7 +239,7 @@ public class Rule implements Serializable, Cloneable {
    */
   public double getExpectedFrequency() {
 
-    return getExpectedNumber() / (double) m_numInstances;
+    return getExpectedNumber() / m_numInstances;
   }
 
   /**
@@ -752,6 +751,7 @@ public class Rule implements Serializable, Cloneable {
    *
    * @return The String describing this rule.
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

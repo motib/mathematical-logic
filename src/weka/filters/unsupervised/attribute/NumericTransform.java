@@ -112,6 +112,7 @@ public class NumericTransform
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -137,6 +138,7 @@ public class NumericTransform
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -163,6 +165,7 @@ public class NumericTransform
    * @throws InvocationTargetException if there is a problem applying
    * the configured transform method.
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
 
     if (getInputFormat() == null) {

@@ -135,6 +135,7 @@ public class Main
      * 
      * @param g		the graphics context
      */
+    @Override
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
      
@@ -178,6 +179,7 @@ public class Main
       m_Parent = parent;
 
       addInternalFrameListener(new InternalFrameAdapter() {
+	@Override
 	public void internalFrameActivated(InternalFrameEvent e) {
 	  // update title of parent
 	  if (getParentFrame() != null)
@@ -213,6 +215,7 @@ public class Main
     /**
      * de-registers the child frame with the parent first
      */
+    @Override
     public void dispose() {
       if (getParentFrame() != null) {
 	getParentFrame().removeChildFrame(this);
@@ -308,8 +311,8 @@ public class Main
       // main window
       int screenHeight = getGraphicsConfiguration().getBounds().height;
       int screenWidth  = getGraphicsConfiguration().getBounds().width;
-      int newHeight = (int) (((double) screenHeight) * 0.75);
-      int newWidth  = (int) (((double) screenWidth)  * 0.75);
+      int newHeight = (int) ((screenHeight) * 0.75);
+      int newWidth  = (int) ((screenWidth)  * 0.75);
       setSize(
 	  1000 > newWidth  ? newWidth  : 1000,
 	  800  > newHeight ? newHeight : 800);
@@ -421,6 +424,7 @@ public class Main
 	    frame.getContentPane().setLayout(new BorderLayout());
 	    frame.getContentPane().add(new Explorer(), BorderLayout.CENTER);
 	    frame.addInternalFrameListener(new InternalFrameAdapter() {
+	      @Override
 	      public void internalFrameClosing(InternalFrameEvent e) {
 		frame.dispose();
 	      }
@@ -447,6 +451,7 @@ public class Main
 	    frame.getContentPane().setLayout(new BorderLayout());
 	    frame.getContentPane().add(new Experimenter(false), BorderLayout.CENTER);
 	    frame.addInternalFrameListener(new InternalFrameAdapter() {
+	      @Override
 	      public void internalFrameClosing(InternalFrameEvent e) {
 		frame.dispose();
 	      }
@@ -478,6 +483,7 @@ public class Main
 	    frame.getContentPane().setLayout(new BorderLayout());
 	    frame.getContentPane().add(KnowledgeFlowApp.getSingleton(), BorderLayout.CENTER);
 	    frame.addInternalFrameListener(new InternalFrameAdapter() {
+	      @Override
 	      public void internalFrameClosing(InternalFrameEvent e) {
 		frame.dispose();
 	      }
@@ -1351,6 +1357,7 @@ public class Main
 
       // start GUI
       Thread nt = new Thread() {
+	@Override
 	public void run() {
 	  weka.gui.SplashWindow.invokeMethod(
 	      "weka.gui.Main", "createSingleton", new String [1]);
@@ -1359,6 +1366,7 @@ public class Main
       nt.start();
       
       Thread memMonitor = new Thread() {
+	@Override
 	public void run() {
 	  while(true) {
 	    try {

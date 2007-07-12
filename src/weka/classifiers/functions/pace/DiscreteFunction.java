@@ -111,6 +111,7 @@ public class  DiscreteFunction {
   /**
    * Clones the discrete function
    */
+  @Override
   public Object  clone() 
   {
     DiscreteFunction d = new DiscreteFunction();
@@ -137,8 +138,8 @@ public class  DiscreteFunction {
 	values.set( count, values.get(count) + values.get(i) );
       } 
     }
-    points = (DoubleVector) points.subvector(0, count);
-    values = (DoubleVector) values.subvector(0, count);
+    points = points.subvector(0, count);
+    values = values.subvector(0, count);
     return this;
   }
 
@@ -252,6 +253,7 @@ public class  DiscreteFunction {
   /**
    * Converts the discrete function to string.
    */
+  @Override
   public String  toString() 
   {
     StringBuffer text = new StringBuffer();

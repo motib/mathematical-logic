@@ -231,6 +231,7 @@ public class GaussianProcesses
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = getKernel().getCapabilities();
     result.setOwner(this);
@@ -259,6 +260,7 @@ public class GaussianProcesses
    * @param insts the set of training instances
    * @throws Exception if the classifier can't be built successfully
    */
+  @Override
   public void buildClassifier(Instances insts) throws Exception {
 
     /* check the set of training instances */
@@ -393,6 +395,7 @@ public class GaussianProcesses
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public double classifyInstance(Instance inst) throws Exception {
 
     // Filter instance
@@ -531,6 +534,7 @@ public class GaussianProcesses
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 	
     Vector result = new Vector();
@@ -615,6 +619,7 @@ public class GaussianProcesses
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported 
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     String[]	tmpOptions;
@@ -647,6 +652,7 @@ public class GaussianProcesses
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       i;
     Vector    result;
@@ -762,6 +768,7 @@ public class GaussianProcesses
    *
    * @return a description of the classifier as a string
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

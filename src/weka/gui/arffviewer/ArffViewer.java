@@ -273,6 +273,7 @@ public class ArffViewer
    * 
    * @return 		the classname
    */
+  @Override
   public String toString() {
     return this.getClass().getName();
   }
@@ -298,7 +299,8 @@ public class ArffViewer
       m_Args        = args;
 
       Thread memMonitor = new Thread() {
-        public void run() {
+        @Override
+	public void run() {
           while(true) {
             try {
               if ( (m_Args.length > 0) && (!m_FilesLoaded) ) {

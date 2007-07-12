@@ -530,6 +530,7 @@ public class XMLDocument {
    * @return the document as XML-string representation
    * @throws Exception if anything goes wrong initializing the parsing
    */
+  @Override
   public String toString() {
     String         header;
     

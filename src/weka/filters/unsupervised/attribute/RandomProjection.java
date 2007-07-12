@@ -250,7 +250,7 @@ public class RandomProjection
 
     String mString = Utils.getOption('P', options);
     if (mString.length() != 0) {
-	setPercent((double) Double.parseDouble(mString)); //setNumberOfAttributes((int) Integer.parseInt(mString));
+	setPercent(Double.parseDouble(mString)); //setNumberOfAttributes((int) Integer.parseInt(mString));
     } else {
         setPercent(0);
 	mString = Utils.getOption('N', options);
@@ -546,6 +546,7 @@ public class RandomProjection
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -571,6 +572,7 @@ public class RandomProjection
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {      
     super.setInputFormat(instanceInfo);
     /*
@@ -626,6 +628,7 @@ public class RandomProjection
    * collected with output().
    * @throws IllegalStateException if no input format has been set
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
 
     Instance newInstance=null;
@@ -684,6 +687,7 @@ public class RandomProjection
    * @throws NullPointerException if no input structure has been defined,
    * @throws Exception if there was a problem finishing the batch.
    */
+  @Override
   public boolean batchFinished() throws Exception {
       if (getInputFormat() == null) {
 	  throw new NullPointerException("No input instance format defined");

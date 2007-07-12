@@ -57,6 +57,7 @@ public class AllFilter extends Filter {
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -82,6 +83,7 @@ public class AllFilter extends Filter {
    * @return true 		if the outputFormat may be collected immediately
    * @throws Exception 		if something goes wrong
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     super.setInputFormat(instanceInfo);
@@ -100,6 +102,7 @@ public class AllFilter extends Filter {
    * collected with output().
    * @throws IllegalStateException if no input format has been defined.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {

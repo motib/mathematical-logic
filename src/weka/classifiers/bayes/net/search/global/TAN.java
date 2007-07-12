@@ -115,6 +115,7 @@ public class TAN
 	 * @param instances
 	 * @throws Exception if something goes wrong
 	 */
+	@Override
 	public void buildStructure(BayesNet bayesNet, Instances instances) throws Exception {
 		m_BayesNet = bayesNet;
 
@@ -213,6 +214,7 @@ public class TAN
 	 *
 	 * @return an enumeration of all the available options.
 	 */
+	@Override
 	public Enumeration listOptions() {
 	  return super.listOptions();
 	} // listOption
@@ -241,6 +243,7 @@ public class TAN
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 		super.setOptions(options);
 	} // setOptions
@@ -250,6 +253,7 @@ public class TAN
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String [] getOptions() {
 		return super.getOptions();
 	} // getOptions
@@ -258,6 +262,7 @@ public class TAN
 	 * This will return a string describing the classifier.
 	 * @return The string.
 	 */
+	@Override
 	public String globalInfo() {
 	  return 
 	      "This Bayes Network learning algorithm determines the maximum weight spanning tree "

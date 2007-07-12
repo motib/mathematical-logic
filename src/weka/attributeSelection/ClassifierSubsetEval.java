@@ -344,6 +344,7 @@ public class ClassifierSubsetEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities	result;
     
@@ -367,6 +368,7 @@ public class ClassifierSubsetEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data)
     throws Exception {
     
@@ -400,6 +402,7 @@ public class ClassifierSubsetEval
    * @return the error rate
    * @throws Exception if the subset could not be evaluated
    */
+  @Override
   public double evaluateSubset (BitSet subset)
     throws Exception {
     int i,j;
@@ -480,6 +483,7 @@ public class ClassifierSubsetEval
    * @return the "merit" of the subset on the holdOut data
    * @throws Exception if the subset cannot be evaluated
    */
+  @Override
   public double evaluateSubset(BitSet subset, Instances holdOut) 
     throws Exception {
     int i,j;
@@ -552,6 +556,7 @@ public class ClassifierSubsetEval
    * @return the "merit" of the subset on the holdOut instance
    * @throws Exception if the subset cannot be evaluated
    */
+  @Override
   public double evaluateSubset(BitSet subset, Instance holdOut,
 			       boolean retrain) 
     throws Exception {
@@ -625,6 +630,7 @@ public class ClassifierSubsetEval
    *
    * @return the description as a string
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     

@@ -220,6 +220,7 @@ public class PredictiveApriori
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -241,6 +242,7 @@ public class PredictiveApriori
    * @param instances the instances to be used for generating the associations
    * @throws Exception if rules can't be built successfully
    */
+  @Override
   public void buildAssociations(Instances instances) throws Exception {
       
     int temp = m_premiseCount, exactNumber = m_numRules-5; 
@@ -302,8 +304,8 @@ public class PredictiveApriori
       
         int k = 0;
         while(m_best.size()>0 && exactNumber > 0){
-            m_allTheRules[0].insertElementAt((ItemSet)((RuleItem)m_best.last()).premise(),k);
-            m_allTheRules[1].insertElementAt((ItemSet)((RuleItem)m_best.last()).consequence(),k);
+            m_allTheRules[0].insertElementAt(((RuleItem)m_best.last()).premise(),k);
+            m_allTheRules[1].insertElementAt(((RuleItem)m_best.last()).consequence(),k);
             m_allTheRules[2].insertElementAt(new Double(((RuleItem)m_best.last()).accuracy()),k);
             k++;
             exactNumber--;
@@ -327,8 +329,8 @@ public class PredictiveApriori
       
     int k = 0;
     while(m_best.size()>0 && exactNumber > 0){
-        m_allTheRules[0].insertElementAt((ItemSet)((RuleItem)m_best.last()).premise(),k);
-        m_allTheRules[1].insertElementAt((ItemSet)((RuleItem)m_best.last()).consequence(),k);
+        m_allTheRules[0].insertElementAt(((RuleItem)m_best.last()).premise(),k);
+        m_allTheRules[1].insertElementAt(((RuleItem)m_best.last()).consequence(),k);
         m_allTheRules[2].insertElementAt(new Double(((RuleItem)m_best.last()).accuracy()),k);
         k++;
         exactNumber--;
@@ -500,6 +502,7 @@ public class PredictiveApriori
    * 
    * @return a string representation of the model
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

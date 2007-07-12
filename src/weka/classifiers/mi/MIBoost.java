@@ -179,6 +179,7 @@ public class MIBoost
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
 
@@ -239,6 +240,7 @@ public class MIBoost
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     setDebug(Utils.getFlag('D', options));
 
@@ -264,6 +266,7 @@ public class MIBoost
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -360,6 +363,7 @@ public class MIBoost
      * @return the value of the objective function 
      * @throws Exception if result is NaN
      */
+    @Override
     protected double objectiveFunction(double[] x) throws Exception{
       double obj=0;
       for(int i=0; i<weights.length; i++){
@@ -377,6 +381,7 @@ public class MIBoost
      * @return the gradient vector 
      * @throws Exception if gradient is NaN
      */
+    @Override
     protected double[] evaluateGradient(double[] x)  throws Exception{
       double[] grad = new double[1];
       for(int i=0; i<weights.length; i++){
@@ -394,6 +399,7 @@ public class MIBoost
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -439,6 +445,7 @@ public class MIBoost
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances exps) throws Exception {
 
     // can classifier handle the data?
@@ -465,7 +472,7 @@ public class MIBoost
     /* modified by Lin Dong. (use MIToSingleInstance filter to convert the MI datasets) */
 
     //Initialize the bags' weights
-    double N = (double)train.numInstances(), sumNi=0;
+    double N = train.numInstances(), sumNi=0;
     for(int i=0; i<N; i++)
       sumNi += train.instance(i).relationalValue(1).numInstances();	
     for(int i=0; i<N; i++){
@@ -505,7 +512,7 @@ iterations:
         Instance exn = train.instance(n);
         // Prediction of each instance and the predicted class distribution
         // of the bag		
-        double nn = (double)exn.relationalValue(1).numInstances();
+        double nn = exn.relationalValue(1).numInstances();
         for(int p=0; p<nn; p++){
           Instance testIns = data.instance(dataIdx++);			
           if((int)m_Models[m].classifyInstance(testIns) 
@@ -584,7 +591,7 @@ iterations:
 
       for(int r=0; r<N; r++){		
         Instance exr = train.instance(r);
-        double num = (double)exr.relationalValue(1).numInstances();
+        double num = exr.relationalValue(1).numInstances();
         exr.setWeight(sumNi*exr.weight()/totWeights);
         //if(m_Debug)
         //    System.err.print("\nExemplar "+r+"="+exr.weight()+": \t");
@@ -611,6 +618,7 @@ iterations:
    * @return the classification
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance exmp) 
     throws Exception { 
 
@@ -647,6 +655,7 @@ iterations:
    *
    * @return a string describing the classifer built.
    */
+  @Override
   public String toString() {
 
     if (m_Models == null) {

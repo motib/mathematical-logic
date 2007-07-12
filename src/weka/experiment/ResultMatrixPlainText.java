@@ -60,6 +60,7 @@ public class ResultMatrixPlainText extends ResultMatrix {
   /**
    * returns the name of the output format
    */
+  @Override
   public String getDisplayName() {
     return "Plain Text";
   }
@@ -67,6 +68,7 @@ public class ResultMatrixPlainText extends ResultMatrix {
   /**
    * removes the stored data but retains the dimensions of the matrix
    */
+  @Override
   public void clear() {
     super.clear();
     setRowNameWidth(25);
@@ -78,6 +80,7 @@ public class ResultMatrixPlainText extends ResultMatrix {
    * @see #m_HeaderKeys
    * @see #m_HeaderValues
    */
+  @Override
   public String toStringHeader() {
     int         i;
     int         size;
@@ -108,6 +111,7 @@ public class ResultMatrixPlainText extends ResultMatrix {
   /**
    * returns the matrix as plain text
    */
+  @Override
   public String toStringMatrix() {
     StringBuffer    result;
     String[][]      cells;
@@ -272,6 +276,7 @@ public class ResultMatrixPlainText extends ResultMatrix {
    * returns returns a key for all the col names, for better readability if
    * the names got cut off
    */
+  @Override
   public String toStringKey() {
     String          result;
     int             i;
@@ -291,6 +296,7 @@ public class ResultMatrixPlainText extends ResultMatrix {
   /**
    * returns the summary as string
    */
+  @Override
   public String toStringSummary() {
     String      result;
     String      titles;
@@ -340,6 +346,7 @@ public class ResultMatrixPlainText extends ResultMatrix {
   /**
    * returns the ranking in a string representation
    */
+  @Override
   public String toStringRanking() {
     int           biggest;
     int           width;

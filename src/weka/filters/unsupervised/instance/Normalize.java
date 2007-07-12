@@ -218,6 +218,7 @@ public class Normalize
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -242,6 +243,7 @@ public class Normalize
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if format cannot be processed
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
     /* CHECK REMOVE, BECAUSE THE FILTER IS APPLIED ONLY TO NUMERIC ATTRIBUTE
      * IN input()
@@ -270,6 +272,7 @@ public class Normalize
    * collected with output().
    * @throws IllegalStateException if no input format has been defined.
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
     if (getInputFormat() == null) {
       throw new IllegalStateException("No input instance format defined");

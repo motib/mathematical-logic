@@ -164,7 +164,7 @@ public class Stemming {
     int character;
     while ((character = reader.read()) != -1) {
       char ch = (char) character;
-      if (Character.isWhitespace((char) ch)) {
+      if (Character.isWhitespace(ch)) {
         if (input.length() > 0) {
           output.write(stemmer.stem(input.toString()));
           input = new StringBuffer();

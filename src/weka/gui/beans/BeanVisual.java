@@ -29,9 +29,7 @@ import java.io.Serializable;
 import java.awt.*;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.IOException;
 
 
@@ -346,6 +344,7 @@ public class BeanVisual extends JPanel implements Serializable {
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     m_pcs.addPropertyChangeListener(pcl);
   }
@@ -355,10 +354,12 @@ public class BeanVisual extends JPanel implements Serializable {
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener pcl) {
     m_pcs.removePropertyChangeListener(pcl);
   }
 
+  @Override
   public void paintComponent(Graphics gx) {
     super.paintComponent(gx);
     if (m_displayConnectors) {

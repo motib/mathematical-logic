@@ -343,6 +343,7 @@ public class RemoteExperiment
    *
    * @param newNotes New user notes.
    */
+  @Override
   public void setNotes(String newNotes) {
     
     super.setNotes(newNotes);
@@ -354,6 +355,7 @@ public class RemoteExperiment
    *
    * @param newRunLower the lower run number for the experiment.
    */
+  @Override
   public void setRunLower(int newRunLower) {
     
     super.setRunLower(newRunLower);
@@ -365,6 +367,7 @@ public class RemoteExperiment
    *
    * @param newRunUpper the upper run number for the experiment.
    */
+  @Override
   public void setRunUpper(int newRunUpper) {
     
     super.setRunUpper(newRunUpper);
@@ -376,6 +379,7 @@ public class RemoteExperiment
    *
    * @param newResultListener the result listener where results will be sent.
    */
+  @Override
   public void setResultListener(ResultListener newResultListener) {
     
     super.setResultListener(newResultListener);
@@ -388,6 +392,7 @@ public class RemoteExperiment
    * @param newResultProducer result producer to use for the current 
    * experiment.
    */
+  @Override
   public void setResultProducer(ResultProducer newResultProducer) {
     
     super.setResultProducer(newResultProducer);
@@ -398,6 +403,7 @@ public class RemoteExperiment
    * Set the datasets to use in the experiment
    * @param ds the list of datasets to use
    */
+  @Override
   public void setDatasets(DefaultListModel ds) {
     super.setDatasets(ds);
     m_baseExperiment.setDatasets(ds);
@@ -408,6 +414,7 @@ public class RemoteExperiment
    *
    * @param newUsePropertyIterator true if so
    */
+  @Override
   public void setUsePropertyIterator(boolean newUsePropertyIterator) {
     
     super.setUsePropertyIterator(newUsePropertyIterator);
@@ -420,6 +427,7 @@ public class RemoteExperiment
    *
    * @param newPropertyPath an array of PropertyNodes
    */
+  @Override
   public void setPropertyPath(PropertyNode [] newPropertyPath) {
     
     super.setPropertyPath(newPropertyPath);
@@ -432,6 +440,7 @@ public class RemoteExperiment
    * @param newPropArray a value of type Object which should be an
    * array of the appropriate values.
    */
+  @Override
   public void setPropertyArray(Object newPropArray) {
     super.setPropertyArray(newPropArray);
     m_baseExperiment.setPropertyArray(newPropArray);
@@ -443,6 +452,7 @@ public class RemoteExperiment
    *
    * @throws Exception if an error occurs
    */
+  @Override
   public void initialize() throws Exception {
     if (m_baseExperiment == null) {
       throw new Exception("No base experiment specified!");
@@ -666,6 +676,7 @@ public class RemoteExperiment
     
     Thread subExpThread;
     subExpThread = new Thread() {
+	@Override
 	public void run() {	      
 	  m_remoteHostsStatus[ah] = IN_USE;
 	  m_subExpComplete[wexp] = TaskStatusInfo.PROCESSING;
@@ -769,6 +780,7 @@ public class RemoteExperiment
    * Overides the one in Experiment
    * @throws Exception never throws an exception
    */
+  @Override
   public void nextIteration() throws Exception {
 
   }
@@ -776,6 +788,7 @@ public class RemoteExperiment
   /** 
    * overides the one in Experiment
    */
+  @Override
   public void advanceCounters() {
 
   }
@@ -783,6 +796,7 @@ public class RemoteExperiment
   /** 
    * overides the one in Experiment
    */
+  @Override
   public void postProcess() {
    
   }
@@ -815,6 +829,7 @@ public class RemoteExperiment
    * Overides toString in Experiment
    * @return a description of this remote experiment
    */
+  @Override
   public String toString() {
     String result = m_baseExperiment.toString();
 
@@ -828,6 +843,7 @@ public class RemoteExperiment
   /**
    * Overides runExperiment in Experiment
    */
+  @Override
   public void runExperiment() {
     int totalHosts = m_remoteHostsQueue.size();
     // Try to launch sub experiments on all available hosts

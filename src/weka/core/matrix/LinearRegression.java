@@ -124,6 +124,7 @@ public class LinearRegression {
   /**
    * returns the coefficients in a string representation
    */
+  @Override
   public String toString() {
     return Utils.arrayToString(getCoefficients());
   }

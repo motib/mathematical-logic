@@ -29,6 +29,8 @@ import weka.core.Attribute;
 import weka.core.OptionHandler;
 import weka.core.Utils;
 import weka.core.Option;
+import weka.experiment.DatabaseUtils;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.Hashtable;
@@ -152,7 +154,7 @@ public class DatabaseLoader
   private String m_idColumn;
   
   /** The property file for the database connection */
-  protected static String PROPERTY_FILE = DatabaseConnection.PROPERTY_FILE;
+  protected static String PROPERTY_FILE = DatabaseUtils.PROPERTY_FILE;
   
   /** Properties associated with the database connection */
   protected static Properties PROPERTIES;

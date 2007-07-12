@@ -229,6 +229,7 @@ public class PairedStats {
    *
    * @return the t-test statistics as a string
    */
+  @Override
   public String toString() {
 
     return "Analysis for " + Utils.doubleToString(count, 0)

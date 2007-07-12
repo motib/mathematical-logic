@@ -114,6 +114,7 @@ public class XRFFLoader
    * 
    * @throws IOException 	if something goes wrong
    */
+  @Override
   public void reset() throws IOException {
     m_structure    = null;
     m_XMLInstances = null;
@@ -135,6 +136,7 @@ public class XRFFLoader
    * @param file 		the source file.
    * @throws IOException 	if an error occurs
    */
+  @Override
   public void setSource(File file) throws IOException {
     m_structure    = null;
     m_XMLInstances = null;
@@ -203,6 +205,7 @@ public class XRFFLoader
    * @param in 			the source InputStream.
    * @throws IOException 	if initialization of reader fails.
    */
+  @Override
   public void setSource(InputStream in) throws IOException {
     m_File = (new File(System.getProperty("user.dir"))).getAbsolutePath();
     m_URL  = "http://";
@@ -218,6 +221,7 @@ public class XRFFLoader
    * 				of Instances
    * @throws IOException 	if an error occurs
    */
+  @Override
   public Instances getStructure() throws IOException {
     if (m_sourceReader == null)
       throw new IOException("No source has been specified");
@@ -248,6 +252,7 @@ public class XRFFLoader
    * 				set of Instances
    * @throws IOException 	if there is no source or parsing fails
    */
+  @Override
   public Instances getDataSet() throws IOException {
     if (m_sourceReader == null)
       throw new IOException("No source has been specified");
@@ -269,6 +274,7 @@ public class XRFFLoader
    * @throws IOException 	always. XRFFLoader is unable to process a 
    * 				data set incrementally.
    */
+  @Override
   public Instance getNextInstance() throws IOException {
     throw new IOException("XRFFLoader can't read data sets incrementally.");
   }

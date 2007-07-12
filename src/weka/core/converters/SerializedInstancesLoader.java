@@ -68,6 +68,7 @@ public class SerializedInstancesLoader
   }
 
   /** Resets the Loader ready to read a new data set */
+  @Override
   public void reset() {
 
     m_Dataset = null;
@@ -108,6 +109,7 @@ public class SerializedInstancesLoader
    * @param in the source InputStream.
    * @throws IOException if there is a problem with IO
    */
+  @Override
   public void setSource(InputStream in) throws IOException {
 
     ObjectInputStream oi = new ObjectInputStream(new BufferedInputStream(in));
@@ -125,6 +127,7 @@ public class SerializedInstancesLoader
    * @return the structure of the data set as an empty set of Instances
    * @throws IOException if an error occurs
    */
+  @Override
   public Instances getStructure() throws IOException {
 
     if (m_Dataset == null) {
@@ -144,6 +147,7 @@ public class SerializedInstancesLoader
    * @return the structure of the data set as an empty set of Instances
    * @throws IOException if there is no source or parsing fails
    */
+  @Override
   public Instances getDataSet() throws IOException {
 
     if (m_Dataset == null) {
@@ -164,6 +168,7 @@ public class SerializedInstancesLoader
    * if there are no more instances to be read
    * @throws IOException if there is an error during parsing
    */
+  @Override
   public Instance getNextInstance() throws IOException {
 
     if (m_Dataset == null) {

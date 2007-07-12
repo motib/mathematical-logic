@@ -141,6 +141,7 @@ public class NaiveBayesMultinomial
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -160,6 +161,7 @@ public class NaiveBayesMultinomial
    * @param instances set of instances serving as training data 
    * @exception Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception 
   {
     // can classifier handle the data?
@@ -232,7 +234,7 @@ public class NaiveBayesMultinomial
     final double numDocs = instances.sumOfWeights() + numClasses;
     probOfClass = new double[numClasses];
     for(int h=0; h<numClasses; h++)
-      probOfClass[h] = (double)(docsPerClass[h] + 1)/numDocs; 
+      probOfClass[h] = (docsPerClass[h] + 1)/numDocs; 
   }
     
   /**
@@ -243,6 +245,7 @@ public class NaiveBayesMultinomial
    * @return predicted class probability distribution
    * @exception Exception if there is a problem generating the prediction
    */
+  @Override
   public double [] distributionForInstance(Instance instance) throws Exception 
   {
     double[] probOfClassGivenDoc = new double[numClasses];
@@ -337,6 +340,7 @@ public class NaiveBayesMultinomial
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString()
   {
     StringBuffer result = new StringBuffer("The independent probability of a class\n--------------------------------------\n");

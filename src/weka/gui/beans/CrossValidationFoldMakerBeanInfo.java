@@ -38,6 +38,7 @@ public class CrossValidationFoldMakerBeanInfo
    *
    * @return a <code>PropertyDescriptor[]</code> value
    */
+  @Override
   public PropertyDescriptor[] getPropertyDescriptors() {
     try {
       PropertyDescriptor p1;
@@ -57,6 +58,7 @@ public class CrossValidationFoldMakerBeanInfo
    *
    * @return a <code>BeanDescriptor</code> value
    */
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.CrossValidationFoldMaker.class,
 			      CrossValidationFoldMakerCustomizer.class);

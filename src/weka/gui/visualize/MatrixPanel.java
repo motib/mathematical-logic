@@ -62,6 +62,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -231,6 +233,7 @@ public class MatrixPanel extends JPanel{
 		jd.dispose();}
 	    });
 	  jd.addWindowListener( new WindowAdapter() {
+	      @Override
 	      public void windowClosing(WindowEvent e) {
 		m_attribList.setSelectedIndices(savedSelection);
 		jd.dispose();}
@@ -244,7 +247,7 @@ public class MatrixPanel extends JPanel{
 	  if(js.getPreferredSize().width < 200)
 	    jd.setSize( 250, 250 );
 	  else
-	    jd.setSize( (int) js.getPreferredSize().width+10, 250);
+	    jd.setSize( js.getPreferredSize().width+10, 250);
 					
 	  jd.setLocation( m_selAttrib.getLocationOnScreen().x,
 			  m_selAttrib.getLocationOnScreen().y-jd.getHeight() );
@@ -307,12 +310,13 @@ public class MatrixPanel extends JPanel{
 	  final JDialog jd = new JDialog((JFrame) MatrixPanel.this.getTopLevelAncestor(), 
 					 "Subsample % Panel",
 					 true) {
+	      @Override
 	      public void dispose() { 
 		m_resamplePercent.setText(percentTxt.getText());
 		super.dispose();
 	      } 
 	    };
-	  jd.setDefaultCloseOperation( JDialog.DISPOSE_ON_CLOSE );
+	  jd.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
 			       
 	  doneBt.addActionListener( new ActionListener(){ 
 	      public void actionPerformed(ActionEvent ae) {
@@ -405,6 +409,7 @@ public class MatrixPanel extends JPanel{
     optionsPanel.add(p2, gbc);
 
     this.addComponentListener( new ComponentAdapter() {
+	@Override
 	public void componentResized(ComponentEvent cv) {
 	  m_js.setMinimumSize( new Dimension(MatrixPanel.this.getWidth(),
 					     MatrixPanel.this.getHeight()
@@ -436,7 +441,7 @@ public class MatrixPanel extends JPanel{
     final JLabel lb = new JLabel(" Plot Matrix");
     lb.setFont(f); lb.setForeground(fontColor);
     lb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    m_js.setCorner(JScrollPane.UPPER_LEFT_CORNER, lb);
+    m_js.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER, lb);
     m_cp.setInstances(m_data);
     m_cp.setBorder(BorderFactory.createEmptyBorder(15,10,10,10));
     m_cp.addRepaintNotify(m_plotsPanel);
@@ -565,7 +570,7 @@ public class MatrixPanel extends JPanel{
       if(inst.attribute(m_selectedAttribs[j]).isNominal() || inst.attribute(m_selectedAttribs[j]).isString()) {
 	  //m_type[0][j] = 1;  m_type[1][j] = inst.attribute(m_selectedAttribs[j]).numValues();
 
-	temp1 = cellSize/(double)inst.attribute(m_selectedAttribs[j]).numValues(); //m_type[1][j];
+	temp1 = cellSize/inst.attribute(m_selectedAttribs[j]).numValues(); //m_type[1][j];
 	temp2 = temp1/2;
 	for(int i=0; i<inst.numInstances(); i++) {
 	  m_points[i][j] = (int) Math.round(temp2+temp1*inst.instance(i).value(m_selectedAttribs[j]));
@@ -765,7 +770,8 @@ public class MatrixPanel extends JPanel{
 
       jPlColHeader = new JPanel() {
         java.awt.Rectangle r;
-        public void paint(Graphics g) {
+        @Override
+	public void paint(Graphics g) {
           r = g.getClipBounds();
           g.setColor(this.getBackground());
           g.fillRect(r.x, r.y, r.width, r.height);
@@ -793,7 +799,8 @@ public class MatrixPanel extends JPanel{
           fm = null; r=null;
         }
         
-        public Dimension getPreferredSize() {
+        @Override
+	public Dimension getPreferredSize() {
           fm = this.getFontMetrics(this.getFont());
           return new Dimension( m_selectedAttribs.length*(cellSize+extpad),
           2*extpad + fm.getHeight() );
@@ -802,7 +809,8 @@ public class MatrixPanel extends JPanel{
 
       jPlRowHeader = new JPanel() {
         java.awt.Rectangle r;
-        public void paint(Graphics g) {
+        @Override
+	public void paint(Graphics g) {
           r = g.getClipBounds();
           g.setColor(this.getBackground());
           g.fillRect(r.x, r.y, r.width, r.height);
@@ -828,7 +836,8 @@ public class MatrixPanel extends JPanel{
           r=null;
         }
         
-        public Dimension getPreferredSize() {
+        @Override
+	public Dimension getPreferredSize() {
           return new Dimension( 100+extpad,
           m_selectedAttribs.length*(cellSize+extpad)
           );
@@ -936,6 +945,7 @@ public class MatrixPanel extends JPanel{
     /** Returns the X and Y attributes of the plot the mouse is currently
 	on
     */
+    @Override
     public String getToolTipText(MouseEvent event) {
       int xpos=extpad, ypos=extpad;
 	  
@@ -1045,6 +1055,7 @@ public class MatrixPanel extends JPanel{
       
     /** paints this JPanel (PlotsPanel)
      */
+    @Override
     public void paintComponent(Graphics g) {
       paintME(g);
     }

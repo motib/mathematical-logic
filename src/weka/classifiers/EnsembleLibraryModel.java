@@ -116,7 +116,7 @@ public class EnsembleLibraryModel
     
     Classifier testClassifier = null;
     try {
-      testClassifier = ((Classifier) m_Classifier.getClass()
+      testClassifier = (m_Classifier.getClass()
 	  .newInstance());
     } catch (InstantiationException e) {
       e.printStackTrace();
@@ -218,6 +218,7 @@ public class EnsembleLibraryModel
    * 
    * @return		a string representation of classname and options
    */
+  @Override
   public String toString() {
     
     String str = m_Classifier.getClass().getName();

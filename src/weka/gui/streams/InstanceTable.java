@@ -26,9 +26,6 @@ package weka.gui.streams;
 import weka.core.Instance;
 import weka.core.Instances;
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Vector;
 import java.io.Serializable;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -72,9 +69,11 @@ public class InstanceTable extends JPanel
   public void batchFinished() {
     
     TableModel newModel = new AbstractTableModel() {
+      @Override
       public String getColumnName(int col) {
 	return m_Instances.attribute(col).name();
       }
+      @Override
       public Class getColumnClass(int col) {
 	return "".getClass();
       }

@@ -25,7 +25,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.FileReader;
 import java.io.Reader;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.awt.Frame;
@@ -49,16 +48,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.io.File;
-
 import javax.swing.JFrame;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
-import javax.swing.RepaintManager;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
@@ -67,6 +62,7 @@ import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
 import weka.core.FastVector;
@@ -219,7 +215,7 @@ LayoutCompleteEventListener  {
     
     final JTextField jTfZoom = new JTextField("100%");
     jTfZoom.setMinimumSize( jTfZoom.getPreferredSize() );
-    jTfZoom.setHorizontalAlignment(JTextField.CENTER);
+    jTfZoom.setHorizontalAlignment(SwingConstants.CENTER);
     jTfZoom.setToolTipText("Zoom");
     
     jTfZoom.addActionListener( new ActionListener() {
@@ -361,9 +357,9 @@ LayoutCompleteEventListener  {
     final JLabel jLbNodeWidth = new JLabel("Width");
     final JLabel jLbNodeHeight = new JLabel("Height");
     
-    jTfNodeWidth.setHorizontalAlignment(JTextField.CENTER);
+    jTfNodeWidth.setHorizontalAlignment(SwingConstants.CENTER);
     jTfNodeWidth.setText(""+nodeWidth);
-    jTfNodeHeight.setHorizontalAlignment(JTextField.CENTER);
+    jTfNodeHeight.setHorizontalAlignment(SwingConstants.CENTER);
     jTfNodeHeight.setText(""+nodeHeight);
     jLbNodeWidth.setEnabled(false);
     jTfNodeWidth.setEnabled(false);
@@ -430,36 +426,36 @@ LayoutCompleteEventListener  {
     GridBagConstraints gbc = new GridBagConstraints();
     
     final JPanel p = new JPanel(new GridBagLayout());
-    gbc.gridwidth = gbc.REMAINDER;
-    gbc.anchor = gbc.NORTHWEST;
-    gbc.fill = gbc.NONE;
+    gbc.gridwidth = GridBagConstraints.REMAINDER;
+    gbc.anchor = GridBagConstraints.NORTHWEST;
+    gbc.fill = GridBagConstraints.NONE;
     p.add( m_le.getControlPanel(), gbc);
     gbc.gridwidth = 1;
     gbc.insets = new Insets(8,0,0,0);
-    gbc.anchor = gbc.NORTHWEST;
-    gbc.gridwidth = gbc.REMAINDER;
+    gbc.anchor = GridBagConstraints.NORTHWEST;
+    gbc.gridwidth = GridBagConstraints.REMAINDER;
     
     p.add( jCbCustomNodeSize, gbc );
     gbc.insets = new Insets(0,0,0,0);
-    gbc.gridwidth = gbc.REMAINDER;
+    gbc.gridwidth = GridBagConstraints.REMAINDER;
     Container c = new Container();
     c.setLayout( new GridBagLayout() );
-    gbc.gridwidth = gbc.RELATIVE;
+    gbc.gridwidth = GridBagConstraints.RELATIVE;
     c.add(jLbNodeWidth, gbc);
-    gbc.gridwidth = gbc.REMAINDER;
+    gbc.gridwidth = GridBagConstraints.REMAINDER;
     c.add(jTfNodeWidth, gbc);
-    gbc.gridwidth = gbc.RELATIVE;
+    gbc.gridwidth = GridBagConstraints.RELATIVE;
     c.add(jLbNodeHeight, gbc);
-    gbc.gridwidth = gbc.REMAINDER;
+    gbc.gridwidth = GridBagConstraints.REMAINDER;
     c.add(jTfNodeHeight, gbc);
-    gbc.fill = gbc.HORIZONTAL;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
     p.add( c, gbc );
     
-    gbc.anchor = gbc.NORTHWEST;
+    gbc.anchor = GridBagConstraints.NORTHWEST;
     gbc.insets = new Insets(8,0,0,0);
-    gbc.fill = gbc.HORIZONTAL;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
     p.add( jBtLayout, gbc );
-    gbc.fill = gbc.NONE;
+    gbc.fill = GridBagConstraints.NONE;
     p.setBorder(BorderFactory.createCompoundBorder(
     BorderFactory.createTitledBorder("ExtraControls"),
     BorderFactory.createEmptyBorder(4,4,4,4)
@@ -469,8 +465,8 @@ LayoutCompleteEventListener  {
     final JToolBar jTbTools = new JToolBar();
     jTbTools.setFloatable(false);
     jTbTools.setLayout( new GridBagLayout() );
-    gbc.anchor = gbc.NORTHWEST;
-    gbc.gridwidth = gbc.REMAINDER;
+    gbc.anchor = GridBagConstraints.NORTHWEST;
+    gbc.gridwidth = GridBagConstraints.REMAINDER;
     gbc.insets = new Insets(0,0,0,0);
     jTbTools.add(p,gbc);
     gbc.gridwidth = 1;
@@ -478,7 +474,7 @@ LayoutCompleteEventListener  {
     jTbTools.addSeparator(new Dimension(2,2));
     jTbTools.add(jBtZoomIn, gbc);
     
-    gbc.fill = gbc.VERTICAL;
+    gbc.fill = GridBagConstraints.VERTICAL;
     gbc.weighty = 1;
     JPanel p2 = new JPanel(new BorderLayout());
     p2.setPreferredSize( jTfZoom.getPreferredSize() );
@@ -486,14 +482,14 @@ LayoutCompleteEventListener  {
     p2.add(jTfZoom, BorderLayout.CENTER);
     jTbTools.add(p2, gbc);
     gbc.weighty =0;
-    gbc.fill = gbc.NONE;
+    gbc.fill = GridBagConstraints.NONE;
     
     jTbTools.add(jBtZoomOut, gbc);
     jTbTools.addSeparator(new Dimension(2,2));
     jTbTools.add(jBtExtraControls, gbc);
     jTbTools.addSeparator(new Dimension(4,2));
     gbc.weightx = 1;
-    gbc.fill = gbc.BOTH;
+    gbc.fill = GridBagConstraints.BOTH;
     jTbTools.add(m_le.getProgressBar(), gbc);
     
     jBtExtraControls.addActionListener( new ActionListener() {
@@ -737,6 +733,7 @@ LayoutCompleteEventListener  {
       this.setToolTipText("");
     }
     
+    @Override
     public String getToolTipText(MouseEvent me) {
       int x, y, nx, ny;
       Rectangle r;
@@ -772,6 +769,7 @@ LayoutCompleteEventListener  {
     }
     
     
+    @Override
     public void paintComponent(Graphics gr) {
       Graphics2D g = (Graphics2D)gr;
       RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
@@ -862,7 +860,7 @@ LayoutCompleteEventListener  {
               x2=n2.x+paddedNodeWidth/2; y2=n2.y;
               g.drawLine(x+x1, y+y1, x+x2, y+y2);
               if(n.edges[k][1]==DIRECTED) {
-                if(n2.nodeType==n2.NORMAL)
+                if(n2.nodeType==GraphConstants.NORMAL)
                   drawArrow(g, x+x1, y+y1, x+x2, y+y2);
               }
               else if(n.edges[k][1]==REVERSED) {
@@ -1019,7 +1017,7 @@ LayoutCompleteEventListener  {
               x2=n2.x+paddedNodeWidth/2; y2=n2.y;
               g.drawLine(x+x1, y+y1, x+x2, y+y2);
               if(n.edges[k][1]==DIRECTED) {
-                if(n2.nodeType==n2.NORMAL) //!n2.dummy)
+                if(n2.nodeType==GraphConstants.NORMAL) //!n2.dummy)
                   drawArrow(g, x+x1, y+y1, x+x2, y+y2);
               }
               else if(n.edges[k][1]==DOUBLE) {
@@ -1134,6 +1132,7 @@ LayoutCompleteEventListener  {
       return data.length;
     }
     
+    @Override
     public String getColumnName(int col) {
       return columnNames[col];
     }
@@ -1146,6 +1145,7 @@ LayoutCompleteEventListener  {
     * JTable uses this method to determine the default renderer/
     * editor for each cell.
     */
+    @Override
     public Class getColumnClass(int c) {
       return getValueAt(0, c).getClass();
     }
@@ -1153,6 +1153,7 @@ LayoutCompleteEventListener  {
     /*
      * Implemented this to make sure the table is uneditable.
      */
+    @Override
     public boolean isCellEditable(int row, int col) {
       return false;
     }
@@ -1171,6 +1172,7 @@ LayoutCompleteEventListener  {
      * displays a dialog box with the probability distribution
      * table for that node IF it exists
      */
+    @Override
     public void mouseClicked(MouseEvent me) {
       GraphNode n;
       Dimension d = m_gp.getPreferredSize();
@@ -1236,8 +1238,8 @@ LayoutCompleteEventListener  {
             //}
             
             //Adding labels for rows
-            gbc.anchor = gbc.NORTHWEST;
-            gbc.fill = gbc.HORIZONTAL;
+            gbc.anchor = GridBagConstraints.NORTHWEST;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
             gbc.insets = new Insets(0,1,0,0);
             int addNum=0, temp=0;
             boolean dark=false;
@@ -1250,7 +1252,7 @@ LayoutCompleteEventListener  {
                 lb.setFont( new Font("Dialog", Font.PLAIN, 12) );
                 lb.setOpaque( true );
                 lb.setBorder( BorderFactory.createEmptyBorder( 1,2,1,1 ) );
-                lb.setHorizontalAlignment( JLabel.CENTER );
+                lb.setHorizontalAlignment( SwingConstants.CENTER );
                 if(dark) {
                   lb.setBackground( lb.getBackground().darker() );
                   lb.setForeground( Color.white );
@@ -1269,7 +1271,7 @@ LayoutCompleteEventListener  {
                 temp=0;
                 
                 if(k==n.prnts.length-1) {
-                  gbc.gridwidth = gbc.REMAINDER;
+                  gbc.gridwidth = GridBagConstraints.REMAINDER;
                   dark = (dark==true) ?  false:true;
                 }
                 jPlRowHeader.add(lb, gbc);
@@ -1294,7 +1296,7 @@ LayoutCompleteEventListener  {
                 jPlRowHeader.remove(addNum-1);
                 lb.setPreferredSize( new Dimension(lb.getPreferredSize().width, 
                                                    jTblProbs.getRowHeight()) );
-                gbc.gridwidth = gbc.REMAINDER;
+                gbc.gridwidth = GridBagConstraints.REMAINDER;
                 gbc.weighty = 1;
                 jPlRowHeader.add(lb, gbc);
                 gbc.weighty=0;
@@ -1433,7 +1435,7 @@ LayoutCompleteEventListener  {
     
     jf.getContentPane().add(g);
     //RepaintManager.currentManager(jf.getRootPane()).setDoubleBufferingEnabled(false);
-    jf.setDefaultCloseOperation( jf.EXIT_ON_CLOSE );
+    jf.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
     jf.setSize(800,600);
     //jf.pack();
     jf.setVisible(true);

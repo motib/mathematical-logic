@@ -92,6 +92,7 @@ public class InstancesResultListener
    * @return a description of the result listener suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return
         "Outputs the received results in arff format to "
@@ -105,6 +106,7 @@ public class InstancesResultListener
    * @param rp the ResultProducer that will generate the results
    * @exception Exception if an error occurs during preprocessing.
    */
+  @Override
   public void preProcess(ResultProducer rp) throws Exception {
 
     m_RP = rp;
@@ -151,6 +153,7 @@ public class InstancesResultListener
    * @param rp the ResultProducer that generated the results
    * @exception Exception if an error occurs
    */
+  @Override
   public void postProcess(ResultProducer rp) throws Exception {
 
     if (m_RP != rp) {
@@ -211,6 +214,7 @@ public class InstancesResultListener
    * @param result The actual results.
    * @exception Exception if the result could not be accepted.
    */
+  @Override
   public void acceptResult(ResultProducer rp, Object[] key, Object[] result) 
     throws Exception {
 
@@ -242,7 +246,7 @@ public class InstancesResultListener
 	  break;
 	case Attribute.NUMERIC:
 	  double dou = ((Double) val).doubleValue();
-	  newInst.setValue(i, (double)dou);
+	  newInst.setValue(i, dou);
 	  break;
 	default:
 	  newInst.setValue(i, Instance.missingValue());

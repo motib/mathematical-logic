@@ -394,6 +394,7 @@ public class EuclideanDistance implements DistanceFunction, Cloneable,
    * Documents the content of an EuclideanDistance object in a string.
    * @return the converted string
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

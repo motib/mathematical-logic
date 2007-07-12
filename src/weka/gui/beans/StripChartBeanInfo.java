@@ -37,6 +37,7 @@ public class StripChartBeanInfo extends SimpleBeanInfo {
    *
    * @return an <code>EventSetDescriptor[]</code> value
    */
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     // hide all gui events
     EventSetDescriptor [] esds = { };
@@ -48,6 +49,7 @@ public class StripChartBeanInfo extends SimpleBeanInfo {
    *
    * @return a <code>PropertyDescriptor[]</code> value
    */
+  @Override
   public PropertyDescriptor[] getPropertyDescriptors() {
     try {
       PropertyDescriptor p1;
@@ -67,6 +69,7 @@ public class StripChartBeanInfo extends SimpleBeanInfo {
    *
    * @return a <code>BeanDescriptor</code> value
    */
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.StripChart.class,
 			      StripChartCustomizer.class);

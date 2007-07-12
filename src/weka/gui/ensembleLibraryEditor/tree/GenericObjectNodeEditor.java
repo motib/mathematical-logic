@@ -235,6 +235,7 @@ public class GenericObjectNodeEditor
     ta.setCaretPosition(0);
     final JFrame jf = new JFrame("Information");
     jf.addWindowListener(new WindowAdapter() {
+      @Override
       public void windowClosing(WindowEvent e) {
 	jf.dispose();
 	if (m_HelpFrame == jf) {

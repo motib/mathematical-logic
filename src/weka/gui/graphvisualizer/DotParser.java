@@ -131,10 +131,10 @@ public class DotParser implements GraphConstants  {
     try {
       tk.nextToken();
       
-      if(tk.ttype==tk.TT_WORD) {
+      if(tk.ttype==StreamTokenizer.TT_WORD) {
         if(tk.sval.equalsIgnoreCase("digraph")) {
           tk.nextToken();
-          if(tk.ttype==tk.TT_WORD) {
+          if(tk.ttype==StreamTokenizer.TT_WORD) {
             m_graphName = tk.sval;
             tk.nextToken();
           }
@@ -143,7 +143,7 @@ public class DotParser implements GraphConstants  {
             System.err.println("Error at line "+tk.lineno()+" ignoring token "+
             tk.sval);
             tk.nextToken();
-            if(tk.ttype==tk.TT_EOF)
+            if(tk.ttype==StreamTokenizer.TT_EOF)
               return;
           }
           stmtList(tk);
@@ -204,7 +204,7 @@ public class DotParser implements GraphConstants  {
   
   protected void stmtList(StreamTokenizer tk) throws Exception{
     tk.nextToken();
-    if(tk.ttype=='}' || tk.ttype==tk.TT_EOF)
+    if(tk.ttype=='}' || tk.ttype==StreamTokenizer.TT_EOF)
       return;
     else {
       stmt(tk);
@@ -242,7 +242,7 @@ public class DotParser implements GraphConstants  {
   
   protected void nodeID(StreamTokenizer tk) throws Exception{
     
-    if(tk.ttype=='"' || tk.ttype==tk.TT_WORD || (tk.ttype>='a' && tk.ttype<='z')
+    if(tk.ttype=='"' || tk.ttype==StreamTokenizer.TT_WORD || (tk.ttype>='a' && tk.ttype<='z')
     || (tk.ttype>='A' && tk.ttype<='Z')) {
       if(m_nodes!=null && !(m_nodes.contains( new GraphNode(tk.sval, null))) ) {
         m_nodes.addElement( new GraphNode(tk.sval, tk.sval) );
@@ -262,16 +262,16 @@ public class DotParser implements GraphConstants  {
     
     GraphNode temp = (GraphNode) m_nodes.elementAt(nindex);
     
-    if(tk.ttype==']' || tk.ttype==tk.TT_EOF)
+    if(tk.ttype==']' || tk.ttype==StreamTokenizer.TT_EOF)
       return;
-    else if(tk.ttype==tk.TT_WORD) {
+    else if(tk.ttype==StreamTokenizer.TT_WORD) {
       
       if(tk.sval.equalsIgnoreCase("label")) {
         
         tk.nextToken();
         if(tk.ttype=='=') {
           tk.nextToken();
-          if(tk.ttype==tk.TT_WORD || tk.ttype=='"')
+          if(tk.ttype==StreamTokenizer.TT_WORD || tk.ttype=='"')
             temp.lbl = tk.sval;
           else {
             System.err.println("couldn't find label at line "+tk.lineno());
@@ -289,7 +289,7 @@ public class DotParser implements GraphConstants  {
         tk.nextToken();
         if(tk.ttype=='=') {
           tk.nextToken();
-          if(tk.ttype==tk.TT_WORD || tk.ttype=='"')
+          if(tk.ttype==StreamTokenizer.TT_WORD || tk.ttype=='"')
             ;
           else {
             System.err.println("couldn't find color at line "+tk.lineno());
@@ -307,7 +307,7 @@ public class DotParser implements GraphConstants  {
         tk.nextToken();
         if(tk.ttype=='=') {
           tk.nextToken();
-          if(tk.ttype==tk.TT_WORD || tk.ttype=='"')
+          if(tk.ttype==StreamTokenizer.TT_WORD || tk.ttype=='"')
             ;
           else {
             System.err.println("couldn't find style at line "+tk.lineno());
@@ -367,13 +367,13 @@ public class DotParser implements GraphConstants  {
     else if(tk.ttype=='-') {
       System.err.println("Error at line "+tk.lineno()+
       ". Cannot deal with undirected edges");
-      if(tk.ttype==tk.TT_WORD)
+      if(tk.ttype==StreamTokenizer.TT_WORD)
         tk.pushBack();
       return;
     }
     else {
       System.err.println("Error at line "+tk.lineno()+" in edgeStmt");
-      if(tk.ttype==tk.TT_WORD)
+      if(tk.ttype==StreamTokenizer.TT_WORD)
         tk.pushBack();
       return;
     }
@@ -391,16 +391,16 @@ public class DotParser implements GraphConstants  {
   throws Exception {
     tk.nextToken();
     
-    if(tk.ttype==']' || tk.ttype==tk.TT_EOF)
+    if(tk.ttype==']' || tk.ttype==StreamTokenizer.TT_EOF)
       return;
-    else if(tk.ttype==tk.TT_WORD) {
+    else if(tk.ttype==StreamTokenizer.TT_WORD) {
       
       if(tk.sval.equalsIgnoreCase("label")) {
         
         tk.nextToken();
         if(tk.ttype=='=') {
           tk.nextToken();
-          if(tk.ttype==tk.TT_WORD || tk.ttype=='"')
+          if(tk.ttype==StreamTokenizer.TT_WORD || tk.ttype=='"')
             System.err.println("found label "+tk.sval);//e.lbl = tk.sval;
           else {
             System.err.println("couldn't find label at line "+tk.lineno());
@@ -417,7 +417,7 @@ public class DotParser implements GraphConstants  {
         tk.nextToken();
         if(tk.ttype=='=') {
           tk.nextToken();
-          if(tk.ttype==tk.TT_WORD || tk.ttype=='"')
+          if(tk.ttype==StreamTokenizer.TT_WORD || tk.ttype=='"')
             ;
           else {
             System.err.println("couldn't find color at line "+tk.lineno());
@@ -435,7 +435,7 @@ public class DotParser implements GraphConstants  {
         tk.nextToken();
         if(tk.ttype=='=') {
           tk.nextToken();
-          if(tk.ttype==tk.TT_WORD || tk.ttype=='"')
+          if(tk.ttype==StreamTokenizer.TT_WORD || tk.ttype=='"')
             ;
           else {
             System.err.println("couldn't find style at line "+tk.lineno());

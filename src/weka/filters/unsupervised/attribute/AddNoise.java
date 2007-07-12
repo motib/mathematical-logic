@@ -335,6 +335,7 @@ public class AddNoise
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -360,6 +361,7 @@ public class AddNoise
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -395,6 +397,7 @@ public class AddNoise
    * collected with output().
    * @throws Exception if the input format was not set
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
 
     // check if input format is defined
@@ -424,6 +427,7 @@ public class AddNoise
    * @return true if there are instances pending output
    * @throws Exception if no input structure has been defined
    */
+  @Override
   public boolean batchFinished() throws Exception {
 
     if (getInputFormat() == null) {
@@ -468,7 +472,7 @@ public class AddNoise
     int indexList [];
     int partition_count [];
     int partition_max [];
-    double splitPercent = (double) percent; // percentage used for splits
+    double splitPercent = percent; // percentage used for splits
 
     // fill array with the indexes
     indexList = new int [instances.numInstances()];
@@ -480,7 +484,7 @@ public class AddNoise
     Random random = new Random(seed);
     for (int i=instances.numInstances()-1; i>=0; i--) {
       int hValue = indexList[i];
-      int hIndex = (int)(random.nextDouble()*(double) i);
+      int hIndex = (int)(random.nextDouble()*i);
       indexList[i] = indexList[hIndex];
       indexList[hIndex] = hValue;
       }
@@ -597,7 +601,7 @@ public class AddNoise
 
     // with only two possible values it is easier
     if ((numOfValues == 2) && (!instance.isMissing(indexOfAtt))) {
-	instance.setValue(indexOfAtt, (double) ((currValue+1)% 2));
+	instance.setValue(indexOfAtt, ((currValue+1)% 2));
     } else {
       // get randomly a new value not equal to the current value
       // if missing values are used as values they must be treated
@@ -605,16 +609,16 @@ public class AddNoise
       while (true) {
 	  int newValue;
         if (useMissing) {
-          newValue = (int) (r.nextDouble() * (double) (numOfValues + 1));
+          newValue = (int) (r.nextDouble() * (numOfValues + 1));
         } else {
-          newValue = (int) (r.nextDouble() * (double) numOfValues);
+          newValue = (int) (r.nextDouble() * numOfValues);
         }
         // have we found a new value?
         if (newValue != currValue) { 
           // the value 1 above the highest possible value (=numOfValues)
           // is used as missing value
           if (newValue == numOfValues) { instance.setMissing(indexOfAtt); }
-          else { instance.setValue(indexOfAtt, (double) newValue); }
+          else { instance.setValue(indexOfAtt, newValue); }
           break;
         }
       }

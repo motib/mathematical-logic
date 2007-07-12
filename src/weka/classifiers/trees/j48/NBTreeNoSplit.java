@@ -58,6 +58,7 @@ public final class NBTreeNoSplit extends ClassifierSplitModel {
    * @param instances an <code>Instances</code> value
    * @exception Exception if an error occurs
    */
+  @Override
   public final void buildClassifier(Instances instances) throws Exception {
     m_nb = new NaiveBayesUpdateable();
     m_disc = new Discretize();
@@ -100,6 +101,7 @@ public final class NBTreeNoSplit extends ClassifierSplitModel {
   /**
    * Always returns 0 because only there is only one subset.
    */
+  @Override
   public final int whichSubset(Instance instance){
     
     return 0;
@@ -108,6 +110,7 @@ public final class NBTreeNoSplit extends ClassifierSplitModel {
   /**
    * Always returns null because there is only one subset.
    */
+  @Override
   public final double [] weights(Instance instance){
 
     return null;
@@ -116,6 +119,7 @@ public final class NBTreeNoSplit extends ClassifierSplitModel {
   /**
    * Does nothing because no condition has to be satisfied.
    */
+  @Override
   public final String leftSide(Instances instances){
 
     return "";
@@ -124,6 +128,7 @@ public final class NBTreeNoSplit extends ClassifierSplitModel {
   /**
    * Does nothing because no condition has to be satisfied.
    */
+  @Override
   public final String rightSide(int index, Instances instances){
 
     return "";
@@ -137,6 +142,7 @@ public final class NBTreeNoSplit extends ClassifierSplitModel {
    * @param data the data containing instance structure info
    * @return a value of type 'String'
    */
+  @Override
   public final String sourceExpression(int index, Instances data) {
 
     return "true";  // or should this be false??
@@ -151,6 +157,7 @@ public final class NBTreeNoSplit extends ClassifierSplitModel {
    * @return a probability
    * @exception Exception if an error occurs
    */
+  @Override
   public double classProb(int classIndex, Instance instance, int theSubset) 
     throws Exception {
     m_disc.input(instance);
@@ -163,6 +170,7 @@ public final class NBTreeNoSplit extends ClassifierSplitModel {
    *
    * @return a <code>String</code> value
    */
+  @Override
   public String toString() {
     return m_nb.toString();
   }

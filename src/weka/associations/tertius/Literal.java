@@ -84,6 +84,7 @@ public abstract class Literal implements Serializable {
   
   public abstract boolean negationSatisfies(Instance instance);
   
+  @Override
   public abstract String toString();
 }
 

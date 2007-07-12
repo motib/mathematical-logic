@@ -184,6 +184,7 @@ public class MIWrapper
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
 
@@ -261,6 +262,7 @@ public class MIWrapper
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     setDebug(Utils.getFlag('D', options));
@@ -295,6 +297,7 @@ public class MIWrapper
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -379,6 +382,7 @@ public class MIWrapper
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -422,6 +426,7 @@ public class MIWrapper
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -455,6 +460,7 @@ public class MIWrapper
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance exmp) 
     throws Exception {	
 
@@ -471,7 +477,7 @@ public class MIWrapper
 
     // Compute the log-probability of the bag
     double [] distribution = new double[m_NumClasses];
-    double nI = (double)testData.numInstances();
+    double nI = testData.numInstances();
     double [] maxPr = new double [m_NumClasses];
 
     for(int i=0; i<nI; i++){
@@ -510,7 +516,7 @@ public class MIWrapper
 
     if (Utils.eq(Utils.sum(distribution), 0)) {
       for (int i = 0; i < distribution.length; i++)
-	distribution[i] = 1.0 / (double) distribution.length;
+	distribution[i] = 1.0 / distribution.length;
     }
     else {
       Utils.normalize(distribution);
@@ -524,6 +530,7 @@ public class MIWrapper
    *
    * @return a string describing the classifer built.
    */
+  @Override
   public String toString() {	
     return "MIWrapper with base classifier: \n"+m_Classifier.toString();
   }

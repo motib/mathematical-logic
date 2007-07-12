@@ -23,7 +23,6 @@
 package weka.classifiers.trees.lmt;
 
 import weka.classifiers.trees.j48.*;
-import java.util.*;
 import weka.core.*;
 
 /**
@@ -103,12 +102,14 @@ public class ResidualModelSelection extends ModelSelection {
     }
 
     /**Method not in use*/
+    @Override
     public final ClassifierSplitModel selectModel(Instances train) {
 	//method not in use
 	return null;
     }
 
     /**Method not in use*/
+    @Override
     public final ClassifierSplitModel selectModel(Instances train, Instances test) {
 	//method not in use
 	return null;

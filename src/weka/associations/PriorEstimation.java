@@ -23,7 +23,6 @@
 package weka.associations;
 
 import weka.core.Instances;
-import weka.core.FastVector;
 import weka.core.Utils;
 import weka.core.SpecialFunctions;
 import java.util.Random;
@@ -160,7 +159,7 @@ import java.io.Serializable;
                 updateCounters(current.m_premise);
                 j++;
                 if(jump){
-                    buildDistribution((double)ruleCounter/(double)current.m_premise.m_counter, (double)i);
+                    buildDistribution((double)ruleCounter/(double)current.m_premise.m_counter, i);
                 }
              }
             
@@ -316,7 +315,7 @@ import java.io.Serializable;
       */     
     public final double calculatePriorSum(boolean weighted, double mPoint){
   
-      double distr, sum =0, max = logbinomialCoefficient(m_instances.numAttributes(),(int)m_instances.numAttributes()/2);
+      double distr, sum =0, max = logbinomialCoefficient(m_instances.numAttributes(),m_instances.numAttributes()/2);
       
       
       for(int i = 1; i <= m_instances.numAttributes(); i++){
@@ -353,7 +352,7 @@ import java.io.Serializable;
      double result =1.0;
      if(upperIndex == lowerIndex || lowerIndex == 0)
          return result;
-     result = SpecialFunctions.log2Binomial((double)upperIndex, (double)lowerIndex);
+     result = SpecialFunctions.log2Binomial(upperIndex, lowerIndex);
      return result;
    }
    
@@ -396,7 +395,7 @@ import java.io.Serializable;
     */   
    public double midPoint(double size, int number){
     
-       return (size * (double)number) + (size / 2.0);
+       return (size * number) + (size / 2.0);
    }
     
    /**

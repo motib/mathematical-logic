@@ -202,6 +202,7 @@ public class ConsistencySubsetEval
      *
      * @return the hash code as an integer
      */
+    @Override
     public int hashCode() {
 
       int hv = 0;
@@ -227,6 +228,7 @@ public class ConsistencySubsetEval
      * @param b a key to compare with
      * @return true if the objects are equal
      */
+    @Override
     public boolean equals(Object b) {
       
       if ((b == null) || !(b.getClass().equals(this.getClass()))) {
@@ -323,6 +325,7 @@ public class ConsistencySubsetEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -347,6 +350,7 @@ public class ConsistencySubsetEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data) throws Exception {
     
     // can evaluator handle data?
@@ -371,6 +375,7 @@ public class ConsistencySubsetEval
    * evaluated 
    * @throws Exception if the subset could not be evaluated
    */
+  @Override
   public double evaluateSubset (BitSet subset) throws Exception {
     int [] fs;
     int i;
@@ -434,7 +439,7 @@ public class ConsistencySubsetEval
       count -= classDist[max];
     }
 
-    count /= (double)m_numInstances;
+    count /= m_numInstances;
     return (1.0 - count);
   }
 
@@ -476,6 +481,7 @@ public class ConsistencySubsetEval
    * returns a description of the evaluator
    * @return a description of the evaluator as a String.
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
 

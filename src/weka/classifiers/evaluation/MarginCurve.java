@@ -22,7 +22,6 @@
 
 package weka.classifiers.evaluation;
 
-import weka.classifiers.meta.LogitBoost;
 import weka.core.Utils;
 import weka.core.Attribute;
 import weka.core.FastVector;

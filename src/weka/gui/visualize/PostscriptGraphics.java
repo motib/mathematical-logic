@@ -353,6 +353,7 @@ public class PostscriptGraphics extends Graphics2D {
    * @param width rectangle width
    * @param height rectangle height
    */
+  @Override
   public void clearRect(int x, int y, int width, int height) {
     setStateToLocal();
     Color saveColor = getColor();
@@ -364,16 +365,19 @@ public class PostscriptGraphics extends Graphics2D {
   /**
    * Not implemented
    */
+  @Override
   public void clipRect(int x, int y, int width, int height) {}
   
   /**
    * Not implemented
    */
+  @Override
   public void copyArea(int x, int y, int width, int height, int dx, int dy) {}
   
   /**
    * Clone a PostscriptGraphics object
    */  
+  @Override
   public Graphics create() {
     if (DEBUG)
       m_printstream.println("%create");
@@ -384,6 +388,7 @@ public class PostscriptGraphics extends Graphics2D {
   /**
    * Not implemented
    */
+  @Override
   public void dispose(){}
   
   /**

@@ -122,6 +122,7 @@ public class NumericPrediction implements Prediction, Serializable {
    *
    * @return a human readable representation of this prediction.
    */
+  @Override
   public String toString() {
 
     StringBuffer sb = new StringBuffer();

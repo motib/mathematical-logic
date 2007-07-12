@@ -98,6 +98,7 @@ public class SwapValues
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -125,6 +126,7 @@ public class SwapValues
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -154,6 +156,7 @@ public class SwapValues
    * collected with output().
    * @throws IllegalStateException if no input structure has been defined.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {
@@ -166,10 +169,10 @@ public class SwapValues
     Instance newInstance = (Instance)instance.copy();
     if (!newInstance.isMissing(m_AttIndex.getIndex())) {
       if ((int)newInstance.value(m_AttIndex.getIndex()) == m_SecondIndex.getIndex()) {
-        newInstance.setValue(m_AttIndex.getIndex(), (double)m_FirstIndex.getIndex());
+        newInstance.setValue(m_AttIndex.getIndex(), m_FirstIndex.getIndex());
       } else if ((int)newInstance.value(m_AttIndex.getIndex()) == 
 		 m_FirstIndex.getIndex()) {
-        newInstance.setValue(m_AttIndex.getIndex(), (double)m_SecondIndex.getIndex());
+        newInstance.setValue(m_AttIndex.getIndex(), m_SecondIndex.getIndex());
       }
     }
     push(newInstance);

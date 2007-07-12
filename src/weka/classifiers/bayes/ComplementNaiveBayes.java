@@ -115,6 +115,7 @@ public class ComplementNaiveBayes extends Classifier
      *
      * @return an enumeration of all the available options.
      */
+    @Override
     public java.util.Enumeration listOptions() {
         FastVector newVector = new FastVector(2);
         newVector.addElement(
@@ -133,6 +134,7 @@ public class ComplementNaiveBayes extends Classifier
      *
      * @return an array of strings suitable for passing to setOptions
      */
+    @Override
     public String[] getOptions() {
         String options[] = new String[4];
         int current=0;
@@ -169,6 +171,7 @@ public class ComplementNaiveBayes extends Classifier
      * @param options the list of options as an array of strings
      * @throws Exception if an option is not supported
      */
+    @Override
     public void setOptions(String[] options) throws Exception {
         
         setNormalizeWordWeights(Utils.getFlag('N', options));
@@ -277,6 +280,7 @@ public class ComplementNaiveBayes extends Classifier
      *
      * @return      the capabilities of this classifier
      */
+    @Override
     public Capabilities getCapabilities() {
       Capabilities result = super.getCapabilities();
 
@@ -297,6 +301,7 @@ public class ComplementNaiveBayes extends Classifier
      * @param instances set of instances serving as training data 
      * @throws Exception if the classifier has not been built successfully
      */
+    @Override
     public void buildClassifier(Instances instances) throws Exception {
 
       // can classifier handle the data?
@@ -414,6 +419,7 @@ public class ComplementNaiveBayes extends Classifier
      * @return the index of the class the instance is most likely to belong.
      * @throws Exception if the classifier has not been built yet.
      */
+    @Override
     public double classifyInstance(Instance instance) throws Exception {
 
         if(wordWeights==null)
@@ -450,6 +456,7 @@ public class ComplementNaiveBayes extends Classifier
      * Prints out the internal model built by the classifier. In this case
      * it prints out the word weights calculated when building the classifier.
      */
+    @Override
     public String toString() {
         if(wordWeights==null) {            
             return "The classifier hasn't been built yet.";

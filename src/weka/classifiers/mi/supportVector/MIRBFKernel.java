@@ -102,6 +102,7 @@ public class MIRBFKernel
    * @return 		the dot product
    * @throws Exception 	if something goes wrong
    */
+  @Override
   protected double evaluate(int id1, int id2, Instance inst1)
     throws Exception {
 
@@ -135,6 +136,7 @@ public class MIRBFKernel
    * 
    * @param data	the data to use
    */
+  @Override
   protected void initVars(Instances data) {
     super.initVars(data);
     
@@ -147,6 +149,7 @@ public class MIRBFKernel
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -188,6 +191,7 @@ public class MIRBFKernel
    * @param data	the data to base the kernel on
    * @throws Exception	if something goes wrong
    */
+  @Override
   public void buildKernel(Instances data) throws Exception {
     // does kernel handle the data?
     if (!getChecksTurnedOff())

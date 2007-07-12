@@ -22,7 +22,6 @@
 
 package weka.gui.beans;
 
-import weka.core.Instances;
 import weka.classifiers.Classifier;
 import java.util.EventObject;
 

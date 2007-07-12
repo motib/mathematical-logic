@@ -165,7 +165,7 @@ public class MakeDecList implements Serializable, CapabilitiesHandler {
       if (unpruned) {
 	currentRule = new ClassifierDecList(toSelectModeL,
 					    minNumObj);
-	((ClassifierDecList)currentRule).buildRule(oldGrowData);
+	(currentRule).buildRule(oldGrowData);
       } else if (reducedErrorPruning) {
 	currentRule = new PruneableDecList(toSelectModeL,
 					   minNumObj);
@@ -216,12 +216,13 @@ public class MakeDecList implements Serializable, CapabilitiesHandler {
   /**
    * Outputs the classifier into a string.
    */
+  @Override
   public String toString(){
 
     StringBuffer text = new StringBuffer();
 
     for (int i=0;i<theRules.size();i++)
-      text.append((ClassifierDecList)theRules.elementAt(i)+"\n");
+      text.append(theRules.elementAt(i)+"\n");
     text.append("Number of Rules  : \t"+theRules.size()+"\n");
 
     return text.toString();
@@ -247,7 +248,7 @@ public class MakeDecList implements Serializable, CapabilitiesHandler {
       }
     }
 
-    return (double)maxIndex;
+    return maxIndex;
   }
 
   /** 

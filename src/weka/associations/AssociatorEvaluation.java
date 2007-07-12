@@ -186,6 +186,7 @@ public class AssociatorEvaluation {
    * @param obj the object to compare against
    * @return true if the two objects are equal
    */
+  @Override
   public boolean equals(Object obj) {
     if ((obj == null) || !(obj.getClass().equals(this.getClass())))
       return false;
@@ -233,6 +234,7 @@ public class AssociatorEvaluation {
    * @return		the currently stored result
    * @see		#toSummaryString()
    */
+  @Override
   public String toString() {
     return toSummaryString();
   }

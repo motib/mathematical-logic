@@ -95,6 +95,7 @@ public class MakeIndicator
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -120,6 +121,7 @@ public class MakeIndicator
    * @throws UnsupportedAttributeTypeException the selecte attribute is not nominal
    * @throws UnsupportedAttributeTypeException the selecte attribute has fewer than two values.
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -147,6 +149,7 @@ public class MakeIndicator
    * collected with output().
    * @throws IllegalStateException if no input format has been set.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {

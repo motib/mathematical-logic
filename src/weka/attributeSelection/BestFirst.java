@@ -108,6 +108,7 @@ public class BestFirst
     }
 
 
+    @Override
     public String toString () {
       return  ("Node: " + m_data.toString() + "  " + m_merit);
     }
@@ -592,6 +593,7 @@ public class BestFirst
    * returns a description of the search as a String
    * @return a description of the search
    */
+  @Override
   public String toString () {
     StringBuffer BfString = new StringBuffer();
     BfString.append("\tBest first.\n\tStart set: ");
@@ -647,6 +649,7 @@ public class BestFirst
    * @return an array (not necessarily ordered) of selected attribute indexes
    * @throws Exception if the search can't be completed
    */
+  @Override
   public int[] search (ASEvaluation ASEval, Instances data)
     throws Exception {
     m_totalEvals = 0;

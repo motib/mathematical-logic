@@ -228,7 +228,7 @@ public class ClassifierTree
       }
     }
 
-    return (double)maxIndex;
+    return maxIndex;
   }
 
   /**
@@ -461,6 +461,7 @@ public class ClassifierTree
    * 
    * @return the tree structure
    */
+  @Override
   public String toString() {
 
     try {
@@ -697,7 +698,7 @@ public class ClassifierTree
    */
   private ClassifierSplitModel localModel() {
     
-    return (ClassifierSplitModel)m_localModel;
+    return m_localModel;
   }
   
   /**
@@ -705,7 +706,7 @@ public class ClassifierTree
    */
   private ClassifierTree son(int index) {
     
-    return (ClassifierTree)m_sons[index];
+    return m_sons[index];
   }
 }
 

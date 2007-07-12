@@ -181,6 +181,7 @@ public abstract class SingleClustererEnhancer
    *
    * @return		the capabilities of this clusterer
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities	result;
     
@@ -203,6 +204,7 @@ public abstract class SingleClustererEnhancer
    * @throws Exception 	if number of clusters could not be returned
    * 			successfully
    */
+  @Override
   public int numberOfClusters() throws Exception {
     return m_Clusterer.numberOfClusters();
   }

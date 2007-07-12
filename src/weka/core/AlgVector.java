@@ -112,6 +112,7 @@ public class AlgVector
    * @return a clone of this instance.
    * @exception CloneNotSupportedException if an error occurs
    */
+  @Override
   public Object clone() throws CloneNotSupportedException {
 
     AlgVector v = (AlgVector)super.clone();
@@ -228,8 +229,8 @@ public class AlgVector
 	}
 	if (model.attribute(i).isNominal()) {
 	  int newVal = (int) 
-	    (random.nextDouble() * (double) (model.attribute(i).numValues()));
-	  if (newVal == (int) model.attribute(i).numValues())
+	    (random.nextDouble() * (model.attribute(i).numValues()));
+	  if (newVal == model.attribute(i).numValues())
 	    newVal -= 1;
 	  newInst.setValue(i, newVal);
 	}
@@ -243,6 +244,7 @@ public class AlgVector
    *
    * @return the converted string
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

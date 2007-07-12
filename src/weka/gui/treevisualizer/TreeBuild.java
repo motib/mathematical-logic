@@ -441,10 +441,10 @@ public class TreeBuild {
     } catch(IOException e) {
     }
     
-    if (t == m_st.TT_EOF) {
+    if (t == StreamTokenizer.TT_EOF) {
       System.out.println("eof , " + r);
     }
-    else if (t == m_st.TT_NUMBER) {
+    else if (t == StreamTokenizer.TT_NUMBER) {
       System.out.println("got a number , " + r);
     }
   }

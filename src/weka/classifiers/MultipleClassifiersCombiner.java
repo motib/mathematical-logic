@@ -50,6 +50,7 @@ public abstract class MultipleClassifiersCombiner extends Classifier {
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(1);
@@ -78,6 +79,7 @@ public abstract class MultipleClassifiersCombiner extends Classifier {
    * @param options the list of options as an array of strings
    * @exception Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     // Iterate through the schemes
@@ -111,6 +113,7 @@ public abstract class MultipleClassifiersCombiner extends Classifier {
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();
@@ -190,6 +193,7 @@ public abstract class MultipleClassifiersCombiner extends Classifier {
    *
    * @return      the capabilities of the base classifiers
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities      result;
     int               i;

@@ -122,6 +122,7 @@ public class FilteredClusterer
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
 
@@ -171,6 +172,7 @@ public class FilteredClusterer
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     String[]	tmpOptions;
@@ -196,6 +198,7 @@ public class FilteredClusterer
    *
    * @return 		an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector	result;
     String[]	options;
@@ -270,6 +273,7 @@ public class FilteredClusterer
    *
    * @return		the capabilities of this clusterer
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities	result;
     
@@ -291,6 +295,7 @@ public class FilteredClusterer
    * @param data 	the training data
    * @throws Exception 	if the clusterer could not be built successfully
    */
+  @Override
   public void buildClusterer(Instances data) throws Exception {
     if (m_Clusterer == null)
       throw new Exception("No base clusterer has been set!");
@@ -319,6 +324,7 @@ public class FilteredClusterer
    * @throws Exception 	if instance could not be classified
    * 			successfully
    */
+  @Override
   public double[] distributionForInstance(Instance instance)
     throws Exception {
 
@@ -340,6 +346,7 @@ public class FilteredClusterer
    * 
    * @return 		a representation of this clusterer
    */
+  @Override
   public String toString() {
     String 	result;
     

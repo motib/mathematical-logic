@@ -22,8 +22,6 @@
 
 package weka.gui.beans;
 
-import weka.gui.FileEditor;
-
 import java.io.File;
 import java.beans.*;
 import java.awt.BorderLayout;
@@ -36,8 +34,6 @@ import javax.swing.JPanel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.JFrame;
-import javax.swing.JDialog;
-import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -45,8 +41,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import weka.gui.GenericObjectEditor;
 import weka.gui.PropertySheetPanel;
-import weka.gui.ExtensionFileFilter;
-import weka.core.converters.Loader;
 import weka.core.converters.FileSourcedConverter;
 import weka.core.converters.DatabaseConverter;
 import weka.core.converters.DatabaseSaver;
@@ -278,9 +272,11 @@ public class SaverCustomizer extends JPanel implements Customizer, CustomizerClo
   public void setUpFile() {
     removeAll();
     m_fileChooser.setFileFilter(new FileFilter()
-        { public boolean accept(File f)
+        { @Override
+	public boolean accept(File f)
             { return f.isDirectory();}
-          public String getDescription()
+          @Override
+	  public String getDescription()
             { return "Directory";}
          });
     m_fileChooser.setAcceptAllFileFilterUsed(false);
@@ -337,6 +333,7 @@ public class SaverCustomizer extends JPanel implements Customizer, CustomizerClo
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.addPropertyChangeListener(pcl);
   }
@@ -346,6 +343,7 @@ public class SaverCustomizer extends JPanel implements Customizer, CustomizerClo
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.removePropertyChangeListener(pcl);
   }

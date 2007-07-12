@@ -113,6 +113,7 @@ public class PLSClassifier
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions(){
     Vector        	result;
     Enumeration   	en;
@@ -148,6 +149,7 @@ public class PLSClassifier
    *
    * @return		the current options
    */
+  @Override
   public String[] getOptions(){
     int       	i;
     Vector    	result;
@@ -218,6 +220,7 @@ public class PLSClassifier
    * @param options	the options to use
    * @throws Exception	if setting of options fails
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     String[]	tmpOptions;
@@ -270,6 +273,7 @@ public class PLSClassifier
    *
    * @return		the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = getFilter().getCapabilities();
 
@@ -288,6 +292,7 @@ public class PLSClassifier
    * @param data        the training instances
    * @throws Exception  if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(data);
@@ -313,6 +318,7 @@ public class PLSClassifier
    * 			Instance.missingValue() if no prediction is made
    * @throws Exception 	if an error occurred during the prediction
    */
+  @Override
   public double classifyInstance(Instance instance) throws Exception {
     double	result;
     Instance	pred;
@@ -330,6 +336,7 @@ public class PLSClassifier
    * 
    * @return		a string representation of the classifier
    */
+  @Override
   public String toString() {
     String	result;
     

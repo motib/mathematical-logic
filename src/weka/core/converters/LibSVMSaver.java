@@ -102,6 +102,7 @@ public class LibSVMSaver
    * 
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector      result;
     
@@ -125,6 +126,7 @@ public class LibSVMSaver
    *
    * @return		the current options
    */
+  @Override
   public String[] getOptions(){
     int       	i;
     Vector    	result;
@@ -163,6 +165,7 @@ public class LibSVMSaver
    * @param options	the options to use
    * @throws Exception	if setting of options fails
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     
@@ -180,6 +183,7 @@ public class LibSVMSaver
    *
    * @return a short file description
    */
+  @Override
   public String getFileDescription() {
     return "libsvm data files";
   }
@@ -187,6 +191,7 @@ public class LibSVMSaver
   /**
    * Resets the Saver 
    */
+  @Override
   public void resetOptions() {
     super.resetOptions();
     setFileExtension(LibSVMLoader.FILE_EXTENSION);
@@ -226,6 +231,7 @@ public class LibSVMSaver
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -247,6 +253,7 @@ public class LibSVMSaver
    *
    * @param instances 	the instances
    */
+  @Override
   public void setInstances(Instances instances) {
     m_ClassIndex.setUpper(instances.numAttributes() - 1);
     instances.setClassIndex(m_ClassIndex.getIndex());
@@ -287,6 +294,7 @@ public class LibSVMSaver
    * @throws IOException 	throws IOEXception if an instance cannot be 
    * 				saved incrementally.
    */  
+  @Override
   public void writeIncremental(Instance inst) throws IOException{
     int writeMode = getWriteMode();
     Instances structure = getInstances();
@@ -363,6 +371,7 @@ public class LibSVMSaver
    * @throws IOException 	throws IOException if saving in batch mode 
    * 				is not possible
    */
+  @Override
   public void writeBatch() throws IOException {
     if (getInstances() == null)
       throw new IOException("No instances to save");

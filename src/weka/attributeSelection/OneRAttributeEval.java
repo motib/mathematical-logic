@@ -336,6 +336,7 @@ public class OneRAttributeEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -360,6 +361,7 @@ public class OneRAttributeEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data)
     throws Exception {
     
@@ -392,6 +394,7 @@ public class OneRAttributeEval
    * @param attribute the index of the attribute to be evaluated
    * @throws Exception if the attribute could not be evaluated
    */
+  @Override
   public double evaluateAttribute (int attribute)
     throws Exception {
     int[] featArray = new int[2]; // feat + class
@@ -427,6 +430,7 @@ public class OneRAttributeEval
    * Return a description of the evaluator
    * @return description as a string
    */
+  @Override
   public String toString () {
     StringBuffer text = new StringBuffer();
 

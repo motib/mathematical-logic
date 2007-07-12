@@ -169,12 +169,13 @@ public class M5P
    * 
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Enumeration superOpts = super.listOptions();
     
     Vector newVector = new Vector();
     while (superOpts.hasMoreElements()) {
-      newVector.addElement((Option)superOpts.nextElement());
+      newVector.addElement(superOpts.nextElement());
     }
 
     newVector.addElement(new Option("\tSave instances at the nodes in\n"
@@ -211,6 +212,7 @@ public class M5P
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     setSaveInstances(Utils.getFlag('L', options));
     super.setOptions(options);
@@ -221,6 +223,7 @@ public class M5P
    * 
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
     String[] superOpts = super.getOptions();
     String [] options = new String [superOpts.length+1];

@@ -29,7 +29,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -82,6 +81,7 @@ public class ResultSetTable extends JTable {
     // double click on column displays optimal colwidth
     final JTable table = this;
     getTableHeader().addMouseListener(new MouseAdapter() {
+      @Override
       public void mouseClicked(MouseEvent e) {
         TableColumnModel columnModel = getColumnModel();
         int viewColumn = columnModel.getColumnIndexAtX(e.getX());
@@ -126,6 +126,7 @@ public class ResultSetTable extends JTable {
   /**
    * frees up the memory
    */
+  @Override
   public void finalize() throws Throwable {
     if (getModel() != null)
       ((ResultSetTableModel) getModel()).finalize();

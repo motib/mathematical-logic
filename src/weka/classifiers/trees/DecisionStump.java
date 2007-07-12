@@ -92,6 +92,7 @@ public class DecisionStump
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -116,6 +117,7 @@ public class DecisionStump
    * @param instances set of instances serving as training data 
    * @throws Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     
     double bestVal = Double.MAX_VALUE, currVal;
@@ -196,6 +198,7 @@ public class DecisionStump
    * @return predicted class probability distribution
    * @throws Exception if distribution can't be computed
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     return m_Distribution[whichSubset(instance)];
@@ -257,6 +260,7 @@ public class DecisionStump
    *
    * @return a description of the classifier as a string.
    */
+  @Override
   public String toString(){
 
     if (m_Instances == null) {
@@ -418,7 +422,7 @@ public class DecisionStump
       currVal = ContingencyTables.entropyConditionedOnRows(m_Distribution);
       if (currVal < bestVal) {
 	bestVal = currVal;
-	m_SplitPoint = (double)i;
+	m_SplitPoint = i;
 	for (int j = 0; j < 3; j++) {
 	  System.arraycopy(m_Distribution[j], 0, bestDist[j], 0, 
 			   m_Instances.numClasses());
@@ -501,7 +505,7 @@ public class DecisionStump
       
       if (currVal < bestVal) {
 	bestVal = currVal;
-	m_SplitPoint = (double)i;
+	m_SplitPoint = i;
 	for (int j = 0; j < 3; j++) {
 	  if (sumOfWeights[j] > 0) {
 	    bestDist[j][0] = m_Distribution[j][0] / sumOfWeights[j];
@@ -685,7 +689,7 @@ public class DecisionStump
 
     for (int i = 0; i < s.length; i++) {
       if (sumOfWeights[i] > 0) {
-	var += sS[i] - ((s[i][0] * s[i][0]) / (double) sumOfWeights[i]);
+	var += sS[i] - ((s[i][0] * s[i][0]) / sumOfWeights[i]);
       }
     }
     

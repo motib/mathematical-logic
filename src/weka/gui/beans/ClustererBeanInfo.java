@@ -32,6 +32,7 @@ import java.beans.*;
  */
 public class ClustererBeanInfo extends SimpleBeanInfo {
  
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = { 
@@ -60,6 +61,7 @@ public class ClustererBeanInfo extends SimpleBeanInfo {
    *
    * @return a <code>BeanDescriptor</code> value
    */
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.Clusterer.class, 
 			      ClustererCustomizer.class);

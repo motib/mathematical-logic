@@ -27,13 +27,6 @@ import weka.core.Instances;
 import java.util.Random;
 import java.io.Serializable;
 import java.util.Vector;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import java.awt.*;
 import java.util.Enumeration;
 
 /**
@@ -98,6 +91,7 @@ public class CrossValidationFoldMaker
    *
    * @param e a <code>DataSetEvent</code> value
    */
+  @Override
   public void acceptDataSet(DataSetEvent e) {
     if (e.isStructureOnly()) {
       // Pass on structure to training and test set listeners
@@ -110,6 +104,7 @@ public class CrossValidationFoldMaker
     if (m_foldThread == null) {
       final Instances dataSet = new Instances(e.getDataSet());
       m_foldThread = new Thread() {
+	  @Override
 	  public void run() {
 	    try {
 	      Random random = new Random(getSeed());
@@ -267,6 +262,7 @@ public class CrossValidationFoldMaker
   /**
    * Stop any action
    */
+  @Override
   public void stop() {
     // tell the listenee (upstream bean) to stop
     if (m_listenee instanceof BeanCommon) {

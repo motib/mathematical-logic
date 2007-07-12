@@ -92,6 +92,7 @@ public class LabeledItemSet extends ItemSet implements Serializable{
    * @param itemSet another item set
    * @return true if this item set contains the same items as the given one
    */
+  @Override
   public final boolean equals(Object itemSet) {
 
     if (!(this.equalCondset(itemSet)))
@@ -311,6 +312,7 @@ public class LabeledItemSet extends ItemSet implements Serializable{
    *
    * @return the support
    */
+  @Override
   public final int support() {
 
     return m_ruleSupCounter;

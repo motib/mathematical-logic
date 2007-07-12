@@ -80,6 +80,7 @@ public abstract class AbstractFileSaver
    * resets the options
    *
    */
+  @Override
   public void resetOptions(){
       
      super.resetOptions();
@@ -113,6 +114,7 @@ public abstract class AbstractFileSaver
    *
    * @return the file extension as a string.
    */
+  @Override
   public String getFileExtension(){
    
       return FILE_EXTENSION;
@@ -153,6 +155,7 @@ public abstract class AbstractFileSaver
    * @param outputFile the destination file.
    * @throws IOException throws an IOException if file cannot be set
    */
+  @Override
   public void setFile(File outputFile) throws IOException  {
       
       m_outputFile = outputFile;
@@ -164,6 +167,7 @@ public abstract class AbstractFileSaver
   /** Sets the file name prefix
    * @param prefix the file name prefix
    */  
+  @Override
   public void setFilePrefix(String prefix){
    
       m_prefix = prefix;
@@ -172,6 +176,7 @@ public abstract class AbstractFileSaver
   /** Gets the file name prefix
    * @return the prefix of the filename
    */  
+  @Override
   public String filePrefix(){
    
       return m_prefix;
@@ -180,6 +185,7 @@ public abstract class AbstractFileSaver
   /** Sets the directory where the instances should be stored
    * @param dir a string containing the directory path and name
    */  
+  @Override
   public void setDir(String dir){
    
       m_dir = dir;
@@ -188,6 +194,7 @@ public abstract class AbstractFileSaver
   /** Gets the directory
    * @return a string with the file name
    */  
+  @Override
   public String retrieveDir(){
    
       return m_dir;
@@ -294,6 +301,7 @@ public abstract class AbstractFileSaver
 
 
   /** Cancels the incremental saving process. */  
+  @Override
   public void cancel(){
   
       if(getWriteMode() == CANCEL){
@@ -311,6 +319,7 @@ public abstract class AbstractFileSaver
    * @param file the File
    * @exception IOException always
    */
+  @Override
   public void setDestination(File file) throws IOException {
 
     boolean success = false;
@@ -356,6 +365,7 @@ public abstract class AbstractFileSaver
    * @param output the output stream.
    * @throws IOException throws an IOException if destination cannot be set
    */
+  @Override
   public void setDestination(OutputStream output) throws IOException {
 
     m_writer = new BufferedWriter(new OutputStreamWriter(output));
@@ -367,6 +377,7 @@ public abstract class AbstractFileSaver
    * @param relationName the name of the relation to save
    * @param add additional string which should be part of the filename
    */  
+  @Override
   public void setDirAndPrefix(String relationName, String add){
   
       try{
@@ -425,7 +436,7 @@ public abstract class AbstractFileSaver
   public static void runFileSaver(AbstractFileSaver saver, String[] options) {
     // help request?
     try {
-      String[] tmpOptions = (String[]) options.clone();
+      String[] tmpOptions = options.clone();
       if (Utils.getFlag('h', tmpOptions)) {
 	System.err.println("\nHelp requested\n" + makeOptionStr(saver));
 	return;

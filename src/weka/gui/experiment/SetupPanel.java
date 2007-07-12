@@ -24,19 +24,13 @@
 
 package weka.gui.experiment;
 
-import weka.core.Tag;
-import weka.core.SelectedTag;
 import weka.core.Utils;
 import weka.core.xml.KOML;
 import weka.experiment.xml.XMLExperiment;
 
 import weka.gui.ExtensionFileFilter;
-import weka.gui.SelectedTagEditor;
 import weka.gui.GenericObjectEditor;
-import weka.gui.GenericArrayEditor;
 import weka.gui.PropertyPanel;
-import weka.gui.FileEditor;
-
 import weka.experiment.*;
 
 import java.beans.PropertyChangeListener;
@@ -49,12 +43,10 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.BufferedInputStream;
-import java.awt.Component;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.FocusAdapter;
@@ -65,13 +57,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Insets;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JFrame;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.Box;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -279,6 +266,7 @@ public class SetupPanel extends JPanel {
     });
 
     m_NotesFrame.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  m_NotesButton.setEnabled(true);
 	}
@@ -297,11 +285,13 @@ public class SetupPanel extends JPanel {
     m_NotesText.setEditable(true);
     //m_NotesText.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     m_NotesText.addKeyListener(new KeyAdapter() {
+	@Override
 	public void keyReleased(KeyEvent e) {
 	  m_Exp.setNotes(m_NotesText.getText());
 	}
       });
     m_NotesText.addFocusListener(new FocusAdapter() {
+	@Override
 	public void focusLost(FocusEvent e) {
 	  m_Exp.setNotes(m_NotesText.getText());
 	}
@@ -602,6 +592,7 @@ public class SetupPanel extends JPanel {
    *
    * @param l a value of type 'PropertyChangeListener'
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener l) {
     m_Support.addPropertyChangeListener(l);
   }
@@ -611,6 +602,7 @@ public class SetupPanel extends JPanel {
    *
    * @param l a value of type 'PropertyChangeListener'
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener l) {
     m_Support.removePropertyChangeListener(l);
   }
@@ -665,6 +657,7 @@ public class SetupPanel extends JPanel {
       //sp.setBorder(BorderFactory.createTitledBorder("Setup"));
       jf.getContentPane().add(sp, BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  System.err.println("\nFinal Experiment:\n"
 			     + sp.m_Exp.toString());
@@ -689,7 +682,7 @@ public class SetupPanel extends JPanel {
       jf.pack();
       jf.setVisible(true);
       System.err.println("Short nap");
-      Thread.currentThread().sleep(3000);
+      Thread.sleep(3000);
       System.err.println("Done");
       sp.setExperiment(exp);
     } catch (Exception ex) {

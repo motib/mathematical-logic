@@ -111,5 +111,6 @@ public abstract class Splitter implements Serializable, Cloneable {
    *
    * @return a clone
    */
+  @Override
   public abstract Object clone();
 }

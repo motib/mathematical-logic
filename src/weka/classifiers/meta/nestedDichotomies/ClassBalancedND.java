@@ -173,6 +173,7 @@ public class ClassBalancedND
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.J48";
@@ -342,6 +343,7 @@ public class ClassBalancedND
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -362,6 +364,7 @@ public class ClassBalancedND
    * @param data contains the (multi-class) instances
    * @throws Exception if the building fails
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -406,6 +409,7 @@ public class ClassBalancedND
    * @return the class distribution
    * @throws Exception if computing fails
    */
+  @Override
   public double[] distributionForInstance(Instance inst) throws Exception {
 	
     double[] newDist = new double[inst.numClasses()];
@@ -470,6 +474,7 @@ public class ClassBalancedND
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 	    
     if (m_classifiers == null) {

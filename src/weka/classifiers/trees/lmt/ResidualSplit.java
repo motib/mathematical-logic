@@ -22,15 +22,8 @@
 
 package weka.classifiers.trees.lmt;
 
-import java.io.*;
-import java.util.*;
 import weka.core.*;
-import weka.classifiers.*;
 import weka.classifiers.trees.j48.*;
-import weka.classifiers.functions.*;
-import weka.filters.unsupervised.attribute.Remove;
-import weka.filters.Filter;
-import weka.filters.supervised.attribute.NominalToBinary;
 
 /**
  * Helper class for logistic model trees (weka.classifiers.trees.lmt.LMT) to implement the 
@@ -248,6 +241,7 @@ public class ResidualSplit extends ClassifierSplitModel{
     /**
      * Returns name of splitting attribute (left side of condition).
      */
+    @Override
     public final String leftSide(Instances data) {
 	
 	return data.attribute(m_attIndex).name();
@@ -256,6 +250,7 @@ public class ResidualSplit extends ClassifierSplitModel{
     /**
      * Prints the condition satisfied by instances in a subset.
      */
+    @Override
     public final String rightSide(int index,Instances data) {
 	
 	StringBuffer text;
@@ -274,6 +269,7 @@ public class ResidualSplit extends ClassifierSplitModel{
 	return text.toString();
     }
 
+    @Override
     public final int whichSubset(Instance instance) 
 	throws Exception {
 	
@@ -291,17 +287,20 @@ public class ResidualSplit extends ClassifierSplitModel{
     }    
 
     /** Method not in use*/
+    @Override
     public void buildClassifier(Instances data) {
 	//method not in use
     }
 
     /**Method not in use*/
+    @Override
     public final double [] weights(Instance instance){
 	//method not in use
 	return null;
     } 
      
     /**Method not in use*/
+    @Override
     public final String sourceExpression(int index, Instances data) {
 	//method not in use
 	return "";

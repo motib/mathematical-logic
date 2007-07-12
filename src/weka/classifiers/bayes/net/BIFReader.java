@@ -105,6 +105,7 @@ public class BIFReader
      * This will return a string describing the classifier.
      * @return The string.
      */
+    @Override
     public String globalInfo() {
         return 
             "Builds a description of a Bayes Net classifier stored in XML "
@@ -353,8 +354,8 @@ public class BIFReader
                     String sX = sValue.substring(i0 + 1, i1).trim();
                     String sY = sValue.substring(i1 + 1, i2).trim();
                     try {
-                    	m_nPositionX[iNode] = (int) Integer.parseInt(sX);
-                    	m_nPositionY[iNode] = (int) Integer.parseInt(sY);
+                    	m_nPositionX[iNode] = Integer.parseInt(sX);
+                    	m_nPositionY[iNode] = Integer.parseInt(sY);
                     } catch (NumberFormatException e) {
                     	System.err.println("Wrong number format in position :(" + sX + "," + sY +")");
                    	    m_nPositionX[iNode] = 0;

@@ -25,9 +25,7 @@ package weka.core;
 
 import java.io.Writer;
 import java.io.Reader;
-import java.io.LineNumberReader;
 import java.io.Serializable;
-import java.util.StringTokenizer;
 
 /**
  * Class for performing operations on a matrix of floating-point values.
@@ -44,6 +42,7 @@ import java.util.StringTokenizer;
  * @deprecated Use instead <code>weka.core.matrix.Matrix</code> - only for
  * backwards compatibility. 
  */
+@Deprecated
 public class Matrix 
   implements Cloneable, Serializable {
 
@@ -88,6 +87,7 @@ public class Matrix
    * @return a clone of this instance.
    * @throws Exception if an error occurs
    */
+  @Override
   public Object clone() {
     try {
       return new Matrix(m_Matrix.getArrayCopy());
@@ -223,6 +223,7 @@ public class Matrix
    *
    * @return the converted string
    */
+  @Override
   public String toString() {
     return m_Matrix.toString();
   } 

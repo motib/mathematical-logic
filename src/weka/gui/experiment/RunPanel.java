@@ -33,7 +33,6 @@ import weka.core.SerializedObject;
 
 import java.io.Serializable;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -43,19 +42,12 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
 import javax.swing.BorderFactory;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.io.File;
 
 
@@ -123,6 +115,7 @@ public class RunPanel extends JPanel implements ActionListener {
     /**
      * Starts running the experiment.
      */
+    @Override
     public void run() {
       
       m_StartBut.setEnabled(false);
@@ -378,6 +371,7 @@ public class RunPanel extends JPanel implements ActionListener {
       //sp.setBorder(BorderFactory.createTitledBorder("Setup"));
       jf.getContentPane().add(sp, BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  System.err.println("\nExperiment Configuration\n"
 			     + sp.m_Exp.toString());

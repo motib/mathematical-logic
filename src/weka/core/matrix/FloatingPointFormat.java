@@ -62,6 +62,7 @@ public class FloatingPointFormat extends DecimalFormat {
     this.trailing = trailingZeros;
   }
 
+  @Override
   public StringBuffer format(double number, StringBuffer toAppendTo, 
 			     FieldPosition pos) {
     StringBuffer s = new StringBuffer( nf.format(number) );

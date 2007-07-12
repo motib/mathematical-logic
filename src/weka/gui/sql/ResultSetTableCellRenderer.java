@@ -68,6 +68,7 @@ public class ResultSetTableCellRenderer extends DefaultTableCellRenderer {
    * Returns the default table cell renderer.
    * stuff for the header is taken from <a href="http://www.chka.de/swing/table/faq.html">here</a>
    */
+  @Override
   public Component getTableCellRendererComponent(
       JTable table, Object value, boolean isSelected, 
       boolean hasFocus, int row, int column ) {

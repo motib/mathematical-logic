@@ -64,6 +64,7 @@ public class CISearchAlgorithm
 	 * @return a description of the classifier suitable for
 	 * displaying in the explorer/experimenter gui
 	 */
+	@Override
 	public String globalInfo() {
 	  return 
 	      "The CISearchAlgorithm class supports Bayes net structure "

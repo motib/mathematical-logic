@@ -27,17 +27,7 @@ import weka.classifiers.Evaluation;
 import weka.core.Instances;
 import weka.core.Instance;
 import weka.core.Utils;
-import weka.gui.Logger;
-
-import java.io.Serializable;
 import java.util.Vector;
-import java.util.Enumeration;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import javax.swing.BorderFactory;
-import java.awt.*;
 
 /**
  * Bean that evaluates incremental classifiers
@@ -256,6 +246,7 @@ public class IncrementalClassifierEvaluator
   /**
    * Stop all action
    */
+  @Override
   public void stop() {
     // nothing to do
   }

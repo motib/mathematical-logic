@@ -225,6 +225,7 @@ public class PLSFilter
    * @return      a description of the classifier suitable for
    *              displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "Runs Partial Least Square Regression over the given instances "
@@ -280,6 +281,7 @@ public class PLSFilter
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector		result;
     Enumeration		enm;
@@ -340,6 +342,7 @@ public class PLSFilter
    *
    * @return      the current options
    */
+  @Override
   public String[] getOptions() {
     int       i;
     Vector    result;
@@ -402,6 +405,7 @@ public class PLSFilter
    * @param options	the options to use
    * @throws Exception	if the option setting fails
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
 
@@ -589,6 +593,7 @@ public class PLSFilter
    * @see   #hasImmediateOutputFormat()
    * @see   #batchFinished()
    */
+  @Override
   protected Instances determineOutputFormat(Instances inputFormat) 
     throws Exception {
 
@@ -877,7 +882,7 @@ public class PLSFilter
 	b_hat.set(j, 0, b);
 	
 	// 4. step: pj
-	p       = X_trans.times(t).times((double) 1 / t_trans.times(t).get(0, 0));
+	p       = X_trans.times(t).times(1 / t_trans.times(t).get(0, 0));
 	p_trans = p.transpose();
 	setVector(p, P, j);
 	
@@ -1041,6 +1046,7 @@ public class PLSFilter
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -1065,6 +1071,7 @@ public class PLSFilter
    * @throws Exception  in case the processing goes wrong
    * @see               #batchFinished()
    */
+  @Override
   protected Instances process(Instances instances) throws Exception {
     Instances	result;
     int		i;

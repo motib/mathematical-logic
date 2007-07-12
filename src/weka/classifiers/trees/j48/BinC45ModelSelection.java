@@ -63,6 +63,7 @@ public class BinC45ModelSelection extends ModelSelection{
   /**
    * Selects C4.5-type split for the given dataset.
    */
+  @Override
   public final ClassifierSplitModel selectModel(Instances data){
 
     double minResult;
@@ -94,8 +95,8 @@ public class BinC45ModelSelection extends ModelSelection{
       while (enu.hasMoreElements()) {
 	Attribute attribute = (Attribute) enu.nextElement();
 	if ((attribute.isNumeric()) ||
-	    (Utils.sm((double)attribute.numValues(),
-		      (0.3*(double)m_allData.numInstances())))){
+	    (Utils.sm(attribute.numValues(),
+		      (0.3*m_allData.numInstances())))){
 	  multiVal = false;
 	  break;
 	}
@@ -118,8 +119,8 @@ public class BinC45ModelSelection extends ModelSelection{
 	  // a lot of values.
 	  if (currentModel[i].checkModel())
 	    if ((data.attribute(i).isNumeric()) ||
-		(multiVal || Utils.sm((double)data.attribute(i).numValues(),
-				      (0.3*(double)m_allData.numInstances())))){
+		(multiVal || Utils.sm(data.attribute(i).numValues(),
+				      (0.3*m_allData.numInstances())))){
 	      averageInfoGain = averageInfoGain+currentModel[i].infoGain();
 	      validModels++;
 	    }
@@ -130,7 +131,7 @@ public class BinC45ModelSelection extends ModelSelection{
       // Check if any useful split was found.
       if (validModels == 0)
 	return noSplitModel;
-      averageInfoGain = averageInfoGain/(double)validModels;
+      averageInfoGain = averageInfoGain/validModels;
 
       // Find "best" attribute to split on.
       minResult = 0;
@@ -169,6 +170,7 @@ public class BinC45ModelSelection extends ModelSelection{
   /**
    * Selects C4.5-type split for the given dataset.
    */
+  @Override
   public final ClassifierSplitModel selectModel(Instances train, Instances test) {
 
     return selectModel(train);

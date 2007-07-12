@@ -68,6 +68,7 @@ public class SimpleCLI
     try {
       final SimpleCLI frame = new SimpleCLI();
       frame.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent param1) {
 	  System.err.println("window closed");
 	  frame.dispose();

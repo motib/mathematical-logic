@@ -81,6 +81,7 @@ public class BinC45Split extends ClassifierSplitModel{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances trainInstances)
        throws Exception {
 
@@ -120,6 +121,7 @@ public class BinC45Split extends ClassifierSplitModel{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public final double classProb(int classIndex,Instance instance,
 				int theSubset) throws Exception {
 
@@ -188,7 +190,7 @@ public class BinC45Split extends ClassifierSplitModel{
 	  if ((i == 0) || Utils.gr(currGR,m_gainRatio)){
 	    m_gainRatio = currGR;
 	    m_infoGain = currIG;
-	    m_splitPoint = (double)i;
+	    m_splitPoint = i;
 	    m_distribution = secondDistribution;
 	  }
 	}
@@ -233,7 +235,7 @@ public class BinC45Split extends ClassifierSplitModel{
     // Compute minimum number of Instances required in each
     // subset.
     minSplit =  0.1*(m_distribution.total())/
-      ((double)trainInstances.numClasses());
+      (trainInstances.numClasses());
     if (Utils.smOrEq(minSplit,m_minNoObj)) 
       minSplit = m_minNoObj;
     else
@@ -241,7 +243,7 @@ public class BinC45Split extends ClassifierSplitModel{
 	minSplit = 25;
 
     // Enough Instances with known values?
-    if (Utils.sm((double)firstMiss,2*minSplit))
+    if (Utils.sm(firstMiss,2*minSplit))
       return;
     
     // Compute values of criteria for all possible split
@@ -321,6 +323,7 @@ public class BinC45Split extends ClassifierSplitModel{
    * @param data the data to get the attribute name from.
    * @return the attribute name
    */
+  @Override
   public final String leftSide(Instances data){
 
     return data.attribute(m_attIndex).name();
@@ -331,6 +334,7 @@ public class BinC45Split extends ClassifierSplitModel{
    *
    * @param index of subset and training set.
    */
+  @Override
   public final String rightSide(int index,Instances data){
 
     StringBuffer text;
@@ -360,6 +364,7 @@ public class BinC45Split extends ClassifierSplitModel{
    * @param data the data containing instance structure info
    * @return a value of type 'String'
    */
+  @Override
   public final String sourceExpression(int index, Instances data) {
 
     StringBuffer expr = null;
@@ -417,6 +422,7 @@ public class BinC45Split extends ClassifierSplitModel{
   /**
    * Sets distribution associated with model.
    */
+  @Override
   public void resetDistribution(Instances data) throws Exception {
 
     Instances insts = new Instances(data, data.numInstances());
@@ -434,6 +440,7 @@ public class BinC45Split extends ClassifierSplitModel{
    * Returns weights if instance is assigned to more than one subset.
    * Returns null if instance is only assigned to one subset.
    */
+  @Override
   public final double [] weights(Instance instance){
     
     double [] weights;
@@ -456,6 +463,7 @@ public class BinC45Split extends ClassifierSplitModel{
    * @exception Exception if something goes wrong
    */
 
+  @Override
   public final int whichSubset(Instance instance) throws Exception {
     
     if (instance.isMissing(m_attIndex))

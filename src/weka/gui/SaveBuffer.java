@@ -26,13 +26,11 @@ import weka.gui.Logger;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.Writer;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
 
 import java.awt.Component;
 import javax.swing.JFileChooser;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JDialog;
 
@@ -191,6 +189,7 @@ public class SaveBuffer {
 	});
 
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    jf.dispose();
 	    System.exit(0);

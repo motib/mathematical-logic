@@ -72,7 +72,7 @@ public class KernelEvaluation {
    * @param options	options that were supplied for the kernel
    */
   public void setUserOptions(String[] options) {
-    m_Options = (String[]) options.clone();
+    m_Options = options.clone();
   }
   
   /**
@@ -81,7 +81,7 @@ public class KernelEvaluation {
    * @return		the user supplied options for the kernel
    */
   public String[] getUserOptions() {
-    return (String[]) m_Options.clone();
+    return m_Options.clone();
   }
   
   /**
@@ -161,7 +161,7 @@ public class KernelEvaluation {
       }
       
       // Kernel specific options
-      userOptions = (String[]) options.clone();
+      userOptions = options.clone();
       if (Kernel instanceof OptionHandler) {
         ((OptionHandler) Kernel).setOptions(options);
       }
@@ -277,6 +277,7 @@ public class KernelEvaluation {
    * @param obj the object to compare against
    * @return true if the two objects are equal
    */
+  @Override
   public boolean equals(Object obj) {
     if ((obj == null) || !(obj.getClass().equals(this.getClass())))
       return false;
@@ -330,6 +331,7 @@ public class KernelEvaluation {
    * @return		the currently stored result
    * @see		#toSummaryString()
    */
+  @Override
   public String toString() {
     return toSummaryString();
   }

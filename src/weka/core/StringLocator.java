@@ -140,7 +140,7 @@ public class StringLocator
       Attribute dest = destDataset.attribute(destLoc.getActualIndex(destLoc.getAttributeIndices()[i]));
       if (!instance.isMissing(instIndex)) {
         int valIndex = dest.addStringValue(src, (int)instance.value(instIndex));
-        instance.setValue(instIndex, (double)valIndex);
+        instance.setValue(instIndex, valIndex);
       }
     }
     

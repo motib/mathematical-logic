@@ -32,6 +32,7 @@ import java.beans.*;
  */
 public class AbstractTestSetProducerBeanInfo extends SimpleBeanInfo {
 
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = { 

@@ -87,6 +87,7 @@ public class TimeSeriesTranslate
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -112,6 +113,7 @@ public class TimeSeriesTranslate
    * @throws UnsupportedAttributeTypeException if selected
    * attributes are not numeric or nominal.
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     if ((instanceInfo.classIndex() > 0) && (!getFillWithMissing())) {
@@ -150,6 +152,7 @@ public class TimeSeriesTranslate
    * @param dest the destination instance
    * @return the new merged instance
    */
+  @Override
   protected Instance mergeInstances(Instance source, Instance dest) {
 
     Instances outputFormat = outputFormatPeek();

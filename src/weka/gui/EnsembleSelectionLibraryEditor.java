@@ -116,6 +116,7 @@ public class EnsembleSelectionLibraryEditor extends EnsembleLibraryEditor {
    *
    * @param value a Library object to be edited
    */
+  @Override
   public void setValue(Object value) {
     super.setValue(value);
     m_LoadModelsPanel.setLibrary((EnsembleSelectionLibrary) m_Library);
@@ -129,6 +130,7 @@ public class EnsembleSelectionLibraryEditor extends EnsembleLibraryEditor {
    *
    * @return an editor GUI component
    */
+  @Override
   public Component getCustomEditor() {
     return m_CustomEditor;
   }

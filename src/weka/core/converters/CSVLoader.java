@@ -118,6 +118,7 @@ public class CSVLoader
    * @param input the input stream - ignored
    * @exception IOException always
    */
+  @Override
   public void setSource(InputStream input) throws IOException {
     // ignored
   }
@@ -129,6 +130,7 @@ public class CSVLoader
    * @return the structure of the data set as an empty set of Instances
    * @exception IOException if an error occurs
    */
+  @Override
   public Instances getStructure() throws IOException {
     if (m_sourceFile == null) {
       throw new IOException("No source has been specified");
@@ -170,6 +172,7 @@ public class CSVLoader
    * @return the structure of the data set as an empty set of Instances
    * @exception IOException if there is no source or parsing fails
    */
+  @Override
   public Instances getDataSet() throws IOException {
     if (m_sourceFile == null) {
       throw new IOException("No source has been specified");
@@ -245,13 +248,13 @@ public class CSVLoader
 	    // find correct index
 	    Hashtable lookup = (Hashtable)m_cumulativeStructure.elementAt(j);
 	    int index = ((Integer)lookup.get(cval)).intValue();
-	    vals[j] = (double)index;
+	    vals[j] = index;
 	  }
 	} else if (dataSet.attribute(j).isNominal()) {
 	  // find correct index
 	  Hashtable lookup = (Hashtable)m_cumulativeStructure.elementAt(j);
 	  int index = ((Integer)lookup.get(cval)).intValue();
-	  vals[j] = (double)index;
+	  vals[j] = index;
 	} else {
 	  vals[j] = ((Double)cval).doubleValue();
 	}
@@ -271,6 +274,7 @@ public class CSVLoader
    * @exception IOException always. CSVLoader is unable to process a data
    * set incrementally.
    */
+  @Override
   public Instance getNextInstance() throws IOException {
     throw new IOException("CSVLoader can't read data sets incrementally.");
   }

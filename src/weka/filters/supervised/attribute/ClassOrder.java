@@ -267,6 +267,7 @@ public class ClassOrder
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -289,6 +290,7 @@ public class ClassOrder
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if no class index set or class not nominal
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {     
 
     super.setInputFormat(new Instances(instanceInfo, 0));	
@@ -312,6 +314,7 @@ public class ClassOrder
    * collected with output().
    * @throws IllegalStateException if no input format has been defined.
    */
+  @Override
   public boolean input(Instance instance) {
 	
     if (getInputFormat() == null) {
@@ -327,7 +330,7 @@ public class ClassOrder
     if(m_Converter != null){
       Instance datum = (Instance)instance.copy();
       if (!datum.isMissing(m_ClassAttribute)){
-	datum.setClassValue((double)m_Converter[(int)datum.classValue()]);
+	datum.setClassValue(m_Converter[(int)datum.classValue()]);
       }
       push(datum);
       return true;
@@ -354,6 +357,7 @@ public class ClassOrder
    * @throws IllegalStateException if no input structure has been defined,
    * @throws Exception if there was a problem finishing the batch.
    */
+  @Override
   public boolean batchFinished() throws Exception {
 
     Instances data = getInputFormat();
@@ -436,7 +440,7 @@ public class ClassOrder
       for(int xyz=0; xyz<data.numInstances(); xyz++){
 	Instance datum = data.instance(xyz);
 	if (!datum.isMissing(datum.classIndex())) {
-	  datum.setClassValue((double)m_Converter[(int)datum.classValue()]);
+	  datum.setClassValue(m_Converter[(int)datum.classValue()]);
 	}
 	push(datum);
       }
@@ -494,7 +498,7 @@ public class ClassOrder
 	
     for(int i=0; i < m_Converter.length; i++)
       if((int)value == m_Converter[i])
-	return (double)i;
+	return i;
 
     return -1;
   }   

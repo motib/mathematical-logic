@@ -472,6 +472,7 @@ public class WrapperSubsetEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities	result;
     
@@ -497,6 +498,7 @@ public class WrapperSubsetEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data)
     throws Exception {
 
@@ -518,6 +520,7 @@ public class WrapperSubsetEval
    * @return the error rate
    * @throws Exception if the subset could not be evaluated
    */
+  @Override
   public double evaluateSubset (BitSet subset)
     throws Exception {
     double errorRate = 0;
@@ -568,7 +571,7 @@ public class WrapperSubsetEval
       errorRate += repError[j];
     }
 
-    errorRate /= (double)i;
+    errorRate /= i;
     m_Evaluation = null;
     return  -errorRate;
   }
@@ -579,6 +582,7 @@ public class WrapperSubsetEval
    *
    * @return the description as a string
    */
+  @Override
   public String toString () {
     StringBuffer text = new StringBuffer();
 
@@ -639,13 +643,13 @@ public class WrapperSubsetEval
       mean += repError[i];
     }
 
-    mean /= (double)entries;
+    mean /= entries;
 
     for (i = 0; i < entries; i++) {
       variance += ((repError[i] - mean)*(repError[i] - mean));
     }
 
-    variance /= (double)entries;
+    variance /= entries;
 
     if (variance > 0) {
       variance = Math.sqrt(variance);

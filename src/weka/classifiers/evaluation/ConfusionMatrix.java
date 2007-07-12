@@ -47,7 +47,7 @@ public class ConfusionMatrix extends Matrix {
   public ConfusionMatrix(String [] classNames) {
 
     super(classNames.length, classNames.length);
-    m_ClassNames = (String [])classNames.clone();
+    m_ClassNames = classNames.clone();
   }
 
   /**
@@ -81,10 +81,11 @@ public class ConfusionMatrix extends Matrix {
    *
    * @return a clone of this instance.
    */
+  @Override
   public Object clone() {
 
     ConfusionMatrix m = (ConfusionMatrix)super.clone();
-    m.m_ClassNames = (String [])m_ClassNames.clone();
+    m.m_ClassNames = m_ClassNames.clone();
     return m;
   }
 
@@ -118,10 +119,10 @@ public class ConfusionMatrix extends Matrix {
    */
   public void addPrediction(NominalPrediction pred) throws Exception {
 
-    if (pred.predicted() == NominalPrediction.MISSING_VALUE) {
+    if (pred.predicted() == Prediction.MISSING_VALUE) {
       throw new Exception("No predicted value given.");
     }
-    if (pred.actual() == NominalPrediction.MISSING_VALUE) {
+    if (pred.actual() == Prediction.MISSING_VALUE) {
       throw new Exception("No actual value given.");
     }
     addElement((int)pred.actual(), (int)pred.predicted(), pred.weight());
@@ -242,6 +243,7 @@ public class ConfusionMatrix extends Matrix {
    *
    * @return the confusion matrix as a string
    */
+  @Override
   public String toString() {
 
     return toString("=== Confusion Matrix ===\n");

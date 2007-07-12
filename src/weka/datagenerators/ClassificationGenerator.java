@@ -55,6 +55,7 @@ public abstract class ClassificationGenerator
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = enumToVector(super.listOptions());
     
@@ -72,6 +73,7 @@ public abstract class ClassificationGenerator
    * @param options the options 
    * @throws Exception if invalid option
    */
+  @Override
   public void setOptions(String[] options) throws Exception { 
     String        tmpStr;
    
@@ -89,6 +91,7 @@ public abstract class ClassificationGenerator
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;

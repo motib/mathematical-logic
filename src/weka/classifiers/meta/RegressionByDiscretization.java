@@ -135,6 +135,7 @@ public class RegressionByDiscretization
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.J48";
@@ -153,6 +154,7 @@ public class RegressionByDiscretization
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -171,6 +173,7 @@ public class RegressionByDiscretization
    * @param instances set of instances serving as training data 
    * @throws Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     // can classifier handle the data?
@@ -227,6 +230,7 @@ public class RegressionByDiscretization
    * @return predicted class value
    * @throws Exception if the prediction couldn't be made
    */
+  @Override
   public double classifyInstance(Instance instance) throws Exception {  
 
     // Discretize the test instance
@@ -259,6 +263,7 @@ public class RegressionByDiscretization
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(1);
@@ -295,6 +300,7 @@ public class RegressionByDiscretization
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String binsString = Utils.getOption('B', options);
@@ -312,6 +318,7 @@ public class RegressionByDiscretization
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();
@@ -363,6 +370,7 @@ public class RegressionByDiscretization
    *
    * @return a description of the classifier as a string.
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

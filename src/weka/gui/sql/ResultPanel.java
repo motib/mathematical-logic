@@ -32,7 +32,6 @@ import weka.gui.sql.event.ResultChangedListener;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -42,8 +41,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JViewport;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -113,7 +112,7 @@ public class ResultPanel
     setLayout(new BorderLayout());
 
     // tabbed pane
-    m_TabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
+    m_TabbedPane = new JTabbedPane(SwingConstants.BOTTOM);
     m_TabbedPane.addChangeListener(this);
     add(m_TabbedPane, BorderLayout.CENTER);
 

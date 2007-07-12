@@ -139,6 +139,7 @@ public class PropertyNode
    * 
    * @return		a string representation
    */
+  @Override
   public String toString() {
     return getClass().getName() + "[" + getUserObject().toString() + "]";
   }

@@ -32,7 +32,6 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import weka.core.Instances;
-import weka.core.Attribute;
 
 /**
  * @author Mark Hall
@@ -150,6 +149,7 @@ public class ClassValuePickerCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.addPropertyChangeListener(pcl);
   }
@@ -159,6 +159,7 @@ public class ClassValuePickerCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.removePropertyChangeListener(pcl);
   }

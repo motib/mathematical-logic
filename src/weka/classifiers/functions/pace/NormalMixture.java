@@ -126,6 +126,7 @@ public class  NormalMixture
    *  @param x the value
    *  @return true if the value can be considered
    */
+  @Override
   public boolean separable( DoubleVector data, int i0, int i1, double x ) {
     double p = 0;
     for( int i = i0; i <= i1; i++ ) {
@@ -143,6 +144,7 @@ public class  NormalMixture
    *  earlier and not passed into here
    *  @return the set of support points
    */
+  @Override
   public DoubleVector  supportPoints( DoubleVector data, int ne ) {
     if( data.size() < 2 )
       throw new IllegalArgumentException("data size < 2");
@@ -156,6 +158,7 @@ public class  NormalMixture
    *  @param data the data supposedly generated from the mixture 
    *  @return the set of fitting intervals
    */
+  @Override
   public PaceMatrix  fittingIntervals( DoubleVector data ) {
     DoubleVector left = data.cat( data.minus( fittingIntervalLength ) );
     DoubleVector right = data.plus( fittingIntervalLength ).cat( data );
@@ -176,6 +179,7 @@ public class  NormalMixture
    *  @param intervals the intervals
    *  @return the probability matrix
    */
+  @Override
   public PaceMatrix  probabilityMatrix( DoubleVector s, 
 					PaceMatrix intervals ) {
     
@@ -284,10 +288,10 @@ public class  NormalMixture
     DoubleVector d = Maths.dnormLog( x, points, 1 );
     d.minusEquals( d.max() );
 
-    d = (DoubleVector) d.map("java.lang.Math", "exp");
+    d = d.map("java.lang.Math", "exp");
     d.timesEquals( values );  
 
-    return ((DoubleVector) points.times(2*x).minusEquals(x*x))
+    return (points.times(2*x).minusEquals(x*x))
     .innerProduct( d ) / d.sum();
   }
     
@@ -300,8 +304,8 @@ public class  NormalMixture
   public double h( double x ) {
     DoubleVector points = mixingDistribution.getPointValues();
     DoubleVector values = mixingDistribution.getFunctionValues(); 
-    DoubleVector d = (DoubleVector) Maths.dnorm( x, points, 1 ).timesEquals( values );  
-    return ((DoubleVector) points.times(2*x).minusEquals(x*x))
+    DoubleVector d = Maths.dnorm( x, points, 1 ).timesEquals( values );  
+    return (points.times(2*x).minusEquals(x*x))
     .innerProduct( d );
   }
     
@@ -348,6 +352,7 @@ public class  NormalMixture
    * 
    * @return a string representation
    */
+  @Override
   public String  toString() {
     return mixingDistribution.toString();
   }

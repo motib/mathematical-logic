@@ -35,6 +35,7 @@ public final class EntropySplitCrit extends EntropyBasedSplitCrit {
   /**
    * Computes entropy for given distribution.
    */
+  @Override
   public final double splitCritValue(Distribution bags) {
     
     return newEnt(bags);
@@ -43,6 +44,7 @@ public final class EntropySplitCrit extends EntropyBasedSplitCrit {
   /**
    * Computes entropy of test distribution with respect to training distribution.
    */
+  @Override
   public final double splitCritValue(Distribution train, Distribution test) {
 
     double result = 0;

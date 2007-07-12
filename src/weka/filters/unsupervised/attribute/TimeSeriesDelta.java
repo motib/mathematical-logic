@@ -72,6 +72,7 @@ public class TimeSeriesDelta
    * @return a description of the classifier suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return "An instance filter that assumes instances form time-series data and "
       + "replaces attribute values in the current instance with the difference "
@@ -87,6 +88,7 @@ public class TimeSeriesDelta
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -112,6 +114,7 @@ public class TimeSeriesDelta
    * @throws UnsupportedAttributeTypeException if selected
    * attributes are not numeric.  
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     if ((instanceInfo.classIndex() > 0) && (!getFillWithMissing())) {
@@ -150,6 +153,7 @@ public class TimeSeriesDelta
    * @param dest the destination instance
    * @return the new merged instance
    */
+  @Override
   protected Instance mergeInstances(Instance source, Instance dest) {
 
     Instances outputFormat = outputFormatPeek();

@@ -155,6 +155,7 @@ public class Stacking
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     
     Vector newVector = new Vector(2);
@@ -214,6 +215,7 @@ public class Stacking
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String numFoldsString = Utils.getOption('X', options);
@@ -251,6 +253,7 @@ public class Stacking
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();
@@ -336,6 +339,7 @@ public class Stacking
    *
    * @return      the capabilities of the base classifiers
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities      result;
     
@@ -353,6 +357,7 @@ public class Stacking
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     if (m_MetaClassifier == null) {
@@ -420,6 +425,7 @@ public class Stacking
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     return m_MetaClassifier.distributionForInstance(metaInstance(instance));
@@ -430,6 +436,7 @@ public class Stacking
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_Classifiers.length == 0) {
@@ -465,7 +472,7 @@ public class Stacking
     Instances metaFormat;
 
     for (int k = 0; k < m_Classifiers.length; k++) {
-      Classifier classifier = (Classifier) getClassifier(k);
+      Classifier classifier = getClassifier(k);
       String name = classifier.getClass().getName();
       if (m_BaseFormat.classAttribute().isNumeric()) {
 	attributes.addElement(new Attribute(name));

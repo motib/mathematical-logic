@@ -26,7 +26,6 @@ package weka.experiment;
 import weka.core.Utils;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -812,7 +811,7 @@ public abstract class ResultMatrix implements Serializable {
         }
       }
       
-      return avg / (double) count;
+      return avg / count;
     }
     else {
       return 0;
@@ -1434,6 +1433,7 @@ public abstract class ResultMatrix implements Serializable {
    * returns the matrix as a string
    * @see #toStringMatrix()
    */
+  @Override
   public String toString() {
     return toStringMatrix();
   }
@@ -1533,7 +1533,7 @@ public abstract class ResultMatrix implements Serializable {
    * returns the character representation of the given column
    */
   protected String getSummaryTitle(int col) {
-    return "" + (char) ((int) 'a' + col % 26);
+    return "" + (char) ('a' + col % 26);
   }
 
   /**

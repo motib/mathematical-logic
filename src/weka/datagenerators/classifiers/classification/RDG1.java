@@ -196,6 +196,7 @@ public class RDG1
      * 
      * @return the rule list as string
      */
+    @Override
     public String toString () {
       StringBuffer str = new StringBuffer();
       str = str.append("  c" + (int) m_ClassValue + " := ");
@@ -282,6 +283,7 @@ public class RDG1
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = enumToVector(super.listOptions());
 
@@ -372,6 +374,7 @@ public class RDG1
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String      tmpStr;
 
@@ -424,6 +427,7 @@ public class RDG1
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -709,6 +713,7 @@ public class RDG1
    *
    * @return true if methode generateExample can be used.
    */
+  @Override
   public boolean getSingleModeFlag() { 
     return (!getVoteFlag()); 
   }
@@ -749,6 +754,7 @@ public class RDG1
    * @return the output data format
    * @throws Exception data format could not be defined 
    */
+  @Override
   public Instances defineDataFormat() throws Exception {
     Instances dataset;
     Random random = new Random (getSeed());
@@ -770,6 +776,7 @@ public class RDG1
    * @throws Exception if format not defined or generating <br/>
    * examples one by one is not possible, because voting is chosen
    */
+  @Override
   public Instance generateExample() throws Exception {
     Random random = getRandom();
     Instances format = getDatasetFormat();
@@ -791,6 +798,7 @@ public class RDG1
    * @throws Exception if format not defined or generating <br/>
    * examples one by one is not possible, because voting is chosen
    */
+  @Override
   public Instances generateExamples() throws Exception {
     Random random = getRandom();
     Instances format = getDatasetFormat();
@@ -862,12 +870,12 @@ public class RDG1
     int maxSize = getMaxRuleSize() < TestList.size() ? 
                             getMaxRuleSize() : TestList.size();
     int ruleSize = ((int) (random.nextDouble() * 
-                             (double) (maxSize - getMinRuleSize())))
+                             (maxSize - getMinRuleSize())))
                                    + getMinRuleSize();
 
     RuleList newRule = new RuleList();
     for (int i=0; i < ruleSize; i++) {
-      int testIndex = (int) (random.nextDouble() * (double) TestList.size());
+      int testIndex = (int) (random.nextDouble() * TestList.size());
       Test test = (Test) TestList.elementAt(testIndex);
           
       newRule.addTest(test);
@@ -876,8 +884,7 @@ public class RDG1
     double newClassValue = 0.0;
     if (m_DecisionList.size() > 0) {
       RuleList r = (RuleList)(m_DecisionList.lastElement());
-      double oldClassValue = (double) 
-                        (r.getClassValue());
+      double oldClassValue = (r.getClassValue());
       newClassValue = (double)((int)oldClassValue + 1)
                                % getNumClasses();
     }
@@ -1014,7 +1021,7 @@ public class RDG1
       }
     }
     if (vote >= 0)
-      example.setClassValue((double) vote);
+      example.setClassValue(vote);
     else
       throw new Exception ("Error in instance classification.");
 

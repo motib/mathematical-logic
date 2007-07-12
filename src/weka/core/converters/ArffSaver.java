@@ -78,6 +78,7 @@ public class ArffSaver
    *
    * @return a short file description
    */
+  @Override
   public String getFileDescription() {
     return "Arff data files";
   }
@@ -85,6 +86,7 @@ public class ArffSaver
   /**
    * Resets the Saver 
    */
+  @Override
   public void resetOptions() {
 
     super.resetOptions();
@@ -97,6 +99,7 @@ public class ArffSaver
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -117,6 +120,7 @@ public class ArffSaver
    * @param inst the instance to save
    * @throws IOException throws IOEXception if an instance cannot be saved incrementally.
    */  
+  @Override
   public void writeIncremental(Instance inst) throws IOException{
   
       int writeMode = getWriteMode();
@@ -190,6 +194,7 @@ public class ArffSaver
   /** Writes a Batch of instances
    * @throws IOException throws IOException if saving in batch mode is not possible
    */
+  @Override
   public void writeBatch() throws IOException {
   
       if(getInstances() == null)

@@ -99,7 +99,7 @@ public class CheckBoxNode
    * @return the name of this parameter
    */
   public String getName() {
-    return (String) getUserObject().toString();
+    return getUserObject().toString();
   }
   
   /**
@@ -127,6 +127,7 @@ public class CheckBoxNode
    * 
    * @param o		the user object
    */
+  @Override
   public void setUserObject(Object o) {
     if (o != null)
       super.setUserObject(o);
@@ -138,6 +139,7 @@ public class CheckBoxNode
    * 
    * @return		a string representation
    */
+  @Override
   public String toString() {
     return getClass().getName() + "[" + getUserObject() + "/" + m_Selected
     + "]";

@@ -32,6 +32,7 @@ import java.beans.*;
  */
 public class ClassifierPerformanceEvaluatorBeanInfo extends SimpleBeanInfo {
   
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = { 

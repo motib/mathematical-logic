@@ -129,6 +129,7 @@ public abstract class ClusterDefinition
    * 
    * @return the cluster definition as string
    */
+  @Override
   public String toString() {
     return this.getClass().getName() + ": " + Utils.joinOptions(getOptions());
   }

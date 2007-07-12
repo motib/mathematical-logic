@@ -82,7 +82,7 @@ public class PruneableDecList extends ClassifierDecList{
     m_sons = null;
     indeX = 0;
     sumOfWeights = train.sumOfWeights();
-    noSplit = new NoSplit (new Distribution((Instances)train));
+    noSplit = new NoSplit (new Distribution(train));
     if (leaf)
       m_localModel = noSplit;
     else
@@ -147,7 +147,7 @@ public class PruneableDecList extends ClassifierDecList{
     PruneableDecList newDecList = 
       new PruneableDecList(m_toSelectModel, m_minNumObj);
     
-    newDecList.buildDecList((Instances)train, test, leaf);
+    newDecList.buildDecList(train, test, leaf);
     
     return newDecList;
   }

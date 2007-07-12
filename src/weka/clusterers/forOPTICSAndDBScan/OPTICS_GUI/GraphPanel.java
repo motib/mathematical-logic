@@ -115,6 +115,7 @@ public class GraphPanel extends JComponent {
      * Draws the OPTICS Plot
      * @param g
      */
+    @Override
     protected void paintComponent(Graphics g) {
         if (isOpaque()) {
             Dimension size = getSize();
@@ -267,7 +268,8 @@ public class GraphPanel extends JComponent {
          * Invoked when the mouse button has been moved on a component
          * (with no buttons no down).
          */
-        public void mouseMoved(MouseEvent e) {
+        @Override
+	public void mouseMoved(MouseEvent e) {
             showToolTip(e.getX());
         }
 

@@ -28,19 +28,9 @@ import weka.core.Instances;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JFrame;
-import javax.swing.JButton;
 import javax.swing.BorderFactory;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /** 
@@ -154,6 +144,7 @@ public class InstancesSummaryPanel extends JPanel {
       p.setBorder(BorderFactory.createTitledBorder("Relation"));
       jf.getContentPane().add(p, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

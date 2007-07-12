@@ -185,6 +185,7 @@ public class TLDSimple
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -231,6 +232,7 @@ public class TLDSimple
    * @param exs the training exemplars
    * @throws Exception if the model cannot be built properly
    */    
+  @Override
   public void buildClassifier(Instances exs)throws Exception{
     // can classifier handle the data?
     getCapabilities().testWithFail(exs);
@@ -566,6 +568,7 @@ public class TLDSimple
    * @throws Exception if the exemplar could not be classified
    * successfully
    */
+  @Override
   public double classifyInstance(Instance ex)throws Exception{
     //Instance ex = new Exemplar(e);
     Instances exi = ex.relationalValue(1);
@@ -593,6 +596,7 @@ public class TLDSimple
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance ex) throws Exception {
     
     double[] distribution = new double[2];
@@ -661,7 +665,7 @@ public class TLDSimple
        System.err.print(t+":"+Utils.doubleToString(neg[nOrder[t]],0,2)+" ");
        */
     int pNum = pos.length, nNum = neg.length, count, p=0, n=0;	
-    double fstAccu=0.0, sndAccu=(double)pNum, split; 
+    double fstAccu=0.0, sndAccu=pNum, split; 
     double maxAccu = 0, minDistTo0 = Double.MAX_VALUE;
 
     // Skip continuous negatives	
@@ -718,6 +722,7 @@ public class TLDSimple
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -766,6 +771,7 @@ public class TLDSimple
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception{
     setDebug(Utils.getFlag('D', options));
 
@@ -785,6 +791,7 @@ public class TLDSimple
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -868,6 +875,7 @@ public class TLDSimple
    *
    * @return a string describing the classifer built.
    */
+  @Override
   public String toString(){
     StringBuffer text = new StringBuffer("\n\nTLDSimple:\n");
     double sgm, w, m;
@@ -916,6 +924,7 @@ class TLDSimple_Optm extends Optimization{
    * Implement this procedure to evaluate objective
    * function to be minimized
    */
+  @Override
   protected double objectiveFunction(double[] x){
     int numExs = num.length;
     double NLL=0; // Negative Log-Likelihood
@@ -955,6 +964,7 @@ class TLDSimple_Optm extends Optimization{
    * Subclass should implement this procedure to evaluate gradient
    * of the objective function
    */
+  @Override
   protected double[] evaluateGradient(double[] x){
     double[] g = new double[x.length];
     int numExs = num.length;
@@ -980,6 +990,7 @@ class TLDSimple_Optm extends Optimization{
    * Subclass should implement this procedure to evaluate second-order
    * gradient of the objective function
    */
+  @Override
   protected double[] evaluateHessian(double[] x, int index){
     double[] h = new double[x.length];
 

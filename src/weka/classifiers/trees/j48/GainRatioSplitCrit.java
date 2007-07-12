@@ -36,6 +36,7 @@ public final class GainRatioSplitCrit extends EntropyBasedSplitCrit{
    * This method is a straightforward implementation of the gain
    * ratio criterion for the given distribution.
    */
+  @Override
   public final double splitCritValue(Distribution bags) {
 
     double numerator;

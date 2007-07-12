@@ -155,6 +155,7 @@ public class DBScan
      *
      * @return      the capabilities of this clusterer
      */
+    @Override
     public Capabilities getCapabilities() {
       Capabilities result = super.getCapabilities();
 
@@ -180,6 +181,7 @@ public class DBScan
      * @param instances The instances that need to be clustered
      * @throws java.lang.Exception If clustering was not successful
      */
+    @Override
     public void buildClusterer(Instances instances) throws Exception {
         // can clusterer handle the data?
         getCapabilities().testWithFail(instances);
@@ -216,7 +218,7 @@ public class DBScan
         }
 
         long time_2 = System.currentTimeMillis();
-        elapsedTime = (double) (time_2 - time_1) / 1000.0;
+        elapsedTime = (time_2 - time_1) / 1000.0;
     }
 
     /**
@@ -275,6 +277,7 @@ public class DBScan
      * @throws java.lang.Exception If instance could not be clustered
      * successfully
      */
+    @Override
     public int clusterInstance(Instance instance) throws Exception {
         if (processed_InstanceID >= database.size()) processed_InstanceID = 0;
         int cnum = (database.getDataObject(Integer.toString(processed_InstanceID++))).getClusterLabel();
@@ -291,6 +294,7 @@ public class DBScan
      * @throws java.lang.Exception if number of clusters could not be returned
      * successfully
      */
+    @Override
     public int numberOfClusters() throws Exception {
         return numberOfGeneratedClusters;
     }
@@ -592,6 +596,7 @@ public class DBScan
      * 
      * @return a string representation of the clusterer
      */
+    @Override
     public String toString() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("DBScan clustering results\n" +

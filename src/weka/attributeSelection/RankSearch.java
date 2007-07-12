@@ -367,6 +367,7 @@ public class RankSearch
    * @return an array (not necessarily ordered) of selected attribute indexes
    * @throws Exception if the search can't be completed
    */
+  @Override
   public int[] search (ASEvaluation ASEval, Instances data)
     throws Exception {
     
@@ -410,7 +411,7 @@ public class RankSearch
 	  transformedData();
 	((SubsetEvaluator)m_SubsetEval).buildEvaluator(m_Instances);
       }
-      m_Ranking = ranker.search((AttributeEvaluator)m_ASEval, m_Instances);
+      m_Ranking = ranker.search(m_ASEval, m_Instances);
     } else {
       GreedyStepwise fs = new GreedyStepwise();
       double [][]rankres; 
@@ -472,6 +473,7 @@ public class RankSearch
    * returns a description of the search as a String
    * @return a description of the search
    */
+  @Override
   public String toString () {
     StringBuffer text = new StringBuffer();
     text.append("\tRankSearch :\n");
@@ -488,7 +490,7 @@ public class RankSearch
     text.append("\tAttribute ranking : \n");
     int rlength = (int)(Math.log(m_Ranking.length) / Math.log(10) + 1);
     for (int i=0;i<m_Ranking.length;i++) {
-      text.append("\t "+Utils.doubleToString((double)(m_Ranking[i]+1),
+      text.append("\t "+Utils.doubleToString((m_Ranking[i]+1),
 					     rlength,0)
 		  +" "+m_Instances.attribute(m_Ranking[i]).name()+'\n');
     }

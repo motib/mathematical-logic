@@ -173,6 +173,7 @@ public class NaiveBayes extends Classifier
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -198,6 +199,7 @@ public class NaiveBayes extends Classifier
    * @exception Exception if the classifier has not been generated 
    * successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     // can classifier handle the data?
@@ -329,6 +331,7 @@ public class NaiveBayes extends Classifier
    * @return predicted class probability distribution
    * @exception Exception if there is a problem generating the prediction
    */
+  @Override
   public double [] distributionForInstance(Instance instance) 
   throws Exception { 
     
@@ -378,6 +381,7 @@ public class NaiveBayes extends Classifier
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(2);
@@ -411,6 +415,7 @@ public class NaiveBayes extends Classifier
    * @param options the list of options as an array of strings
    * @exception Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     
     boolean k = Utils.getFlag('K', options);
@@ -429,6 +434,7 @@ public class NaiveBayes extends Classifier
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] options = new String [2];
@@ -453,6 +459,7 @@ public class NaiveBayes extends Classifier
    *
    * @return a description of the classifier as a string.
    */
+  @Override
   public String toString() {
     
     StringBuffer text = new StringBuffer();

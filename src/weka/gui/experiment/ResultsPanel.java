@@ -28,6 +28,7 @@ import weka.gui.ListSelectorDialog;
 import weka.gui.ResultHistoryPanel;
 import weka.gui.SaveBuffer;
 import weka.gui.DatabaseConnectionDialog;
+import weka.experiment.DatabaseUtils;
 import weka.experiment.Experiment;
 import weka.experiment.CSVResultListener;
 import weka.experiment.DatabaseResultListener;
@@ -316,6 +317,7 @@ public class ResultsPanel extends JPanel {
       public void actionPerformed(ActionEvent e) {
 	if (m_LoadThread == null) {
 	  m_LoadThread = new Thread() {
+	    @Override
 	    public void run() {
 	      setInstancesFromExp(m_Exp);
 	      m_LoadThread = null;
@@ -330,6 +332,7 @@ public class ResultsPanel extends JPanel {
       public void actionPerformed(ActionEvent e) {
 	if (m_LoadThread == null) {
 	  m_LoadThread = new Thread() {
+	    @Override
 	    public void run() {
 	      setInstancesFromDBaseQuery();
 	    m_LoadThread = null;
@@ -347,6 +350,7 @@ public class ResultsPanel extends JPanel {
 	  final File selected = m_FileChooser.getSelectedFile();
 	  if (m_LoadThread == null) {
 	    m_LoadThread = new Thread() {
+	      @Override
 	      public void run() {
 		setInstancesFromFile(selected);
 		m_LoadThread = null;
@@ -768,7 +772,7 @@ public class ResultsPanel extends JPanel {
       System.err.println("found");
       m_FromLab.setText("Getting experiment index");
       Instances index = m_InstanceQuery.retrieveInstances("SELECT * FROM "
-				       + InstanceQuery.EXP_INDEX_TABLE);
+				       + DatabaseUtils.EXP_INDEX_TABLE);
       if (index.numInstances() == 0) {
 	m_FromLab.setText("No experiments available");
 	return;	
@@ -1335,6 +1339,7 @@ public class ResultsPanel extends JPanel {
       //sp.setBorder(BorderFactory.createTitledBorder("Setup"));
       jf.getContentPane().add(sp, BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

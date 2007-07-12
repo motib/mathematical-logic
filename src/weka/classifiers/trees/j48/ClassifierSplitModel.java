@@ -23,7 +23,6 @@
 package weka.classifiers.trees.j48;
 
 import java.io.*;
-import java.util.*;
 import weka.core.*;
 
 /** 
@@ -44,6 +43,7 @@ public abstract class ClassifierSplitModel implements Cloneable, Serializable {
   /**
    * Allows to clone a model (shallow copy).
    */
+  @Override
   public Object clone() {
 
     Object clone = null;
@@ -85,9 +85,9 @@ public abstract class ClassifierSplitModel implements Cloneable, Serializable {
     
     theSubset = whichSubset(instance);
     if (theSubset > -1)
-      return (double)m_distribution.maxClass(theSubset);
+      return m_distribution.maxClass(theSubset);
     else
-      return (double)m_distribution.maxClass();
+      return m_distribution.maxClass();
   }
 
   /**
@@ -176,7 +176,7 @@ public abstract class ClassifierSplitModel implements Cloneable, Serializable {
     StringBuffer text;
 
     text = new StringBuffer();
-    text.append(((Instances)data).classAttribute().
+    text.append((data).classAttribute().
 		value(m_distribution.maxClass(index)));
     text.append(" ("+Utils.roundDouble(m_distribution.perBag(index),2));
     if (Utils.gr(m_distribution.numIncorrect(index),0))
@@ -243,10 +243,10 @@ public abstract class ClassifierSplitModel implements Cloneable, Serializable {
     int subset, i, j;
 
     for (j=0;j<m_numSubsets;j++)
-      instances[j] = new Instances((Instances)data,
+      instances[j] = new Instances(data,
 					    data.numInstances());
     for (i = 0; i < data.numInstances(); i++) {
-      instance = ((Instances) data).instance(i);
+      instance = (data).instance(i);
       weights = weights(instance);
       subset = whichSubset(instance);
       if (subset > -1)

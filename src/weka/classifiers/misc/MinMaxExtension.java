@@ -172,6 +172,7 @@ public class MinMaxExtension
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -197,6 +198,7 @@ public class MinMaxExtension
    * @throws Exception if the classifier is not able to handle the 
    *  <code> instances </code>.
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     getCapabilities().testWithFail(instances);
@@ -215,6 +217,7 @@ public class MinMaxExtension
    * @return a  double representing the internal value
    * of the label that is assigned to the given instance
    */
+  @Override
   public double classifyInstance(Instance instance) {
     double value;
     if (m_min == true) {
@@ -303,6 +306,7 @@ public class MinMaxExtension
    * @param options an array of strings containing the options for the classifier
    * @throws Exception if 
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     m_min = !Utils.getFlag('M',options); // check if -M option is present
     
@@ -315,6 +319,7 @@ public class MinMaxExtension
    * @return an array of strings suitable for passing to 
    * <code> setOptions </code>
    */
+  @Override
   public String[] getOptions() {
     int       	i;
     Vector    	result;
@@ -338,6 +343,7 @@ public class MinMaxExtension
    *
    * @return an enumeration with the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector options = new Vector();
 
@@ -356,6 +362,7 @@ public class MinMaxExtension
    * 
    * @return the classname
    */
+  @Override
   public String toString() {
     return this.getClass().getName();
   }

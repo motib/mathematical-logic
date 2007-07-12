@@ -83,6 +83,7 @@ public class Predicate implements Serializable {
     return m_isClass;
   }
 
+  @Override
   public String toString() {
 
     return m_name;

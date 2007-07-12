@@ -102,6 +102,7 @@ public class RandomCommittee
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.RandomTree";
@@ -127,6 +128,7 @@ public class RandomCommittee
    * bagged classifier.
    * @exception Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -161,6 +163,7 @@ public class RandomCommittee
    * @return preedicted class probability distribution
    * @exception Exception if distribution can't be computed successfully 
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     double [] sums = new double [instance.numClasses()], newProbs; 
@@ -175,7 +178,7 @@ public class RandomCommittee
       }
     }
     if (instance.classAttribute().isNumeric() == true) {
-      sums[0] /= (double)m_NumIterations;
+      sums[0] /= m_NumIterations;
       return sums;
     } else if (Utils.eq(Utils.sum(sums), 0)) {
       return sums;
@@ -190,6 +193,7 @@ public class RandomCommittee
    *
    * @return description of the committee as a string
    */
+  @Override
   public String toString() {
     
     if (m_Classifiers == null) {

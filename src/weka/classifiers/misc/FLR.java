@@ -146,6 +146,7 @@ public class FLR
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -167,6 +168,7 @@ public class FLR
    * @param data the training dataset (Instances)
        * @throws Exception if the training dataset is not supported or is erroneous
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(data);
@@ -237,7 +239,7 @@ public class FLR
           flag=flag+1;
       }
       if (!inst.classIsMissing()&&flag!=inst.numAttributes()-1) {
-        inputBuffer = new FuzzyLattice( (Instance) data.instance(i), bounds);
+        inputBuffer = new FuzzyLattice( data.instance(i), bounds);
         double[] sigma = new double[ (learnedCode.size())];
 
         for (int j = 0; j < learnedCode.size(); j++) {
@@ -299,6 +301,7 @@ public class FLR
    * @return the class index into which the instance is classfied
    */
 
+  @Override
   public double classifyInstance(Instance instance) {
 
     FuzzyLattice num, den, inputBuffer;
@@ -323,7 +326,7 @@ public class FLR
     } //for j
 
     FuzzyLattice currentBox = (FuzzyLattice) learnedCode.get(winner);
-    return (double) currentBox.getCateg();
+    return currentBox.getCateg();
   } //classifyInstance
 
   /**
@@ -331,6 +334,7 @@ public class FLR
    *
    * @return String describing the FLR model
    */
+  @Override
   public String toString() {
     if (learnedCode != null) {
       String output = "";
@@ -420,6 +424,7 @@ public class FLR
    *
    * @return enumeration an enumeration of valid options
    */
+  @Override
   public Enumeration listOptions() {
     Vector newVector = new Vector(3);
 
@@ -486,6 +491,7 @@ public class FLR
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported (
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     // Option -Y
     m_showRules = Utils.getFlag('Y', options);
@@ -514,6 +520,7 @@ public class FLR
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     String[] options = new String[5];
     int current = 0;
@@ -674,7 +681,7 @@ public class FLR
     if (learnedCode == null)
       return 0.0;
     else
-      return (double) learnedCode.size();
+      return learnedCode.size();
   }
 
   /**

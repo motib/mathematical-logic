@@ -207,6 +207,7 @@ public class GeneticSearch
      * @return a copy of the object
      * @throws CloneNotSupportedException if something goes wrong
      */
+    @Override
     public Object clone() throws CloneNotSupportedException {
       GABitSet temp = new GABitSet();
       

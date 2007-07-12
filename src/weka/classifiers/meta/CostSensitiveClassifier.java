@@ -143,6 +143,7 @@ public class CostSensitiveClassifier
    * 
    * @return the default classifier classname 
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.rules.ZeroR";
@@ -160,6 +161,7 @@ public class CostSensitiveClassifier
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(5);
@@ -242,6 +244,7 @@ public class CostSensitiveClassifier
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     setMinimizeExpectedCost(Utils.getFlag('M', options));
@@ -287,6 +290,7 @@ public class CostSensitiveClassifier
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
     String [] superOptions = super.getOptions();
     String [] options = new String [superOptions.length + 7];
@@ -453,6 +457,7 @@ public class CostSensitiveClassifier
    *
    * @return the classifier string.
    */
+  @Override
   protected String getClassifierSpec() {
     
     Classifier c = getClassifier();
@@ -498,6 +503,7 @@ public class CostSensitiveClassifier
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -515,6 +521,7 @@ public class CostSensitiveClassifier
    * @param data the training data
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -562,6 +569,7 @@ public class CostSensitiveClassifier
    * @return the computed distribution for the given instance
    * @throws Exception if instance could not be classified
    * successfully */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     if (!m_MinimizeExpectedCost) {
@@ -625,6 +633,7 @@ public class CostSensitiveClassifier
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_Classifier == null) {

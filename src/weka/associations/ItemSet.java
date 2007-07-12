@@ -130,6 +130,7 @@ public class ItemSet
    * @param itemSet another item set
    * @return true if this item set contains the same items as the given one
    */
+  @Override
   public boolean equals(Object itemSet) {
 
     if ((itemSet == null) || !(itemSet.getClass().equals(this.getClass()))) {
@@ -166,6 +167,7 @@ public class ItemSet
    *
    * @return a hash code for a set of items
    */
+  @Override
   public int hashCode() {
 
     long result = 0;

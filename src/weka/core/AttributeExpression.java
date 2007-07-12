@@ -25,7 +25,6 @@ package weka.core;
 import weka.core.Instance;
 
 import java.io.Serializable;
-import java.util.Enumeration;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -81,6 +80,7 @@ public class AttributeExpression implements Serializable {
      * Return a string describing this object
      * @return a string descibing the attribute operand
      */
+    @Override
     public String toString() {
       String result = "";
       if (m_negative) {
@@ -120,6 +120,7 @@ public class AttributeExpression implements Serializable {
      * Return a string describing this object
      * @return a string descibing the numeric operand
      */
+    @Override
     public String toString() {
       return ""+m_numericConst;
     }
@@ -206,6 +207,7 @@ public class AttributeExpression implements Serializable {
      * Return a string describing this object
      * @return a string descibing the operator
      */
+    @Override
     public String toString() {
       return ""+m_operator;
     }
@@ -543,6 +545,7 @@ public class AttributeExpression implements Serializable {
     return m_postFixExpVector.toString();
   }
 
+  @Override
   public String toString() {
     return m_originalInfix;
   }

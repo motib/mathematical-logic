@@ -134,6 +134,7 @@ public class NumericCleaner
    * @return      a description of the filter suitable for
    *              displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "A filter that 'cleanses' the numeric data from values that are too "
@@ -146,6 +147,7 @@ public class NumericCleaner
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector        result;
     Enumeration   enm;
@@ -216,6 +218,7 @@ public class NumericCleaner
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       i;
     Vector    result;
@@ -317,6 +320,7 @@ public class NumericCleaner
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported 
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
 
@@ -387,6 +391,7 @@ public class NumericCleaner
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 

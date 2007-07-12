@@ -470,6 +470,7 @@ public class EnsembleSelectionLibrary
    * @param classifier	the classifier to use
    * @return		the generated library model
    */
+  @Override
   public EnsembleLibraryModel createModel(Classifier classifier) {
     EnsembleSelectionLibraryModel model = new EnsembleSelectionLibraryModel(classifier);
     model.setDebug(m_Debug);
@@ -492,6 +493,7 @@ public class EnsembleSelectionLibrary
    * @param modelString		the classifier definition
    * @return			the generated library model
    */
+  @Override
   public EnsembleLibraryModel createModel(String modelString) {
     
     String[] splitString = modelString.split("\\s+");

@@ -137,6 +137,7 @@ public class ICSSearchAlgorithm
 	 * @param instances data set to learn from
 	 * @throws Exception if something goes wrong
 	 */
+	@Override
 	protected void search(BayesNet bayesNet, Instances instances) throws Exception {
         // init
         m_BayesNet = bayesNet;
@@ -532,6 +533,7 @@ public class ICSSearchAlgorithm
 	 *
 	 * @return an enumeration of all the available options.
 	 */
+	@Override
 	public Enumeration listOptions() {
 	  Vector result = new Vector();
 	  
@@ -575,6 +577,7 @@ public class ICSSearchAlgorithm
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 	  String        tmpStr;
 	  
@@ -592,6 +595,7 @@ public class ICSSearchAlgorithm
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
 	  Vector        result;
 	  String[]      options;
@@ -622,6 +626,7 @@ public class ICSSearchAlgorithm
 	 * This will return a string describing the search algorithm.
 	 * @return The string.
 	 */
+	@Override
 	public String globalInfo() {
 	  return "This Bayes Network learning algorithm uses conditional independence tests " +
 	  "to find a skeleton, finds V-nodes and applies a set of rules to find the directions " +

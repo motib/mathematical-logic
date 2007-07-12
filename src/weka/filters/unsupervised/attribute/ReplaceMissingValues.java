@@ -78,6 +78,7 @@ public class ReplaceMissingValues
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -103,6 +104,7 @@ public class ReplaceMissingValues
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -121,6 +123,7 @@ public class ReplaceMissingValues
    * collected with output().
    * @throws IllegalStateException if no input format has been set.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {
@@ -147,6 +150,7 @@ public class ReplaceMissingValues
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined
    */
+  @Override
   public boolean batchFinished() {
 
     if (getInputFormat() == null) {
@@ -191,7 +195,7 @@ public class ReplaceMissingValues
       m_ModesAndMeans = new double[getInputFormat().numAttributes()];
       for (int i = 0; i < getInputFormat().numAttributes(); i++) {
 	if (getInputFormat().attribute(i).isNominal()) {
-	  m_ModesAndMeans[i] = (double)Utils.maxIndex(counts[i]);
+	  m_ModesAndMeans[i] = Utils.maxIndex(counts[i]);
 	} else if (getInputFormat().attribute(i).isNumeric()) {
 	  if (Utils.gr(sums[i], 0)) {
 	    m_ModesAndMeans[i] = results[i] / sums[i];

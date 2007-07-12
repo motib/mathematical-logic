@@ -157,6 +157,7 @@ public abstract class SimpleBatchFilter
    * @see         #batchFinished()
    * @see         #setInputFormat(Instances)
    */
+  @Override
   protected boolean hasImmediateOutputFormat() {
     return false;
   }
@@ -173,6 +174,7 @@ public abstract class SimpleBatchFilter
    * @throws  IllegalStateException if no input structure has been defined
    * @see     #batchFinished()
    */
+  @Override
   public boolean input(Instance instance) {
     if (getInputFormat() == null)
       throw new IllegalStateException("No input instance format defined");
@@ -201,6 +203,7 @@ public abstract class SimpleBatchFilter
    * @see    #m_NewBatch
    * @see    #m_FirstBatchDone 
    */
+  @Override
   public boolean batchFinished() {
     int         i;
     Instances   inst;

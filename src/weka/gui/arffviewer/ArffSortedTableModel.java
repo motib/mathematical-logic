@@ -306,6 +306,7 @@ public class ArffSortedTableModel
    * 
    * @param l		the listener to add
    */
+  @Override
   public void addTableModelListener(TableModelListener l) {
     if (getModel() != null)
       ((ArffTableModel) getModel()).addTableModelListener(l);
@@ -317,6 +318,7 @@ public class ArffSortedTableModel
    * 
    * @param l		the listener to remove
    */
+  @Override
   public void removeTableModelListener(TableModelListener l) {
     if (getModel() != null)
       ((ArffTableModel) getModel()).removeTableModelListener(l);

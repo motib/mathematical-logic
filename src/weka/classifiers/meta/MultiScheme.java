@@ -103,6 +103,7 @@ public class MultiScheme
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(1);
@@ -148,6 +149,7 @@ public class MultiScheme
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     
     String numFoldsString = Utils.getOption('X', options);
@@ -164,6 +166,7 @@ public class MultiScheme
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
 
@@ -184,6 +187,7 @@ public class MultiScheme
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String classifiersTipText() {
     return "The classifiers to be chosen from.";
   }
@@ -193,6 +197,7 @@ public class MultiScheme
    *
    * @param classifiers an array of classifiers with all options set.
    */
+  @Override
   public void setClassifiers(Classifier [] classifiers) {
 
     m_Classifiers = classifiers;
@@ -203,6 +208,7 @@ public class MultiScheme
    *
    * @return the array of Classifiers
    */
+  @Override
   public Classifier [] getClassifiers() {
 
     return m_Classifiers;
@@ -214,6 +220,7 @@ public class MultiScheme
    * @param index the index of the classifier wanted
    * @return the Classifier
    */
+  @Override
   public Classifier getClassifier(int index) {
 
     return m_Classifiers[index];
@@ -228,6 +235,7 @@ public class MultiScheme
    * @return the classifier string, or the empty string if no classifier
    * has been assigned (or the index given is out of range).
    */
+  @Override
   protected String getClassifierSpec(int index) {
     
     if (m_Classifiers.length < index) {
@@ -246,6 +254,7 @@ public class MultiScheme
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String seedTipText() {
     return "The seed used for randomizing the data " +
       "for cross-validation.";
@@ -256,6 +265,7 @@ public class MultiScheme
    *
    * @param seed the random number seed
    */
+  @Override
   public void setSeed(int seed) {
     
     m_Seed = seed;;
@@ -266,6 +276,7 @@ public class MultiScheme
    * 
    * @return the random number seed
    */
+  @Override
   public int getSeed() {
 
     return m_Seed;
@@ -308,6 +319,7 @@ public class MultiScheme
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String debugTipText() {
     return "Whether debug information is output to console.";
   }
@@ -317,6 +329,7 @@ public class MultiScheme
    *
    * @param debug true if debug output should be printed
    */
+  @Override
   public void setDebug(boolean debug) {
 
     m_Debug = debug;
@@ -327,6 +340,7 @@ public class MultiScheme
    *
    * @return true if debugging output is on
    */
+  @Override
   public boolean getDebug() {
 
     return m_Debug;
@@ -340,6 +354,7 @@ public class MultiScheme
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     if (m_Classifiers.length == 0) {
@@ -413,6 +428,7 @@ public class MultiScheme
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     return m_Classifier.distributionForInstance(instance);
@@ -422,6 +438,7 @@ public class MultiScheme
    * Output a representation of this classifier
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_Classifier == null) {

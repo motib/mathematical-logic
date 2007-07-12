@@ -161,6 +161,7 @@ public class Wavelet
    * @return      a description of the classifier suitable for
    *              displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "A filter for wavelet transformation.\n\n"
@@ -201,6 +202,7 @@ public class Wavelet
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector		result;
     Enumeration		enm;
@@ -262,6 +264,7 @@ public class Wavelet
    *
    * @return      the current options
    */
+  @Override
   public String[] getOptions() {
     int       i;
     Vector    result;
@@ -327,6 +330,7 @@ public class Wavelet
    * @param options	the options to use
    * @throws Exception	if the option setting fails
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     String[]	tmpOptions;
@@ -573,6 +577,7 @@ public class Wavelet
    * @see   #hasImmediateOutputFormat()
    * @see   #batchFinished()
    */
+  @Override
   protected Instances determineOutputFormat(Instances inputFormat) 
     throws Exception {
 
@@ -649,6 +654,7 @@ public class Wavelet
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -674,6 +680,7 @@ public class Wavelet
    * @throws Exception  in case the processing goes wrong
    * @see               #batchFinished()
    */
+  @Override
   protected Instances process(Instances instances) throws Exception {
     if (!isFirstBatchDone())
       m_Filter.setInputFormat(instances);

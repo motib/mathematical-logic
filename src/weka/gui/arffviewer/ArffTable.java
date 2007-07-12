@@ -195,6 +195,7 @@ public class ArffTable
    * 
    * @param model		the model to use
    */
+  @Override
   public void setModel(TableModel model) {
     ArffSortedTableModel      arffModel;
     
@@ -232,6 +233,7 @@ public class ArffTable
    * @param column	the column index
    * @return		the cell editor
    */
+  @Override
   public TableCellEditor getCellEditor(int row, int column) {
     TableCellEditor		result;
     
@@ -428,6 +430,7 @@ public class ArffTable
    * 
    * @param e		the table event
    */
+  @Override
   public void tableChanged(TableModelEvent e) {
     super.tableChanged(e);
     

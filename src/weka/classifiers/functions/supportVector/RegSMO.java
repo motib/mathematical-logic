@@ -148,6 +148,7 @@ public class RegSMO
    * 
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -187,6 +188,7 @@ public class RegSMO
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported 
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     
@@ -205,6 +207,7 @@ public class RegSMO
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       	i;
     Vector    	result;
@@ -255,6 +258,7 @@ public class RegSMO
    * @param data 	data set used for learning
    * @throws Exception	if something goes wrong
    */
+  @Override
   protected void init(Instances data) throws Exception {
     super.init(data);
     
@@ -271,6 +275,7 @@ public class RegSMO
    *
    * @throws Exception 	if something goes wrong
    */
+  @Override
   protected void wrapUp() throws Exception {
     m_error = null;
     super.wrapUp();
@@ -861,6 +866,7 @@ public class RegSMO
    * @param instances	the data to learn from
    * @throws Exception	if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     // initialize variables
     init(instances);

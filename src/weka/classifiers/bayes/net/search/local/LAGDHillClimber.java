@@ -88,7 +88,8 @@ public class LAGDHillClimber
      * @param instances the data to use
      * @throws Exception if something goes wrong
      */
-   protected void search(BayesNet bayesNet, Instances instances) throws Exception {
+   @Override
+  protected void search(BayesNet bayesNet, Instances instances) throws Exception {
         int k=m_nNrOfLookAheadSteps;  // Number of Look Ahead Steps
         int l=m_nNrOfGoodOperations; // Number of Good Operations per step
         lookAheadInGoodDirectionsSearch(bayesNet, instances, k, l);
@@ -256,6 +257,7 @@ public class LAGDHillClimber
 	 *
 	 * @param nMaxNrOfParents the max number of parents
 	 */
+	@Override
 	public void setMaxNrOfParents(int nMaxNrOfParents) {
 	  m_nMaxNrOfParents = nMaxNrOfParents;
 	} 
@@ -265,6 +267,7 @@ public class LAGDHillClimber
 	 *
 	 * @return the max number of parents
 	 */
+	@Override
 	public int getMaxNrOfParents() {
 	  return m_nMaxNrOfParents;
 	} 
@@ -311,6 +314,7 @@ public class LAGDHillClimber
 	 *
 	 * @return an enumeration of all the available options.
 	 */
+	@Override
 	public Enumeration listOptions() {
 		Vector newVector = new Vector();
 
@@ -360,6 +364,7 @@ public class LAGDHillClimber
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 	  	String sNrOfLookAheadSteps = Utils.getOption('L', options);
 		if (sNrOfLookAheadSteps.length() != 0) {
@@ -383,6 +388,7 @@ public class LAGDHillClimber
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
 		String[] superOptions = super.getOptions();
 		String[] options = new String[9 + superOptions.length];
@@ -411,6 +417,7 @@ public class LAGDHillClimber
 	 * This will return a string describing the search algorithm.
 	 * @return The string.
 	 */
+	@Override
 	public String globalInfo() {
 	  return "This Bayes Network learning algorithm uses a Look Ahead Hill Climbing algorithm called LAGD Hill Climbing." +
 	  " Unlike Greedy Hill Climbing it doesn't calculate a best greedy operation (adding, deleting or reversing an arc) " + 

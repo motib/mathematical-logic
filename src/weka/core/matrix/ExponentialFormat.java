@@ -65,6 +65,7 @@ public class ExponentialFormat extends DecimalFormat {
     else return digits + 2 + exp;
   }
 
+  @Override
   public StringBuffer format(double number, StringBuffer toAppendTo, 
 			     FieldPosition pos) {
     StringBuffer s = new StringBuffer( nf.format(number) );

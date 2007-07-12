@@ -73,6 +73,7 @@ public class AllJavadoc
    * 
    * @param value	the new classname
    */
+  @Override
   public void setClassname(String value) {
     super.setClassname(value);
     for (int i = 0; i < m_Javadocs.size(); i++)
@@ -84,6 +85,7 @@ public class AllJavadoc
    * 
    * @param value	true if stars are to be used
    */
+  @Override
   public void setUseStars(boolean value) {
     super.setUseStars(value);
     for (int i = 0; i < m_Javadocs.size(); i++)
@@ -95,6 +97,7 @@ public class AllJavadoc
    * 
    * @param value	true if output is to be suppressed
    */
+  @Override
   public void setSilent(boolean value) {
     super.setSilent(value);
     for (int i = 0; i < m_Javadocs.size(); i++)
@@ -108,6 +111,7 @@ public class AllJavadoc
    * @return		the generated Javadoc
    * @throws Exception 	in case the generation fails
    */
+  @Override
   protected String generateJavadoc(int index) throws Exception {
     throw new Exception("Not used!");
   }
@@ -120,6 +124,7 @@ public class AllJavadoc
    * @return		the updated source code
    * @throws Exception 	in case the generation fails
    */
+  @Override
   protected String updateJavadoc(String content) throws Exception {
     String	result;
     int		i;

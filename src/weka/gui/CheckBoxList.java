@@ -105,6 +105,7 @@ public class CheckBoxList
     /**
      * returns the string representation of the content object
      */
+    @Override
     public String toString() {
       return m_Content.toString();
     }
@@ -116,6 +117,7 @@ public class CheckBoxList
      * @param o		the CheckBoxListItem to check
      * @throws IllegalArgumentException if the provided object is not a CheckBoxListItem
      */
+    @Override
     public boolean equals(Object o) {
       if (!(o instanceof CheckBoxListItem))
 	throw new IllegalArgumentException("Must be a CheckBoxListItem!");
@@ -166,6 +168,7 @@ public class CheckBoxList
      * @param index	index at which the specified element is to be inserted
      * @param element	element to be inserted
      */
+    @Override
     public void add(int index, Object element) {
       if (!(element instanceof CheckBoxListItem))
 	super.add(index, new CheckBoxListItem(element));
@@ -178,6 +181,7 @@ public class CheckBoxList
      * 
      * @param obj 	the component to be added
      */
+    @Override
     public void addElement(Object obj) {
       if (!(obj instanceof CheckBoxListItem))
 	super.addElement(new CheckBoxListItem(obj));
@@ -191,6 +195,7 @@ public class CheckBoxList
      * @param elem	the element to check
      * @return		true if the element is in the list
      */
+    @Override
     public boolean contains(Object elem) {
       if (!(elem instanceof CheckBoxListItem))
 	return super.contains(new CheckBoxListItem(elem));
@@ -204,6 +209,7 @@ public class CheckBoxList
      * @param anArray	the array into which the components get copied
      * @throws IndexOutOfBoundsException if the array is not big enough
      */
+    @Override
     public void copyInto(Object[] anArray) {
       if (anArray.length < getSize())
 	throw new IndexOutOfBoundsException("Array not big enough!");
@@ -221,6 +227,7 @@ public class CheckBoxList
      * @return 		the component at the specified index
      * @throws ArrayIndexOutOfBoundsException
      */
+    @Override
     public Object elementAt(int index) {
       return ((CheckBoxListItem) super.elementAt(index)).getContent();
     }
@@ -232,6 +239,7 @@ public class CheckBoxList
      * @return		the first component of this list
      * @throws NoSuchElementException
      */
+    @Override
     public Object firstElement() {
       return ((CheckBoxListItem) super.firstElement()).getContent();
     }
@@ -242,6 +250,7 @@ public class CheckBoxList
      * @param index of element to return
      * @throws ArrayIndexOutOfBoundsException
      */
+    @Override
     public Object get(int index) {
       return ((CheckBoxListItem) super.get(index)).getContent();
     }
@@ -253,6 +262,7 @@ public class CheckBoxList
      * @return 		the component at the specified index 
      * @throws ArrayIndexOutOfBoundsException
      */
+    @Override
     public Object getElementAt(int index) {
       return ((CheckBoxListItem) super.getElementAt(index)).getContent();
     }
@@ -264,6 +274,7 @@ public class CheckBoxList
      * @return 		the index of the first occurrence of the argument in this list; 
      * 			returns -1 if the object is not found
      */
+    @Override
     public int indexOf(Object elem) {
       if (!(elem instanceof CheckBoxListItem))
 	return super.indexOf(new CheckBoxListItem(elem));
@@ -279,6 +290,7 @@ public class CheckBoxList
      * @return		the index where the first occurrence of elem  is found after index; 
      * 			returns -1  if the elem is not found in the list
      */
+    @Override
     public int indexOf(Object elem, int index) {
       if (!(elem instanceof CheckBoxListItem))
 	return super.indexOf(new CheckBoxListItem(elem), index);
@@ -294,6 +306,7 @@ public class CheckBoxList
      * @param index	where to insert the new component
      * @throws ArrayIndexOutOfBoundsException 
      */
+    @Override
     public void insertElementAt(Object obj, int index) {
       if (!(obj instanceof CheckBoxListItem))
 	super.insertElementAt(new CheckBoxListItem(obj), index);
@@ -308,6 +321,7 @@ public class CheckBoxList
      * @return 		the last component of the list
      * @throws NoSuchElementException
      */
+    @Override
     public Object lastElement() {
       return ((CheckBoxListItem) lastElement()).getContent();
     }
@@ -319,6 +333,7 @@ public class CheckBoxList
      * @return		the index of the last occurrence of elem  in the list; 
      * 			returns -1 if the object is not found
      */
+    @Override
     public int lastIndexOf(Object elem) {
       if (!(elem instanceof CheckBoxListItem))
 	return super.lastIndexOf(new CheckBoxListItem(elem));
@@ -336,6 +351,7 @@ public class CheckBoxList
      * 			list at position less than index; returns -1 if the 
      * 			object is not found
      */
+    @Override
     public int lastIndexOf(Object elem, int index) {
       if (!(elem instanceof CheckBoxListItem))
 	return super.lastIndexOf(new CheckBoxListItem(elem), index);
@@ -350,6 +366,7 @@ public class CheckBoxList
      * @param index	the index of the element to removed
      * @throws ArrayIndexOutOfBoundsException
      */
+    @Override
     public Object remove(int index) {
       return ((CheckBoxListItem) remove(index)).getContent();
     }
@@ -362,6 +379,7 @@ public class CheckBoxList
      * @return		true if the argument was a component of this list; 
      * 			false otherwise
      */
+    @Override
     public boolean removeElement(Object obj) {
       if (!(obj instanceof CheckBoxListItem))
 	return super.removeElement(new CheckBoxListItem(obj));
@@ -377,6 +395,7 @@ public class CheckBoxList
      * @param element	element to be stored at the specified position
      * @throws ArrayIndexOutOfBoundsException 
      */
+    @Override
     public Object set(int index, Object element) {
       if (!(element instanceof CheckBoxListItem))
 	return ((CheckBoxListItem) super.set(index, new CheckBoxListItem(element))).getContent();
@@ -392,6 +411,7 @@ public class CheckBoxList
      * @param index	the specified index
      * @throws ArrayIndexOutOfBoundsException
      */
+    @Override
     public void setElementAt(Object obj, int index) {
       if (!(obj instanceof CheckBoxListItem))
 	super.setElementAt(new CheckBoxListItem(obj), index);
@@ -405,6 +425,7 @@ public class CheckBoxList
      * 
      * @return 		an array containing the elements of the list
      */
+    @Override
     public Object[] toArray() {
       Object[]		result;
       Object[]		internal;
@@ -502,6 +523,7 @@ public class CheckBoxList
     setCellRenderer(new CheckBoxListRenderer());
     
     addMouseListener(new MouseAdapter() {
+      @Override
       public void mousePressed(MouseEvent e) {
 	int index = locationToIndex(e.getPoint());
 	
@@ -513,6 +535,7 @@ public class CheckBoxList
     });
     
     addKeyListener(new KeyAdapter() {
+      @Override
       public void keyTyped(KeyEvent e) {
         if ( (e.getKeyChar() == ' ') && (e.getModifiers() == 0) ) {
           int index = getSelectedIndex();
@@ -532,6 +555,7 @@ public class CheckBoxList
    * 					CheckBoxListModel
    * @see CheckBoxListModel
    */
+  @Override
   public void setModel(ListModel model) {
     if (!(model instanceof CheckBoxListModel))
       throw new IllegalArgumentException("Model must be an instance of CheckBoxListModel!");
@@ -545,6 +569,7 @@ public class CheckBoxList
    * 
    * @param listData	the data to use
    */
+  @Override
   public void setListData(Object[] listData) {
     setModel(new CheckBoxListModel(listData));
   }
@@ -553,6 +578,7 @@ public class CheckBoxList
    * Constructs a CheckBoxListModel from a Vector and then applies setModel 
    * to it.
    */
+  @Override
   public void setListData(Vector listData) {
     setModel(new CheckBoxListModel(listData));
   }

@@ -200,6 +200,7 @@ public class AddValues
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -226,6 +227,7 @@ public class AddValues
    * 				immediately
    * @throws Exception 		if the input format can't be set successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
     Attribute 	att;
     Attribute 	attNew;
@@ -296,6 +298,7 @@ public class AddValues
    * 			collected with output().
    * @throws IllegalStateException if no input format has been set.
    */
+  @Override
   public boolean input(Instance instance) {
     Instance 	newInstance;
     double[]	values;

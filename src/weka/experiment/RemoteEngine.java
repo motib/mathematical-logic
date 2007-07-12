@@ -71,6 +71,7 @@ public class RemoteEngine extends UnicastRemoteObject
        
     Thread cleanUpThread;
     cleanUpThread = new Thread() {
+	@Override
 	public void run() {
 	  while (true) {
 	    try {
@@ -171,6 +172,7 @@ public class RemoteEngine extends UnicastRemoteObject
     if (m_TaskRunning == false && m_TaskQueue.size() > 0) {
       Thread activeTaskThread;
       activeTaskThread = new Thread() {
+	  @Override
 	  public void run() {
 	    m_TaskRunning = true;
 	    Task currentTask = (Task)m_TaskQueue.pop();

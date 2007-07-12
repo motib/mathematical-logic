@@ -128,6 +128,7 @@ public class RBFNetwork extends Classifier implements OptionHandler {
    * @see         Logistic
    * @see         LinearRegression
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = new Logistic().getCapabilities();
     result.or(new LinearRegression().getCapabilities());
@@ -143,6 +144,7 @@ public class RBFNetwork extends Classifier implements OptionHandler {
    * @param instances the training data
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     // can classifier handle the data?
@@ -190,6 +192,7 @@ public class RBFNetwork extends Classifier implements OptionHandler {
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double [] distributionForInstance(Instance instance) 
     throws Exception {
 
@@ -207,6 +210,7 @@ public class RBFNetwork extends Classifier implements OptionHandler {
    *
    * @return a description of this classifier
    */
+  @Override
   public String toString() {
 
     if (m_basisFilter == null) {
@@ -369,6 +373,7 @@ public class RBFNetwork extends Classifier implements OptionHandler {
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector newVector = new Vector(4);
 
@@ -418,6 +423,7 @@ public class RBFNetwork extends Classifier implements OptionHandler {
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     setDebug(Utils.getFlag('D', options));
 
@@ -456,6 +462,7 @@ public class RBFNetwork extends Classifier implements OptionHandler {
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 	
     String [] options = new String [10];

@@ -36,15 +36,6 @@ import java.io.*;
 
 import weka.core.*;
 import weka.classifiers.Classifier;
-import weka.classifiers.bayes.NaiveBayesSimple;
-import weka.classifiers.bayes.NaiveBayes;
-import weka.classifiers.trees.J48;
-import weka.classifiers.lazy.IBk;
-import weka.classifiers.functions.Logistic;
-import weka.clusterers.EM;
-import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.Remove;
-import weka.filters.unsupervised.attribute.Add;
 
 /**
  * BoundaryPanel. A class to handle the plotting operations
@@ -125,6 +116,7 @@ public class BoundaryPanel extends JPanel {
       this.setToolTipText("");
     }
     
+    @Override
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
       if (m_osi != null) {
@@ -132,6 +124,7 @@ public class BoundaryPanel extends JPanel {
       }
     }
     
+    @Override
     public String getToolTipText(MouseEvent event) {
       if (m_probabilityCache == null) {
 	return null;
@@ -142,9 +135,9 @@ public class BoundaryPanel extends JPanel {
       }
       
       String pVec = "(X: "
-	+Utils.doubleToString(convertFromPanelX((double)event.getX()), 2)
+	+Utils.doubleToString(convertFromPanelX(event.getX()), 2)
 	+" Y: "
-	+Utils.doubleToString(convertFromPanelY((double)event.getY()), 2)+") ";
+	+Utils.doubleToString(convertFromPanelY(event.getY()), 2)+") ";
       // construct a string holding the probability vector
       for (int i = 0; i < m_trainingData.classAttribute().numValues(); i++) {
 	pVec += 
@@ -338,8 +331,8 @@ public class BoundaryPanel extends JPanel {
     m_rangeX = (m_maxX - m_minX);
     m_rangeY = (m_maxY - m_minY);
     
-    m_pixWidth = m_rangeX / (double)m_panelWidth;
-    m_pixHeight = m_rangeY / (double) m_panelHeight;
+    m_pixWidth = m_rangeX / m_panelWidth;
+    m_pixHeight = m_rangeY / m_panelHeight;
   }
 
   /**
@@ -412,6 +405,7 @@ public class BoundaryPanel extends JPanel {
     double [] m_vals;
     double [] m_dist;
     Instance m_predInst;
+    @Override
     public void run() {
 
       m_stopPlotting = false;
@@ -654,7 +648,7 @@ public class BoundaryPanel extends JPanel {
   */
   private int convertToPanelX(double xval) {
     double temp = (xval - m_minX) / m_rangeX;
-    temp = temp * (double) m_panelWidth;
+    temp = temp * m_panelWidth;
 
     return (int)temp;
   }
@@ -663,7 +657,7 @@ public class BoundaryPanel extends JPanel {
   */
   private int convertToPanelY(double yval) {
     double temp = (yval - m_minY) / m_rangeY;
-    temp = temp * (double) m_panelHeight;
+    temp = temp * m_panelHeight;
     temp = m_panelHeight - temp;
     
     return (int)temp;
@@ -672,7 +666,7 @@ public class BoundaryPanel extends JPanel {
   /** Convert an X coordinate from the panel space to the instance space.
   */
   private double convertFromPanelX(double pX) {
-    pX /= (double) m_panelWidth;
+    pX /= m_panelWidth;
     pX *= m_rangeX;
     return pX + m_minX;
   }
@@ -681,7 +675,7 @@ public class BoundaryPanel extends JPanel {
   */
   private double convertFromPanelY(double pY) {
     pY  = m_panelHeight - pY;
-    pY /= (double) m_panelHeight;
+    pY /= m_panelHeight;
     pY *= m_rangeY;
     
     return pY + m_minY;
@@ -912,7 +906,8 @@ public class BoundaryPanel extends JPanel {
     } catch (Exception ex) {}
 
     final Thread replotThread = new Thread() {
-        public void run() {
+        @Override
+	public void run() {
           m_stopReplotting = false;
 	  int size2 = m_size / 2;
           finishedReplot: for (int i = 0; i < m_panelHeight; i += m_size) {
@@ -1075,6 +1070,7 @@ public class BoundaryPanel extends JPanel {
   
   /** Adds a mouse listener.
   */
+  @Override
   public void addMouseListener(MouseListener l) {
   	m_plotPanel.addMouseListener(l);
   }
@@ -1155,6 +1151,7 @@ public class BoundaryPanel extends JPanel {
       jf.setSize(bv.getMinimumSize());
       //      jf.setSize(200,200);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    jf.dispose();
 	    System.exit(0);

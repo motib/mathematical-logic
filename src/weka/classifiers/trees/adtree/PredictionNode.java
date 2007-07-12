@@ -127,11 +127,12 @@ public final class PredictionNode implements Serializable, Cloneable {
    *
    * @return a clone
    */ 
+  @Override
   public final Object clone() {
 
     PredictionNode clone = new PredictionNode(value);
     for (Enumeration e = children.elements(); e.hasMoreElements(); )
-      clone.children.addElement((Splitter)((Splitter) e.nextElement()).clone());
+      clone.children.addElement(((Splitter) e.nextElement()).clone());
     return clone;
   }
 

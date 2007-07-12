@@ -312,6 +312,7 @@ public class AttributeLocator
    * @return		true if the AttributeLocators have the same type and 
    * 			indices
    */
+  @Override
   public boolean equals(Object o) {
     return (compareTo((AttributeLocator) o) == 0);
   }
@@ -321,6 +322,7 @@ public class AttributeLocator
    * 
    * @return 		a string representation
    */
+  @Override
   public String toString() {
     return m_Attributes.toString();
   }

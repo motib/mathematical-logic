@@ -32,6 +32,7 @@ import weka.core.Option;
 import weka.core.OptionHandler;
 import weka.core.Utils;
 import weka.core.Capabilities.Capability;
+import weka.experiment.DatabaseUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -117,7 +118,7 @@ public class DatabaseSaver
   private boolean m_tabName;
   
   /** The property file for the database connection */
-  protected static String PROPERTY_FILE = DatabaseConnection.PROPERTY_FILE;
+  protected static String PROPERTY_FILE = DatabaseUtils.PROPERTY_FILE;
   
   /** Properties associated with the database connection */
   protected static Properties PROPERTIES;
@@ -151,6 +152,7 @@ public class DatabaseSaver
   /** 
    * Resets the Saver ready to save a new data set
    */
+  @Override
   public void resetOptions(){
 
     super.resetOptions();
@@ -172,6 +174,7 @@ public class DatabaseSaver
    * Cancels the incremental saving process and tries to drop the table if 
    * the write mode is CANCEL.
    */  
+  @Override
   public void cancel(){
   
       if(getWriteMode() == CANCEL){
@@ -428,6 +431,7 @@ public class DatabaseSaver
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -568,6 +572,7 @@ public class DatabaseSaver
    * @param inst the instance to save
    * @throws IOException throws IOEXception.
    */  
+  @Override
   public void writeIncremental(Instance inst) throws IOException{
   
       int writeMode = getWriteMode();
@@ -624,6 +629,7 @@ public class DatabaseSaver
    * 
    * @throws IOException throws IOException
    */
+  @Override
   public void writeBatch() throws IOException {
   
       Instances instances = getInstances();

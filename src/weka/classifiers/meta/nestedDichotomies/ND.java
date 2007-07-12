@@ -351,6 +351,7 @@ public class ND
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.J48";
@@ -401,6 +402,7 @@ public class ND
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -421,6 +423,7 @@ public class ND
    * @param data the data to train the classifier with
    * @throws Exception if anything goes wrong
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -529,6 +532,7 @@ public class ND
    * @return the class distribution
    * @throws Exception if computing fails
    */
+  @Override
   public double[] distributionForInstance(Instance inst) throws Exception {
 	
     return distributionForInstance(inst, m_ndtree);
@@ -571,6 +575,7 @@ public class ND
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 	
     if (m_classifiers == null) {

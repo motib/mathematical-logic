@@ -25,13 +25,10 @@ package weka.gui;
 
 import java.awt.Component;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyEditor;
 import javax.swing.JFrame;
-import javax.swing.JButton;
 
 /** 
  * Support for PropertyEditors with custom editors: puts the editor into
@@ -59,6 +56,7 @@ public class PropertyDialog extends JFrame {
 
     super(pe.getClass().getName());
     addWindowListener(new WindowAdapter() {
+      @Override
       public void windowClosing(WindowEvent e) {
 	e.getWindow().dispose();
       }

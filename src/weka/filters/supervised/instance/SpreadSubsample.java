@@ -358,6 +358,7 @@ public class SpreadSubsample
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -382,6 +383,7 @@ public class SpreadSubsample
    * @throws UnsupportedClassTypeException if the class attribute
    * is not nominal. 
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -399,6 +401,7 @@ public class SpreadSubsample
    * collected with output().
    * @throws IllegalStateException if no input structure has been defined 
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {
@@ -425,6 +428,7 @@ public class SpreadSubsample
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined
    */
+  @Override
   public boolean batchFinished() {
 
     if (getInputFormat() == null) {

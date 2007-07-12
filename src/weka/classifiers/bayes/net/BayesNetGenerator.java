@@ -382,7 +382,8 @@ public class BayesNetGenerator extends BayesNet {
     	 * 
     	 * @return either the net or the generated instances
     	 */
-  	public String toString() {
+  	@Override
+	public String toString() {
   	  if (m_bGenerateNet) {
   	    return toXMLBIF03();
   	  }
@@ -408,6 +409,7 @@ public class BayesNetGenerator extends BayesNet {
 	 * 
 	 * @return an enumeration of all the available options
 	 */
+	@Override
 	public Enumeration listOptions() {
 		Vector newVector = new Vector(6);
 
@@ -461,6 +463,7 @@ public class BayesNetGenerator extends BayesNet {
 	 * @param options the list of options as an array of strings
 	 * @exception Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 		m_bGenerateNet = Utils.getFlag('B', options);
 
@@ -510,6 +513,7 @@ public class BayesNetGenerator extends BayesNet {
 	 * 
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
 		String[] options = new String[13];
 		int current = 0;

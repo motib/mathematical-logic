@@ -24,7 +24,6 @@
 package weka.gui.sql;
 
 import weka.core.Memory;
-import weka.core.Utils;
 import weka.gui.LookAndFeel;
 import weka.gui.sql.event.ConnectionEvent;
 import weka.gui.sql.event.ConnectionListener;
@@ -570,7 +569,8 @@ public class SqlViewer
       jf.getContentPane().setLayout(new BorderLayout());
       jf.getContentPane().add(m_Viewer, BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
-        public void windowClosing(WindowEvent e) {
+        @Override
+	public void windowClosing(WindowEvent e) {
           jf.dispose();
           System.exit(0);
         }
@@ -580,10 +580,11 @@ public class SqlViewer
       jf.setVisible(true);
 
       Thread memMonitor = new Thread() {
-        public void run() {
+        @Override
+	public void run() {
           while (true) {
             try {
-              this.sleep(4000);
+              Thread.sleep(4000);
 
               System.gc();
 

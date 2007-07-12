@@ -28,9 +28,7 @@ package weka.associations.tertius;
 import weka.core.Instances;
 import weka.core.Instance;
 import weka.core.Attribute;
-import weka.core.Utils;
 import java.util.Enumeration;
-import java.io.IOException;
 
 /**
  * @author Peter A. Flach

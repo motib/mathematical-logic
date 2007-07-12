@@ -258,6 +258,7 @@ public class SearchAlgorithm
      * 
      * @return a string representation
      */
+    @Override
     public String toString() {
         return "SearchAlgorithm\n";
     } // toString

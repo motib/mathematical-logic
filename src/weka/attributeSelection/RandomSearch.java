@@ -429,6 +429,7 @@ public class RandomSearch
    * prints a description of the search
    * @return a description of the search as a string
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     
@@ -455,7 +456,8 @@ public class RandomSearch
    * @return an array (not necessarily ordered) of selected attribute indexes
    * @throws Exception if the search can't be completed
    */
-   public int[] search (ASEvaluation ASEval, Instances data)
+   @Override
+  public int[] search (ASEvaluation ASEval, Instances data)
      throws Exception {
      double best_merit;
      int sizeOfBest = m_numAttribs;

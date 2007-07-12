@@ -159,6 +159,7 @@ public class ClassificationViaRegression
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.M5P";
@@ -169,6 +170,7 @@ public class ClassificationViaRegression
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -186,6 +188,7 @@ public class ClassificationViaRegression
    * @param insts the training data.
    * @throws Exception if a classifier can't be built
    */
+  @Override
   public void buildClassifier(Instances insts) throws Exception {
 
     Instances newInsts;
@@ -217,6 +220,7 @@ public class ClassificationViaRegression
    * @return the computed distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance inst) throws Exception {
     
     double[] probs = new double[inst.numClasses()];
@@ -247,6 +251,7 @@ public class ClassificationViaRegression
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_Classifiers == null) {

@@ -231,6 +231,7 @@ public class KKConditionalEstimator implements ConditionalEstimator {
   /**
    * Display a representation of this estimator
    */
+  @Override
   public String toString() {
 
     String result = "KK Conditional Estimator. " 

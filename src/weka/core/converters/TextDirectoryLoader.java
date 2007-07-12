@@ -278,6 +278,7 @@ public class TextDirectoryLoader
   /**
    * Resets the loader ready to read a new data set
    */
+  @Override
   public void reset() {
     m_structure = null;
     setRetrieval(NONE);
@@ -290,6 +291,7 @@ public class TextDirectoryLoader
    * @param dir 		the source directory.
    * @throws IOException 	if an error occurs
    */
+  @Override
   public void setSource(File dir) throws IOException {
     reset();
     
@@ -310,6 +312,7 @@ public class TextDirectoryLoader
    * 				set of Instances
    * @throws IOException 	if an error occurs
    */
+  @Override
   public Instances getStructure() throws IOException {
     if (getDirectory() == null) {
       throw new IOException("No directory/source has been specified");
@@ -352,6 +355,7 @@ public class TextDirectoryLoader
    * @return the structure of the data set as an empty set of Instances
    * @throws IOException if there is no source or parsing fails
    */
+  @Override
   public Instances getDataSet() throws IOException {
     if (getDirectory() == null)
       throw new IOException("No directory/source has been specified");
@@ -389,10 +393,10 @@ public class TextDirectoryLoader
 	    txtStr.append((char) c);
 	  }
 	  
-	  newInst[0] = (double) data.attribute(0).addStringValue(txtStr.toString());
+	  newInst[0] = data.attribute(0).addStringValue(txtStr.toString());
 	  if (m_OutputFilename)
-	    newInst[1] = (double) data.attribute(1).addStringValue(subdirPath + File.separator + files[j]);
-	  newInst[data.classIndex()] = (double) k;
+	    newInst[1] = data.attribute(1).addStringValue(subdirPath + File.separator + files[j]);
+	  newInst[data.classIndex()] = k;
 	  data.add(new Instance(1.0, newInst));
 	}
 	catch (Exception e) {
@@ -411,6 +415,7 @@ public class TextDirectoryLoader
    * @throws IOException always. TextDirectoryLoader is unable to process a data
    * set incrementally.
    */
+  @Override
   public Instance getNextInstance() throws IOException {
     throw new IOException("TextDirectoryLoader can't read data sets incrementally.");
   }

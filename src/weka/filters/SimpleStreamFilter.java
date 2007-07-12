@@ -159,6 +159,7 @@ public abstract class SimpleStreamFilter
    * @see         #setInputFormat(Instances)
    * @see         #m_FirstBatchDone
    */
+  @Override
   protected boolean hasImmediateOutputFormat() {
     return true;
   }
@@ -177,6 +178,7 @@ public abstract class SimpleStreamFilter
    * @see                   #batchFinished()
    * @see                   #preprocess(Instances)
    */
+  @Override
   protected abstract Instances determineOutputFormat(Instances inputFormat) throws Exception;
 
   /**
@@ -201,6 +203,7 @@ public abstract class SimpleStreamFilter
    * @see               #batchFinished()
    * @see               #process(Instance)
    */
+  @Override
   protected Instances process(Instances instances) throws Exception {
     Instances     result;
     int           i;
@@ -234,6 +237,7 @@ public abstract class SimpleStreamFilter
    *                    collected with output().
    * @throws IllegalStateException if no input structure has been defined
    */
+  @Override
   public boolean input(Instance instance) {
     if (getInputFormat() == null)
       throw new IllegalStateException("No input instance format defined");
@@ -269,6 +273,7 @@ public abstract class SimpleStreamFilter
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input format has been set. 
    */
+  @Override
   public boolean batchFinished() {
     int         i;
     Instances   inst;

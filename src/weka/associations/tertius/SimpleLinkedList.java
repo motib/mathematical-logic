@@ -25,7 +25,6 @@
 package weka.associations.tertius;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
@@ -237,6 +236,7 @@ public class SimpleLinkedList implements Serializable {
     } 
   }
 
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     LinkedListIterator iter = iterator();

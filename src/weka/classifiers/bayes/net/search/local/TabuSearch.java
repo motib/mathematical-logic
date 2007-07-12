@@ -142,6 +142,7 @@ public class TabuSearch
  	 * @param instances the data to use
  	 * @throws Exception if something goes wrong
 	 */
+	@Override
 	protected void search(BayesNet bayesNet, Instances instances) throws Exception {
         m_oTabuList = new Operation[m_nTabuList];
         int iCurrentTabuList = 0;
@@ -218,6 +219,7 @@ public class TabuSearch
 	 * @param oOperation operation to be checked
 	 * @return true if operation is not in the tabu list
 	 */
+	@Override
 	boolean isNotTabu(Operation oOperation) {
 		for (int iTabu = 0; iTabu < m_nTabuList; iTabu++) {
 			if (oOperation.equals(m_oTabuList[iTabu])) {
@@ -275,6 +277,7 @@ public class TabuSearch
 	 *
 	 * @return an enumeration of all the available options.
 	 */
+	@Override
 	public Enumeration listOptions() {
 		Vector newVector = new Vector(4);
 
@@ -333,6 +336,7 @@ public class TabuSearch
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 		String sTabuList = Utils.getOption('L', options);
 		if (sTabuList.length() != 0) {
@@ -351,6 +355,7 @@ public class TabuSearch
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
 		String[] superOptions = super.getOptions();
 		String[] options = new String[7 + superOptions.length];
@@ -378,6 +383,7 @@ public class TabuSearch
 	 * This will return a string describing the classifier.
 	 * @return The string.
 	 */
+	@Override
 	public String globalInfo() {
 		return "This Bayes Network learning algorithm uses tabu search for finding a well scoring " +
 		"Bayes network structure. Tabu search is hill climbing till an optimum is reached. The " +

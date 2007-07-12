@@ -194,6 +194,7 @@ public class Version
    * @param o       the version-string to compare to
    * @return        TRUE if the version-string is equals to its own
    */
+  @Override
   public boolean equals(Object o) {
     return (compareTo(o) == 0);
   }
@@ -225,6 +226,7 @@ public class Version
    * 
    * @return        the current version
    */
+  @Override
   public String toString() {
     return VERSION;
   }

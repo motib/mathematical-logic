@@ -155,6 +155,7 @@ public class LocalScoreSearchAlgorithm
 	* @param instances the data to use
 	* @throws Exception if something goes wrong
 	*/
+	@Override
 	public void buildStructure (BayesNet bayesNet, Instances instances) throws Exception {
 		m_BayesNet = bayesNet;
 		super.buildStructure(bayesNet, instances);
@@ -546,6 +547,7 @@ public class LocalScoreSearchAlgorithm
 	 * 
 	 * @param bMarkovBlanketClassifier
 	 */
+	@Override
 	public void setMarkovBlanketClassifier(boolean bMarkovBlanketClassifier) {
 	  super.setMarkovBlanketClassifier(bMarkovBlanketClassifier);
 	}
@@ -554,6 +556,7 @@ public class LocalScoreSearchAlgorithm
 	 * 
 	 * @return
 	 */
+	@Override
 	public boolean getMarkovBlanketClassifier() {
 	  return super.getMarkovBlanketClassifier();
 	}
@@ -563,6 +566,7 @@ public class LocalScoreSearchAlgorithm
 	 * 
 	 * @return an enumeration of all the available options
 	 */
+	@Override
 	public Enumeration listOptions() {
 		Vector newVector = new Vector();
 
@@ -603,6 +607,7 @@ public class LocalScoreSearchAlgorithm
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 
 	  	setMarkovBlanketClassifier(Utils.getFlag("mbc", options));
@@ -631,6 +636,7 @@ public class LocalScoreSearchAlgorithm
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
                 String[] superOptions = super.getOptions();
 		String[] options = new String[3 + superOptions.length];
@@ -690,6 +696,7 @@ public class LocalScoreSearchAlgorithm
 	/**
 	 * @return a string to describe the MarkovBlanketClassifier option.
 	 */
+	@Override
 	public String markovBlanketClassifierTipText() {
 	  return super.markovBlanketClassifierTipText();
 	}

@@ -207,6 +207,7 @@ public class CVParameterSelection
      * 
      * @return the CVParameter as string
      */
+    @Override
     public String toString() {
 
       String result = m_ParamChar + " " + m_Lower + " ";
@@ -275,7 +276,7 @@ public class CVParameterSelection
       CVParameter cvParam = (CVParameter)m_CVParams.elementAt(i);
       double paramValue = cvParam.m_ParamValue;
       if (cvParam.m_RoundParam) {
-	paramValue = (double)((int) (paramValue + 0.5));
+	paramValue = ((int) (paramValue + 0.5));
       }
       if (cvParam.m_AddAtEnd) {
 	options[--end] = "" + 
@@ -404,6 +405,7 @@ public class CVParameterSelection
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(2);
@@ -479,6 +481,7 @@ public class CVParameterSelection
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String foldsString = Utils.getOption('X', options);
@@ -505,15 +508,16 @@ public class CVParameterSelection
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String[] superOptions;
 
     if (m_InitOptions != null) {
       try {
-	m_Classifier.setOptions((String[])m_InitOptions.clone());
+	m_Classifier.setOptions(m_InitOptions.clone());
 	superOptions = super.getOptions();
-	m_Classifier.setOptions((String[])m_BestClassifierOptions.clone());
+	m_Classifier.setOptions(m_BestClassifierOptions.clone());
       } catch (Exception e) {
 	throw new RuntimeException("CVParameterSelection: could not set options " +
 				   "in getOptions().");
@@ -540,6 +544,7 @@ public class CVParameterSelection
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -554,6 +559,7 @@ public class CVParameterSelection
    * @param instances set of instances serving as training data 
    * @throws Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     // can classifier handle the data?
@@ -594,7 +600,7 @@ public class CVParameterSelection
     }
     findParamsByCrossValidation(0, trainData, random);
 
-    String [] options = (String [])m_BestClassifierOptions.clone();
+    String [] options = m_BestClassifierOptions.clone();
     ((OptionHandler)m_Classifier).setOptions(options);
     m_Classifier.buildClassifier(trainData);
   }
@@ -607,6 +613,7 @@ public class CVParameterSelection
    * @return the predicted class value
    * @throws Exception if an error occurred during the prediction
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
     
     return m_Classifier.distributionForInstance(instance);
@@ -764,6 +771,7 @@ public class CVParameterSelection
    *
    * @return description of the cross-validated classifier as a string
    */
+  @Override
   public String toString() {
 
     if (m_InitOptions == null)

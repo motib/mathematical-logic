@@ -163,6 +163,7 @@ public class MakeDensityBasedClusterer
    *
    * @return      the capabilities of this clusterer
    */
+  @Override
   public Capabilities getCapabilities() {
     if (m_wrappedClusterer != null)
       return m_wrappedClusterer.getCapabilities();
@@ -176,6 +177,7 @@ public class MakeDensityBasedClusterer
    * @param data the instances to train the clusterer with
    * @throws Exception if the clusterer hasn't been set or something goes wrong
    */  
+  @Override
   public void buildClusterer(Instances data) throws Exception {
     // can clusterer handle the data?
     getCapabilities().testWithFail(data);
@@ -275,6 +277,7 @@ public class MakeDensityBasedClusterer
    * 
    * @return the cluster priors
    */
+  @Override
   public double[] clusterPriors() {
 
     double[] n = new double[m_priors.length];
@@ -291,6 +294,7 @@ public class MakeDensityBasedClusterer
    * @throws Exception if the density could not be computed
    * successfully
    */
+  @Override
   public double[] logDensityPerClusterForInstance(Instance inst) throws Exception {
 
     int i, j;
@@ -341,6 +345,7 @@ public class MakeDensityBasedClusterer
    * @return the number of clusters generated for a training dataset.
    * @throws Exception if number of clusters could not be returned successfully
    */
+  @Override
   public int numberOfClusters() throws Exception {
 
     return m_wrappedClusterer.numberOfClusters();
@@ -351,6 +356,7 @@ public class MakeDensityBasedClusterer
    *
    * @return a string containing a description of the clusterer
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     text.append("MakeDensityBasedClusterer: \n\nWrapped clusterer: " 

@@ -183,6 +183,7 @@ public class SubspaceCluster
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = enumToVector(super.listOptions());
 
@@ -283,6 +284,7 @@ public class SubspaceCluster
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String                      tmpStr;
     SubspaceClusterDefinition   cl;
@@ -331,6 +333,7 @@ public class SubspaceCluster
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -373,6 +376,7 @@ public class SubspaceCluster
    * 
    * @return the default number of attributes
    */
+  @Override
   protected int defaultNumAttributes() {
     return 1;
   }
@@ -381,6 +385,7 @@ public class SubspaceCluster
    * Sets the number of attributes the dataset should have.
    * @param numAttributes the new number of attributes
    */
+  @Override
   public void setNumAttributes(int numAttributes) {
     super.setNumAttributes(numAttributes);
     m_numValues = new int[getNumAttributes()];
@@ -392,6 +397,7 @@ public class SubspaceCluster
    * @return tip text for this property suitable for
    *         displaying in the explorer/experimenter gui
    */
+  @Override
   public String numAttributesTipText() {
     return "The number of attributes the generated data will contain (Note: they must be covered by the cluster definitions!)";
   }
@@ -530,6 +536,7 @@ public class SubspaceCluster
    *
    * @return true if methode generateExample can be used.
    */
+  @Override
   public boolean getSingleModeFlag() { 
     return false; 
   }
@@ -541,6 +548,7 @@ public class SubspaceCluster
    * @throws Exception data format could not be defined 
    */
 
+  @Override
   public Instances defineDataFormat() throws Exception {
 
     // initialize
@@ -641,6 +649,7 @@ public class SubspaceCluster
    * examples one by one is not possible, because voting is chosen
    */
 
+  @Override
   public Instance generateExample() throws Exception {
     throw new Exception("Examples cannot be generated one by one.");
   }
@@ -651,6 +660,7 @@ public class SubspaceCluster
    * @throws Exception if format not defined 
    */
 
+  @Override
   public Instances generateExamples() throws Exception {
     Instances format = getDatasetFormat();
     Instance example = null;
@@ -788,7 +798,7 @@ public class SubspaceCluster
       for (int i = 0; i < m_NumAttributes; i++) {
         if (attributes[i]) {
           num++;
-          double value = minValue[num] + (diff[num] * (double)((double)j / (double)(numInstances - 1)));
+          double value = minValue[num] + (diff[num] * ((double)j / (double)(numInstances - 1)));
           example.setValue(i, value);
         } 
         else {
@@ -840,7 +850,7 @@ public class SubspaceCluster
     // initialize with smallest values combination
     for (int i = 0; i < m_NumAttributes; i++) {
       if (attributes[i]) {
-        example.setValue(i, (double)minInt[i]);
+        example.setValue(i, minInt[i]);
         intValue[i] = minInt[i];
       } 
       else {
@@ -879,7 +889,7 @@ public class SubspaceCluster
         }
       } while (!done);
 
-      example.setValue(attr, (double)intValue[attr]);
+      example.setValue(attr, intValue[attr]);
     } while (added < numInstances);
   }
 
@@ -934,6 +944,7 @@ public class SubspaceCluster
    * @return string with additional information about generated dataset
    * @throws Exception no input structure has been defined
    */
+  @Override
   public String generateFinished() throws Exception {
     return "";
   }
@@ -944,6 +955,7 @@ public class SubspaceCluster
    *
    * @return string with additional information 
    */
+  @Override
   public String generateStart() {
     StringBuffer docu = new StringBuffer();
 

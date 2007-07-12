@@ -203,6 +203,7 @@ public class MINND
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -252,6 +253,7 @@ public class MINND
    * @param exs the training exemplars
    * @throws Exception if the model cannot be built properly
    */    
+  @Override
   public void buildClassifier(Instances exs)throws Exception{
     // can classifier handle the data?
     getCapabilities().testWithFail(exs);
@@ -667,6 +669,7 @@ search:
    * @throws Exception if the exemplar could not be classified
    * successfully
    */
+  @Override
   public double classifyInstance(Instance ex)throws Exception{
 
     ex = scale(ex);
@@ -715,7 +718,7 @@ search:
 
   if (getDebug())
     System.out.println("???There are still some unambiguous instances in this exemplar! Predicted as: "+Utils.maxIndex(predict));
-  return (double)Utils.maxIndex(predict);	
+  return Utils.maxIndex(predict);	
   } 
 
   /**
@@ -830,6 +833,7 @@ search:
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
 
@@ -874,6 +878,7 @@ search:
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception{
 
     setDebug(Utils.getFlag('D', options));
@@ -902,6 +907,7 @@ search:
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     

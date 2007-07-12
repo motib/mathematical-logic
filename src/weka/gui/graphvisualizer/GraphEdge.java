@@ -51,10 +51,12 @@ public class GraphEdge extends Object {
     srcLbl = sLbl; destLbl = dLbl;
   }
   
+  @Override
   public String toString() {
     return ("("+src+","+dest+","+type+")");
   }
   
+  @Override
   public boolean equals(Object e) {
     if( e instanceof GraphEdge &&
     ((GraphEdge)e).src==this.src &&

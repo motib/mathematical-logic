@@ -24,30 +24,20 @@
 package weka.gui.visualize;
 
 import weka.core.Instances;
-import weka.core.Instance;
 import weka.core.Attribute;
 import weka.core.FastVector;
-import weka.core.Utils;
-
-import java.util.Random;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 /**
@@ -177,8 +167,9 @@ public class AttributePanel extends JScrollPane {
       }
 	
       this.addMouseListener(new MouseAdapter() {
+	  @Override
 	  public void mouseClicked(MouseEvent e) {
-	    if ((e.getModifiers() & e.BUTTON1_MASK) == e.BUTTON1_MASK) {
+	    if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK) {
 	      setX(m_attribIndex);
 	      if (m_Listeners.size() > 0) {
 		for (int i=0;i<m_Listeners.size();i++) {
@@ -222,6 +213,7 @@ public class AttributePanel extends JScrollPane {
      * their position if need be.
      * @param gx The graphics context.
      */
+    @Override
     public void paintComponent(Graphics gx) {
       super.paintComponent(gx);
       int xp, yp, h;
@@ -459,6 +451,7 @@ public class AttributePanel extends JScrollPane {
 
     if (m_span == null) {
       m_span = new JPanel() {
+	  @Override
 	  public void paintComponent(Graphics gx) {
 	    super.paintComponent(gx);
 	    gx.setColor(Color.red);
@@ -584,6 +577,7 @@ public class AttributePanel extends JScrollPane {
 	});
       jf.getContentPane().add(p2, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    jf.dispose();
 	    System.exit(0);

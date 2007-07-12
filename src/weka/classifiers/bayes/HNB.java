@@ -148,6 +148,7 @@ public class HNB
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -167,6 +168,7 @@ public class HNB
    * @param instances set of instances serving as training data
    * @exception Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     // can classifier handle the data?
@@ -311,6 +313,7 @@ public class HNB
    * @return predicted class probability distribution
    * @exception Exception if there is a problem generating the prediction
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     //Definition of local variables
@@ -362,6 +365,7 @@ public class HNB
    * 
    * @return a representation of the classifier
    */
+  @Override
   public String toString() {
 
     return "HNB (Hidden Naive Bayes)";

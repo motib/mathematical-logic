@@ -24,8 +24,6 @@ package weka.gui.visualize;
 
 import weka.core.Utils;
 import java.util.Properties;
-import java.io.FileInputStream;
-
 import java.awt.Color;
 import javax.swing.JOptionPane;
 

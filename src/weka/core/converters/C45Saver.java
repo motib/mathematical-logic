@@ -90,6 +90,7 @@ public class C45Saver
    *
    * @return a short file description
    */
+  @Override
   public String getFileDescription() {
     return "C4.5 file format";
   }
@@ -97,6 +98,7 @@ public class C45Saver
   /**
    * Resets the Saver 
    */
+  @Override
   public void resetOptions() {
 
     super.resetOptions();
@@ -109,6 +111,7 @@ public class C45Saver
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -132,6 +135,7 @@ public class C45Saver
    * @param inst the instance to save
    * @throws IOException throws IOEXception if an instance cannot be saved incrementally.
    */  
+    @Override
     public void writeIncremental(Instance inst) throws IOException{
   
       int writeMode = getWriteMode();
@@ -271,6 +275,7 @@ public class C45Saver
    * Writes a Batch of instances
    * @throws IOException throws IOException if saving in batch mode is not possible
    */
+  @Override
   public void writeBatch() throws IOException {
       
       Instances instances = getInstances();
@@ -376,6 +381,7 @@ public class C45Saver
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     FastVector result = new FastVector();
 
@@ -411,6 +417,7 @@ public class C45Saver
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported 
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     
     String outputString = Utils.getOption('o', options);
@@ -477,6 +484,7 @@ public class C45Saver
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] options = new String [10];

@@ -406,7 +406,7 @@ public class CostMatrix implements Serializable {
 			    "in cost file!");
       }
       firstIndex = tokenizer.nval;
-      if (!Utils.eq((double)(int)firstIndex,firstIndex)) {
+      if (!Utils.eq((int)firstIndex,firstIndex)) {
 	throw new Exception("First number in line has to be "+
 			    "index of a class!");
       }
@@ -427,7 +427,7 @@ public class CostMatrix implements Serializable {
 			    "in cost file!");
       }
       secondIndex = tokenizer.nval;
-      if (!Utils.eq((double)(int)secondIndex,secondIndex)) {
+      if (!Utils.eq((int)secondIndex,secondIndex)) {
 	throw new Exception("Second number in line has to be "+
 			    "index of a class!");
       }
@@ -688,6 +688,7 @@ public class CostMatrix implements Serializable {
    *
    * @return    the converted string
    */
+  @Override
   public String toString() {
     // Determine the width required for the maximum element,
     // and check for fractional display requirement.

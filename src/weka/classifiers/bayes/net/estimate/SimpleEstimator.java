@@ -59,6 +59,7 @@ public class SimpleEstimator
      * @return a description of the classifier suitable for
      * displaying in the explorer/experimenter gui
      */
+    @Override
     public String globalInfo() {
       return 
           "SimpleEstimator is used for estimating the conditional probability "
@@ -73,6 +74,7 @@ public class SimpleEstimator
      * @param bayesNet the bayes net to use
      * @throws Exception if something goes wrong
      */
+    @Override
     public void estimateCPTs(BayesNet bayesNet) throws Exception {
             initCPTs(bayesNet);
 
@@ -93,6 +95,7 @@ public class SimpleEstimator
      * @throws Exception if the instance could not be incorporated in
      * the model.
      */
+    @Override
     public void updateClassifier(BayesNet bayesNet, Instance instance) throws Exception {
         for (int iAttribute = 0; iAttribute < bayesNet.m_Instances.numAttributes(); iAttribute++) {
             double iCPT = 0;
@@ -114,6 +117,7 @@ public class SimpleEstimator
      * @param bayesNet the bayes net to use
      * @throws Exception if something goes wrong
      */
+    @Override
     public void initCPTs(BayesNet bayesNet) throws Exception {
         Instances instances = bayesNet.m_Instances;
         
@@ -146,6 +150,7 @@ public class SimpleEstimator
      * @return predicted class probability distribution
      * @throws Exception if there is a problem generating the prediction
      */
+    @Override
     public double[] distributionForInstance(BayesNet bayesNet, Instance instance) throws Exception {
         Instances instances = bayesNet.m_Instances;
         int nNumClasses = instances.numClasses();

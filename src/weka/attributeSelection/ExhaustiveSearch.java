@@ -184,6 +184,7 @@ public class ExhaustiveSearch
    * prints a description of the search
    * @return a description of the search as a string
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     
@@ -206,7 +207,8 @@ public class ExhaustiveSearch
    * @return an array (not necessarily ordered) of selected attribute indexes
    * @throws Exception if the search can't be completed
    */
-   public int[] search (ASEvaluation ASEval, Instances data)
+   @Override
+  public int[] search (ASEvaluation ASEval, Instances data)
      throws Exception {
      double best_merit;
      double tempMerit;

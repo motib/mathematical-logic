@@ -219,6 +219,7 @@ public class  IntVector implements Cloneable {
     
   /** Clones the IntVector object.
    */
+  @Override
   public Object  clone() { 
     IntVector u = new IntVector( size() );
     for( int i = 0; i < size(); i++) 
@@ -296,6 +297,7 @@ public class  IntVector implements Cloneable {
 
   /** Converts the IntVecor to a string
    */ 
+  @Override
   public String  toString() {
     return toString( 5, false );
   }

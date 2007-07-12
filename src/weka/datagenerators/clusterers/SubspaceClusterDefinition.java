@@ -135,6 +135,7 @@ public class SubspaceClusterDefinition
    * 
    * @throws Exception if setting of defaults fails
    */
+  @Override
   protected void setDefaults() throws Exception {
     setClusterType(defaultClusterType());
     setClusterSubType(defaultClusterSubType());
@@ -152,6 +153,7 @@ public class SubspaceClusterDefinition
    * @return a description of the data generator suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return "A single cluster for the SubspaceCluster datagenerator";
   }
@@ -160,6 +162,7 @@ public class SubspaceClusterDefinition
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
 
@@ -222,6 +225,7 @@ public class SubspaceClusterDefinition
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String        tmpStr;
     String        fromToStr;
@@ -299,6 +303,7 @@ public class SubspaceClusterDefinition
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
 
@@ -363,6 +368,7 @@ public class SubspaceClusterDefinition
    * 
    * @return the cluster features as string
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     text.append("attributes " + attributesToString() + "\n");

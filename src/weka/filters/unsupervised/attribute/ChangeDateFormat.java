@@ -103,6 +103,7 @@ public class ChangeDateFormat
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -128,6 +129,7 @@ public class ChangeDateFormat
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -150,6 +152,7 @@ public class ChangeDateFormat
    * @throws Exception if the input format was not set or the date format cannot
    * be parsed
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
 
     if (getInputFormat() == null) {

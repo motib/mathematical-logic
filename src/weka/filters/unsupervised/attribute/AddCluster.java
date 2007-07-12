@@ -86,6 +86,7 @@ public class AddCluster
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = m_Clusterer.getCapabilities();
     
@@ -100,6 +101,7 @@ public class AddCluster
    * @param instanceInfo	the data to test
    * @throws Exception		if the test fails
    */
+  @Override
   protected void testInputFormat(Instances instanceInfo) throws Exception {
     getCapabilities().testWithFail(removeIgnored(instanceInfo));
   }
@@ -113,6 +115,7 @@ public class AddCluster
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if the inputFormat can't be set successfully 
    */ 
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
     
     super.setInputFormat(instanceInfo);
@@ -159,6 +162,7 @@ public class AddCluster
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined 
    */  
+  @Override
   public boolean batchFinished() throws Exception {
 
     if (getInputFormat() == null) {
@@ -208,6 +212,7 @@ public class AddCluster
    * collected with output().
    * @throws IllegalStateException if no input format has been defined.
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
 
     if (getInputFormat() == null) {

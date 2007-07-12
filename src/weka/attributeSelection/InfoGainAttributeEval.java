@@ -227,6 +227,7 @@ public class InfoGainAttributeEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -251,6 +252,7 @@ public class InfoGainAttributeEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data)
     throws Exception {
     
@@ -415,6 +417,7 @@ public class InfoGainAttributeEval
    * @return the info gain
    * @throws Exception if the attribute could not be evaluated
    */
+  @Override
   public double evaluateAttribute (int attribute)
     throws Exception {
 
@@ -425,6 +428,7 @@ public class InfoGainAttributeEval
    * Describe the attribute evaluator
    * @return a description of the attribute evaluator as a string
    */
+  @Override
   public String toString () {
     StringBuffer text = new StringBuffer();
 

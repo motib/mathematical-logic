@@ -22,13 +22,10 @@
 
 package weka.gui.beans;
 
-import weka.core.Utils;
-import weka.core.OptionHandler;
 import java.beans.*;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import weka.gui.GenericObjectEditor;
-import weka.gui.PropertyPanel;
 import weka.filters.Filter;
 
 /**
@@ -92,6 +89,7 @@ public class FilterCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.addPropertyChangeListener(pcl);
   }
@@ -101,6 +99,7 @@ public class FilterCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.removePropertyChangeListener(pcl);
   }

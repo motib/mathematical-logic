@@ -22,23 +22,9 @@
 
 package weka.gui.beans;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
-import java.io.Serializable;
-import java.io.Reader;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import java.util.Vector;
 import java.util.Enumeration;
 import java.io.IOException;
@@ -106,6 +92,7 @@ public class Loader extends AbstractDataSource
       m_DP = dp;
     }
 
+    @Override
     public void run() {
       try {
 	m_visual.setAnimated();
@@ -224,6 +211,7 @@ public class Loader extends AbstractDataSource
    *
    * @param bc a <code>BeanContext</code> value
    */
+  @Override
   public void setBeanContext(BeanContext bc) {
     super.setBeanContext(bc);
     if (m_design) {
@@ -460,6 +448,7 @@ public class Loader extends AbstractDataSource
    *
    * @param dsl a <code>DataSourceListener</code> value
    */
+  @Override
   public synchronized void addDataSourceListener(DataSourceListener dsl) {
     super.addDataSourceListener(dsl);
     m_dataSetEventTargets ++;
@@ -479,6 +468,7 @@ public class Loader extends AbstractDataSource
    *
    * @param dsl a <code>DataSourceListener</code> value
    */
+  @Override
   public synchronized void removeDataSourceListener(DataSourceListener dsl) {
     super.removeDataSourceListener(dsl);
     m_dataSetEventTargets --;
@@ -489,6 +479,7 @@ public class Loader extends AbstractDataSource
    *
    * @param dsl a <code>InstanceListener</code> value
    */
+  @Override
   public synchronized void addInstanceListener(InstanceListener dsl) {
     super.addInstanceListener(dsl);
     m_instanceEventTargets ++;
@@ -508,6 +499,7 @@ public class Loader extends AbstractDataSource
    *
    * @param dsl a <code>InstanceListener</code> value
    */
+  @Override
   public synchronized void removeInstanceListener(InstanceListener dsl) {
     super.removeInstanceListener(dsl);
     m_instanceEventTargets --;
@@ -522,7 +514,8 @@ public class Loader extends AbstractDataSource
 
       jf.getContentPane().add(tv, java.awt.BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
-        public void windowClosing(java.awt.event.WindowEvent e) {
+        @Override
+	public void windowClosing(java.awt.event.WindowEvent e) {
           jf.dispose();
           System.exit(0);
         }

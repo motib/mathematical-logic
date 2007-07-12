@@ -32,12 +32,9 @@ import java.beans.PropertyChangeListener;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
-import javax.swing.JOptionPane;
 
 
 /** 
@@ -128,6 +125,7 @@ public class Experimenter extends JPanel {
       jf.getContentPane().setLayout(new BorderLayout());
       jf.getContentPane().add(m_experimenter, BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);
@@ -138,10 +136,11 @@ public class Experimenter extends JPanel {
       jf.setVisible(true);
 
       Thread memMonitor = new Thread() {
-        public void run() {
+        @Override
+	public void run() {
           while(true) {
             try {
-              this.sleep(4000);
+              Thread.sleep(4000);
               
               System.gc();
 

@@ -63,6 +63,7 @@ public class TwoWayNominalSplit extends Splitter {
    *
    * @return the number of branches (always = 2)
    */
+  @Override
   public int getNumOfBranches() { 
   
     return 2;
@@ -75,6 +76,7 @@ public class TwoWayNominalSplit extends Splitter {
    * @param inst the instance
    * @return the branch index
    */
+  @Override
   public int branchInstanceGoesDown(Instance inst) {
     
     if (inst.isMissing(attIndex)) return -1;
@@ -91,6 +93,7 @@ public class TwoWayNominalSplit extends Splitter {
    * @param instances the instances from which to find the subset 
    * @return the set of instances that apply
    */
+  @Override
   public ReferenceInstances instancesDownBranch(int branch, Instances instances) {
     
     ReferenceInstances filteredInstances = new ReferenceInstances(instances, 1);
@@ -122,6 +125,7 @@ public class TwoWayNominalSplit extends Splitter {
    * @param dataset the dataset that the split is based on
    * @return a string describing the attributes
    */  
+  @Override
   public String attributeString(Instances dataset) {
     
     return dataset.attribute(attIndex).name();
@@ -135,6 +139,7 @@ public class TwoWayNominalSplit extends Splitter {
    * @param dataset the dataset that the split is based on
    * @return a string describing the comparison
    */
+  @Override
   public String comparisonString(int branchNum, Instances dataset) {
 
     Attribute att = dataset.attribute(attIndex);
@@ -151,6 +156,7 @@ public class TwoWayNominalSplit extends Splitter {
    * @param compare the splitter to compare with
    * @return whether or not they match
    */
+  @Override
   public boolean equalTo(Splitter compare) {
 
     if (compare instanceof TwoWayNominalSplit) { // test object type
@@ -166,6 +172,7 @@ public class TwoWayNominalSplit extends Splitter {
    * @param branchNum the branch to set the child for
    * @param childPredictor the new child
    */
+  @Override
   public void setChildForBranch(int branchNum, PredictionNode childPredictor) {
 
     children[branchNum] = childPredictor;
@@ -177,6 +184,7 @@ public class TwoWayNominalSplit extends Splitter {
    * @param branchNum the branch to get the child for
    * @return the child
    */
+  @Override
   public PredictionNode getChildForBranch(int branchNum) {
 
     return children[branchNum];
@@ -187,6 +195,7 @@ public class TwoWayNominalSplit extends Splitter {
    *
    * @return a clone
    */
+  @Override
   public Object clone() {
 
     TwoWayNominalSplit clone = new TwoWayNominalSplit(attIndex, trueSplitValue);

@@ -126,6 +126,7 @@ public class StackingC
    * @return a description suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
 
     return  "Implements StackingC (more efficient version of stacking).\n\n"
@@ -141,6 +142,7 @@ public class StackingC
    * 
    * @return the technical information about this class
    */
+  @Override
   public TechnicalInformation getTechnicalInformation() {
     TechnicalInformation 	result;
     
@@ -161,6 +163,7 @@ public class StackingC
    * 
    * @return string describing the option
    */
+  @Override
   protected String metaOption() {
 
     return "\tFull name of meta classifier, followed by options.\n"
@@ -173,6 +176,7 @@ public class StackingC
    * @param options the meta options to parse
    * @throws Exception if parsing fails
    */
+  @Override
   protected void processMetaOptions(String[] options) throws Exception {
 
     String classifierString = Utils.getOption('M', options);
@@ -195,6 +199,7 @@ public class StackingC
    * @param random the random number generator to use for cross-validation
    * @throws Exception if generation fails
    */
+  @Override
   protected void generateMetaLevel(Instances newData, Random random) 
     throws Exception {
 
@@ -252,6 +257,7 @@ public class StackingC
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     int [] arrIdc = new int[m_Classifiers.length+1];
@@ -295,6 +301,7 @@ public class StackingC
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_MetaFormat == null) {

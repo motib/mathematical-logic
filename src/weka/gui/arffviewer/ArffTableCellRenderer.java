@@ -108,6 +108,7 @@ public class ArffTableCellRenderer
    * @param column		the column in the table
    * @return			the rendering component
    */
+  @Override
   public Component getTableCellRendererComponent(
       JTable table, Object value, boolean isSelected, 
       boolean hasFocus, int row, int column ) {

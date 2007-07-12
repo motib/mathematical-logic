@@ -84,6 +84,7 @@ public class C45Split extends ClassifierSplitModel{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances trainInstances) 
        throws Exception {
 
@@ -120,6 +121,7 @@ public class C45Split extends ClassifierSplitModel{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public final double classProb(int classIndex,Instance instance,
 				int theSubset) throws Exception {
 
@@ -146,6 +148,7 @@ public class C45Split extends ClassifierSplitModel{
   /**
    * Returns coding cost for split (used in rule learner).
    */
+  @Override
   public final double codingCost() {
 
     return Utils.log2(m_index);
@@ -227,7 +230,7 @@ public class C45Split extends ClassifierSplitModel{
     // Compute minimum number of Instances required in each
     // subset.
     minSplit =  0.1*(m_distribution.total())/
-      ((double)trainInstances.numClasses());
+      (trainInstances.numClasses());
     if (Utils.smOrEq(minSplit,m_minNoObj)) 
       minSplit = m_minNoObj;
     else
@@ -235,7 +238,7 @@ public class C45Split extends ClassifierSplitModel{
 	minSplit = 25;
 	
     // Enough Instances with known values?
-    if (Utils.sm((double)firstMiss,2*minSplit))
+    if (Utils.sm(firstMiss,2*minSplit))
       return;
     
     // Compute values of criteria for all possible split
@@ -314,6 +317,7 @@ public class C45Split extends ClassifierSplitModel{
    *
    * @param data training set.
    */
+  @Override
   public final String leftSide(Instances data) {
 
     return data.attribute(m_attIndex).name();
@@ -325,6 +329,7 @@ public class C45Split extends ClassifierSplitModel{
    * @param index of subset 
    * @param data training set.
    */
+  @Override
   public final String rightSide(int index,Instances data) {
 
     StringBuffer text;
@@ -351,6 +356,7 @@ public class C45Split extends ClassifierSplitModel{
    * @param data the data containing instance structure info
    * @return a value of type 'String'
    */
+  @Override
   public final String sourceExpression(int index, Instances data) {
 
     StringBuffer expr = null;
@@ -425,6 +431,7 @@ public class C45Split extends ClassifierSplitModel{
   /**
    * Sets distribution associated with model.
    */
+  @Override
   public void resetDistribution(Instances data) throws Exception {
     
     Instances insts = new Instances(data, data.numInstances());
@@ -442,6 +449,7 @@ public class C45Split extends ClassifierSplitModel{
    * Returns weights if instance is assigned to more than one subset.
    * Returns null if instance is only assigned to one subset.
    */
+  @Override
   public final double [] weights(Instance instance) {
     
     double [] weights;
@@ -463,6 +471,7 @@ public class C45Split extends ClassifierSplitModel{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public final int whichSubset(Instance instance) 
        throws Exception {
     

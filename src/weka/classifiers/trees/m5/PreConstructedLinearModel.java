@@ -83,6 +83,7 @@ public class PreConstructedLinearModel
    * @param instances an <code>Instances</code> value
    * @exception Exception if an error occurs
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     m_instancesHeader = new Instances(instances, 0);
   }
@@ -94,6 +95,7 @@ public class PreConstructedLinearModel
    * @return the prediction
    * @exception Exception if an error occurs
    */
+  @Override
   public double classifyInstance(Instance inst) throws Exception {
     double result = 0;
 
@@ -141,6 +143,7 @@ public class PreConstructedLinearModel
    *
    * @return String containing a description of this linear model
    */
+  @Override
   public String toString() {
     StringBuffer b = new StringBuffer();
     b.append("\n"+m_instancesHeader.classAttribute().name() + " = ");

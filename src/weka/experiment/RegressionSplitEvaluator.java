@@ -669,6 +669,7 @@ public class RegressionSplitEvaluator
    *
    * @return a text description of the split evaluator.
    */
+  @Override
   public String toString() {
 
     String result = "RegressionSplitEvaluator: ";

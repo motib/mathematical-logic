@@ -79,6 +79,7 @@ public class CSVSaver
    *
    * @return a short file description
    */
+  @Override
   public String getFileDescription() {
     return "CSV file: comma separated files";
   }
@@ -86,6 +87,7 @@ public class CSVSaver
   /**
    * Resets the Saver 
    */
+  @Override
   public void resetOptions() {
 
     super.resetOptions();
@@ -98,6 +100,7 @@ public class CSVSaver
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -124,6 +127,7 @@ public class CSVSaver
    * @param inst the instance to save
    * @throws IOException throws IOEXception if an instance cannot be saved incrementally.
    */  
+  @Override
   public void writeIncremental(Instance inst) throws IOException{
   
       int writeMode = getWriteMode();
@@ -211,6 +215,7 @@ public class CSVSaver
   /** Writes a Batch of instances
    * @throws IOException throws IOException if saving in batch mode is not possible
    */
+  @Override
   public void writeBatch() throws IOException {
   
       if(getInstances() == null)

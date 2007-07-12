@@ -184,6 +184,7 @@ public class AdaBoostM1
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.DecisionStump";
@@ -236,6 +237,7 @@ public class AdaBoostM1
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector();
@@ -302,6 +304,7 @@ public class AdaBoostM1
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String thresholdString = Utils.getOption('P', options);
@@ -321,6 +324,7 @@ public class AdaBoostM1
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
     Vector        result;
     String[]      options;
@@ -404,6 +408,7 @@ public class AdaBoostM1
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -426,6 +431,7 @@ public class AdaBoostM1
    * @throws Exception if the classifier could not be built successfully
    */
 
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     super.buildClassifier(data);
@@ -638,6 +644,7 @@ public class AdaBoostM1
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public double [] distributionForInstance(Instance instance) 
     throws Exception {
       
@@ -706,6 +713,7 @@ public class AdaBoostM1
    *
    * @return description of the boosted classifier as a string
    */
+  @Override
   public String toString() {
     
     StringBuffer text = new StringBuffer();

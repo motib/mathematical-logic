@@ -24,8 +24,6 @@ package weka.classifiers.trees.j48;
 
 import java.util.*;
 import weka.core.*;
-import weka.classifiers.Classifier;
-import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayesUpdateable;
 import weka.filters.supervised.attribute.Discretize;
 import weka.filters.Filter;
@@ -84,6 +82,7 @@ public class NBTreeSplit extends ClassifierSplitModel{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances trainInstances) 
        throws Exception {
 
@@ -301,6 +300,7 @@ public class NBTreeSplit extends ClassifierSplitModel{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public final int whichSubset(Instance instance) 
     throws Exception {
     
@@ -311,6 +311,7 @@ public class NBTreeSplit extends ClassifierSplitModel{
    * Returns weights if instance is assigned to more than one subset.
    * Returns null if instance is only assigned to one subset.
    */
+  @Override
   public final double [] weights(Instance instance) {
     return m_c45S.weights(instance);
     //     return m_weights;
@@ -324,6 +325,7 @@ public class NBTreeSplit extends ClassifierSplitModel{
    * @param data the data containing instance structure info
    * @return a value of type 'String'
    */
+  @Override
   public final String sourceExpression(int index, Instances data) {
     return m_c45S.sourceExpression(index, data);
   }
@@ -334,6 +336,7 @@ public class NBTreeSplit extends ClassifierSplitModel{
    * @param index of subset 
    * @param data training set.
    */
+  @Override
   public final String rightSide(int index,Instances data) {
     return m_c45S.rightSide(index, data);
   }
@@ -343,6 +346,7 @@ public class NBTreeSplit extends ClassifierSplitModel{
    *
    * @param data training set.
    */
+  @Override
   public final String leftSide(Instances data) {
 
     return m_c45S.leftSide(data);
@@ -357,6 +361,7 @@ public class NBTreeSplit extends ClassifierSplitModel{
    * @return a probability
    * @exception Exception if an error occurs
    */
+  @Override
   public double classProb(int classIndex, Instance instance, int theSubset) 
     throws Exception {
 

@@ -119,6 +119,7 @@ public class Expression
    * @return a description of the data generator suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "A data generator for generating y according to a given expression "
@@ -134,6 +135,7 @@ public class Expression
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = enumToVector(super.listOptions());
 
@@ -191,6 +193,7 @@ public class Expression
    * @param options the list of options as an array of strings
    * @exception Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String        tmpStr;
    
@@ -208,6 +211,7 @@ public class Expression
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -230,6 +234,7 @@ public class Expression
    * @return tip text for this property suitable for
    *         displaying in the explorer/experimenter gui
    */
+  @Override
   public String amplitudeTipText() {
     return "The amplitude to multiply the y value with.";
   }
@@ -282,6 +287,7 @@ public class Expression
    * @return single mode flag
    * @throws Exception if mode is not set yet
    */
+  @Override
   public boolean getSingleModeFlag() throws Exception {
     return true;
   }
@@ -296,6 +302,7 @@ public class Expression
    * @throws Exception if the generating of the format failed
    * @see  #getSeed()
    */
+  @Override
   public Instances defineDataFormat() throws Exception {
     FastVector      atts;
 
@@ -321,6 +328,7 @@ public class Expression
    * @throws Exception if the generator only works with generateExamples
    * which means in non single mode
    */
+  @Override
   public Instance generateExample() throws Exception {
     Instance    result;
     Random      rand;
@@ -376,6 +384,7 @@ public class Expression
    * which means in single mode
    * @see   #getSeed()
    */
+  @Override
   public Instances generateExamples() throws Exception {
     Instances       result;
     int             i;
@@ -396,6 +405,7 @@ public class Expression
    * 
    * @return string contains info about the generated rules
    */
+  @Override
   public String generateStart () {
     return "";
   }
@@ -408,6 +418,7 @@ public class Expression
    * @return string contains info about the generated rules
    * @throws Exception if the generating of the documentaion fails
    */
+  @Override
   public String generateFinished() throws Exception {
     return "";
   }

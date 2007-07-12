@@ -22,9 +22,7 @@
 
 package weka.classifiers.functions.supportVector;
 
-import java.util.*;
 import java.io.*;
-import weka.core.*;
 
 /**
  * Stores a set of integer of a given size.

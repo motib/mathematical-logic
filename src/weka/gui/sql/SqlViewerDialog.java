@@ -37,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 /**
  * A little dialog containing the SqlViewer.
@@ -159,6 +160,7 @@ public class SqlViewerDialog
   /**
    * displays the dialog if TRUE
    */
+  @Override
   public void setVisible(boolean b) {
     if (b)
       m_ReturnValue = JOptionPane.CANCEL_OPTION;
@@ -226,7 +228,7 @@ public class SqlViewerDialog
     SqlViewerDialog       dialog;
 
     dialog = new SqlViewerDialog(null);
-    dialog.setDefaultCloseOperation(SqlViewerDialog.DISPOSE_ON_CLOSE);
+    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     dialog.setVisible(true);
     System.out.println("ReturnValue = " + dialog.getReturnValue());
     if (dialog.getReturnValue() == JOptionPane.OK_OPTION) {

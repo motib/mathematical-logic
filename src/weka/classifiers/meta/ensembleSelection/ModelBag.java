@@ -134,7 +134,7 @@ public class ModelBag {
       throw new IllegalArgumentException(
       "ModelBag needs at least 1 model.");
     }
-    m_bagSize = (int) ((double) models.length * bag_percent);
+    m_bagSize = (int) (models.length * bag_percent);
     m_models = models;
     m_modelIndex = new int[m_models.length];
     m_timesChosen = new int[m_models.length];

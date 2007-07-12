@@ -30,8 +30,6 @@ import java.io.*;
 import weka.core.Instances;
 import weka.gui.visualize.PrintablePanel;
 import weka.gui.visualize.VisualizePanel;
-import weka.gui.visualize.VisualizePanelListener;
-import weka.gui.visualize.VisualizePanelEvent;
 
 /**
  * Class for displaying a Node structure in Swing. <p>

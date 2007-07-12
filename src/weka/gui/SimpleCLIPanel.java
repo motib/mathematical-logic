@@ -51,6 +51,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 /**
  * Creates a very simple command line for invoking the main method of
@@ -127,6 +128,7 @@ public class SimpleCLIPanel
      * Sit here listening for lines of input and appending them straight
      * to the text component.
      */
+    @Override
     public void run() {
 
       while (true) {
@@ -182,6 +184,7 @@ public class SimpleCLIPanel
     /**
      * Starts running the main method.
      */
+    @Override
     public void run() {
       
       try {
@@ -218,6 +221,7 @@ public class SimpleCLIPanel
     m_Input.setFont(new Font("Monospaced", Font.PLAIN, 12));
     m_Input.addActionListener(this);
     m_Input.addKeyListener(new KeyAdapter() {
+      @Override
       public void keyPressed(KeyEvent e) {
 	doHistory(e);
       }
@@ -425,7 +429,7 @@ public class SimpleCLIPanel
 	String command = m_Input.getText();
 	int last = m_CommandHistory.size() - 1;
 	if ((last < 0)
-	    || !command.equals((String)m_CommandHistory.elementAt(last))) {
+	    || !command.equals(m_CommandHistory.elementAt(last))) {
 	  m_CommandHistory.addElement(command);
 	  m_HistoryPos = m_CommandHistory.size();
 	}
@@ -449,7 +453,7 @@ public class SimpleCLIPanel
     JFrame f = new JFrame();
     f.setTitle("SimpleCLI");
     f.getContentPane().add(panel);
-    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     f.pack();
     f.setSize(600, 500);
     f.setVisible(true);

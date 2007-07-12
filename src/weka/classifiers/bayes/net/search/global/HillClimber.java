@@ -138,6 +138,7 @@ public class HillClimber
      * @param instances the instances to work with
      * @throws Exception if something goes wrong
      */
+    @Override
     protected void search(BayesNet bayesNet, Instances instances) throws Exception {
     	m_BayesNet = bayesNet;
 		double fScore = calcScore(bayesNet);
@@ -371,6 +372,7 @@ public class HillClimber
 	 *
 	 * @return an enumeration of all the available options.
 	 */
+	@Override
 	public Enumeration listOptions() {
 		Vector newVector = new Vector(2);
 
@@ -419,6 +421,7 @@ public class HillClimber
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 		setUseArcReversal(Utils.getFlag('R', options));
 
@@ -439,6 +442,7 @@ public class HillClimber
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
 		String[] superOptions = super.getOptions();
 		String[] options = new String[7 + superOptions.length];
@@ -502,6 +506,7 @@ public class HillClimber
 	 * This will return a string describing the search algorithm.
 	 * @return The string.
 	 */
+	@Override
 	public String globalInfo() {
 	  return "This Bayes Network learning algorithm uses a hill climbing algorithm " +
 	  "adding, deleting and reversing arcs. The search is not restricted by an order " +

@@ -67,7 +67,7 @@ public class PlaceNode1 implements NodePlace {
        of levels there are*/
 
     //+ 1 so that no nodes are on edge of screen
-    m_noLevels = r.getHeight(r,0)+1;
+    m_noLevels = Node.getHeight(r,0)+1;
     
     m_yRatio = 1 / (double) m_noLevels;
     

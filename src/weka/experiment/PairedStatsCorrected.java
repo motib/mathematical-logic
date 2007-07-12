@@ -59,6 +59,7 @@ public class PairedStatsCorrected extends PairedStats {
   /**
    * Calculates the derived statistics (significance etc).
    */
+  @Override
   public void calculateDerived() {
 
     xStats.calculateDerived();

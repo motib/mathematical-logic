@@ -22,8 +22,6 @@
 
 package weka.classifiers.trees.m5;
 
-import java.io.*;
-import java.util.*;
 import weka.core.*;
 
 /**
@@ -84,6 +82,7 @@ public final class Impurity{
    * Converts an Impurity object to a string
    * @return the converted string
    */
+  @Override
   public final String  toString() {
     
     StringBuffer text = new StringBuffer();
@@ -143,7 +142,7 @@ public final class Impurity{
       sdl=0.0;
     }
     else {
-      vl = (nl*s2l-sl*sl)/((double)nl*((double)nl));
+      vl = (nl*s2l-sl*sl)/(nl*(nl));
       vl = Math.abs(vl);
       sdl = Math.sqrt(vl);
     }
@@ -152,7 +151,7 @@ public final class Impurity{
       sdr=0.0;
     }
     else {
-      vr = (nr*s2r-sr*sr)/((double)nr*((double)nr));
+      vr = (nr*s2r-sr*sr)/(nr*(nr));
       vr = Math.abs(vr);
       sdr = Math.sqrt(vr);
     }
@@ -169,7 +168,7 @@ public final class Impurity{
     if(nl<=0.0 || nr<=0.0)
       impurity = 0.0;
     else { 
-      impurity = y - ((double)nl/(double)n)*yl - ((double)nr/(double)n)*yr;
+      impurity = y - (nl/n)*yl - (nr/n)*yr;
     }
   }
 

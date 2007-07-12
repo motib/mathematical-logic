@@ -185,6 +185,7 @@ public class OneR
      * 
      * @return a string representation of the rule
      */
+    @Override
     public String toString() {
 
       try {
@@ -226,6 +227,7 @@ public class OneR
    * @param inst the instance to be classified
    * @return the classification of the instance
    */
+  @Override
   public double classifyInstance(Instance inst) {
 
     int v = 0;
@@ -252,6 +254,7 @@ public class OneR
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -274,6 +277,7 @@ public class OneR
    * @param instances the instances to be used for building the classifier
    * @throws Exception if the classifier can't be built successfully
    */
+  @Override
   public void buildClassifier(Instances instances) 
     throws Exception {
     
@@ -463,6 +467,7 @@ public class OneR
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     String string = "\tThe minimum number of objects in a bucket (default: 6).";
@@ -489,6 +494,7 @@ public class OneR
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     
     String bucketSizeString = Utils.getOption('B', options);
@@ -504,6 +510,7 @@ public class OneR
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] options = new String [2];
@@ -522,6 +529,7 @@ public class OneR
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_rule == null) {

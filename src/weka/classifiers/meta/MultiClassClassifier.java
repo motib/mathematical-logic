@@ -155,6 +155,7 @@ public class MultiClassClassifier
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.functions.Logistic";
@@ -208,6 +209,7 @@ public class MultiClassClassifier
      * Returns a human-readable representation of the codes. 
      * @return a string representation of the codes
      */
+    @Override
     public String toString() {
       StringBuffer sb = new StringBuffer();
       for(int i = 0; i < m_Codebits[0].length; i++) {
@@ -357,6 +359,7 @@ public class MultiClassClassifier
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -374,6 +377,7 @@ public class MultiClassClassifier
    * @param insts the training data.
    * @throws Exception if a classifier can't be built
    */
+  @Override
   public void buildClassifier(Instances insts) throws Exception {
 
     Instances newInsts;
@@ -529,6 +533,7 @@ public class MultiClassClassifier
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance inst) throws Exception {
     
     if (m_Classifiers.length == 1) {
@@ -581,6 +586,7 @@ public class MultiClassClassifier
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_Classifiers == null) {
@@ -618,6 +624,7 @@ public class MultiClassClassifier
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions()  {
 
     Vector vec = new Vector(3);
@@ -681,6 +688,7 @@ public class MultiClassClassifier
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
   
     String errorString = Utils.getOption('M', options);
@@ -706,6 +714,7 @@ public class MultiClassClassifier
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();

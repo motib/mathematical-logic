@@ -130,13 +130,13 @@ public class BIFParser implements GraphConstants {
         "variable no. "+(i+1));
       
       String nodename =
-      ((org.w3c.dom.Node)templist.item(0)).getFirstChild().getNodeValue();
-      GraphNode n = new GraphNode( nodename, nodename, GraphNode.NORMAL );
+      (templist.item(0)).getFirstChild().getNodeValue();
+      GraphNode n = new GraphNode( nodename, nodename, GraphConstants.NORMAL );
       m_nodes.addElement(n);
       //getting nodes position
       templist = ((Element)nl.item(i)).getElementsByTagName("PROPERTY");
       for(int j=0; j<templist.getLength(); j++) {
-        if( ((org.w3c.dom.Node)templist.item(j)).getFirstChild()
+        if( (templist.item(j)).getFirstChild()
         .getNodeValue().startsWith("position") ) {
           String xy = templist.item(j).getFirstChild().getNodeValue();
           //System.out.println("x: "+
@@ -315,7 +315,7 @@ public class BIFParser implements GraphConstants {
       //simply write TRUE
       for(int nodeidx=0; nodeidx<nodes.size(); nodeidx++) {
         GraphNode n = (GraphNode)nodes.elementAt(nodeidx);
-        if(n.nodeType!=GraphNode.NORMAL)
+        if(n.nodeType!=GraphConstants.NORMAL)
           continue;
         
         text.append("<VARIABLE TYPE=\"nature\">\n");
@@ -337,7 +337,7 @@ public class BIFParser implements GraphConstants {
       //the posible outcomes of the parents
       for (int nodeidx=0; nodeidx<nodes.size(); nodeidx++) {
         GraphNode n = (GraphNode) nodes.elementAt(nodeidx);
-        if(n.nodeType!=GraphNode.NORMAL)
+        if(n.nodeType!=GraphConstants.NORMAL)
           continue;
         
         text.append("<DEFINITION>\n");

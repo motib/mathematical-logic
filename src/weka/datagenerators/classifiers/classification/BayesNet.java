@@ -109,6 +109,7 @@ public class BayesNet
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = enumToVector(super.listOptions());
 
@@ -161,6 +162,7 @@ public class BayesNet
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String        tmpStr;
     Vector        list;
@@ -200,6 +202,7 @@ public class BayesNet
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -477,6 +480,7 @@ public class BayesNet
    * Sets the number of examples, given by option.
    * @param numExamples the new number of examples
    */
+  @Override
   public void setNumExamples(int numExamples) { 
     super.setNumExamples(numExamples);
     setGeneratorOption("M", "" + numExamples);
@@ -486,6 +490,7 @@ public class BayesNet
    * Gets the number of examples, given by option.
    * @return the number of examples, given by option 
    */
+  @Override
   public int getNumExamples() { 
     int       result;
     
@@ -509,6 +514,7 @@ public class BayesNet
    * @return single mode flag
    * @throws Exception if mode is not set yet
    */
+  @Override
   public boolean getSingleModeFlag() throws Exception {
     return false;
   }
@@ -523,6 +529,7 @@ public class BayesNet
    * @throws Exception if the generating of the format failed
    * @see  #getSeed()
    */
+  @Override
   public Instances defineDataFormat() throws Exception {
     BayesNetGenerator   bng;
 
@@ -545,6 +552,7 @@ public class BayesNet
    * @throws Exception if the generator only works with generateExamples
    * which means in non single mode
    */
+  @Override
   public Instance generateExample() throws Exception {
     throw new Exception("Cannot generate examples one-by-one!");
   }
@@ -559,6 +567,7 @@ public class BayesNet
    * which means in single mode
    * @see   #getSeed()
    */
+  @Override
   public Instances generateExamples() throws Exception {
     getGenerator().setOptions(getGenerator().getOptions());
     getGenerator().generateRandomNetwork();
@@ -576,6 +585,7 @@ public class BayesNet
    * 
    * @return string contains info about the generated rules
    */
+  @Override
   public String generateStart () {
     return "";
   }
@@ -588,6 +598,7 @@ public class BayesNet
    * @return string contains info about the generated rules
    * @throws Exception if the generating of the documentaion fails
    */
+  @Override
   public String generateFinished() throws Exception {
     return "";
   }

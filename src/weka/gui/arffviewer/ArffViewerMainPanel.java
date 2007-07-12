@@ -36,6 +36,7 @@ import java.awt.Cursor;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -45,6 +46,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JList;
@@ -153,24 +155,24 @@ public class ArffViewerMainPanel
     menuBar        = new JMenuBar();
     menuFile       = new JMenu("File");
     menuFileOpen   = new JMenuItem("Open...", ComponentHelper.getImageIcon("open.gif"));
-    menuFileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
+    menuFileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
     menuFileOpen.addActionListener(this);
     menuFileSave   = new JMenuItem("Save", ComponentHelper.getImageIcon("save.gif"));
-    menuFileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
+    menuFileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
     menuFileSave.addActionListener(this);
     menuFileSaveAs = new JMenuItem("Save as...", ComponentHelper.getImageIcon("empty.gif"));
-    menuFileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK + KeyEvent.SHIFT_MASK));
+    menuFileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK));
     menuFileSaveAs.addActionListener(this);
     menuFileClose  = new JMenuItem("Close", ComponentHelper.getImageIcon("empty.gif"));
-    menuFileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_MASK));
+    menuFileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK));
     menuFileClose.addActionListener(this);
     menuFileCloseAll = new JMenuItem("Close all", ComponentHelper.getImageIcon("empty.gif"));
     menuFileCloseAll.addActionListener(this);
     menuFileProperties  = new JMenuItem("Properties", ComponentHelper.getImageIcon("empty.gif"));
-    menuFileProperties.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, KeyEvent.CTRL_MASK));
+    menuFileProperties.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.CTRL_MASK));
     menuFileProperties.addActionListener(this);
     menuFileExit   = new JMenuItem("Exit", ComponentHelper.getImageIcon("forward.gif"));
-    menuFileExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.ALT_MASK));
+    menuFileExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
     menuFileExit.addActionListener(this);
     menuFile.add(menuFileOpen);
     menuFile.add(menuFileSave);
@@ -185,16 +187,16 @@ public class ArffViewerMainPanel
     
     menuEdit       = new JMenu("Edit");
     menuEditUndo   = new JMenuItem("Undo", ComponentHelper.getImageIcon("undo.gif"));
-    menuEditUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_MASK));
+    menuEditUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
     menuEditUndo.addActionListener(this);
     menuEditCopy   = new JMenuItem("Copy", ComponentHelper.getImageIcon("copy.gif"));
-    menuEditCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, KeyEvent.CTRL_MASK));
+    menuEditCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, InputEvent.CTRL_MASK));
     menuEditCopy.addActionListener(this);
     menuEditSearch   = new JMenuItem("Search...", ComponentHelper.getImageIcon("find.gif"));
-    menuEditSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK));
+    menuEditSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
     menuEditSearch.addActionListener(this);
     menuEditClearSearch   = new JMenuItem("Clear search", ComponentHelper.getImageIcon("empty.gif"));
-    menuEditClearSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK + KeyEvent.SHIFT_MASK));
+    menuEditClearSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK));
     menuEditClearSearch.addActionListener(this);
     menuEditRenameAttribute = new JMenuItem("Rename attribute", ComponentHelper.getImageIcon("empty.gif"));
     menuEditRenameAttribute.addActionListener(this);
@@ -229,10 +231,10 @@ public class ArffViewerMainPanel
     
     menuView       = new JMenu("View");
     menuViewAttributes   = new JMenuItem("Attributes...", ComponentHelper.getImageIcon("objects.gif"));
-    menuViewAttributes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_MASK + KeyEvent.SHIFT_MASK));
+    menuViewAttributes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK));
     menuViewAttributes.addActionListener(this);
     menuViewValues   = new JMenuItem("Values...", ComponentHelper.getImageIcon("properties.gif"));
-    menuViewValues.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_MASK + KeyEvent.SHIFT_MASK));
+    menuViewValues.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK));
     menuViewValues.addActionListener(this);
     menuViewOptimalColWidths = new JMenuItem("Optimal column width (all)", ComponentHelper.getImageIcon("resize.gif"));
     menuViewOptimalColWidths.addActionListener(this);
@@ -606,7 +608,7 @@ public class ArffViewerMainPanel
     String            filename;
     
     retVal = fileChooser.showOpenDialog(this);
-    if (retVal != ConverterFileChooser.APPROVE_OPTION)
+    if (retVal != JFileChooser.APPROVE_OPTION)
       return;
     
     setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -682,7 +684,7 @@ public class ArffViewerMainPanel
     }
 
     retVal = fileChooser.showSaveDialog(this);
-    if (retVal != ConverterFileChooser.APPROVE_OPTION)
+    if (retVal != JFileChooser.APPROVE_OPTION)
       return;
     
     panel.setChanged(false);
@@ -771,7 +773,7 @@ public class ArffViewerMainPanel
     else if (getParentFrame() != null)
       ((Window) getParentFrame()).dispatchEvent(
 	  new WindowEvent(
-	      (Window) getParentFrame(), WindowEvent.WINDOW_CLOSING));
+	      getParentFrame(), WindowEvent.WINDOW_CLOSING));
   }
   
   /**
@@ -927,7 +929,7 @@ public class ArffViewerMainPanel
     if (attribute == null)
       return;
     
-    table  = (ArffTable) getCurrentPanel().getTable();
+    table  = getCurrentPanel().getTable();
     model  = (ArffSortedTableModel) table.getModel();
     
     // get column index
@@ -1043,6 +1045,7 @@ public class ArffViewerMainPanel
    * 
    * @return		the classname
    */
+  @Override
   public String toString() {
     return this.getClass().getName();
   }

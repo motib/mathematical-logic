@@ -140,7 +140,7 @@ public class RelationalLocator
       Attribute dest = destDataset.attribute(destLoc.getActualIndex(destLoc.getAttributeIndices()[i]));
       if (!instance.isMissing(instIndex)) {
         int valIndex = dest.addRelation(src.relation((int)instance.value(instIndex)));
-        instance.setValue(instIndex, (double)valIndex);
+        instance.setValue(instIndex, valIndex);
       }
     }
     

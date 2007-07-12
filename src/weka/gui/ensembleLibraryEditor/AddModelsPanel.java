@@ -273,7 +273,7 @@ public class AddModelsPanel
 	ModelList.SortedListModel dataModel = ((ModelList.SortedListModel) m_ModelList.getModel());
 	
 	for (int i = 0; i < currentModels.length; i++) {
-	  dataModel.removeElement((EnsembleLibraryModel) currentModels[i]);
+	  dataModel.removeElement(currentModels[i]);
 	}
 	
 	//Shrink the selected range to the first index that was selected

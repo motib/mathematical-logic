@@ -127,6 +127,7 @@ public class NBTree
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     return new NBTreeClassifierTree(null).getCapabilities();
   }
@@ -137,6 +138,7 @@ public class NBTree
    * @param instances the data to train with
    * @throws Exception if classifier can't be built successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     
     NBTreeModelSelection modSelection = 
@@ -153,6 +155,7 @@ public class NBTree
    * @return the classification
    * @throws Exception if instance can't be classified successfully
    */
+  @Override
   public double classifyInstance(Instance instance) throws Exception {
 
     return m_root.classifyInstance(instance);
@@ -165,6 +168,7 @@ public class NBTree
    * @return the class probabilities
    * @throws Exception if distribution can't be computed successfully
    */
+  @Override
   public final double[] distributionForInstance(Instance instance) 
        throws Exception {
 
@@ -176,6 +180,7 @@ public class NBTree
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_root == null) {

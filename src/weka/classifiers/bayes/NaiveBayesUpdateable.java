@@ -80,6 +80,7 @@ public class NaiveBayesUpdateable extends NaiveBayes
    * @return a description of the classifier suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return "Class for a Naive Bayes classifier using estimator classes. This is the "
       +"updateable version of NaiveBayes.\n"
@@ -96,6 +97,7 @@ public class NaiveBayesUpdateable extends NaiveBayes
    * 
    * @return the technical information about this class
    */
+  @Override
   public TechnicalInformation getTechnicalInformation() {
     return super.getTechnicalInformation();
   }
@@ -105,6 +107,7 @@ public class NaiveBayesUpdateable extends NaiveBayes
    *
    * @param newblah true if supervised discretization is to be used.
    */
+  @Override
   public void setUseSupervisedDiscretization(boolean newblah) {
 
     if (newblah) {

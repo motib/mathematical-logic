@@ -110,6 +110,7 @@ public class RemoveMisclassified
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities 	result;
     
@@ -132,6 +133,7 @@ public class RemoveMisclassified
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if the inputFormat can't be set successfully 
    */ 
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
     
     super.setInputFormat(instanceInfo);
@@ -295,6 +297,7 @@ public class RemoveMisclassified
    * @throws Exception if the input instance was not of the correct 
    * format or if there was a problem with the filtering.  
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
 
     if (inputFormatPeek() == null) {
@@ -320,6 +323,7 @@ public class RemoveMisclassified
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined 
    */  
+  @Override
   public boolean batchFinished() throws Exception {
 
     if (getInputFormat() == null) {

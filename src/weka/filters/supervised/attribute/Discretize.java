@@ -256,6 +256,7 @@ public class Discretize
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -278,6 +279,7 @@ public class Discretize
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if the input format can't be set successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     super.setInputFormat(instanceInfo);
@@ -302,6 +304,7 @@ public class Discretize
    * collected with output().
    * @throws IllegalStateException if no input format has been defined.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {
@@ -330,6 +333,7 @@ public class Discretize
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined
    */
+  @Override
   public boolean batchFinished() {
 
     if (getInputFormat() == null) {
@@ -749,12 +753,12 @@ public class Discretize
 
     // Compute terms for MDL formula
     delta = Utils.log2(Math.pow(3, numClassesTotal) - 2) - 
-      (((double) numClassesTotal * priorEntropy) - 
+      ((numClassesTotal * priorEntropy) - 
        (numClassesRight * entropyRight) - 
        (numClassesLeft * entropyLeft));
 
     // Check if split is to be accepted
-    return (gain > (Utils.log2(numCutPoints) + delta) / (double)numInstances);
+    return (gain > (Utils.log2(numCutPoints) + delta) / numInstances);
   }
     
 

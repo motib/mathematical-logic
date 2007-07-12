@@ -33,8 +33,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -48,7 +46,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.text.JTextComponent;
+import javax.swing.WindowConstants;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.CaretEvent;
@@ -139,6 +137,7 @@ public class LogWindow
     /**
      * flushes the printstream
      */
+    @Override
     public synchronized void flush() {
       // ignored
     }
@@ -146,6 +145,7 @@ public class LogWindow
     /**
      * prints the given int
      */
+    @Override
     public synchronized void print(int x) {
       print(new Integer(x).toString());
     }
@@ -153,6 +153,7 @@ public class LogWindow
     /**
      * prints the given boolean 
      */
+    @Override
     public synchronized void print(boolean x) {
       print(new Boolean(x).toString());
     }
@@ -160,6 +161,7 @@ public class LogWindow
     /**
      * prints the given string 
      */
+    @Override
     public synchronized void print(String x) {
       StyledDocument      doc;
       int                 size;
@@ -186,6 +188,7 @@ public class LogWindow
     /**
      * prints the given object
      */
+    @Override
     public synchronized void print(Object x) {
       String                  line;
       Throwable               t;
@@ -207,6 +210,7 @@ public class LogWindow
     /**
      * prints a new line
      */
+    @Override
     public synchronized void println() {
       print("\n");
     }
@@ -214,6 +218,7 @@ public class LogWindow
     /**
      * prints the given int
      */
+    @Override
     public synchronized void println(int x) {
       print(x);
       println();
@@ -222,6 +227,7 @@ public class LogWindow
     /**
      * prints the given boolean
      */
+    @Override
     public synchronized void println(boolean x) {
       print(x);
       println();
@@ -230,6 +236,7 @@ public class LogWindow
     /**
      * prints the given string
      */
+    @Override
     public synchronized void println(String x) {
       print(x);
       println();
@@ -238,6 +245,7 @@ public class LogWindow
     /**
      * prints the given object (for Throwables we print the stack trace)
      */
+    @Override
     public synchronized void println(Object x) {
       print(x);
       println();
@@ -458,13 +466,15 @@ public class LogWindow
       m_Output = new JTextPane();
     else
       m_Output = new JTextPane(){
-        public void setSize(Dimension d) {    
+        @Override
+	public void setSize(Dimension d) {    
           if (d.width < getGraphicsConfiguration().getBounds().width) 
             d.width = getGraphicsConfiguration().getBounds().width; 
           super.setSize(d);
         }
 
-        public boolean getScrollableTracksViewportWidth() { 
+        @Override
+	public boolean getScrollableTracksViewportWidth() { 
           return false; 
         }
       };
@@ -512,7 +522,7 @@ public class LogWindow
     
     log = new LogWindow();
     log.setVisible(true);
-    log.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    log.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
     // test output
     System.out.print("a");
