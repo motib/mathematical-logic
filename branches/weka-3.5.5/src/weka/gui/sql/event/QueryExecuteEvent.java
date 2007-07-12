@@ -26,7 +26,6 @@ package weka.gui.sql.event;
 import weka.gui.sql.DbUtils;
 
 import java.sql.ResultSet;
-import java.util.EventListener;
 import java.util.EventObject;
 
 /**
@@ -133,6 +132,7 @@ public class QueryExecuteEvent extends EventObject {
    * returns the event in a string representation
    * @return        the event in a string representation
    */
+  @Override
   public String toString() {
     String        result;
 

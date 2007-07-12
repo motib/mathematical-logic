@@ -184,6 +184,7 @@ public class RacedIncrementalLogitBoost
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.DecisionStump";
@@ -298,7 +299,7 @@ public class RacedIncrementalLogitBoost
 	  inst = m_validationSet.instance(i);
 	  llsum += (logLikelihood(m_validationFs[i],(int) inst.classValue()));
 	}
-	m_lastLogLikelihood = llsum / (double) m_validationSet.numInstances();
+	m_lastLogLikelihood = llsum / m_validationSet.numInstances();
 	m_modelHasChangedLL = false;
       }
       return m_lastLogLikelihood;
@@ -317,7 +318,7 @@ public class RacedIncrementalLogitBoost
 	  inst = m_validationSet.instance(i);
 	  llsum += (logLikelihood(m_newValidationFs[i],(int) inst.classValue()));
 	}
-	return llsum / (double) m_validationSet.numInstances();
+	return llsum / m_validationSet.numInstances();
     }
 
     
@@ -610,6 +611,7 @@ public class RacedIncrementalLogitBoost
      * 
      * @return a string representation of the classifier
      */
+    @Override
     public String toString() {
       
       StringBuffer text = new StringBuffer();
@@ -640,6 +642,7 @@ public class RacedIncrementalLogitBoost
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -660,6 +663,7 @@ public class RacedIncrementalLogitBoost
    * @param data the instances to train the classifier with
    * @throws Exception if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     m_RandomInstance = new Random(m_Seed);
@@ -827,6 +831,7 @@ public class RacedIncrementalLogitBoost
    * @return the distribution
    * @throws Exception if anything goes wrong
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     if (m_bestCommittee != null) return m_bestCommittee.distributionForInstance(instance);
@@ -845,6 +850,7 @@ public class RacedIncrementalLogitBoost
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(9);
@@ -932,6 +938,7 @@ public class RacedIncrementalLogitBoost
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String minChunkSize = Utils.getOption('C', options);
@@ -972,6 +979,7 @@ public class RacedIncrementalLogitBoost
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();
@@ -1016,6 +1024,7 @@ public class RacedIncrementalLogitBoost
    * @throws IllegalArgumentException 	if base classifier cannot handle numeric 
    * 					class
    */
+  @Override
   public void setClassifier(Classifier newClassifier) {
     Capabilities cap = newClassifier.getCapabilities();
     
@@ -1239,6 +1248,7 @@ public class RacedIncrementalLogitBoost
    *
    * @return description of the boosted classifier as a string
    */
+  @Override
   public String toString() {
         
     if (m_bestCommittee != null) {

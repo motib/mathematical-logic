@@ -135,6 +135,7 @@ public class RegSMOImproved
    * @return 		a description suitable for
    * 			displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "Learn SVM for regression using SMO with Shevade, Keerthi, et al. " 
@@ -150,6 +151,7 @@ public class RegSMOImproved
    * 
    * @return 		the technical information about this class
    */
+  @Override
   public TechnicalInformation getTechnicalInformation() {
     TechnicalInformation 	result;
     TechnicalInformation	additional;
@@ -178,6 +180,7 @@ public class RegSMOImproved
    * 
    * @return 		an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -230,6 +233,7 @@ public class RegSMOImproved
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported 
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     
@@ -250,6 +254,7 @@ public class RegSMOImproved
    *
    * @return 		an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       	i;
     Vector    	result;
@@ -338,6 +343,7 @@ public class RegSMOImproved
    * @return
    * @throws Exception
    */
+  @Override
   protected int takeStep(int i1, int i2, double alpha2, double alpha2Star, double phi2) throws Exception {
     //procedure takeStep(i1, i2)
     //
@@ -585,6 +591,7 @@ public class RegSMOImproved
    * @return
    * @throws Exception
    */
+  @Override
   protected int examineExample(int i2) throws Exception {
     //procedure examineExample(i2)
     //
@@ -780,6 +787,7 @@ public class RegSMOImproved
    * @param data 	data set used for learning
    * @throws Exception	if something goes wrong
    */
+  @Override
   protected void init(Instances data) throws Exception {
     super.init(data);
     // from Keerthi's pseudo code:
@@ -931,6 +939,7 @@ public class RegSMOImproved
    *
    * @throws Exception 	if something goes wrong
    */
+  @Override
   protected void wrapUp() throws Exception {
     m_b = -(m_bLow + m_bUp) / 2.0;
     m_target = null;
@@ -945,6 +954,7 @@ public class RegSMOImproved
    * @param instances	the data to work with
    * @throws Exception	if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     // initialize variables		
     init(instances); 

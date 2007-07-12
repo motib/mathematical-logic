@@ -74,6 +74,7 @@ public class ExtensionFileFilter
    *
    * @return the description.
    */
+  @Override
   public String getDescription() {
     
     return m_Description;
@@ -85,7 +86,7 @@ public class ExtensionFileFilter
    * @return the accepted extensions
    */
   public String[] getExtensions() {
-    return (String[]) m_Extension.clone();
+    return m_Extension.clone();
   }
   
   /**
@@ -95,6 +96,7 @@ public class ExtensionFileFilter
    * @param file the file of interest.
    * @return true if the file is accepted by the filter.
    */
+  @Override
   public boolean accept(File file) {
     
     String name = file.getName().toLowerCase();

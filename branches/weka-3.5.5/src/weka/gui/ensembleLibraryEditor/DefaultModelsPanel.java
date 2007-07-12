@@ -52,6 +52,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -158,7 +159,7 @@ public class DefaultModelsPanel
       
       DEFAULT_PROPERTIES = Utils.readProperties(getPackageName()
 	  + PROPERTY_FILE);
-      java.util.Enumeration keys = (java.util.Enumeration) DEFAULT_PROPERTIES
+      java.util.Enumeration keys = DEFAULT_PROPERTIES
       .propertyNames();
       if (!keys.hasMoreElements()) {
 	throw new Exception("Failed to read a property file for the "
@@ -288,7 +289,7 @@ public class DefaultModelsPanel
 	ModelList.SortedListModel dataModel = ((ModelList.SortedListModel) m_ModelList.getModel());
 	
 	for (int i = 0; i < currentModels.length; i++) {
-	  dataModel.removeElement((EnsembleLibraryModel) currentModels[i]);
+	  dataModel.removeElement(currentModels[i]);
 	}
 	
 	//Shrink the selected range to the first index that was selected
@@ -307,7 +308,7 @@ public class DefaultModelsPanel
     
     JScrollPane listView = new JScrollPane(m_ModelList);
     listView
-    .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     listView.setPreferredSize(new Dimension(150, 50));
     
     modelListPanel.setLayout(new BorderLayout());

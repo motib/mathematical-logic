@@ -22,8 +22,6 @@
 
 package weka.gui.beans;
 
-import java.beans.*;
-
 /**
  * Bean info class for the test set maker bean. Essentially just hides
  * gui related properties

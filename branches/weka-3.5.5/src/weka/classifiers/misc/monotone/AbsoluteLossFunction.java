@@ -56,6 +56,7 @@ public class AbsoluteLossFunction
    *
    * @return a string with the name of the loss function
    */
+  @Override
   public String toString() {
     return "AbsoluteLossFunction";
   }

@@ -232,9 +232,9 @@ public class RuleStats
     while(attEnum.hasMoreElements()){
       Attribute att= (Attribute)attEnum.nextElement();
       if(att.isNominal())
-	total += (double)att.numValues();
+	total += att.numValues();
       else
-	total += 2.0 * (double)data.numDistinctValues(att);	
+	total += 2.0 * data.numDistinctValues(att);	
     }
     return total;
   }
@@ -654,7 +654,7 @@ public class RuleStats
     // Potential 
     double potential = 0;
     for(int k=index+1; k<m_SimpleStats.size(); k++){
-      double[] ruleStat = (double[])getSimpleStats(k);
+      double[] ruleStat = getSimpleStats(k);
       double ifDeleted = potential(k, expFPRate, rulesetStat, 
 				   ruleStat, checkErr);
       if(!Double.isNaN(ifDeleted))

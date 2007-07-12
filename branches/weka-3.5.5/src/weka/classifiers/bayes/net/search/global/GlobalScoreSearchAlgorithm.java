@@ -366,6 +366,7 @@ public class GlobalScoreSearchAlgorithm
 	 * 
 	 * @param bMarkovBlanketClassifier
 	 */
+	@Override
 	public void setMarkovBlanketClassifier(boolean bMarkovBlanketClassifier) {
 	  super.setMarkovBlanketClassifier(bMarkovBlanketClassifier);
 	}
@@ -374,6 +375,7 @@ public class GlobalScoreSearchAlgorithm
 	 * 
 	 * @return
 	 */
+	@Override
 	public boolean getMarkovBlanketClassifier() {
 	  return super.getMarkovBlanketClassifier();
 	}
@@ -383,6 +385,7 @@ public class GlobalScoreSearchAlgorithm
 	 * 
 	 * @return an enumeration of all the available options
 	 */
+	@Override
 	public Enumeration listOptions() {
 		Vector newVector = new Vector();
 
@@ -433,6 +436,7 @@ public class GlobalScoreSearchAlgorithm
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 
 	  	setMarkovBlanketClassifier(Utils.getFlag("mbc", options));
@@ -457,6 +461,7 @@ public class GlobalScoreSearchAlgorithm
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
 		String[] superOptions = super.getOptions();
 		String[] options = new String[4 + superOptions.length];
@@ -527,6 +532,7 @@ public class GlobalScoreSearchAlgorithm
 	/**
 	 * @return a string to describe the MarkovBlanketClassifier option.
 	 */
+	@Override
 	public String markovBlanketClassifierTipText() {
 	  return super.markovBlanketClassifierTipText();
 	}

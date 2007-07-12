@@ -109,6 +109,7 @@ public class Grading
    * @return a description suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
 
     return 
@@ -124,6 +125,7 @@ public class Grading
    * 
    * @return the technical information about this class
    */
+  @Override
   public TechnicalInformation getTechnicalInformation() {
     TechnicalInformation 	result;
     
@@ -147,6 +149,7 @@ public class Grading
    * @param random the random number generator used in the generation
    * @throws Exception if generation fails
    */
+  @Override
   protected void generateMetaLevel(Instances newData, Random random) 
     throws Exception {
 
@@ -193,6 +196,7 @@ public class Grading
    * successfully
    * @return the class distribution for the given instance
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     double maxPreds;
@@ -266,6 +270,7 @@ public class Grading
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_Classifiers.length == 0) {
@@ -297,6 +302,7 @@ public class Grading
    * @return the format for the meta data
    * @throws Exception if an error occurs
    */
+  @Override
   protected Instances metaFormat(Instances instances) throws Exception {
 
     FastVector attributes = new FastVector();

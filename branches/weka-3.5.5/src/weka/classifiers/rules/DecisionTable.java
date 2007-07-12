@@ -27,7 +27,6 @@ import weka.classifiers.lazy.IBk;
 import weka.classifiers.Evaluation;
 import weka.core.AdditionalMeasureProducer;
 import weka.core.Capabilities;
-import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.Option;

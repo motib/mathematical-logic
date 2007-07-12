@@ -576,6 +576,7 @@ public class ReliefFAttributeEval
    *
    * @return a description of the evaluator as a String.
    */
+  @Override
   public String toString () {
     StringBuffer text = new StringBuffer();
 
@@ -615,6 +616,7 @@ public class ReliefFAttributeEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -640,6 +642,7 @@ public class ReliefFAttributeEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data)
     throws Exception {
     
@@ -760,10 +763,10 @@ public class ReliefFAttributeEval
     for (int i = 0; i < m_numAttribs; i++) {if (i != m_classIndex) {
       if (m_numericClass) {
         m_weights[i] = m_ndcda[i]/m_ndc - 
-	  ((m_nda[i] - m_ndcda[i])/((double)totalInstances - m_ndc));
+	  ((m_nda[i] - m_ndcda[i])/(totalInstances - m_ndc));
       }
       else {
-        m_weights[i] *= (1.0/(double)totalInstances);
+        m_weights[i] *= (1.0/totalInstances);
       }
 
       //	  System.out.println(r_weights[i]);
@@ -779,6 +782,7 @@ public class ReliefFAttributeEval
    * @param attribute the index of the attribute to be evaluated
    * @throws Exception if the attribute could not be evaluated
    */
+  @Override
   public double evaluateAttribute (int attribute)
     throws Exception {
     return  m_weights[attribute];
@@ -862,7 +866,7 @@ public class ReliefFAttributeEval
       // If attribute is nominal
       if (Instance.isMissingValue(val1) || 
 	  Instance.isMissingValue(val2)) {
-	return (1.0 - (1.0/((double)m_trainInstances.
+	return (1.0 - (1.0/(m_trainInstances.
 			    attribute(index).numValues())));
       } else if ((int)val1 != (int)val2) {
 	return 1;
@@ -996,7 +1000,7 @@ public class ReliefFAttributeEval
 			  m_trainInstances.
 			  instance((int)m_karray[0][i][1]).
 			  value(m_classIndex));
-	temp *= (1.0/(double)m_stored[0]); // equal influence
+	temp *= (1.0/m_stored[0]); // equal influence
       }
 
       m_ndc += temp;
@@ -1052,7 +1056,7 @@ public class ReliefFAttributeEval
 	  temp2 *= (m_weightsByRank[i]/distNorm);
 	}
 	else {
-	  temp2 *= (1.0/(double)m_stored[0]); // equal influence
+	  temp2 *= (1.0/m_stored[0]); // equal influence
 	}
 
 	m_ndcda[j] += temp2;
@@ -1062,7 +1066,7 @@ public class ReliefFAttributeEval
 	  temp *= (m_weightsByRank[i]/distNorm);
 	}
 	else {
-	  temp *= (1.0/(double)m_stored[0]); // equal influence
+	  temp *= (1.0/m_stored[0]); // equal influence
 	}
 
 	m_nda[j] += temp;
@@ -1182,7 +1186,7 @@ public class ReliefFAttributeEval
 	    (m_weightsByRank[j]/distNormClass);
 	} else {
 	  if (m_stored[cl] > 0) {
-	    temp_diff /= (double)m_stored[cl];
+	    temp_diff /= m_stored[cl];
 	  }
 	}
 	m_weights[i] -= temp_diff;
@@ -1243,7 +1247,7 @@ public class ReliefFAttributeEval
 	      }
 	      else {
 		if (m_stored[k] > 0) {
-		  temp_diff /= (double)m_stored[k];
+		  temp_diff /= m_stored[k];
 		}
 	      }
 	      if (m_numClasses > 2) {

@@ -198,6 +198,7 @@ public class Capabilities
      * 
      * @return the display string
      */
+    @Override
     public String toString() {
       return m_Display;
     }
@@ -272,6 +273,7 @@ public class Capabilities
    * 
    * @return	a clone of this object
    */
+  @Override
   public Object clone() {
     Capabilities    result;
 
@@ -1178,6 +1180,7 @@ public class Capabilities
    * 
    * @return 	a string representation of this object
    */
+  @Override
   public String toString() {
     Vector		sorted;
     StringBuffer	result;

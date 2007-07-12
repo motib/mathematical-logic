@@ -32,6 +32,7 @@ import java.beans.*;
  */
 public class ClassifierBeanInfo extends SimpleBeanInfo {
  
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = { 
@@ -64,6 +65,7 @@ public class ClassifierBeanInfo extends SimpleBeanInfo {
    *
    * @return a <code>BeanDescriptor</code> value
    */
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.Classifier.class, 
 			      ClassifierCustomizer.class);

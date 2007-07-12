@@ -147,6 +147,7 @@ public class PairedCorrectedTTester
    * @return the results of the paired comparison
    * @throws Exception if an error occurs
    */
+  @Override
   public PairedStats calculateStatistics(Instance datasetSpecifier,
 					 int resultset1Index,
 					 int resultset2Index,
@@ -315,6 +316,7 @@ public class PairedCorrectedTTester
    * 
    * @return the display name
    */
+  @Override
   public String getDisplayName() {
     return "Paired T-Tester (corrected)";
   }
@@ -325,6 +327,7 @@ public class PairedCorrectedTTester
    * 
    * @return the string for the tool tip
    */
+  @Override
   public String getToolTipText() {
     return "Performs test using corrected resampled t-test statistic (Nadeau and Bengio)";
   }

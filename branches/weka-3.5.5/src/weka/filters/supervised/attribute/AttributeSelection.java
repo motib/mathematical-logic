@@ -168,7 +168,7 @@ public class AttributeSelection
       newVector.addElement(new Option("", "", 0, "\nOptions specific to "
 	   + "evaluator " + m_ASEvaluator.getClass().getName() + ":"));
       while (enu.hasMoreElements()) {
-	newVector.addElement((Option)enu.nextElement());
+	newVector.addElement(enu.nextElement());
       }
     }
   
@@ -178,7 +178,7 @@ public class AttributeSelection
       newVector.addElement(new Option("", "", 0, "\nOptions specific to "
 	      + "search " + m_ASSearch.getClass().getName() + ":"));
       while (enu.hasMoreElements()) {
-	newVector.addElement((Option)enu.nextElement());
+	newVector.addElement(enu.nextElement());
       }
     }
     return newVector.elements();
@@ -384,6 +384,7 @@ public class AttributeSelection
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities	result;
     
@@ -415,6 +416,7 @@ public class AttributeSelection
    * @throws Exception if the input instance was not of the correct format 
    * or if there was a problem with the filtering.
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
     
     if (getInputFormat() == null) {
@@ -444,6 +446,7 @@ public class AttributeSelection
    * @throws IllegalStateException if no input structure has been defined.
    * @throws Exception if there is a problem during the attribute selection.
    */
+  @Override
   public boolean batchFinished() throws Exception {
     
     if (getInputFormat() == null) {

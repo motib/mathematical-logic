@@ -70,7 +70,7 @@ public class AttributeStats implements Serializable {
       if (count == 1) {
 	uniqueCount++;
 	}
-      if (Utils.eq(value, (double)((int)value))) {
+      if (Utils.eq(value, ((int)value))) {
 	intCount += count;
       } else {
 	realCount += count;
@@ -91,6 +91,7 @@ public class AttributeStats implements Serializable {
    *
    * @return a String represtinging these AttributeStats.
    */
+  @Override
   public String toString() {
 
     StringBuffer sb = new StringBuffer();

@@ -62,6 +62,7 @@ public class IteratedLovinsStemmer
    * @return a description suitable for
    *         displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "An iterated version of the Lovins stemmer. It stems the word (in "
@@ -77,6 +78,7 @@ public class IteratedLovinsStemmer
    * @param str 	the word to stem
    * @return 		the stemmed word
    */
+  @Override
   public String stem(String str) {
 
     if (str.length() <= 2) {

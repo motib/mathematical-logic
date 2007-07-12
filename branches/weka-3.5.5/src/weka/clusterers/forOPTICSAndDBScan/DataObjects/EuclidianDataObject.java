@@ -280,6 +280,7 @@ public class EuclidianDataObject implements DataObject, Serializable {
         return r_dist;
     }
 
+    @Override
     public String toString() {
         return instance.toString();
     }

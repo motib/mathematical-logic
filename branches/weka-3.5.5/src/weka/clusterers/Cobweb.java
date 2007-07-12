@@ -495,7 +495,7 @@ public class Cobweb
 	totalCU += categoryUtilityChild(child);
       }
 
-      totalCU /= (double)m_children.size();
+      totalCU /= m_children.size();
       return totalCU;
     }
 
@@ -711,7 +711,7 @@ public class Cobweb
       for (int i = 0; i < m_children.size(); i++) {
 	CNode temp = (CNode)m_children.elementAt(i);
 	for (int j = 0; j < temp.m_clusterInstances.numInstances(); j++) {
-	  tempInst.instance(z).setValue(m_numAttributes, (double)i);
+	  tempInst.instance(z).setValue(m_numAttributes, i);
 	  z++;
 	}
       }
@@ -864,6 +864,7 @@ public class Cobweb
    *
    * @return      the capabilities of this clusterer
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -885,6 +886,7 @@ public class Cobweb
    * @param data the training instances.
    * @throws Exception if something goes wrong.
    */
+  @Override
   public void buildClusterer(Instances data) throws Exception {
     m_numberOfClusters = -1;
     m_cobwebTree = null;
@@ -915,6 +917,7 @@ public class Cobweb
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public int clusterInstance(Instance instance) throws Exception {
     CNode host = m_cobwebTree;
     CNode temp = null;
@@ -968,6 +971,7 @@ public class Cobweb
    *
    * @return the number of clusters
    */
+  @Override
   public int numberOfClusters() {
     determineNumberOfClusters();
     return m_numberOfClusters;
@@ -997,6 +1001,7 @@ public class Cobweb
    * @deprecated updateClusterer(Instance) should be used instead
    * @see #updateClusterer(Instance)
    */
+  @Deprecated
   public void addInstance(Instance newInstance) throws Exception {
     updateClusterer(newInstance);
   }
@@ -1006,6 +1011,7 @@ public class Cobweb
    *
    * @return an enumeration of all the available options.
    **/
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -1049,6 +1055,7 @@ public class Cobweb
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String optionString;
 
@@ -1156,6 +1163,7 @@ public class Cobweb
    *
    * @return an array of strings suitable for passing to setOptions()
    */
+  @Override
   public String[] getOptions() {
     int       	i;
     Vector    	result;
@@ -1180,6 +1188,7 @@ public class Cobweb
    *
    * @return a string describing the clusterer.
    */
+  @Override
   public String toString() { 
     StringBuffer text = new StringBuffer();
     if (m_cobwebTree == null) {

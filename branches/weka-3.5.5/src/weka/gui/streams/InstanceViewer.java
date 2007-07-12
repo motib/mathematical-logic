@@ -25,14 +25,10 @@ package weka.gui.streams;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Vector;
 import java.io.Serializable;
 import weka.core.Instance;
 import weka.core.Instances;
 import java.awt.BorderLayout;
-import java.awt.Font;
 import javax.swing.JScrollPane;
 
 /**

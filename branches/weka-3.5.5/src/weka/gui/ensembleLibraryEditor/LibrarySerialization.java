@@ -53,6 +53,7 @@ public class LibrarySerialization
    * 
    * @throws Exception	if something goes wrong
    */
+  @Override
   public void clear() throws Exception {
     super.clear();
     

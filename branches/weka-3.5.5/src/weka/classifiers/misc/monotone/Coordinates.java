@@ -127,6 +127,7 @@ public class Coordinates
    * @return <code> true </code> if <code> o </code> equals <code>
    * this, </code> <code> false </code> otherwise
    */
+  @Override
   public boolean equals(Object o) {
     if (! (o instanceof Coordinates) ) {
       return false;
@@ -212,6 +213,7 @@ public class Coordinates
    *
    * @return the requested hash code
    */
+  @Override
   public int hashCode() {
     return m_hashCode;
   }
@@ -231,6 +233,7 @@ public class Coordinates
    *
    * @return the requested string representation
    */
+  @Override
   public String toString() {
     String s = "(";
     for (int i = 0; i < m_coord.length - 1; i++) {

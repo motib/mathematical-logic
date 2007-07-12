@@ -91,6 +91,7 @@ public abstract class CheckScheme
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -147,6 +148,7 @@ public abstract class CheckScheme
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String      tmpStr;
     
@@ -214,6 +216,7 @@ public abstract class CheckScheme
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -283,6 +286,7 @@ public abstract class CheckScheme
   /**
    * Begin the tests, reporting results to System.out
    */
+  @Override
   public abstract void doTests();
   
   /**

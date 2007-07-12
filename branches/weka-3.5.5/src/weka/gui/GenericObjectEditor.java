@@ -186,7 +186,7 @@ public class GenericObjectEditor implements PropertyEditor, CustomPanelSupplier 
       try {
         EDITOR_PROPERTIES = Utils.readProperties(PROPERTY_FILE);
         java.util.Enumeration keys = 
-  	(java.util.Enumeration)EDITOR_PROPERTIES.propertyNames();
+  	EDITOR_PROPERTIES.propertyNames();
         if (!keys.hasMoreElements()) {
   	  throw new Exception("Failed to read a property file for the "
   			      +"generic object editor");
@@ -287,6 +287,7 @@ public class GenericObjectEditor implements PropertyEditor, CustomPanelSupplier 
      * 
      * @return 		the text to display 
      */
+    @Override
     public String toString() {
       String	result;
       
@@ -594,6 +595,7 @@ public class GenericObjectEditor implements PropertyEditor, CustomPanelSupplier 
      * @param x the x location of the popup
      * @param y the y location of the popup
      */
+    @Override
     public void show(Component invoker, int x, int y) {
 
       super.show(invoker, x, y);
@@ -1675,7 +1677,7 @@ public class GenericObjectEditor implements PropertyEditor, CustomPanelSupplier 
       if (args.length > 0){
 	ce.setClassType(Class.forName(args[0]));
 	if(args.length > 1){
-	  initial = (Object)Class.forName(args[1]).newInstance();
+	  initial = Class.forName(args[1]).newInstance();
 	  ce.setValue(initial);
 	}
 	else
@@ -1686,9 +1688,10 @@ public class GenericObjectEditor implements PropertyEditor, CustomPanelSupplier 
       
       PropertyDialog pd = new PropertyDialog(ce, 100, 100);
       pd.addWindowListener(new WindowAdapter() {
+	  @Override
 	  public void windowClosing(WindowEvent e) {
 	    PropertyEditor pe = ((PropertyDialog)e.getSource()).getEditor();
-	    Object c = (Object)pe.getValue();
+	    Object c = pe.getValue();
 	    String options = "";
 	    if (c instanceof OptionHandler) {
 	      options = Utils.joinOptions(((OptionHandler)c).getOptions());

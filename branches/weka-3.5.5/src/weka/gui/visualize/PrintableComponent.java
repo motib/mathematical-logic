@@ -22,6 +22,7 @@
 
 package weka.gui.visualize;
 
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedOutputStream;
@@ -38,7 +39,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import weka.core.ClassDiscovery;
-import weka.core.Utils;
 import weka.gui.ExtensionFileFilter;
 
 /** 
@@ -412,11 +412,12 @@ public class PrintableComponent implements PrintableHandler {
     /**
      * Invoked when the mouse has been clicked on a component.
      */
+    @Override
     public void mouseClicked(MouseEvent e) {
       int modifiers = e.getModifiers();
-      if (((modifiers & MouseEvent.SHIFT_MASK) == MouseEvent.SHIFT_MASK) && 
-          ((modifiers & MouseEvent.ALT_MASK) == MouseEvent.ALT_MASK) &&
-          ((modifiers & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK)) {
+      if (((modifiers & InputEvent.SHIFT_MASK) == InputEvent.SHIFT_MASK) && 
+          ((modifiers & InputEvent.ALT_MASK) == InputEvent.ALT_MASK) &&
+          ((modifiers & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK)) {
         e.consume();
         m_Component.saveComponent();
       }

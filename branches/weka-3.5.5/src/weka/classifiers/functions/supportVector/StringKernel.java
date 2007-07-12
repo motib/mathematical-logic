@@ -367,6 +367,7 @@ public class StringKernel
    * @return a description suitable for displaying in the
    *         explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "Implementation of the subsequence kernel (SSK) as described in [1] "
@@ -412,6 +413,7 @@ public class StringKernel
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector		result;
     Enumeration		en;
@@ -528,6 +530,7 @@ public class StringKernel
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     
@@ -584,6 +587,7 @@ public class StringKernel
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       i;
     Vector    result;
@@ -845,6 +849,7 @@ public class StringKernel
    * @return the result of the kernel function
    * @throws Exception if something goes wrong
    */
+  @Override
   public double eval(int id1, int id2, Instance inst1) throws Exception {
     if (m_Debug && id1>-1 && id2>-1) {
       System.err.println("\nEvaluation of string kernel for");
@@ -916,6 +921,7 @@ public class StringKernel
    * This function is called when the training is done.
    * i.e. after that, eval will be called with id1 == -1.
    */
+  @Override
   public void clean() {
     m_storage = null;
     m_keys = null;

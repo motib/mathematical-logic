@@ -74,6 +74,7 @@ public class CaRuleGeneration extends RuleGeneration implements Serializable {
    * @param genTime the maximum time of generation
    * @return all the rules with minimum confidence for the given item set
    */
+  @Override
   public TreeSet generateRules(int numRules, double[] midPoints, Hashtable priors, double expectation, Instances instances, TreeSet best, int genTime) {
   
     boolean redundant = false;
@@ -108,7 +109,7 @@ public class CaRuleGeneration extends RuleGeneration implements Serializable {
         if(premise == null || consequences.size() == 0)
             return m_best;
         m_minRuleCount = 1;
-        while(expectation((double)m_minRuleCount,premise.counter(),m_midPoints,m_priors) <= m_expectation){
+        while(expectation(m_minRuleCount,premise.counter(),m_midPoints,m_priors) <= m_expectation){
             m_minRuleCount++;
             if(m_minRuleCount > premise.counter())
                 return m_best;
@@ -141,7 +142,7 @@ public class CaRuleGeneration extends RuleGeneration implements Serializable {
                     m_change = true;
                     redundant = removeRedundant(current);
                     m_expectation = ((RuleItem)(m_best.first())).accuracy();
-                    while(expectation((double)m_minRuleCount, (current.premise()).counter(),m_midPoints,m_priors) < m_expectation){
+                    while(expectation(m_minRuleCount, (current.premise()).counter(),m_midPoints,m_priors) < m_expectation){
                         m_minRuleCount++;
                         if(m_minRuleCount > (current.premise()).counter())
                             break;

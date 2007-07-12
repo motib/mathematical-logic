@@ -349,6 +349,7 @@ public class Rule implements Serializable {
    * 
    * @return a description of the m5 tree or rule as a String
    */
+  @Override
   public String toString() {
     if (m_useTree) {
       return treeToString();
@@ -554,11 +555,11 @@ public class Rule implements Serializable {
       average  += inst.instance(i).value(attr);
     }
     if(inst.numInstances() > 1) {
-      average /= (double)inst.numInstances();
+      average /= inst.numInstances();
       for(i=0; i <= inst.numInstances()-1; i++) {
 	absdiff += Math.abs(inst.instance(i).value(attr) - average);
       }
-      absDev = absdiff / (double)inst.numInstances();
+      absDev = absdiff / inst.numInstances();
     } else {
       absDev = 0.0;
     }

@@ -87,6 +87,7 @@ public class DDConditionalEstimator implements ConditionalEstimator {
   }
 
   /** Display a representation of this estimator */
+  @Override
   public String toString() {
     
     String result = "DD Conditional Estimator. " 

@@ -527,6 +527,7 @@ public class GreedyStepwise
    * returns a description of the search.
    * @return a description of the search as a String.
    */
+  @Override
   public String toString() {
     StringBuffer FString = new StringBuffer();
     FString.append("\tGreedy Stepwise ("
@@ -566,6 +567,7 @@ public class GreedyStepwise
    * @return an array (not necessarily ordered) of selected attribute indexes
    * @throws Exception if the search can't be completed
    */
+  @Override
   public int[] search (ASEvaluation ASEval, Instances data)
     throws Exception {
 

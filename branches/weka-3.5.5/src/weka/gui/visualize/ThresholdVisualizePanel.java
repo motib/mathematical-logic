@@ -92,6 +92,7 @@ public class ThresholdVisualizePanel
    * are changed. 
    * @param inst a set of instances with data for plotting
    */
+  @Override
   public void setUpComboBoxes(Instances inst) {
     super.setUpComboBoxes(inst);
 
@@ -132,6 +133,7 @@ public class ThresholdVisualizePanel
    * @param insts	the instances to display
    * @throws Exception	if display is not possible
    */
+  @Override
   protected void openVisibleInstances(Instances insts) throws Exception {
     super.openVisibleInstances(insts);
 
@@ -314,6 +316,7 @@ public class ThresholdVisualizePanel
       
       jf.getContentPane().add(vmc, BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	}

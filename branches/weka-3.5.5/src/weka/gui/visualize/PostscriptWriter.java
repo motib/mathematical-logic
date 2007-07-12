@@ -25,8 +25,6 @@ package weka.gui.visualize;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-
 import javax.swing.JComponent;
 
 /** 
@@ -73,6 +71,7 @@ public class PostscriptWriter extends JComponentWriter {
    * returns the name of the writer, to display in the FileChooser.
    * must be overridden in the derived class.
    */
+  @Override
   public String getDescription() {
     return "Postscript-File (EPS)";
   }
@@ -82,6 +81,7 @@ public class PostscriptWriter extends JComponentWriter {
    * FileChooser. 
    * must be overridden in the derived class.
    */
+  @Override
   public String getExtension() {
     return ".eps";
   }
@@ -105,6 +105,7 @@ public class PostscriptWriter extends JComponentWriter {
    *
    * @throws Exception  if component of file are <code>null</code>
    */
+  @Override
   public void toOutput() throws Exception {
     BufferedOutputStream      ostrm;
     PostscriptGraphics        psg;

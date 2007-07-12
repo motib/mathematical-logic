@@ -26,8 +26,6 @@ package weka.experiment;
 import weka.core.Instances;
 import weka.core.Instance;
 import weka.core.Range;
-import weka.core.Statistics;
-
 import java.io.Serializable;
 
 /**

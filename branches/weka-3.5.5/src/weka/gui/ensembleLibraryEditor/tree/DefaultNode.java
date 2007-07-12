@@ -120,6 +120,7 @@ public class DefaultNode
    * 
    * @param o		the user object
    */
+  @Override
   public void setUserObject(Object o) {
     if (o != null)
       super.setUserObject(o);
@@ -130,6 +131,7 @@ public class DefaultNode
    * 
    * @return		a string representation
    */
+  @Override
   public String toString() {
     return getClass().getName() + "[" + getUserObject().toString() + "]";
   }

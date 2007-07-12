@@ -102,6 +102,7 @@ public class AlgorithmListPanel
      * @return			A component whose paint() method will render 
      * 				the specified value.
      */
+    @Override
     public Component getListCellRendererComponent(JList list,
 						  Object value,
 						  int index,
@@ -195,6 +196,7 @@ public class AlgorithmListPanel
     final AlgorithmListPanel self = this;
     m_List = new JList();
     MouseListener mouseListener = new MouseAdapter() {
+      @Override
       public void mouseClicked(MouseEvent e) {
 	final int index = m_List.locationToIndex(e.getPoint());
 
@@ -592,6 +594,7 @@ public class AlgorithmListPanel
       jf.getContentPane().add(dp,
 			      BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);
@@ -600,7 +603,7 @@ public class AlgorithmListPanel
       jf.pack();
       jf.setVisible(true);
       System.err.println("Short nap");
-      Thread.currentThread().sleep(3000);
+      Thread.sleep(3000);
       System.err.println("Done");
       dp.setExperiment(new Experiment());
     } catch (Exception ex) {

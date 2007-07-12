@@ -298,6 +298,7 @@ public class LinearNN
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector newVector = new Vector();
     
@@ -323,6 +324,7 @@ public class LinearNN
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     super.setOptions(options);
 
@@ -334,6 +336,7 @@ public class LinearNN
    *
    * @return an array of strings suitable for passing to setOptions()
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -359,6 +362,7 @@ public class LinearNN
    * @return the nearest instance
    * @throws Exception if the nearest neighbour could not be found.
    */
+  @Override
   public Instance nearestNeighbour(Instance target) throws Exception {
     return (kNearestNeighbours(target, 1)).instance(0);
   }
@@ -372,6 +376,7 @@ public class LinearNN
    * @return the k nearest instances
    * @throws Exception if the neighbours could not be found.
    */
+  @Override
   public Instances kNearestNeighbours(Instance target, int kNN) throws Exception {
   
     //debug
@@ -455,6 +460,7 @@ public class LinearNN
    * @throws Exception an exception if called before calling kNearestNeighbours
    *            or nearestNeighbours.
    */
+  @Override
   public double[] getDistances() throws Exception {
     if(m_Distances==null)
       throw new Exception("No distances available. Please call either "+
@@ -468,6 +474,7 @@ public class LinearNN
    * @param insts The set of instances on which the nearest neighbour search
    * is carried out. Usually this set is the training set. 
    */
+  @Override
   public void setInstances(Instances insts) {
     m_Instances = insts;
     m_DistanceFunction.setInstances(insts);
@@ -484,6 +491,7 @@ public class LinearNN
    * @throws Exception if the provided instance is either null or the 
    * distance function cannot work with this instance.
    */
+  @Override
   public void update(Instance ins) throws Exception {
     if(m_Instances==null)
       throw new Exception("No instances supplied yet. Cannot update without"+
@@ -499,6 +507,7 @@ public class LinearNN
    * the test instance supplied to update the range of attributes in the 
    * distance function.
    */
+  @Override
   public void addInstanceInfo(Instance ins) {
     if(m_Instances!=null)
       try{ update(ins); }

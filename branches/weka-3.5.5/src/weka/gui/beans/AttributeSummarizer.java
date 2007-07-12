@@ -24,22 +24,13 @@ package weka.gui.beans;
 
 import weka.core.Instances;
 import weka.gui.AttributeVisualizationPanel;
-import weka.gui.visualize.VisualizePanel;
-import weka.gui.visualize.PlotData2D;
-
-import java.io.Serializable;
 import java.util.Vector;
 import java.util.Enumeration;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import java.awt.*;
-import java.beans.*;
 import java.beans.beancontext.*;
 
 /**
@@ -78,6 +69,7 @@ public class AttributeSummarizer extends DataVisualizer {
    *
    * @return a <code>String</code> value
    */
+  @Override
   public String globalInfo() {
     return "Plot summary bar charts for incoming data/training/test sets.";
   }
@@ -155,6 +147,7 @@ public class AttributeSummarizer extends DataVisualizer {
     appearanceDesign();
   }
 
+  @Override
   protected void appearanceDesign() {
     removeAll();
     m_visual = 
@@ -165,11 +158,13 @@ public class AttributeSummarizer extends DataVisualizer {
     add(m_visual, BorderLayout.CENTER);
   }
 
+  @Override
   protected void appearanceFinal() {
     removeAll();
     setLayout(new BorderLayout());
   }
 
+  @Override
   protected void setUpFinal() {
     removeAll();
     JScrollPane hp = makePanel();
@@ -179,6 +174,7 @@ public class AttributeSummarizer extends DataVisualizer {
   /**
    * Use the default appearance for this bean
    */
+  @Override
   public void useDefaultVisual() {
     m_visual.loadIcons(BeanVisual.ICON_PATH+"DefaultDataVisualizer.gif",
 		       BeanVisual.ICON_PATH+"DefaultDataVisualizer_animated.gif");
@@ -190,6 +186,7 @@ public class AttributeSummarizer extends DataVisualizer {
    *
    * @return an <code>Enumeration</code> value
    */
+  @Override
   public Enumeration enumerateRequests() {
     Vector newVector = new Vector(0);
     if (m_visualizeDataSet != null) {
@@ -239,6 +236,7 @@ public class AttributeSummarizer extends DataVisualizer {
    *
    * @param bc a <code>BeanContext</code> value
    */
+  @Override
   public void setBeanContext(BeanContext bc) {
     m_beanContext = bc;
     m_design = m_beanContext.isDesignTime();
@@ -254,6 +252,7 @@ public class AttributeSummarizer extends DataVisualizer {
    * @param inst an <code>Instances</code> value
    * @exception Exception if an error occurs
    */
+  @Override
   public void setInstances(Instances inst) throws Exception {
     if (m_design) {
       throw new Exception("This method is not to be used during design "
@@ -271,6 +270,7 @@ public class AttributeSummarizer extends DataVisualizer {
    * @param request a string containing the name of the request to perform
    * @exception IllegalArgumentException if request is not supported
    */
+  @Override
   public void performRequest(String request) {
     if (m_design == false) {
       setUpFinal();
@@ -289,6 +289,7 @@ public class AttributeSummarizer extends DataVisualizer {
 	  jf.getContentPane().setLayout(new BorderLayout());
 	  jf.getContentPane().add(holderP, BorderLayout.CENTER);
 	  jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	      @Override
 	      public void windowClosing(java.awt.event.WindowEvent e) {
 		jf.dispose();
 		m_framePoppedUp = false;
@@ -325,7 +326,8 @@ public class AttributeSummarizer extends DataVisualizer {
       
       jf.getContentPane().add(as, java.awt.BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
-        public void windowClosing(java.awt.event.WindowEvent e) {
+        @Override
+	public void windowClosing(java.awt.event.WindowEvent e) {
           jf.dispose();
           System.exit(0);
         }

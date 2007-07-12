@@ -272,6 +272,7 @@ public class SymmetricalUncertAttributeSetEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -296,6 +297,7 @@ public class SymmetricalUncertAttributeSetEval
    * @throws Exception if the evaluator has not been
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data)
     throws Exception {
 
@@ -330,6 +332,7 @@ public class SymmetricalUncertAttributeSetEval
    * @return the uncertainty
    * @throws Exception if the attribute could not be evaluated
    */
+  @Override
   public double evaluateAttribute (int attribute)
     throws Exception {
     int i, j, ii, jj;
@@ -477,6 +480,7 @@ public class SymmetricalUncertAttributeSetEval
    * @return the uncertainty
    * @throws Exception if the attribute could not be evaluated
    */
+  @Override
   public double evaluateAttribute (int[] attributes, int[] classAttributes)
     throws Exception {
 
@@ -700,6 +704,7 @@ public class SymmetricalUncertAttributeSetEval
    * Return a description of the evaluator
    * @return description as a string
    */
+  @Override
   public String toString () {
     StringBuffer text = new StringBuffer();
 

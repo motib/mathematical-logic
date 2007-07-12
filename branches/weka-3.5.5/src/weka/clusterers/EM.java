@@ -173,6 +173,7 @@ public class EM
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions () {
     Vector result = new Vector();
     
@@ -235,6 +236,7 @@ public class EM
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions (String[] options)
     throws Exception {
     resetOptions();
@@ -395,6 +397,7 @@ public class EM
    *
    * @return an array of strings suitable for passing to setOptions()
    */
+  @Override
   public String[] getOptions () {
     int       	i;
     Vector    	result;
@@ -725,6 +728,7 @@ public class EM
    * 
    * @return the clusterer in string representation
    */
+  @Override
   public String toString () {
     if (m_priors == null) {
       return "No clusterer built yet!";
@@ -797,7 +801,7 @@ public class EM
     
     for (l = 0; l < inst.numInstances(); l++) {
       m = Utils.maxIndex(m_weights[l]);
-      System.out.print("Inst " + Utils.doubleToString((double)l, 5, 0) 
+      System.out.print("Inst " + Utils.doubleToString(l, 5, 0) 
 		       + " Class " + m + "\t");
       for (j = 0; j < m_num_clusters; j++) {
 	System.out.print(Utils.doubleToString(m_weights[l][j], 7, 5) + "  ");
@@ -889,7 +893,7 @@ public class EM
       if (ok) {
         restartCount = 0;
         seed = getSeed();
-        templl /= (double)numFolds;
+        templl /= numFolds;
         
         if (m_verbose) {
           System.out.println("===================================" 
@@ -924,6 +928,7 @@ public class EM
    * @throws Exception if number of clusters could not be returned
    * successfully
    */
+  @Override
   public int numberOfClusters ()
     throws Exception {
     if (m_num_clusters == -1) {
@@ -965,6 +970,7 @@ public class EM
    *
    * @return      the capabilities of this clusterer
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = new SimpleKMeans().getCapabilities();
     result.setOwner(this);
@@ -979,6 +985,7 @@ public class EM
    * @throws Exception if the clusterer has not been 
    * generated successfully
    */
+  @Override
   public void buildClusterer (Instances data)
     throws Exception {
     
@@ -1015,6 +1022,7 @@ public class EM
    * 
    * @return the cluster priors
    */
+  @Override
   public double[] clusterPriors() {
 
     double[] n = new double[m_priors.length];
@@ -1031,6 +1039,7 @@ public class EM
    * @throws Exception if the density could not be computed
    * successfully
    */
+  @Override
   public double[] logDensityPerClusterForInstance(Instance inst) throws Exception {
 
     int i, j;

@@ -426,7 +426,7 @@ public class InstanceQuery
 	  if (rs.wasNull()) {
 	    vals[i - 1] = Instance.missingValue();
 	  } else {
-	    vals[i - 1] = (double)by;
+	    vals[i - 1] = by;
 	  }
 	  break;
 	case SHORT:
@@ -434,7 +434,7 @@ public class InstanceQuery
 	  if (rs.wasNull()) {
 	    vals[i - 1] = Instance.missingValue();
 	  } else {
-	    vals[i - 1] = (double)sh;
+	    vals[i - 1] = sh;
 	  }
 	  break;
 	case INTEGER:
@@ -442,7 +442,7 @@ public class InstanceQuery
 	  if (rs.wasNull()) {
 	    vals[i - 1] = Instance.missingValue();
 	  } else {
-	    vals[i - 1] = (double)in;
+	    vals[i - 1] = in;
 	  }
 	  break;
 	case LONG:
@@ -450,7 +450,7 @@ public class InstanceQuery
 	  if (rs.wasNull()) {
 	    vals[i - 1] = Instance.missingValue();
 	  } else {
-	    vals[i - 1] = (double)lo;
+	    vals[i - 1] = lo;
 	  }
 	  break;
 	case FLOAT:
@@ -458,7 +458,7 @@ public class InstanceQuery
 	  if (rs.wasNull()) {
 	    vals[i - 1] = Instance.missingValue();
 	  } else {
-	    vals[i - 1] = (double)fl;
+	    vals[i - 1] = fl;
 	  }
 	  break;
 	case DATE:
@@ -467,7 +467,7 @@ public class InstanceQuery
 	    vals[i - 1] = Instance.missingValue();
 	  } else {
             // TODO: Do a value check here.
-            vals[i - 1] = (double)date.getTime();
+            vals[i - 1] = date.getTime();
           }
           break;
 	default:

@@ -24,7 +24,6 @@
 package weka.gui.sql.event;
 
 import java.util.EventListener;
-import java.util.EventObject;
 
 /**
  * A listener for executing queries.

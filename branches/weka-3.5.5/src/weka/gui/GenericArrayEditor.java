@@ -23,10 +23,7 @@
 
 package weka.gui;
 
-import weka.core.SelectedTag;
 import weka.core.SerializedObject;
-import weka.classifiers.Classifier;
-
 import java.lang.reflect.Array;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
@@ -42,11 +39,8 @@ import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.FontMetrics;
-import java.awt.FlowLayout;
-import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
@@ -58,7 +52,6 @@ import javax.swing.ListCellRenderer;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JPanel;
 import javax.swing.JList;
-import javax.swing.ListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -208,6 +201,7 @@ public class GenericArrayEditor extends JPanel
   private MouseListener m_InnerMouseListener =
     new MouseAdapter() {
 
+      @Override
       public void mouseClicked(MouseEvent e) {
         if (e.getSource() == m_ElementList) {
           if (e.getClickCount() == 2) {
@@ -292,6 +286,7 @@ public class GenericArrayEditor extends JPanel
 	e.setValue(value);
 	return new JPanel() {
 
+	  @Override
 	  public void paintComponent(Graphics g) {
 
 	    Insets i = this.getInsets();
@@ -308,6 +303,7 @@ public class GenericArrayEditor extends JPanel
 	    e.paintValue(g, box);
 	  }
 	  
+	  @Override
 	  public Dimension getPreferredSize() {
 
 	    Font f = this.getFont();
@@ -560,6 +556,7 @@ public class GenericArrayEditor extends JPanel
    *
    * @param l a value of type 'PropertyChangeListener'
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener l) {
     m_Support.addPropertyChangeListener(l);
   }
@@ -569,6 +566,7 @@ public class GenericArrayEditor extends JPanel
    *
    * @param l a value of type 'PropertyChangeListener'
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener l) {
     m_Support.removePropertyChangeListener(l);
   }
@@ -599,6 +597,7 @@ public class GenericArrayEditor extends JPanel
       PropertyDialog pd = new PropertyDialog(ce, 100, 100);
       pd.setSize(200,200);
       pd.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  System.exit(0);
 	}

@@ -32,18 +32,9 @@ import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.ImageIcon;
-
-import javax.swing.SwingConstants;
 import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import java.awt.*;
-import javax.swing.JScrollPane;
-import javax.swing.BorderFactory;
-import java.io.ObjectInputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.MouseEvent;
@@ -93,6 +84,7 @@ public class GraphViewer
     m_history.setHandleRightClicks(false);
     m_history.getList().
       addMouseListener(new ResultHistoryPanel.RMouseAdapter() {
+	  @Override
 	  public void mouseClicked(MouseEvent e) {
 	    int index = m_history.getList().locationToIndex(e.getPoint());
 	    if (index != -1) {
@@ -164,6 +156,7 @@ public class GraphViewer
       m_resultsFrame.getContentPane().setLayout(new BorderLayout());
       m_resultsFrame.getContentPane().add(m_history, BorderLayout.CENTER);
       m_resultsFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    m_resultsFrame.dispose();
 	    m_resultsFrame = null;
@@ -197,7 +190,8 @@ public class GraphViewer
 			 new PlaceNode2());
         jf.getContentPane().add(tv, BorderLayout.CENTER);
         jf.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent e) {
+            @Override
+	    public void windowClosing(java.awt.event.WindowEvent e) {
             jf.dispose();
             }
         });
@@ -220,6 +214,7 @@ public class GraphViewer
       gv.layoutGraph();
       jf.getContentPane().add(gv, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
             jf.dispose();
 	  }

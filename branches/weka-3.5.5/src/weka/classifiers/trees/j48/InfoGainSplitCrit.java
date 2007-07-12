@@ -36,6 +36,7 @@ public final class InfoGainSplitCrit extends EntropyBasedSplitCrit{
    * This method is a straightforward implementation of the information
    * gain criterion for the given distribution.
    */
+  @Override
   public final double splitCritValue(Distribution bags) {
 
     double numerator;

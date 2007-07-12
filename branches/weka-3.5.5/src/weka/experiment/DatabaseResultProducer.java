@@ -131,6 +131,7 @@ public class DatabaseResultProducer
    * @return a description of the result producer suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return "Examines a database and extracts out "
       +"the results produced by the specified ResultProducer "
@@ -208,6 +209,7 @@ public class DatabaseResultProducer
    * @param rp the ResultProducer that will generate the results
    * @throws Exception if an error occurs during preprocessing.
    */
+  @Override
   public void preProcess(ResultProducer rp) throws Exception {
 
     super.preProcess(rp);
@@ -224,6 +226,7 @@ public class DatabaseResultProducer
    * @param rp the ResultProducer that generated the results
    * @throws Exception if an error occurs
    */
+  @Override
   public void postProcess(ResultProducer rp) throws Exception {
 
     super.postProcess(rp);
@@ -268,6 +271,7 @@ public class DatabaseResultProducer
    * the array may be Strings, Doubles, or null (for the missing value).
    * @throws Exception if the result could not be accepted.
    */
+  @Override
   public void acceptResult(ResultProducer rp, Object [] key, Object [] result)
     throws Exception {
 
@@ -310,6 +314,7 @@ public class DatabaseResultProducer
    * @throws Exception if it could not be determined if the result 
    * is needed.
    */
+  @Override
   public boolean isResultRequired(ResultProducer rp, Object [] key) 
     throws Exception {
 
@@ -691,6 +696,7 @@ public class DatabaseResultProducer
    *
    * @return a text description of the result producer.
    */
+  @Override
   public String toString() {
 
     String result = "DatabaseResultProducer: ";

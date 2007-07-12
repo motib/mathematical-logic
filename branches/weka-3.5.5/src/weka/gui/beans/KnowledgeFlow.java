@@ -45,7 +45,8 @@ public class KnowledgeFlow {
                                  getSystemResource("weka/gui/beans/icons/splash.jpg"));
 
     Thread nt = new Thread() {
-        public void run() {
+        @Override
+	public void run() {
           weka.gui.SplashWindow.invokeMethod("weka.gui.beans.KnowledgeFlowApp", 
                                              "createSingleton", new String [1]);
         }};

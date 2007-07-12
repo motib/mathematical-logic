@@ -90,6 +90,7 @@ public class SerializedObject implements Serializable {
    * @param compareTo the object to compare to
    * @return whether or not the objects are equal
    */
+  @Override
   public final boolean equals(Object compareTo) {
 
     if (compareTo == null) return false;
@@ -107,6 +108,7 @@ public class SerializedObject implements Serializable {
    *
    * @return the hashcode
    */
+  @Override
   public int hashCode() {
 
     return m_storedObjectArray.length;

@@ -97,6 +97,7 @@ public class Tag {
    * 
    * @return the IDStr
    */
+  @Override
   public String toString() {
     return m_IDStr;
   }

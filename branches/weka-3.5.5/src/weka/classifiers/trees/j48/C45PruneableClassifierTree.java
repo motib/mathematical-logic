@@ -83,6 +83,7 @@ public class C45PruneableClassifierTree
    *
    * @return      the capabilities of this classifier tree
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -108,6 +109,7 @@ public class C45PruneableClassifierTree
    * @param data the data for building the tree
    * @throws Exception if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier tree handle the data?
@@ -177,7 +179,7 @@ public class C45PruneableClassifierTree
       indexOfLargestBranch = localModel().distribution().maxBag();
       if (m_subtreeRaising) {
 	errorsLargestBranch = son(indexOfLargestBranch).
-	  getEstimatedErrorsForBranch((Instances)m_train);
+	  getEstimatedErrorsForBranch(m_train);
       } else {
 	errorsLargestBranch = Double.MAX_VALUE;
       }
@@ -222,12 +224,13 @@ public class C45PruneableClassifierTree
    * @return the new tree
    * @throws Exception if something goes wrong
    */
+  @Override
   protected ClassifierTree getNewTree(Instances data) throws Exception {
     
     C45PruneableClassifierTree newTree = 
       new C45PruneableClassifierTree(m_toSelectModel, m_pruneTheTree, m_CF,
 				     m_subtreeRaising, m_cleanup);
-    newTree.buildTree((Instances)data, m_subtreeRaising);
+    newTree.buildTree(data, m_subtreeRaising);
 
     return newTree;
   }
@@ -270,7 +273,7 @@ public class C45PruneableClassifierTree
     else{
       Distribution savedDist = localModel().m_distribution;
       localModel().resetDistribution(data);
-      localInstances = (Instances[])localModel().split(data);
+      localInstances = localModel().split(data);
       localModel().m_distribution = savedDist;
       for (i=0;i<m_sons.length;i++)
 	errors = errors+
@@ -322,7 +325,7 @@ public class C45PruneableClassifierTree
    */
   private ClassifierSplitModel localModel(){
     
-    return (ClassifierSplitModel)m_localModel;
+    return m_localModel;
   }
 
   /**
@@ -340,7 +343,7 @@ public class C45PruneableClassifierTree
     m_train = data;
     if (!m_isLeaf){
       localInstances = 
-	(Instances [])localModel().split(data);
+	localModel().split(data);
       for (int i = 0; i < m_sons.length; i++)
 	son(i).newDistribution(localInstances[i]);
     } else {

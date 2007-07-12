@@ -68,6 +68,7 @@ public class GraphNode extends Object implements GraphConstants {
    *  Implemented to enable the use of contains method
    *  in Vector/FastVector class.
    */
+  @Override
   public boolean equals(Object n) {
     if(n instanceof GraphNode && ((GraphNode) n).ID.equalsIgnoreCase(this.ID)) {
       //System.out.println("returning true, n.ID >"+((GraphNode)n).ID+

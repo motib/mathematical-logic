@@ -256,7 +256,8 @@ public class XMLSerializationMethodHandler {
     * 
     * @return the read/write method handlers as string 
     */
-   public String toString() {
+   @Override
+  public String toString() {
       return "Read Methods:\n" + read() + "\n\n" + "Write Methods:\n" + write();
    }
 }

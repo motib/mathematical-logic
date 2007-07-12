@@ -149,6 +149,7 @@ public class K2
 	 * @param instances the data to work with
 	 * @throws Exception if something goes wrong
 	 */
+	@Override
 	public void buildStructure (BayesNet bayesNet, Instances instances) throws Exception {
 		super.buildStructure(bayesNet, instances);
 		int nOrder[] = new int [instances.numAttributes()];
@@ -275,6 +276,7 @@ public class K2
 	 *
 	 * @return an enumeration of all the available options.
 	 */
+	@Override
 	public Enumeration listOptions() {
 	  Vector newVector = new Vector(0);
 
@@ -326,6 +328,7 @@ public class K2
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
     
 	  setRandomOrder(Utils.getFlag('R', options));
@@ -347,6 +350,7 @@ public class K2
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String [] getOptions() {
           String[] superOptions = super.getOptions();
 	  String [] options  = new String [4 + superOptions.length];
@@ -375,6 +379,7 @@ public class K2
 	 * This will return a string describing the search algorithm.
 	 * @return The string.
 	 */
+	@Override
 	public String globalInfo() {
 	  return
 	      "This Bayes Network learning algorithm uses a hill climbing algorithm "

@@ -203,6 +203,7 @@ public class LWL
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.DecisionStump";
@@ -213,6 +214,7 @@ public class LWL
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     
     Vector newVector = new Vector(3);
@@ -277,6 +279,7 @@ public class LWL
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String knnString = Utils.getOption('K', options);
@@ -320,6 +323,7 @@ public class LWL
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();
@@ -457,6 +461,7 @@ public class LWL
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities      result;
     
@@ -480,6 +485,7 @@ public class LWL
    * @param instances set of instances serving as training data 
    * @throws Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     if (!(m_Classifier instanceof WeightedInstancesHandler)) {
@@ -527,6 +533,7 @@ public class LWL
    * @return preedicted class probability distribution
    * @throws Exception if distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
     
     if (m_Train.numInstances() == 0) {
@@ -607,7 +614,7 @@ public class LWL
     double sumOfWeights = 0, newSumOfWeights = 0;
     for (int i = 0; i < distances.length; i++) {
       double weight = distances[i];
-      Instance inst = (Instance) neighbours.instance(i);
+      Instance inst = neighbours.instance(i);
       sumOfWeights += inst.weight();
       newSumOfWeights += inst.weight() * weight;
       inst.setWeight(inst.weight() * weight);
@@ -638,6 +645,7 @@ public class LWL
    *
    * @return a description of this classifier as a string.
    */
+  @Override
   public String toString() {
 
     if (m_Train == null) {

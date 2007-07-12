@@ -224,6 +224,7 @@ public class ChiSquaredAttributeEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -248,6 +249,7 @@ public class ChiSquaredAttributeEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data)
     throws Exception {
     
@@ -411,6 +413,7 @@ public class ChiSquaredAttributeEval
    * @return the chi-squared value
    * @throws Exception if the attribute could not be evaluated
    */
+  @Override
   public double evaluateAttribute (int attribute)
     throws Exception {
 
@@ -421,6 +424,7 @@ public class ChiSquaredAttributeEval
    * Describe the attribute evaluator
    * @return a description of the attribute evaluator as a string
    */
+  @Override
   public String toString () {
     StringBuffer text = new StringBuffer();
 

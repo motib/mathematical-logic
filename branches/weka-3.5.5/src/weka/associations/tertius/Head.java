@@ -64,6 +64,7 @@ public class Head extends LiteralSet {
    * @return True if the instance is still a counter-instance 
    * (if the negation of the new literal satisfies the instance).
    */
+  @Override
   public boolean canKeep(Instance instance, Literal newLit) {
     return newLit.negationSatisfies(instance);
   }
@@ -72,7 +73,8 @@ public class Head extends LiteralSet {
    * Test if this Head is included in a rule.
    * It is the literals of this Head are contained in the head of the other rule,
    * or if their negation is included in the body of the other rule.
-   */  public boolean isIncludedIn(Rule otherRule) {
+   */  @Override
+  public boolean isIncludedIn(Rule otherRule) {
     Iterator iter = this.enumerateLiterals();
     while (iter.hasNext()) {
       Literal current = (Literal) iter.next();
@@ -87,6 +89,7 @@ public class Head extends LiteralSet {
   /**
    * Gives a String representation of this set of literals as a disjunction.
    */
+  @Override
   public String toString() {
     Iterator iter = this.enumerateLiterals();
 

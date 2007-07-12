@@ -35,6 +35,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -138,9 +139,10 @@ public class ClassPanel extends JPanel {
       m_index = id;
 
       this.addMouseListener(new MouseAdapter() {
+	  @Override
 	  public void mouseClicked(MouseEvent e) {
 	      
-	    if ((e.getModifiers() & e.BUTTON1_MASK) == e.BUTTON1_MASK) {
+	    if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK) {
 	      Color tmp = JColorChooser.showDialog
 		(ClassPanel.this, "Select new Color", 
 		 (Color)m_colorList.elementAt(m_index));
@@ -538,7 +540,7 @@ public class ClassPanel extends JPanel {
 
     int w = this.getWidth();
     double rs = 15;
-    double incr = 240.0 / (double)(w-(m_HorizontalPad*2));
+    double incr = 240.0 / (w-(m_HorizontalPad*2));
     int hf = m_labelMetrics.getAscent();
       
     for (int i=m_HorizontalPad;i<
@@ -655,6 +657,7 @@ public class ClassPanel extends JPanel {
    * Renders this component
    * @param gx the graphics context
    */
+  @Override
   public void paintComponent(Graphics gx) {
     super.paintComponent(gx);
     if (m_isEnabled) {
@@ -696,6 +699,7 @@ public class ClassPanel extends JPanel {
       final ClassPanel p2 = new ClassPanel();
       jf.getContentPane().add(p2, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    jf.dispose();
 	    System.exit(0);

@@ -32,6 +32,7 @@ import java.beans.*;
  */
 public class AssociatorBeanInfo extends SimpleBeanInfo {
  
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = { 
@@ -52,6 +53,7 @@ public class AssociatorBeanInfo extends SimpleBeanInfo {
    *
    * @return a <code>BeanDescriptor</code> value
    */
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.Associator.class, 
 			      AssociatorCustomizer.class);

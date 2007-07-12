@@ -263,7 +263,8 @@ public class Explorer extends JPanel {
       jf.getContentPane().setLayout(new BorderLayout());
       jf.getContentPane().add(m_explorer, BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
-        public void windowClosing(WindowEvent e) {
+        @Override
+	public void windowClosing(WindowEvent e) {
           jf.dispose();
           System.exit(0);
         }
@@ -283,11 +284,12 @@ public class Explorer extends JPanel {
       }
 
       Thread memMonitor = new Thread() {
-        public void run() {
+        @Override
+	public void run() {
           while(true) {
             try {
               //System.out.println("Before sleeping.");
-              this.sleep(4000);
+              Thread.sleep(4000);
 
               System.gc();
 

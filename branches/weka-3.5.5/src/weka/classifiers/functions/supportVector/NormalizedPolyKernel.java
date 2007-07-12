@@ -96,6 +96,7 @@ public class NormalizedPolyKernel
    * @return a description suitable for displaying in the
    *         explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "The normalized polynomial kernel.\n"
@@ -113,6 +114,7 @@ public class NormalizedPolyKernel
    * @return the result of the kernel function
    * @throws Exception if something goes wrong
    */
+  @Override
   public double eval(int id1, int id2, Instance inst1) 
     throws Exception {
 
@@ -132,6 +134,7 @@ public class NormalizedPolyKernel
    * 
    * @param value	the exponent value
    */
+  @Override
   public void setExponent(double value) {
     if (value != 1.0)
       super.setExponent(value);
@@ -144,6 +147,7 @@ public class NormalizedPolyKernel
    * 
    * @return 		a string representaiton of the kernel
    */
+  @Override
   public String toString() {
     String	result;
     

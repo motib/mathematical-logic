@@ -24,12 +24,8 @@
 package weka.gui.experiment;
 
 import weka.experiment.Experiment;
-import java.awt.Component;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.FocusAdapter;
@@ -43,9 +39,6 @@ import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
@@ -77,21 +70,25 @@ public class RunNumberPanel extends JPanel {
     // Updates occur to the values in exp whenever enter is pressed
     // or the component loses focus
     m_LowerText.addKeyListener(new KeyAdapter() {
+      @Override
       public void keyReleased(KeyEvent e) {
 	m_Exp.setRunLower(getLower());
       }
     });
     m_LowerText.addFocusListener(new FocusAdapter() {
+      @Override
       public void focusLost(FocusEvent e) {
 	m_Exp.setRunLower(getLower());
       }
     });
     m_UpperText.addKeyListener(new KeyAdapter() {
+      @Override
       public void keyReleased(KeyEvent e) {
 	m_Exp.setRunUpper(getUpper());
       }
     });
     m_UpperText.addFocusListener(new FocusAdapter() {
+      @Override
       public void focusLost(FocusEvent e) {
 	m_Exp.setRunUpper(getUpper());
       }
@@ -184,6 +181,7 @@ public class RunNumberPanel extends JPanel {
       jf.getContentPane().add(new RunNumberPanel(new Experiment()),
 			      BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

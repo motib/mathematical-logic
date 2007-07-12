@@ -22,9 +22,6 @@
 
 package weka.gui.beans;
 
-import weka.core.Instance;
-import weka.core.Instances;
-
 /**
  * Interface to something that is capable of being a source for data - 
  * either batch or incremental data

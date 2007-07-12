@@ -249,7 +249,7 @@ public class ConverterFileChooser
       m_SaverFileFilters  = new Vector<ExtensionFileFilter>();
 
     for (i = 0; i < classnames.size(); i++) {
-      classname = (String) classnames.get(i);
+      classname = classnames.get(i);
       
       // get data from converter
       try {
@@ -418,6 +418,7 @@ public class ConverterFileChooser
    * @param approveButtonText	the text for the OK button
    * @return			the user's action
    */
+  @Override
   public int showDialog(Component parent, String approveButtonText) {
     if (m_DialogType == UNHANDLED_DIALOG)
       throw new IllegalStateException("Either use showOpenDialog or showSaveDialog!");
@@ -431,6 +432,7 @@ public class ConverterFileChooser
    * @param parent		the parent of this file chooser
    * @return			the result of the user's action
    */
+  @Override
   public int showOpenDialog(Component parent) {
     m_DialogType       = LOADER_DIALOG;
     m_CurrentConverter = null;
@@ -483,6 +485,7 @@ public class ConverterFileChooser
    * @param parent		the parent of this file chooser
    * @return			the result of the user's action
    */
+  @Override
   public int showSaveDialog(Component parent) {
     m_DialogType       = SAVER_DIALOG;
     m_CurrentConverter = null;
@@ -669,13 +672,13 @@ public class ConverterFileChooser
     retVal = fc.showOpenDialog(null);
     
     // load file
-    if (retVal == ConverterFileChooser.APPROVE_OPTION) {
+    if (retVal == JFileChooser.APPROVE_OPTION) {
       loader = fc.getLoader();
       data   = loader.getDataSet();
       retVal = fc.showSaveDialog(null);
 
       // save file
-      if (retVal == ConverterFileChooser.APPROVE_OPTION) {
+      if (retVal == JFileChooser.APPROVE_OPTION) {
 	saver = fc.getSaver();
 	saver.setInstances(data);
 	saver.writeBatch();

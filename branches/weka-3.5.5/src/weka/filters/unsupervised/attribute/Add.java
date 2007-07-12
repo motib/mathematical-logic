@@ -187,6 +187,7 @@ public class Add
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -211,6 +212,7 @@ public class Add
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if the format couldn't be set successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     super.setInputFormat(instanceInfo);
@@ -256,6 +258,7 @@ public class Add
    * collected with output().
    * @throws IllegalStateException if no input format has been defined.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {

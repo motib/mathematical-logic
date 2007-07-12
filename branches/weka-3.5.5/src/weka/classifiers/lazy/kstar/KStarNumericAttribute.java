@@ -23,10 +23,7 @@
 
 package weka.classifiers.lazy.kstar;
 
-import java.io.*;
-import java.util.*;
 import weka.core.*;
-import weka.classifiers.*;
 
 /**
  * A custom class which provides the environment for computing the

@@ -177,10 +177,10 @@ public class HierarchicalBCEngine implements GraphConstants, LayoutEngine {
     
     JPanel jp1 = new JPanel( new GridBagLayout() );
     GridBagConstraints gbc = new GridBagConstraints();
-    gbc.gridwidth = gbc.REMAINDER;
-    gbc.anchor = gbc.NORTHWEST;
+    gbc.gridwidth = GridBagConstraints.REMAINDER;
+    gbc.anchor = GridBagConstraints.NORTHWEST;
     gbc.weightx = 1;
-    gbc.fill = gbc.HORIZONTAL;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
     jp1.add(m_jRbNaiveLayout, gbc);
     jp1.add(m_jRbPriorityLayout, gbc);
     jp1.setBorder( BorderFactory.createTitledBorder("Layout Type") );
@@ -310,6 +310,7 @@ public class HierarchicalBCEngine implements GraphConstants, LayoutEngine {
       return; 
     
     Thread th = new Thread() {
+      @Override
       public void run() {
         m_progress.setBorderPainted(true);
         if(nodeLevels==null) {

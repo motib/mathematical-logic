@@ -23,8 +23,6 @@
 
 package weka.experiment;
 
-import weka.core.Utils;
-
 /**
  * This matrix is a container for the datasets and classifier setups and 
  * their statistics. It outputs only the significance indicators - sometimes
@@ -61,6 +59,7 @@ public class ResultMatrixSignificance extends ResultMatrix {
   /**
    * returns the name of the output format
    */
+  @Override
   public String getDisplayName() {
     return "Significance only";
   }
@@ -68,6 +67,7 @@ public class ResultMatrixSignificance extends ResultMatrix {
   /**
    * removes the stored data but retains the dimensions of the matrix
    */
+  @Override
   public void clear() {
     super.clear();
     setPrintColNames(false);
@@ -78,6 +78,7 @@ public class ResultMatrixSignificance extends ResultMatrix {
   /**
    * sets whether to display the std deviations or not - always false!
    */
+  @Override
   public void setShowStdDev(boolean show) {
     // ignore
   }
@@ -85,6 +86,7 @@ public class ResultMatrixSignificance extends ResultMatrix {
   /**
    * returns the matrix as plain text
    */
+  @Override
   public String toStringMatrix() {
     StringBuffer        result;
     String[][]          cells;
@@ -159,6 +161,7 @@ public class ResultMatrixSignificance extends ResultMatrix {
    * @see #m_HeaderKeys
    * @see #m_HeaderValues
    */
+  @Override
   public String toStringHeader() {
     return new ResultMatrixPlainText(this).toStringHeader();
   }
@@ -167,6 +170,7 @@ public class ResultMatrixSignificance extends ResultMatrix {
    * returns returns a key for all the col names, for better readability if
    * the names got cut off
    */
+  @Override
   public String toStringKey() {
     return new ResultMatrixPlainText(this).toStringKey();
   }
@@ -174,6 +178,7 @@ public class ResultMatrixSignificance extends ResultMatrix {
   /**
    * returns the summary as string
    */
+  @Override
   public String toStringSummary() {
     return new ResultMatrixPlainText(this).toStringSummary();
   }
@@ -181,6 +186,7 @@ public class ResultMatrixSignificance extends ResultMatrix {
   /**
    * returns the ranking in a string representation
    */
+  @Override
   public String toStringRanking() {
     return new ResultMatrixPlainText(this).toStringRanking();
   }

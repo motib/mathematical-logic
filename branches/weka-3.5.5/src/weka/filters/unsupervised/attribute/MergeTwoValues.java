@@ -97,6 +97,7 @@ public class MergeTwoValues
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -122,6 +123,7 @@ public class MergeTwoValues
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -156,6 +158,7 @@ public class MergeTwoValues
    * collected with output().
    * @throws IllegalStateException if no input format has been set.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {
@@ -167,7 +170,7 @@ public class MergeTwoValues
     }
     Instance newInstance = (Instance)instance.copy();
     if ((int)newInstance.value(m_AttIndex.getIndex()) == m_SecondIndex.getIndex()) {
-      newInstance.setValue(m_AttIndex.getIndex(), (double)m_FirstIndex.getIndex());
+      newInstance.setValue(m_AttIndex.getIndex(), m_FirstIndex.getIndex());
     }
     else if ((int)newInstance.value(m_AttIndex.getIndex()) > m_SecondIndex.getIndex()) {
       newInstance.setValue(m_AttIndex.getIndex(),
@@ -396,19 +399,19 @@ public class MergeTwoValues
 	  text.append("'");
 	}
 	if (firstEndsWithPrime) {
-	  text.append(((String)att.value(m_FirstIndex.getIndex())).
-		      substring(1, ((String)att.value(m_FirstIndex.getIndex())).
+	  text.append((att.value(m_FirstIndex.getIndex())).
+		      substring(1, (att.value(m_FirstIndex.getIndex())).
 				length() - 1));
 	} else {
-	  text.append((String)att.value(m_FirstIndex.getIndex()));
+	  text.append(att.value(m_FirstIndex.getIndex()));
 	}
 	text.append('_');
 	if (secondEndsWithPrime) {
-	  text.append(((String)att.value(m_SecondIndex.getIndex())).
-		      substring(1, ((String)att.value(m_SecondIndex.getIndex())).
+	  text.append((att.value(m_SecondIndex.getIndex())).
+		      substring(1, (att.value(m_SecondIndex.getIndex())).
 				length() - 1));
 	} else {
-	  text.append((String)att.value(m_SecondIndex.getIndex()));
+	  text.append(att.value(m_SecondIndex.getIndex()));
 	}
 	if (firstEndsWithPrime || secondEndsWithPrime) {
 	  text.append("'");

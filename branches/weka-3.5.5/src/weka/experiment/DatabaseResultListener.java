@@ -390,7 +390,7 @@ public class DatabaseResultListener
       }
     }
     close(rs);
-    m_CacheKey = (Object [])key.clone();
+    m_CacheKey = key.clone();
   }
   
 }

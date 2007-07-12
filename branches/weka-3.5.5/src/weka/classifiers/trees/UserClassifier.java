@@ -57,6 +57,7 @@ import java.io.Serializable;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.WindowConstants;
 
 
 /**
@@ -154,6 +155,7 @@ public class UserClassifier
   /**
    * @return a string that represents this objects tree.
    */
+  @Override
   public String toString() {
     if (!m_built) {
 
@@ -307,7 +309,7 @@ public class UserClassifier
 						 JOptionPane.YES_NO_OPTION);
 	
 	if (well == 0) {
-	  m_mainWin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	  m_mainWin.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	  m_mainWin.dispose();
 	  blocker(false);  //release the thread waiting at blocker to 
 	  //continue.
@@ -495,6 +497,7 @@ public class UserClassifier
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -524,6 +527,7 @@ public class UserClassifier
    * @param i The training data.
    * @throws Exception if can't build classification properly.
    */
+  @Override
   public void buildClassifier(Instances i) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(i);
@@ -573,6 +577,7 @@ public class UserClassifier
     m_mainWin = new JFrame();
     
     m_mainWin.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  int well = JOptionPane.showConfirmDialog(m_mainWin, 
 						   "Are You Sure...\n"
@@ -583,12 +588,12 @@ public class UserClassifier
 						   JOptionPane.YES_NO_OPTION);
 	  
 	  if (well == 0) {
-	    m_mainWin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    m_mainWin.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	    blocker(false);
 	    
 	  }
 	  else {
-	    m_mainWin.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    m_mainWin.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	  }
 	}
       });
@@ -649,6 +654,7 @@ public class UserClassifier
    * @return A double array filled with the probalities of each class type.
    * @throws Exception if can't classify instance.
    */
+  @Override
   public double[] distributionForInstance(Instance i) throws Exception {
 
     if (!m_built) {

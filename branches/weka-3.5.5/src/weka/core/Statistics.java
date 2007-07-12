@@ -121,7 +121,7 @@ public class Statistics {
     if (n == 0) {
       return 0; 
     }
-    return Math.sqrt((p*(1-p))/(double) n);
+    return Math.sqrt((p*(1-p))/n);
   }
   
   /**

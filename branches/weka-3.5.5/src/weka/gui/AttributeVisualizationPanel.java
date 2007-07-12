@@ -23,27 +23,21 @@
 package weka.gui;
 
 import java.io.FileReader;
-import java.util.Random;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.FlowLayout;
-import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 //import java.awt.Image;
 //import java.awt.image.BufferedImage;
 
-import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import weka.core.Attribute;
@@ -218,6 +212,7 @@ public class AttributeVisualizationPanel extends PrintablePanel {
     FlowLayout fl= new FlowLayout(FlowLayout.LEFT);
     this.setLayout(fl);
     this.addComponentListener( new ComponentAdapter() {
+      @Override
       public void componentResized(ComponentEvent ce) {
         if(m_data!=null)
           calcGraph();
@@ -353,12 +348,12 @@ public class AttributeVisualizationPanel extends PrintablePanel {
       m_threadRun = true;
       if(m_as.nominalCounts!=null) {
         m_hc = new BarCalc();
-        m_hc.setPriority(m_hc.MIN_PRIORITY);
+        m_hc.setPriority(Thread.MIN_PRIORITY);
         m_hc.start();
       }
       else if(m_as.numericStats!=null) {
         m_hc = new HistCalc();
-        m_hc.setPriority(m_hc.MIN_PRIORITY);
+        m_hc.setPriority(Thread.MIN_PRIORITY);
         m_hc.start();
       } else {
         m_histBarCounts = null;
@@ -377,6 +372,7 @@ public class AttributeVisualizationPanel extends PrintablePanel {
    * m_maxValue and m_colorList.
    */
   private class BarCalc extends Thread {
+    @Override
     public void run() {
       synchronized (m_locker) {
         if((m_classIndex >= 0) &&
@@ -471,6 +467,7 @@ public class AttributeVisualizationPanel extends PrintablePanel {
    * m_maxValue and m_colorList.
    */
   private class HistCalc extends Thread {
+    @Override
     public void run() {
       synchronized (m_locker) {
         if((m_classIndex >= 0) &&
@@ -514,7 +511,7 @@ public class AttributeVisualizationPanel extends PrintablePanel {
                                  [m_data.attribute(m_classIndex).numValues()+1];
           
           double barRange   = (m_as.numericStats.max - m_as.numericStats.min) /
-                              (double)histClassCounts.length;
+                              histClassCounts.length;
           
           m_maxValue = 0;
           
@@ -627,7 +624,7 @@ public class AttributeVisualizationPanel extends PrintablePanel {
           
           int histCounts[]  = new int[intervals];
           double barRange   = (m_as.numericStats.max - m_as.numericStats.min) /
-                              (double)histCounts.length;
+                              histCounts.length;
           
           m_maxValue = 0;
           
@@ -772,6 +769,7 @@ public class AttributeVisualizationPanel extends PrintablePanel {
    *
    * @param ev The mouse event
    */
+  @Override
   public String getToolTipText(MouseEvent ev) {
     
     if(m_as!=null && m_as.nominalCounts!=null) { //if current attrib is nominal
@@ -922,6 +920,7 @@ public class AttributeVisualizationPanel extends PrintablePanel {
    *
    * @param g The graphics object for this component
    */
+  @Override
   public void paintComponent(Graphics g) {
     g.clearRect(0,0,this.getWidth(), this.getHeight());
     
@@ -1285,7 +1284,7 @@ public class AttributeVisualizationPanel extends PrintablePanel {
       jf.setSize(500, 300);
       jf.getContentPane().setLayout( new BorderLayout() );
       jf.getContentPane().add(ap, BorderLayout.CENTER );
-      jf.setDefaultCloseOperation( jf.EXIT_ON_CLOSE );
+      jf.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
       jf.setVisible(true);
     }
     else

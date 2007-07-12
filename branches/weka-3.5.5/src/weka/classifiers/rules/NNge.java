@@ -477,7 +477,7 @@ public class NNge
       if(numNotMissingAttr == 0){
 	return 0;
       } else {
-	return sum / (double) (numNotMissingAttr * numNotMissingAttr);
+	return sum / (numNotMissingAttr * numNotMissingAttr);
       }
     }
 
@@ -722,6 +722,7 @@ public class NNge
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -751,6 +752,7 @@ public class NNge
    * @throws Exception if the classifier has not been 
    * generated successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -848,6 +850,7 @@ public class NNge
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public double classifyInstance(Instance instance) throws Exception {
 
     /* check the instance */
@@ -1295,7 +1298,7 @@ public class NNge
 	  if(m_MI_MinArray[attrIndex] > inst.value(attrIndex)) m_MI_MinArray[attrIndex] = inst.value(attrIndex);
 		    
 	  /* and re-compute everything from scratch... (just for this attribute) */
-	  double delta = (m_MI_MaxArray[attrIndex] - m_MI_MinArray[attrIndex]) / (double) m_NumFoldersMI;
+	  double delta = (m_MI_MaxArray[attrIndex] - m_MI_MinArray[attrIndex]) / m_NumFoldersMI;
 
 	  /* for each interval */
 	  for(int inter = 0; inter < m_NumFoldersMI; inter++){
@@ -1325,7 +1328,7 @@ public class NNge
 	} else {
 
 	  /* still have to incr the card of the correct interval */
-	  double delta = (m_MI_MaxArray[attrIndex] - m_MI_MinArray[attrIndex]) / (double) m_NumFoldersMI;
+	  double delta = (m_MI_MaxArray[attrIndex] - m_MI_MinArray[attrIndex]) / m_NumFoldersMI;
 		    
 	  /* for each interval */
 	  for(int inter = 0; inter < m_NumFoldersMI; inter++){
@@ -1488,6 +1491,7 @@ public class NNge
    *
    * @return a description of this classifier as a string.
    */
+  @Override
   public String toString(){
 
     String s;
@@ -1555,6 +1559,7 @@ public class NNge
    *
    * @return an enumeration of all available options.
    */
+  @Override
   public Enumeration listOptions(){
 
     Vector newVector = new Vector(2);
@@ -1595,6 +1600,7 @@ public class NNge
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String str;
@@ -1626,6 +1632,7 @@ public class NNge
    *
    * @return the list of current option settings as an array of strings
    */
+  @Override
   public String[] getOptions(){
 
     String[] options = new String[5];

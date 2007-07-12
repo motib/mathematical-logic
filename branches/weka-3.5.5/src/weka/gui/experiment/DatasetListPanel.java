@@ -124,6 +124,7 @@ public class DatasetListPanel extends JPanel implements ActionListener {
         }
       });
     MouseListener mouseListener = new MouseAdapter() {
+      @Override
       public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {
           // unfortunately, locationToIndex only returns the nearest entry
@@ -513,6 +514,7 @@ public class DatasetListPanel extends JPanel implements ActionListener {
       jf.getContentPane().add(dp,
 			      BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);
@@ -521,7 +523,7 @@ public class DatasetListPanel extends JPanel implements ActionListener {
       jf.pack();
       jf.setVisible(true);
       System.err.println("Short nap");
-      Thread.currentThread().sleep(3000);
+      Thread.sleep(3000);
       System.err.println("Done");
       dp.setExperiment(new Experiment());
     } catch (Exception ex) {

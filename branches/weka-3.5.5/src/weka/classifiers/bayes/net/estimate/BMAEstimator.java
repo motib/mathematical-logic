@@ -70,6 +70,7 @@ public class BMAEstimator
      * @return a description of the classifier suitable for
      * displaying in the explorer/experimenter gui
      */
+    @Override
     public String globalInfo() {
       return 
       	  "BMAEstimator estimates conditional probability tables of a Bayes "
@@ -83,6 +84,7 @@ public class BMAEstimator
      * @param bayesNet the bayes net to use
      * @throws Exception if an error occurs
      */
+    @Override
     public void estimateCPTs(BayesNet bayesNet) throws Exception {
         initCPTs(bayesNet);
 
@@ -188,6 +190,7 @@ public class BMAEstimator
      * @throws Exception if the instance could not be incorporated in
      * the model.
      */
+    @Override
     public void updateClassifier(BayesNet bayesNet, Instance instance) throws Exception {
         throw new Exception("updateClassifier does not apply to BMA estimator");
     } // updateClassifier
@@ -198,6 +201,7 @@ public class BMAEstimator
      * @param bayesNet the bayes net to use
      * @throws Exception if something goes wrong
      */
+    @Override
     public void initCPTs(BayesNet bayesNet) throws Exception {
         // Reserve space for CPTs
         int nMaxParentCardinality = 1;
@@ -236,6 +240,7 @@ public class BMAEstimator
      * 
      * @return an enumeration of all the available options
      */
+    @Override
     public Enumeration listOptions() {
         Vector newVector = new Vector(1);
 
@@ -270,6 +275,7 @@ public class BMAEstimator
      * @param options the list of options as an array of strings
      * @throws Exception if an option is not supported
      */
+    @Override
     public void setOptions(String[] options) throws Exception {
         setUseK2Prior(Utils.getFlag("k2", options));
 
@@ -281,6 +287,7 @@ public class BMAEstimator
      * 
      * @return an array of strings suitable for passing to setOptions
      */
+    @Override
     public String[] getOptions() {
         String[] superOptions = super.getOptions();
         String[] options = new String[1 + superOptions.length];

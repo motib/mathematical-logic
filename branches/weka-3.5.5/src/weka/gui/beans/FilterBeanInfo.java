@@ -37,6 +37,7 @@ public class FilterBeanInfo extends SimpleBeanInfo {
    *
    * @return an <code>EventSetDescriptor[]</code> value
    */
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = { 
@@ -69,6 +70,7 @@ public class FilterBeanInfo extends SimpleBeanInfo {
    *
    * @return a <code>BeanDescriptor</code> value
    */
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.Filter.class,
 			      FilterCustomizer.class);

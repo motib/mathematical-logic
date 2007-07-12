@@ -210,6 +210,7 @@ public class NumberNode
    * 
    * @param o		the user object
    */
+  @Override
   public void setUserObject(Object o) {
     if (o != null)
       super.setUserObject(o);
@@ -220,6 +221,7 @@ public class NumberNode
    * 
    * @return		a string representation
    */
+  @Override
   public String toString() {
     return getClass().getName() + "[" + m_Name + ": "
     + getUserObject().toString() + "]";

@@ -107,6 +107,7 @@ public class M5Rules
    * @return a description suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
 
     return "Generates a decision list for regression problems using " 
@@ -132,6 +133,7 @@ public class M5Rules
    * 
    * @return the technical information about this class
    */
+  @Override
   public TechnicalInformation getTechnicalInformation() {
     TechnicalInformation 	result;
     

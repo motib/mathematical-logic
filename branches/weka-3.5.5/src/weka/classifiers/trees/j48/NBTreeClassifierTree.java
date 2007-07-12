@@ -47,6 +47,7 @@ public class NBTreeClassifierTree extends ClassifierTree {
    *
    * @return      the capabilities of this classifier tree
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -71,6 +72,7 @@ public class NBTreeClassifierTree extends ClassifierTree {
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
    super.buildClassifier(data);
    cleanup(new Instances(data, 0));
@@ -99,6 +101,7 @@ public class NBTreeClassifierTree extends ClassifierTree {
    * @param data the training data
    * @exception Exception if something goes wrong
    */
+  @Override
   protected ClassifierTree getNewTree(Instances data) throws Exception {
 	 
     ClassifierTree newTree = new NBTreeClassifierTree(m_toSelectModel);
@@ -114,6 +117,7 @@ public class NBTreeClassifierTree extends ClassifierTree {
    * @param test the pruning data.
    * @exception Exception if something goes wrong
    */
+  @Override
   protected ClassifierTree getNewTree(Instances train, Instances test) 
        throws Exception {
 	 
@@ -146,6 +150,7 @@ public class NBTreeClassifierTree extends ClassifierTree {
   /**
    * Prints tree structure.
    */
+  @Override
   public String toString() {
 
     try {
@@ -197,6 +202,7 @@ public class NBTreeClassifierTree extends ClassifierTree {
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public String graph() throws Exception {
 
     StringBuffer text = new StringBuffer();

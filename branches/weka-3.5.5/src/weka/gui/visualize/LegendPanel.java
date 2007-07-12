@@ -24,17 +24,13 @@
 package weka.gui.visualize;
 
 import weka.core.FastVector;
-import weka.core.Utils;
 import weka.core.Instances;
 
-import java.util.Random;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Dimension;
@@ -42,11 +38,9 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
 import javax.swing.JColorChooser;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Component;
 
@@ -97,9 +91,10 @@ public class LegendPanel extends JScrollPane {
 
       if (m_plotData.m_useCustomColour) {
 	this.addMouseListener(new MouseAdapter() {
+	    @Override
 	    public void mouseClicked(MouseEvent e) {
 	      
-	      if ((e.getModifiers() & e.BUTTON1_MASK) == e.BUTTON1_MASK) {
+	      if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK) {
 		Color tmp = JColorChooser.showDialog
 		  (LegendPanel.this, "Select new Color", 
 		   m_plotData.m_customColour);
@@ -131,6 +126,7 @@ public class LegendPanel extends JScrollPane {
       constraints.fill = GridBagConstraints.HORIZONTAL;
       constraints.gridx=0;constraints.gridy=0;constraints.weightx=5; */
       m_pointShape = new JPanel() {
+	@Override
 	public void paintComponent(Graphics gx) {
 	  super.paintComponent(gx);
 	  if (!m_plotData.m_useCustomColour) {
@@ -248,6 +244,7 @@ public class LegendPanel extends JScrollPane {
       final LegendPanel p2 = new LegendPanel();
       jf.getContentPane().add(p2, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

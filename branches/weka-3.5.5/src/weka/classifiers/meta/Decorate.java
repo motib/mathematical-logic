@@ -184,6 +184,7 @@ public class Decorate
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.J48";
@@ -194,6 +195,7 @@ public class Decorate
      *
      * @return an enumeration of all the available options
      */
+    @Override
     public Enumeration listOptions() {
 	Vector newVector = new Vector(8);
 
@@ -291,6 +293,7 @@ public class Decorate
      * @param options the list of options as an array of strings
      * @throws Exception if an option is not supported
      */
+    @Override
     public void setOptions(String[] options) throws Exception {
 
 	String desiredSize = Utils.getOption('E', options);
@@ -315,6 +318,7 @@ public class Decorate
      *
      * @return an array of strings suitable for passing to setOptions
      */
+    @Override
     public String [] getOptions() {
 
       String [] superOptions = super.getOptions();
@@ -351,6 +355,7 @@ public class Decorate
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String numIterationsTipText() {
     return "the maximum number of Decorate iterations to run. Each iteration generates a classifier, "
 	+"but does not necessarily add it to the ensemble. Decorate stops when the desired ensemble "
@@ -454,6 +459,7 @@ public class Decorate
      *
      * @return      the capabilities of this classifier
      */
+    @Override
     public Capabilities getCapabilities() {
       Capabilities result = super.getCapabilities();
 
@@ -474,6 +480,7 @@ public class Decorate
      * @param data the training data to be used for generating the classifier
      * @throws Exception if the classifier could not be built successfully
      */
+    @Override
     public void buildClassifier(Instances data) throws Exception {
       if(m_Classifier == null) {
         throw new Exception("A base classifier has not been specified!");
@@ -592,7 +599,7 @@ public class Decorate
 		if(data.attribute(j).isNominal()){
 		    //Select nominal value based on the frequency of occurence in the training data  
 		    double []stats = (double [])m_AttributeStats.get(j);
-		    att[j] =  (double) selectIndexProbabilistically(stats);
+		    att[j] =  selectIndexProbabilistically(stats);
 		}
 		else if(data.attribute(j).isNumeric()){
 		    //Generate numeric value from the Guassian distribution 
@@ -727,6 +734,7 @@ public class Decorate
    * @return predicted class probability distribution
    * @throws Exception if distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
       if (instance.classAttribute().isNumeric()) {
 	  throw new UnsupportedClassTypeException("Decorate can't handle a numeric class!");
@@ -753,6 +761,7 @@ public class Decorate
      *
      * @return description of the Decorate classifier as a string
      */
+    @Override
     public String toString() {
 	
 	if (m_Committee == null) {

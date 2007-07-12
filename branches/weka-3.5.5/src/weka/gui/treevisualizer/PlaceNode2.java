@@ -350,7 +350,7 @@ public class PlaceNode2 implements NodePlace {
       }
 
       pf--;
-      double inc = a.m_amount / (double)ps;
+      double inc = a.m_amount / ps;
       for (int noa = 0;(e = r.getChild(noa)) != null;noa++) {
 	ns = e.getTarget();
 	if (ns.getParent(0) == e) {
@@ -358,7 +358,7 @@ public class PlaceNode2 implements NodePlace {
 	    ns.adjustCenter(a.m_amount);
 	  }
 	  else if (noa > pf) {
-	    ns.adjustCenter(inc * (double)(noa - pf));
+	    ns.adjustCenter(inc * (noa - pf));
 	  }
 	}
       }
@@ -455,7 +455,7 @@ public class PlaceNode2 implements NodePlace {
 	ns = r.getChild(noa).getTarget();
       }
       m_groups[f].m_gap =
-	Math.ceil((a.m_amount / (double)ps) + m_groups[f].m_gap);
+	Math.ceil((a.m_amount / ps) + m_groups[f].m_gap);
       
       xPlacer(f);
     }

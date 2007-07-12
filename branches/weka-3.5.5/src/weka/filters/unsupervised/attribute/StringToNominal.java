@@ -86,6 +86,7 @@ public class StringToNominal
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -113,6 +114,7 @@ public class StringToNominal
    * @throws Exception if the input format can't be set 
    * successfully.
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
 
@@ -134,6 +136,7 @@ public class StringToNominal
    * collected with output().
    * @throws IllegalStateException if no input structure has been defined.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {
@@ -163,6 +166,7 @@ public class StringToNominal
    * @return true if there are instances pending output.
    * @throws IllegalStateException if no input structure has been defined.
    */
+  @Override
   public boolean batchFinished() {
 
     if (getInputFormat() == null) {

@@ -146,6 +146,7 @@ public class LogisticBase
      * @param data the training data
      * @throws Exception if something goes wrong
      */
+    @Override
     public void buildClassifier(Instances data) throws Exception {			
 
 	m_train = new Instances(data);
@@ -514,7 +515,7 @@ public class LogisticBase
                 weightSum = instancesCopy.sumOfWeights();
                 for (int i = 0; i < instancesCopy.numInstances(); i++) {
                     Instance current = instancesCopy.instance(i);
-                    current.setWeight(current.weight() * (double)instancesCopy.numInstances() / weightSum);
+                    current.setWeight(current.weight() * instancesCopy.numInstances() / weightSum);
                 }
             }
 	    
@@ -957,7 +958,7 @@ public class LogisticBase
 	//count number of used attributes (without the class attribute)
 	double count = 0;
 	for (int i = 0; i < attributes.length; i++) if (attributes[i]) count++;
-	return count / (double)(m_numericDataHeader.numAttributes() - 1) * 100.0;
+	return count / (m_numericDataHeader.numAttributes() - 1) * 100.0;
     }
     
     /**
@@ -966,6 +967,7 @@ public class LogisticBase
      * 
      * @return the description of the model
      */
+    @Override
     public String toString(){
 	
 	StringBuffer s = new StringBuffer();	
@@ -998,6 +1000,7 @@ public class LogisticBase
      * @return the class probabilities
      * @throws Exception if distribution can't be computed successfully
      */
+    @Override
     public double[] distributionForInstance(Instance instance) throws Exception {
 	
 	instance = (Instance)instance.copy();	

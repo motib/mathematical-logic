@@ -183,6 +183,7 @@ public class TLD
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -227,6 +228,7 @@ public class TLD
    * @param exs the training exemplars
    * @throws Exception if the model cannot be built properly
    */    
+  @Override
   public void buildClassifier(Instances exs)throws Exception{
     // can classifier handle the data?
     getCapabilities().testWithFail(exs);
@@ -583,6 +585,7 @@ public class TLD
    * @throws Exception if the exemplar could not be classified
    * successfully
    */
+  @Override
   public double classifyInstance(Instance ex)throws Exception{
     //Exemplar ex = new Exemplar(e);
     Instances exi = ex.relationalValue(1);
@@ -625,7 +628,7 @@ public class TLD
             n[x]*(xBar[x]-m)*(xBar[x]-m))
         - 0.5*n[x]*Math.log(Math.PI);
       for(int y=1; y<=halfN; y++)
-        LLP += Math.log(b/2.0+n[x]/2.0-(double)y);
+        LLP += Math.log(b/2.0+n[x]/2.0-y);
 
       if(n[x]/2.0 > halfN) // n is odd
         LLP += TLD_Optm.diffLnGamma(b/2.0);
@@ -640,7 +643,7 @@ public class TLD
             n[x]*(xBar[x]-m)*(xBar[x]-m))
         - 0.5*n[x]*Math.log(Math.PI);
       for(int y=1; y<=halfN; y++)
-        LLN += Math.log(b/2.0+n[x]/2.0-(double)y);	
+        LLN += Math.log(b/2.0+n[x]/2.0-y);	
 
       if(n[x]/2.0 > halfN) // n is odd
         LLN += TLD_Optm.diffLnGamma(b/2.0);   
@@ -661,7 +664,7 @@ public class TLD
        System.err.print(t+":"+Utils.doubleToString(neg[nOrder[t]],0,2)+" ");
        */
     int pNum = pos.length, nNum = neg.length, count, p=0, n=0;	
-    double fstAccu=0.0, sndAccu=(double)pNum, split; 
+    double fstAccu=0.0, sndAccu=pNum, split; 
     double maxAccu = 0, minDistTo0 = Double.MAX_VALUE;
 
     // Skip continuous negatives	
@@ -701,6 +704,7 @@ public class TLD
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -749,6 +753,7 @@ public class TLD
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception{
     setDebug(Utils.getFlag('D', options));
 
@@ -768,6 +773,7 @@ public class TLD
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -880,8 +886,8 @@ class TLD_Optm extends Optimization{
     rt += (b+1.0)*Math.log(b+6.0) - (b+0.5)*Math.log(b+5.5);
     double series1=1.000000000190015, series2=1.000000000190015;
     for(int i=0; i<6; i++){
-      series1 += coef[i]/(b+1.5+(double)i);
-      series2 += coef[i]/(b+1.0+(double)i);
+      series1 += coef[i]/(b+1.5+i);
+      series2 += coef[i]/(b+1.0+i);
     }
 
     rt += Math.log(series1*b)-Math.log(series2*(b+0.5));
@@ -897,7 +903,7 @@ class TLD_Optm extends Optimization{
   protected double diffFstDervLnGamma(double x){
     double rt=0, series=1.0;// Just make it >0
     for(int i=0;series>=m_Zero*1e-3;i++){
-      series = 0.5/((x+(double)i)*(x+(double)i+0.5));
+      series = 0.5/((x+i)*(x+i+0.5));
       rt += series;
     }
     return rt;
@@ -912,8 +918,8 @@ class TLD_Optm extends Optimization{
   protected double diffSndDervLnGamma(double x){
     double rt=0, series=1.0;// Just make it >0
     for(int i=0;series>=m_Zero*1e-3;i++){
-      series = (x+(double)i+0.25)/
-        ((x+(double)i)*(x+(double)i)*(x+(double)i+0.5)*(x+(double)i+0.5));
+      series = (x+i+0.25)/
+        ((x+i)*(x+i)*(x+i+0.5)*(x+i+0.5));
       rt -= series;
     }
     return rt;
@@ -923,6 +929,7 @@ class TLD_Optm extends Optimization{
    * Implement this procedure to evaluate objective
    * function to be minimized
    */
+  @Override
   protected double objectiveFunction(double[] x){
     int numExs = num.length;
     double NLL = 0; // Negative Log-Likelihood
@@ -958,7 +965,7 @@ class TLD_Optm extends Optimization{
 
       int halfNum = ((int)num[j])/2;
       for(int z=1; z<=halfNum; z++)
-        NLL -= Math.log(0.5*b+0.5*num[j]-(double)z);
+        NLL -= Math.log(0.5*b+0.5*num[j]-z);
 
       if(0.5*num[j] > halfNum) // num[j] is odd
         NLL -= diffLnGamma(0.5*b);
@@ -988,6 +995,7 @@ class TLD_Optm extends Optimization{
    * Subclass should implement this procedure to evaluate gradient
    * of the objective function
    */
+  @Override
   protected double[] evaluateGradient(double[] x){
     double[] g = new double[x.length];
     int numExs = num.length;
@@ -1010,7 +1018,7 @@ class TLD_Optm extends Optimization{
 
       int halfNum = ((int)num[j])/2;
       for(int z=1; z<=halfNum; z++)
-        db -= 1.0/(b+num[j]-2.0*(double)z);		
+        db -= 1.0/(b+num[j]-2.0*z);		
       if(num[j]/2.0 > halfNum) // num[j] is odd
         db -= 0.5*diffFstDervLnGamma(0.5*b);		
 
@@ -1031,6 +1039,7 @@ class TLD_Optm extends Optimization{
    * Subclass should implement this procedure to evaluate second-order
    * gradient of the objective function
    */
+  @Override
   protected double[] evaluateHessian(double[] x, int index){
     double[] h = new double[x.length];
 
@@ -1075,7 +1084,7 @@ class TLD_Optm extends Optimization{
           int halfNum = ((int)num[j])/2;
           for(int z=1; z<=halfNum; z++)
             h[1] += 
-              1.0/((b+num[j]-2.0*(double)z)*(b+num[j]-2.0*(double)z));
+              1.0/((b+num[j]-2.0*z)*(b+num[j]-2.0*z));
           if(num[j]/2.0 > halfNum) // num[j] is odd
             h[1] -= 0.25*diffSndDervLnGamma(0.5*b); 
 

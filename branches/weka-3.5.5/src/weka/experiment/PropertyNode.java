@@ -77,6 +77,7 @@ public class PropertyNode implements Serializable {
    *
    * @return a value of type 'String'
    */
+  @Override
   public String toString() {
     
     if (property == null) {

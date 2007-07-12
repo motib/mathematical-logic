@@ -492,7 +492,8 @@ public class RemoveFrequentValues
     * @return            the capabilities of this object
     * @see               Capabilities
     */
-   public Capabilities getCapabilities() {
+   @Override
+  public Capabilities getCapabilities() {
      Capabilities result = super.getCapabilities();
 
      // attributes
@@ -517,7 +518,8 @@ public class RemoveFrequentValues
     * @throws UnsupportedAttributeTypeException if the specified attribute
     *         is not nominal.
     */
-   public boolean setInputFormat(Instances instanceInfo) throws Exception {
+   @Override
+  public boolean setInputFormat(Instances instanceInfo) throws Exception {
       super.setInputFormat(instanceInfo);
       
       m_AttIndex.setUpper(instanceInfo.numAttributes() - 1);
@@ -577,7 +579,8 @@ public class RemoveFrequentValues
     * collected with output().
     * @throws IllegalStateException if no input format has been set.
     */
-   public boolean input(Instance instance) {
+   @Override
+  public boolean input(Instance instance) {
       if (getInputFormat() == null) {
          throw new IllegalStateException("No input instance format defined");
       }
@@ -605,7 +608,8 @@ public class RemoveFrequentValues
     * @return true if there are instances pending output
     * @throws IllegalStateException if no input structure has been defined
     */
-   public boolean batchFinished() {
+   @Override
+  public boolean batchFinished() {
       if (getInputFormat() == null) {
          throw new IllegalStateException("No input instance format defined");
       }

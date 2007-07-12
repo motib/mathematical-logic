@@ -95,7 +95,8 @@ public class XMLBasicSerialization extends XMLSerialization {
     * 
     * @throws Exception if initializing fails
     */
-   public void clear() throws Exception {
+   @Override
+  public void clear() throws Exception {
       super.clear();
       
       // Java classes

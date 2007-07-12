@@ -171,6 +171,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -195,6 +196,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    * linear regression function
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
   
     if (!m_checksTurnedOff) {
@@ -262,6 +264,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    * @return the classification
    * @throws Exception if classification can't be done successfully
    */
+  @Override
   public double classifyInstance(Instance instance) throws Exception {
 
     // Transform the input instance
@@ -286,6 +289,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    * 
    * @return the model as string
    */
+  @Override
   public String toString() {
 
     if (m_TransformedData == null) {
@@ -325,6 +329,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     
     Vector newVector = new Vector(4);
@@ -370,6 +375,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String selectionString = Utils.getOption('S', options);
@@ -414,6 +420,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] options = new String [6];
@@ -549,6 +556,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String debugTipText() {
     return "Outputs debug information to the console.";
   }
@@ -558,6 +566,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    *
    * @param debug true if debugging output should be printed
    */
+  @Override
   public void setDebug(boolean debug) {
 
     b_Debug = debug;
@@ -568,6 +577,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
    *
    * @return true if debugging output is printed
    */
+  @Override
   public boolean getDebug() {
 
     return b_Debug;
@@ -655,7 +665,7 @@ public class LinearRegression extends Classifier implements OptionHandler,
 
       // Greedy attribute removal
       do {
-	boolean [] currentSelected = (boolean []) m_SelectedAttributes.clone();
+	boolean [] currentSelected = m_SelectedAttributes.clone();
 	improved = false;
 	currentNumAttributes--;
 

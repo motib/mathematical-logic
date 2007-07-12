@@ -229,7 +229,7 @@ public class KDDataGenerator implements DataGenerator, Serializable {
 		break;
 	      }
 	    }
-	    values[indices[k]][i] = (double)instVal;
+	    values[indices[k]][i] = instVal;
 	  }
 	}
       }

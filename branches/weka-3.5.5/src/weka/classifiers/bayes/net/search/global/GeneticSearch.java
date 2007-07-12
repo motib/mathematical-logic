@@ -305,6 +305,7 @@ public class GeneticSearch
 	 * @param instances the instances to use
 	 * @throws Exception if population size doesn fit or neither cross-over or mutation was chosen
 	 */
+	@Override
 	protected void search(BayesNet bayesNet, Instances instances) throws Exception {
 		// sanity check
 		if (getDescendantPopulationSize() < getPopulationSize()) {
@@ -437,6 +438,7 @@ public class GeneticSearch
 	 *
 	 * @return an enumeration of all the available options.
 	 */
+	@Override
 	public Enumeration listOptions() {
 		Vector newVector = new Vector(7);
 
@@ -503,6 +505,7 @@ public class GeneticSearch
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 		String sPopulationSize = Utils.getOption('L', options);
 		if (sPopulationSize.length() != 0) {
@@ -532,6 +535,7 @@ public class GeneticSearch
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
 		String[] superOptions = super.getOptions();
 		String[] options = new String[11 + superOptions.length];
@@ -660,6 +664,7 @@ public class GeneticSearch
 	 * This will return a string describing the classifier.
 	 * @return The string.
 	 */
+	@Override
 	public String globalInfo() {
 		return "This Bayes Network learning algorithm uses genetic search for finding a well scoring " +
 		"Bayes network structure. Genetic search works by having a population of Bayes network structures " +

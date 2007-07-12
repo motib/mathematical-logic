@@ -88,6 +88,7 @@ public class SimpleLinearRegression extends Classifier
    * @return the prediction
    * @throws Exception if an error occurs
    */
+  @Override
   public double classifyInstance(Instance inst) throws Exception {
     
     if (m_attribute == null) {
@@ -105,6 +106,7 @@ public class SimpleLinearRegression extends Classifier
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -126,6 +128,7 @@ public class SimpleLinearRegression extends Classifier
    * @param insts the training data.
    * @throws Exception if an error occurs
    */
+  @Override
   public void buildClassifier(Instances insts) throws Exception {
 
     // can classifier handle the data?
@@ -252,6 +255,7 @@ public class SimpleLinearRegression extends Classifier
    *
    * @return a description of the classifier.
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

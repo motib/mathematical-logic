@@ -509,6 +509,7 @@ public class RegOptimizer
    *
    * @return 		a description of the classifier as a string
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     text.append("SVMreg\n\n");

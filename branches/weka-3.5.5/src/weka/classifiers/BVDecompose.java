@@ -645,6 +645,7 @@ public class BVDecompose
    *
    * @return the bias-variance decomposition results as a string
    */
+  @Override
   public String toString() {
 
     String result = "\nBias-Variance Decomposition\n";

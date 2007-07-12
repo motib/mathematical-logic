@@ -188,6 +188,7 @@ public class KStar
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -215,6 +216,7 @@ public class KStar
    * @param instances set of instances serving as training data 
    * @throws Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     String debug = "(KStar.buildClassifier) ";
 
@@ -256,6 +258,7 @@ public class KStar
    * @return predicted class probability distribution
    * @throws Exception if an error occurred during the prediction
    */
+  @Override
   public double [] distributionForInstance(Instance instance) throws Exception {
 
     String debug = "(KStar.distributionForInstance) ";
@@ -424,6 +427,7 @@ public class KStar
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector optVector = new Vector( 3 );
@@ -528,6 +532,7 @@ public class KStar
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String debug = "(KStar.setOptions)";
     String blendStr = Utils.getOption('B', options);
@@ -565,6 +570,7 @@ public class KStar
    *
    * @return an array of strings suitable for passing to setOptions()
    */
+  @Override
   public String [] getOptions() {
     // -B <num> -E -M <char>
     String [] options = new String [ 5 ];
@@ -600,6 +606,7 @@ public class KStar
    *
    * @return a description of this classifier as a string.
    */
+  @Override
   public String toString() {
     StringBuffer st = new StringBuffer();
     st.append("KStar Beta Verion (0.1b).\n"
@@ -696,7 +703,7 @@ public class KStar
     int [] newArray = new int[array.length];
     System.arraycopy(array, 0, newArray, 0, array.length);
     for (int j = newArray.length - 1; j > 0; j--) {
-      index = (int) ( generator.nextDouble() * (double)j );
+      index = (int) ( generator.nextDouble() * j );
       temp = newArray[j];
       newArray[j] = newArray[index];
       newArray[index] = temp;

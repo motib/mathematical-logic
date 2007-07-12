@@ -96,6 +96,7 @@ public class RepeatedHillClimber
 	* @param instances the data to use
 	* @throws Exception if something goes wrong
 	**/
+	@Override
 	protected void search(BayesNet bayesNet, Instances instances) throws Exception {
 		m_random = new Random(getSeed());
 		// keeps track of score pf best structure found so far 
@@ -233,6 +234,7 @@ public class RepeatedHillClimber
 	 *
 	 * @return an enumeration of all the available options.
 	 */
+	@Override
 	public Enumeration listOptions() {
 		Vector newVector = new Vector(4);
 
@@ -286,6 +288,7 @@ public class RepeatedHillClimber
 	 * @param options the list of options as an array of strings
 	 * @throws Exception if an option is not supported
 	 */
+	@Override
 	public void setOptions(String[] options) throws Exception {
 		String sRuns = Utils.getOption('U', options);
 		if (sRuns.length() != 0) {
@@ -305,6 +308,7 @@ public class RepeatedHillClimber
 	 *
 	 * @return an array of strings suitable for passing to setOptions
 	 */
+	@Override
 	public String[] getOptions() {
 		String[] superOptions = super.getOptions();
 		String[] options = new String[7 + superOptions.length];
@@ -333,6 +337,7 @@ public class RepeatedHillClimber
 	 * 
 	 * @return The string.
 	 */
+	@Override
 	public String globalInfo() {
 		return "This Bayes Network learning algorithm repeatedly uses hill climbing starting " +
 		"with a randomly generated network structure and return the best structure of the " +

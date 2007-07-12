@@ -87,6 +87,7 @@ public class AttributeSummaryPanel
      * @param column	the column
      * @return		always false, i.e., the whole table is not editable
      */
+    @Override
     public boolean isCellEditable(int row, int column) {
       return false;
     }
@@ -225,6 +226,7 @@ public class AttributeSummaryPanel
     setHeader(index);
     if (m_AttributeStats[index] == null) {
       Thread t = new Thread() {
+	@Override
 	public void run() {
 	  m_AttributeStats[index] = m_Instances
 	  .attributeStats(index);
@@ -349,6 +351,7 @@ public class AttributeSummaryPanel
       });
       jf.getContentPane().add(j, BorderLayout.NORTH);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

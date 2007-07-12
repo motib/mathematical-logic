@@ -152,6 +152,7 @@ public class AttributeSelectedClassifier
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.J48";
@@ -179,6 +180,7 @@ public class AttributeSelectedClassifier
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
      Vector newVector = new Vector(3);
     
@@ -272,6 +274,7 @@ public class AttributeSelectedClassifier
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     // same for attribute evaluator
@@ -306,6 +309,7 @@ public class AttributeSelectedClassifier
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();
@@ -422,6 +426,7 @@ public class AttributeSelectedClassifier
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities	result;
     
@@ -443,6 +448,7 @@ public class AttributeSelectedClassifier
    * @param data the training data
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
     if (m_Classifier == null) {
       throw new Exception("No base classifier has been set!");
@@ -521,8 +527,8 @@ public class AttributeSelectedClassifier
       new Instances((m_Classifier instanceof WeightedInstancesHandler) ?
                     newData
                     : resampledData, 0);
-    m_selectionTime = (double)(end - start);
-    m_totalTime = (double)(end2 - start);
+    m_selectionTime = (end - start);
+    m_totalTime = (end2 - start);
   }
 
   /**
@@ -533,6 +539,7 @@ public class AttributeSelectedClassifier
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public double [] distributionForInstance(Instance instance)
     throws Exception {
 
@@ -580,6 +587,7 @@ public class AttributeSelectedClassifier
    * 
    * @return a representation of this classifier
    */
+  @Override
   public String toString() {
     if (m_AttributeSelection == null) {
       return "AttributeSelectedClassifier: No attribute selection possible.\n\n"

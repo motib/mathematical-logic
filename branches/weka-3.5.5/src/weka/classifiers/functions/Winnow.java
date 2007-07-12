@@ -215,6 +215,7 @@ public class Winnow
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(7);
@@ -283,6 +284,7 @@ public class Winnow
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     
     m_Balanced = Utils.getFlag('L', options);
@@ -318,6 +320,7 @@ public class Winnow
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
 
     String[] options = new String [20];
@@ -344,6 +347,7 @@ public class Winnow
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -367,6 +371,7 @@ public class Winnow
    * @param insts the data to train the classifier with
    * @throws Exception if something goes wrong during building
    */
+  @Override
   public void buildClassifier(Instances insts) throws Exception {
 
     // can classifier handle the data?
@@ -540,6 +545,7 @@ public class Winnow
    * @return the prediction
    * @throws Exception if something goes wrong
    */
+  @Override
   public double classifyInstance(Instance inst) throws Exception {
 
     m_ReplaceMissingValues.input(inst);
@@ -611,6 +617,7 @@ public class Winnow
    * 
    * @return textual description of the classifier
    */
+  @Override
   public String toString() {
 
     if(m_predPosVector==null)

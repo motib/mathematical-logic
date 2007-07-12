@@ -135,7 +135,7 @@ public class AprioriItemSet
 				   int consequenceCount) {
     double num = 
       (double)premiseCount * (double)(m_totalTransactions - consequenceCount) /
-       (double)m_totalTransactions;
+       m_totalTransactions;
     double denom = 
       ((premiseCount - consequence.m_counter)+1);
     
@@ -282,11 +282,11 @@ public class AprioriItemSet
 	  ((Integer)hashtableForConsequence.get(consequence)).intValue();
 
 	if (metricType == 0) {
-	  contingencyTable[0][0] = (double)(consequence.m_counter);
-	  contingencyTable[0][1] = (double)(premise.m_counter - consequence.m_counter);
-	  contingencyTable[1][0] = (double)(consequenceUnconditionedCounter -
+	  contingencyTable[0][0] = (consequence.m_counter);
+	  contingencyTable[0][1] = (premise.m_counter - consequence.m_counter);
+	  contingencyTable[1][0] = (consequenceUnconditionedCounter -
 					    consequence.m_counter);
-	  contingencyTable[1][1] = (double)(numTransactions - premise.m_counter -
+	  contingencyTable[1][1] = (numTransactions - premise.m_counter -
 					    consequenceUnconditionedCounter +
 					    consequence.m_counter);
 	  chiSquared = ContingencyTables.chiSquared(contingencyTable, false);
@@ -437,6 +437,7 @@ public class AprioriItemSet
    * @param instances contains the relevant header information
    * @return string describing the item set
    */
+  @Override
   public final String toString(Instances instances) {
    
       return super.toString(instances);

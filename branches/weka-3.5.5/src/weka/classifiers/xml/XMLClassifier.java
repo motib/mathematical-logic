@@ -45,7 +45,8 @@ public class XMLClassifier extends XMLBasicSerialization {
     * generates internally a new XML document and clears also the IgnoreList and
     * the mappings for the Read/Write-Methods
     */
-   public void clear() throws Exception {
+   @Override
+  public void clear() throws Exception {
       super.clear();
 
       // allow

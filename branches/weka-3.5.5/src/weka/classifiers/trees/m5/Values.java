@@ -23,9 +23,6 @@
 
 package weka.classifiers.trees.m5;
 
-import java.io.*;
-import java.util.*;
-
 import weka.core.*;
 
 /**
@@ -86,6 +83,7 @@ public final class Values {
    * Converts the stats to a string
    * @return the converted string
    */
+  @Override
   public final String  toString(){
     
     StringBuffer text = new StringBuffer();

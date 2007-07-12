@@ -193,6 +193,7 @@ public class RuleNode
    * @param data the instances on which to build this node
    * @throws Exception if an error occurs
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     m_rootMeanSquaredError = Double.MAX_VALUE;
@@ -224,6 +225,7 @@ public class RuleNode
    * @return the prediction for this instance
    * @throws Exception if an error occurs
    */
+  @Override
   public double classifyInstance(Instance inst) throws Exception {
     if (m_isLeaf) {
       if (m_nodeModel == null) {
@@ -501,6 +503,7 @@ public class RuleNode
    * 
    * @return the linear model
    */
+  @Override
   public String toString() {
     return printNodeLinearModel();
   } 
@@ -814,8 +817,8 @@ public class RuleNode
       return 10.0;    // Caution says Yong in his code
     } 
 
-    return ((double) (num_instances + m_pruningMultiplier * num_params) 
-	    / (double) (num_instances - num_params));
+    return ((num_instances + m_pruningMultiplier * num_params) 
+	    / (num_instances - num_params));
   } 
 
   /**

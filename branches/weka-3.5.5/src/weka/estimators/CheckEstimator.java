@@ -166,7 +166,7 @@ public class CheckEstimator implements OptionHandler {
   }
   
   /*** The estimator to be examined */
-  protected Estimator m_Estimator = (Estimator) new weka.estimators.NormalEstimator(0.000001);
+  protected Estimator m_Estimator = new weka.estimators.NormalEstimator(0.000001);
   
   /** The options to be passed to the base estimator. */
   protected String[] m_EstimatorOptions;

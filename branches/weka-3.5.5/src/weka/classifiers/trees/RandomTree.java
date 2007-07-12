@@ -244,6 +244,7 @@ public class RandomTree
    * 
    * @return an enumeration over all possible options
    */
+  @Override
   public Enumeration listOptions() {
     
     Vector newVector = new Vector();
@@ -280,6 +281,7 @@ public class RandomTree
    * 
    * @return the options for the current setup
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -338,6 +340,7 @@ public class RandomTree
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception{
     String	tmpStr;
     
@@ -379,6 +382,7 @@ public class RandomTree
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -401,6 +405,7 @@ public class RandomTree
    * @param data the data to train with
    * @throws Exception if something goes wrong or the data doesn't fit
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // Make sure K value is in range
@@ -489,6 +494,7 @@ public class RandomTree
    * @return the computed class distribution
    * @throws Exception if computation fails
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
     
     double[] returnedDist = null;
@@ -601,6 +607,7 @@ public class RandomTree
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
     
     if (m_Successors == null) {
@@ -997,7 +1004,7 @@ public class RandomTree
     }
     if (Utils.eq(Utils.sum(props[att]), 0)) {
       for (int k = 0; k < props[att].length; k++) {
-	props[att][k] = 1.0 / (double)props[att].length;
+	props[att][k] = 1.0 / props[att].length;
       }
     } else {
       Utils.normalize(props[att]);

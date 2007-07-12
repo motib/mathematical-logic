@@ -189,6 +189,7 @@ public abstract class M5Base
    * 
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector newVector = new Vector(4);
 
@@ -222,6 +223,7 @@ public abstract class M5Base
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     setUnpruned(Utils.getFlag('N', options));
     setUseUnsmoothed(Utils.getFlag('U', options));
@@ -238,6 +240,7 @@ public abstract class M5Base
    * 
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     String[] options = new String[5];
     int current = 0;
@@ -410,6 +413,7 @@ public abstract class M5Base
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     return new LinearRegression().getCapabilities();
   }
@@ -421,6 +425,7 @@ public abstract class M5Base
    * @throws Exception if the classifier has not been generated
    * successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(data);
@@ -498,6 +503,7 @@ public abstract class M5Base
    * @return the prediction
    * @throws Exception if a prediction can't be made.
    */
+  @Override
   public double classifyInstance(Instance inst) throws Exception {
     Rule   temp;
     double prediction = 0;
@@ -549,6 +555,7 @@ public abstract class M5Base
    * 
    * @return a description of the classifier as a String
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     Rule	 temp;

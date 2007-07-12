@@ -124,6 +124,7 @@ public class BoundaryVisualizer
       this.setFont(newFont);
     }
 
+    @Override
     public Dimension getPreferredSize() {
       if (m_fontMetrics == null) {
 	Graphics g = this.getGraphics();
@@ -136,6 +137,7 @@ public class BoundaryVisualizer
       return new Dimension(50, this.getSize().height);
     }
 
+    @Override
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
       this.setBackground(Color.black);
@@ -658,7 +660,8 @@ public class BoundaryVisualizer
       
     //set up a mouse listener for the boundary panel.
     m_boundaryPanel.addMouseListener(new MouseAdapter() {
-    	public void mouseClicked(MouseEvent e) {
+    	@Override
+	public void mouseClicked(MouseEvent e) {
 // 		System.err.println("boundary panel mouseClick " + e.getX() + " " + e.getY());
 		if (m_trainingInstances != null) {
 			if (m_startBut.getText().equals("Stop")) //we are plotting
@@ -668,7 +671,7 @@ public class BoundaryVisualizer
 				double classVal = 0;
 				boolean validInput = true;
 				if (m_trainingInstances.attribute(m_classAttBox.getSelectedIndex()).isNominal()) //class is nominal
-					classVal = (double)classValueSelector.getSelectedIndex();
+					classVal = classValueSelector.getSelectedIndex();
 				else {
 					String indexStr = "";
 					try {					
@@ -1010,7 +1013,7 @@ public class BoundaryVisualizer
 		  m_generatorSamplesText.setText(""+tempSamples);
 		}
 		m_generatorSamplesBase = tempSamples;
-		m_boundaryPanel.setGeneratorSamplesBase((double)tempSamples);
+		m_boundaryPanel.setGeneratorSamplesBase(tempSamples);
 
 		tempSamples = m_kernelBandwidth;
 		try {
@@ -1087,6 +1090,7 @@ public class BoundaryVisualizer
       jf.getContentPane().add(bv, BorderLayout.CENTER);
       jf.setSize(bv.getMinimumSize());
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    m_WindowCount--;
 	    bv.stopPlotting();

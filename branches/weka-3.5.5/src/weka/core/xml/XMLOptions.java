@@ -410,7 +410,8 @@ public class XMLOptions {
     * 
     * @return the object in a string representation
     */
-   public String toString() {
+   @Override
+  public String toString() {
       return getXMLDocument().toString();
    }
    

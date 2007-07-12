@@ -22,7 +22,6 @@
 
 package weka.gui.beans;
 
-import java.io.File;
 import java.beans.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
@@ -173,6 +172,7 @@ public class ClassAssignerCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.addPropertyChangeListener(pcl);
   }
@@ -182,6 +182,7 @@ public class ClassAssignerCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.removePropertyChangeListener(pcl);
   }

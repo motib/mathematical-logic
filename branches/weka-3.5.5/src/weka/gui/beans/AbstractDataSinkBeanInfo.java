@@ -37,6 +37,7 @@ public class AbstractDataSinkBeanInfo extends SimpleBeanInfo {
    *
    * @return an <code>EventSetDescriptor[]</code> value
    */
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     // hide all gui events
     EventSetDescriptor [] esds = { };

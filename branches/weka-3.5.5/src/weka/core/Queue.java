@@ -235,6 +235,7 @@ public class Queue extends Object implements Serializable {
   //@ also
   //@ ensures \result != null;
   //@ ensures (* \result == textual description of the queue *);
+  @Override
   public  /*@ pure @*/ String toString() {
 
     String retval = "Queue Contents "+m_Size+" elements\n";

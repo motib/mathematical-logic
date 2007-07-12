@@ -23,14 +23,11 @@
 
 package weka.gui;
 
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusAdapter;
 import java.beans.PropertyEditor;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import javax.swing.JTextField;
 
 /** 
@@ -63,6 +60,7 @@ class PropertyText extends JTextField {
       }
       }); */
     addKeyListener(new KeyAdapter() {
+      @Override
       public void keyReleased(KeyEvent e) {
 	//	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 	updateEditor();
@@ -70,6 +68,7 @@ class PropertyText extends JTextField {
       }
     });
     addFocusListener(new FocusAdapter() {
+      @Override
       public void focusLost(FocusEvent e) {
 	updateEditor();
       }

@@ -23,8 +23,6 @@
 
 package weka.gui.sql.event;
 
-import java.sql.ResultSet;
-import java.util.EventListener;
 import java.util.EventObject;
 
 /**
@@ -102,6 +100,7 @@ public class ResultChangedEvent extends EventObject {
    * returns the event in a string representation
    * @return        the event in a string representation
    */
+  @Override
   public String toString() {
     String        result;
 

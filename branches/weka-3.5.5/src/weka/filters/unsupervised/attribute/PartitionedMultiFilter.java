@@ -93,6 +93,7 @@ public class PartitionedMultiFilter
    * @return 		a description of the filter suitable for
    * 			displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "A filter that applies filters on subsets of attributes and "
@@ -106,6 +107,7 @@ public class PartitionedMultiFilter
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     Enumeration enm = super.listOptions();
@@ -156,6 +158,7 @@ public class PartitionedMultiFilter
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String        tmpStr;
     String        classname;
@@ -200,6 +203,7 @@ public class PartitionedMultiFilter
    *
    * @return 		an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector	result;
     String[]	options;
@@ -245,6 +249,7 @@ public class PartitionedMultiFilter
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities	result;
     
@@ -520,6 +525,7 @@ public class PartitionedMultiFilter
    * @see                   #hasImmediateOutputFormat()
    * @see                   #batchFinished()
    */
+  @Override
   protected Instances determineOutputFormat(Instances inputFormat) throws Exception {
     Instances   result;
     Instances	processed;
@@ -590,6 +596,7 @@ public class PartitionedMultiFilter
    * @throws Exception  in case the processing goes wrong
    * @see               #batchFinished()
    */
+  @Override
   protected Instances process(Instances instances) throws Exception {
     Instances		result;
     int        		i;

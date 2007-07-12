@@ -99,6 +99,7 @@ public class PKIDiscretize
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if the input format can't be set successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     // alter child behaviour to do what we want
@@ -111,6 +112,7 @@ public class PKIDiscretize
    *
    * @param index the attribute index
    */
+  @Override
   protected void findNumBins(int index) {
 
     Instances toFilter = getInputFormat();
@@ -134,6 +136,7 @@ public class PKIDiscretize
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -187,6 +190,7 @@ public class PKIDiscretize
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     setIgnoreClass(Utils.getFlag("unset-class-temporarily", options));
@@ -209,6 +213,7 @@ public class PKIDiscretize
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
 
@@ -234,6 +239,7 @@ public class PKIDiscretize
    * @return a description of the filter suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
 
     return "Discretizes numeric attributes using equal frequency binning,"
@@ -272,6 +278,7 @@ public class PKIDiscretize
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String findNumBinsTipText() {
 
     return "Ignored.";
@@ -282,6 +289,7 @@ public class PKIDiscretize
    *
    * @return Value of FindNumBins.
    */
+  @Override
   public boolean getFindNumBins() {
     
     return false;
@@ -292,6 +300,7 @@ public class PKIDiscretize
    *
    * @param newFindNumBins Value to assign to FindNumBins.
    */
+  @Override
   public void setFindNumBins(boolean newFindNumBins) {
     
   }
@@ -302,6 +311,7 @@ public class PKIDiscretize
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String useEqualFrequencyTipText() {
 
     return "Always true.";
@@ -312,6 +322,7 @@ public class PKIDiscretize
    *
    * @return Value of UseEqualFrequency.
    */
+  @Override
   public boolean getUseEqualFrequency() {
     
     return true;
@@ -322,6 +333,7 @@ public class PKIDiscretize
    *
    * @param newUseEqualFrequency Value to assign to UseEqualFrequency.
    */
+  @Override
   public void setUseEqualFrequency(boolean newUseEqualFrequency) {
     
   }
@@ -332,6 +344,7 @@ public class PKIDiscretize
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String binsTipText() {
 
     return "Ignored.";
@@ -342,6 +355,7 @@ public class PKIDiscretize
    *
    * @return the number of bins.
    */
+  @Override
   public int getBins() {
 
     return 0;
@@ -352,6 +366,7 @@ public class PKIDiscretize
    *
    * @param numBins the number of bins
    */
+  @Override
   public void setBins(int numBins) {
 
   }

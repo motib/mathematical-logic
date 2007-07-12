@@ -85,6 +85,7 @@ public class PropertyPath {
      * 
      * @return		the clone of the current state
      */
+    @Override
     public Object clone() {
       return new PathElement(this.toString());
     }
@@ -122,6 +123,7 @@ public class PropertyPath {
      * 
      * @return		the property as string
      */
+    @Override
     public String toString() {
       String	result;
       
@@ -273,6 +275,7 @@ public class PropertyPath {
      * 
      * @return		the path structure as dot-path
      */
+    @Override
     public String toString() {
       String	result;
       int	i;

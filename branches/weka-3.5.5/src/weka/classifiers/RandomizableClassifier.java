@@ -23,10 +23,8 @@
 package weka.classifiers;
 
 import weka.classifiers.Classifier;
-import weka.core.OptionHandler;
 import weka.core.Utils;
 import weka.core.Option;
-import weka.core.Instances;
 import weka.core.Randomizable;
 import java.util.Vector;
 import java.util.Enumeration;
@@ -49,6 +47,7 @@ public abstract class RandomizableClassifier
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(2);
@@ -82,6 +81,7 @@ public abstract class RandomizableClassifier
    * @param options the list of options as an array of strings
    * @exception Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     
     String seed = Utils.getOption('S', options);
@@ -99,6 +99,7 @@ public abstract class RandomizableClassifier
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();

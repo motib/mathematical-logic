@@ -38,6 +38,7 @@ public class ClassAssignerBeanInfo
    *
    * @return an <code>EventSetDescriptor[]</code> value
    */
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = 
@@ -69,6 +70,7 @@ public class ClassAssignerBeanInfo
    *
    * @return a <code>PropertyDescriptor[]</code> value
    */
+  @Override
   public PropertyDescriptor[] getPropertyDescriptors() {
     try {
       PropertyDescriptor p1;
@@ -81,6 +83,7 @@ public class ClassAssignerBeanInfo
     return null;
   }
 
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.ClassAssigner.class,
 			      ClassAssignerCustomizer.class);

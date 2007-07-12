@@ -58,7 +58,7 @@ public class PredictionAppenderCustomizer extends JPanel
    * @param object a PredictionAppender object
    */
   public void setObject(Object object) {
-    m_paEditor.setTarget((PredictionAppender)object);
+    m_paEditor.setTarget(object);
   }
 
   /**
@@ -66,6 +66,7 @@ public class PredictionAppenderCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.addPropertyChangeListener(pcl);
   }
@@ -75,6 +76,7 @@ public class PredictionAppenderCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.removePropertyChangeListener(pcl);
   }

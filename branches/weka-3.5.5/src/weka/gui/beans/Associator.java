@@ -27,23 +27,10 @@ import java.util.Vector;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.InputEvent;
-import java.awt.*;
 import java.io.Serializable;
-import java.io.Reader;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import java.beans.EventSetDescriptor;
 
-import weka.core.Instance;
 import weka.core.Instances;
 import weka.associations.Apriori;
 import weka.gui.Logger;
@@ -208,6 +195,7 @@ public class Associator extends JPanel
 	  final Instances trainingData = e.getDataSet();
 	  final String oldText = m_visual.getText();
 	  m_buildThread = new Thread() {
+	      @Override
 	      public void run() {
 		try {
 		  if (trainingData != null) {

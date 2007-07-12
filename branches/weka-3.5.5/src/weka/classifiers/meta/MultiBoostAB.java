@@ -151,6 +151,7 @@ public class MultiBoostAB
    * @return a description suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
 
     return  "Class for boosting a classifier using the MultiBoosting method.\n\n"
@@ -175,6 +176,7 @@ public class MultiBoostAB
    * 
    * @return the technical information about this class
    */
+  @Override
   public TechnicalInformation getTechnicalInformation() {
     TechnicalInformation 	result;
     
@@ -196,6 +198,7 @@ public class MultiBoostAB
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
 
     Enumeration enu = super.listOptions();
@@ -257,6 +260,7 @@ public class MultiBoostAB
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String subcmtyString = Utils.getOption('C', options);
@@ -274,6 +278,7 @@ public class MultiBoostAB
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] ops = super.getOptions();
@@ -319,6 +324,7 @@ public class MultiBoostAB
    * @param training the data to train with
    * @throws Exception if the training fails
    */
+  @Override
   public void buildClassifier(Instances training) throws Exception {
 
     m_Random = new Random(m_Seed);
@@ -335,6 +341,7 @@ public class MultiBoostAB
    * @param reweight the reweighting factor
    * @throws Exception in case of an error
    */
+  @Override
   protected void setWeights(Instances training, double reweight) 
     throws Exception {
 
@@ -367,6 +374,7 @@ public class MultiBoostAB
    *
    * @return description of the boosted classifier as a string
    */
+  @Override
   public String toString() {
     
     StringBuffer text = new StringBuffer();

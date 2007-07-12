@@ -89,6 +89,7 @@ public class NDConditionalEstimator implements ConditionalEstimator {
   /**
    * Display a representation of this estimator
    */
+  @Override
   public String toString() {
 
     String result = "ND Conditional Estimator. " 

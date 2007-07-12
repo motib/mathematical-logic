@@ -304,6 +304,7 @@ public class CitationKNN
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -354,6 +355,7 @@ public class CitationKNN
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances train) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(train);
@@ -649,6 +651,7 @@ public class CitationKNN
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance bag) 
     throws Exception {
 
@@ -767,6 +770,7 @@ public class CitationKNN
    *
    * @return an enumeration of all available options.
    */
+  @Override
   public Enumeration listOptions(){
     Vector result = new Vector();
 
@@ -807,6 +811,7 @@ public class CitationKNN
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception{
     setDebug(Utils.getFlag('D', options));
 
@@ -833,6 +838,7 @@ public class CitationKNN
    *
    * @return the list of current option settings as an array of strings
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     

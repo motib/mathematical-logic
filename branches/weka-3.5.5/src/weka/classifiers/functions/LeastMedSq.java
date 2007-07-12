@@ -174,6 +174,7 @@ public class LeastMedSq
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -197,6 +198,7 @@ public class LeastMedSq
    * @param data training data
    * @throws Exception if an error occurs
    */
+  @Override
   public void buildClassifier(Instances data)throws Exception{
 
     // can classifier handle the data?
@@ -224,6 +226,7 @@ public class LeastMedSq
    * @return class value
    * @throws Exception if an error occurs
    */
+  @Override
   public double classifyInstance(Instance instance)throws Exception{
 
     Instance transformedInstance = instance;
@@ -367,6 +370,7 @@ public class LeastMedSq
    *
    * @return String representing the regression
    */
+  @Override
   public String toString(){
 
     if( m_ls == null){
@@ -574,6 +578,7 @@ public class LeastMedSq
    *
    * @param debug true if debugging output selected
    */
+  @Override
   public void setDebug(boolean debug){
 
     m_debug = debug;
@@ -584,6 +589,7 @@ public class LeastMedSq
    *
    * @return true if debuging output selected
    */
+  @Override
   public boolean getDebug(){
 
     return m_debug;
@@ -594,6 +600,7 @@ public class LeastMedSq
    *
    * @return an enumeration of all available options.
    */
+  @Override
   public Enumeration listOptions(){
 
     Vector newVector = new Vector(1);
@@ -638,6 +645,7 @@ public class LeastMedSq
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String curropt = Utils.getOption('S', options);
@@ -661,6 +669,7 @@ public class LeastMedSq
    *
    * @return the list of current option settings as an array of strings
    */
+  @Override
   public String[] getOptions(){
 
     String options[] = new String[9];

@@ -780,7 +780,7 @@ public class ConverterUtils
     String	classname;
     
     result    = null;
-    classname = (String) ht.get(extension);
+    classname = ht.get(extension);
     if (classname != null) {
       try {
 	result = Class.forName(classname).newInstance();

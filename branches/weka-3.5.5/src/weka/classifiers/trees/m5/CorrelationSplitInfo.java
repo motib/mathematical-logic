@@ -19,7 +19,6 @@
 package weka.classifiers.trees.m5;
 
 import java.io.*;
-import java.util.*;
 import weka.core.*;
 import weka.experiment.*;
 

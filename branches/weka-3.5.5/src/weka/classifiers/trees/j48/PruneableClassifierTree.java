@@ -83,6 +83,7 @@ public class PruneableClassifierTree
    *
    * @return      the capabilities of this classifier tree
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -108,6 +109,7 @@ public class PruneableClassifierTree
    * @param data the data to build the tree from 
    * @throws Exception if tree can't be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) 
        throws Exception {
 
@@ -164,6 +166,7 @@ public class PruneableClassifierTree
    * @return the generated tree
    * @throws Exception if something goes wrong
    */
+  @Override
   protected ClassifierTree getNewTree(Instances train, Instances test) 
        throws Exception {
 
@@ -216,7 +219,7 @@ public class PruneableClassifierTree
    */
   private ClassifierSplitModel localModel() {
     
-    return (ClassifierSplitModel)m_localModel;
+    return m_localModel;
   }
 
   /**

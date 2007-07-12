@@ -64,6 +64,7 @@ public class Body extends LiteralSet {
    * @return True if the instance is still a counter-instance 
    * (if the new literal satisfies the instance).
    */
+  @Override
   public boolean canKeep(Instance instance, Literal newLit) {
 
     return newLit.satisfies(instance);
@@ -74,6 +75,7 @@ public class Body extends LiteralSet {
    * It is the literals of this Body are contained in the body of the other rule,
    * or if their negation is included in the head of the other rule.
    */
+  @Override
   public boolean isIncludedIn(Rule otherRule) {
 
     Iterator iter = this.enumerateLiterals();
@@ -90,6 +92,7 @@ public class Body extends LiteralSet {
   /**
    * Gives a String representation of this set of literals as a conjunction.
    */
+  @Override
   public String toString() {
     Iterator iter = this.enumerateLiterals();
 

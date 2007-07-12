@@ -147,6 +147,7 @@ public class Vote
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Enumeration 	enm;
     Vector		result;
@@ -170,6 +171,7 @@ public class Vote
    *
    * @return an array of strings suitable for passing to setOptions()
    */
+  @Override
   public String [] getOptions() {
     int       	i;
     Vector    	result;
@@ -211,6 +213,7 @@ public class Vote
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String 	tmpStr;
     
@@ -257,6 +260,7 @@ public class Vote
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -286,6 +290,7 @@ public class Vote
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -308,6 +313,7 @@ public class Vote
    * Instance.missingValue() if no prediction is made
    * @throws Exception if an error occurred during the prediction
    */
+  @Override
   public double classifyInstance(Instance instance) throws Exception {
     double result;
     
@@ -365,6 +371,7 @@ public class Vote
    * @throws Exception if instance could not be classified
    * successfully
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
     double[] result = new double[instance.numClasses()];
     
@@ -416,7 +423,7 @@ public class Vote
       }
     }
     for (int j = 0; j < probs.length; j++) {
-      probs[j] /= (double)m_Classifiers.length;
+      probs[j] /= m_Classifiers.length;
     }
     return probs;
   }
@@ -576,6 +583,7 @@ public class Vote
    * 
    * @return a string representation of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_Classifiers == null) {

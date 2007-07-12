@@ -151,6 +151,7 @@ public class OSDL
    * @return an array containing a single '1' on the index
    * that <code> classifyInstance </code> returns.
    */
+  @Override
   public double[] distributionForInstance(Instance instance) {
 
     // based on the code from the Classifier class

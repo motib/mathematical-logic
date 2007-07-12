@@ -23,12 +23,9 @@
 
 package weka.gui.experiment;
 
-import weka.experiment.Experiment;
 import weka.experiment.RemoteExperiment;
 
-import java.awt.Component;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -38,9 +35,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JFrame;
-import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -170,6 +165,7 @@ public class HostListPanel extends JPanel implements ActionListener {
       jf.getContentPane().add(dp,
 			      BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

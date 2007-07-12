@@ -31,11 +31,8 @@ import weka.gui.beans.KnowledgeFlow;
 import weka.gui.beans.KnowledgeFlowApp;
 import weka.gui.arffviewer.ArffViewer;
 
-import java.awt.Panel;
 import java.awt.Button;
 import java.awt.GridLayout;
-import java.awt.Frame;
-import java.awt.Label;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -48,7 +45,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.BorderFactory;
 
@@ -162,7 +158,8 @@ public class GUIChooser extends JFrame {
             throw new Error("Couldn't start SimpleCLI!");
           }
           m_SimpleCLI.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent w) {
+            @Override
+	    public void windowClosing(WindowEvent w) {
               m_SimpleCLI.dispose();
               m_SimpleCLI = null;
               m_SimpleBut.setEnabled(true);
@@ -183,6 +180,7 @@ public class GUIChooser extends JFrame {
 	  m_ExplorerFrame.getContentPane()
 	    .add(new Explorer(), BorderLayout.CENTER);
 	  m_ExplorerFrame.addWindowListener(new WindowAdapter() {
+	    @Override
 	    public void windowClosing(WindowEvent w) {
 	      m_ExplorerFrame.dispose();
 	      m_ExplorerFrame = null;
@@ -206,6 +204,7 @@ public class GUIChooser extends JFrame {
 	  m_ExperimenterFrame.getContentPane()
 	    .add(new Experimenter(false), BorderLayout.CENTER);
 	  m_ExperimenterFrame.addWindowListener(new WindowAdapter() {
+	    @Override
 	    public void windowClosing(WindowEvent w) {
 	      m_ExperimenterFrame.dispose();
 	      m_ExperimenterFrame = null;
@@ -230,7 +229,8 @@ public class GUIChooser extends JFrame {
             m_KnowledgeFlowFrame.getContentPane()
               .add(kna, BorderLayout.CENTER);
             m_KnowledgeFlowFrame.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent w) {
+                @Override
+		public void windowClosing(WindowEvent w) {
                   kna.clearLayout();
                   m_KnowledgeFlowFrame.dispose();
                   m_KnowledgeFlowFrame = null;
@@ -266,6 +266,7 @@ public class GUIChooser extends JFrame {
     });
 
     addWindowListener(new WindowAdapter() {
+      @Override
       public void windowClosing(WindowEvent w) {
 	dispose();
 	checkExit();
@@ -314,11 +315,12 @@ public class GUIChooser extends JFrame {
       m_chooser.setVisible(true);
 
       Thread memMonitor = new Thread() {
-        public void run() {
+        @Override
+	public void run() {
           while(true) {
             try {
               //System.out.println("before sleeping");
-              this.sleep(4000);
+              Thread.sleep(4000);
               
               System.gc();
               
@@ -356,8 +358,8 @@ public class GUIChooser extends JFrame {
                 m_Memory.stopThreads();
 
                 // display error
-                m_chooser.m_LogWindow.setVisible(true);
-                m_chooser.m_LogWindow.toFront();
+                GUIChooser.m_LogWindow.setVisible(true);
+                GUIChooser.m_LogWindow.toFront();
                 System.err.println("\ndisplayed message:");
                 m_Memory.showOutOfMemory();
                 System.err.println("\nexiting...");

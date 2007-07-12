@@ -201,7 +201,7 @@ public class LUDecomposition
   public double[] getDoublePivot() {
     double[] vals = new double[m];
     for (int i = 0; i < m; i++) {
-      vals[i] = (double) piv[i];
+      vals[i] = piv[i];
     }
     return vals;
   }
@@ -215,7 +215,7 @@ public class LUDecomposition
     if (m != n) {
       throw new IllegalArgumentException("Matrix must be square.");
     }
-    double d = (double) pivsign;
+    double d = pivsign;
     for (int j = 0; j < n; j++) {
       d *= LU[j][j];
     }

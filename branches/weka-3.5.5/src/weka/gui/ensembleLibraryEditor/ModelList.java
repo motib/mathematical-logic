@@ -82,6 +82,7 @@ public class ModelList
      * @param cellHasFocus	whether it has the focus
      * @return			the rendering component
      */
+    @Override
     public Component getListCellRendererComponent(JList list, Object value,
 	int index, boolean isSelected, boolean cellHasFocus) {
       

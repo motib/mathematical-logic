@@ -81,6 +81,7 @@ public class PoissonEstimator extends Estimator implements IncrementalEstimator 
    * @param data the new data value 
    * @param weight the weight assigned to the data value 
    */
+  @Override
   public void addValue(double data, double weight) {
     
     m_NumValues += weight;
@@ -96,12 +97,14 @@ public class PoissonEstimator extends Estimator implements IncrementalEstimator 
    * @param data the value to estimate the probability of
    * @return the estimated probability of the supplied value
    */
+  @Override
   public double getProbability(double data) {
     
     return Poisson(data);
   }
   
   /** Display a representation of this estimator */
+  @Override
   public String toString() {
     
     return "Poisson Lambda = " + Utils.doubleToString(m_Lambda, 4, 2) + "\n";
@@ -112,6 +115,7 @@ public class PoissonEstimator extends Estimator implements IncrementalEstimator 
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     

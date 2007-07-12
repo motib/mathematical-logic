@@ -80,6 +80,7 @@ public class NumericToBinary
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -105,6 +106,7 @@ public class NumericToBinary
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     super.setInputFormat(instanceInfo);
@@ -120,6 +122,7 @@ public class NumericToBinary
    * collected with output().
    * @throws IllegalStateException if no input format has been defined.
    */
+  @Override
   public boolean input(Instance instance) {
 
     if (getInputFormat() == null) {

@@ -24,10 +24,7 @@
 
 package weka.classifiers.lazy.kstar;
 
-import java.io.*;
-import java.util.*;
 import weka.core.*;
-import weka.classifiers.*;
 
 /**
  * A custom class which provides the environment for computing the
@@ -316,7 +313,7 @@ public class KStarNominalAttribute implements KStarConstants {
 	break;
       }
 
-    if ( Math.abs(bestpsum - (double)m_TotalCount) < EPSILON) { 
+    if ( Math.abs(bestpsum - m_TotalCount) < EPSILON) { 
       // No difference in the values
       stopProb = 1.0;
     }
@@ -422,7 +419,7 @@ public class KStarNominalAttribute implements KStarConstants {
       (double)m_BlendFactor / 100.0 + m_Distribution[testvalue];
 
     // Initial values for root finder
-    tstop = 1.0 - (double)m_BlendFactor / 100.0;
+    tstop = 1.0 - m_BlendFactor / 100.0;
     lower = 0.0 + ROOT_FINDER_ACCURACY/2.0;
     upper = 1.0 - ROOT_FINDER_ACCURACY/2.0;
 

@@ -87,6 +87,7 @@ public abstract class DensityBasedClusterer extends Clusterer {
    * @return the probability distribution
    * @throws Exception if computation fails
    */  
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
     
     return Utils.logs2probs(logJointDensitiesForInstance(instance));

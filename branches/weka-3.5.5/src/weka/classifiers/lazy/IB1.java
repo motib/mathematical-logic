@@ -133,6 +133,7 @@ public class IB1
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -158,6 +159,7 @@ public class IB1
    * @param instances set of instances serving as training data 
    * @throws Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     
     // can classifier handle the data?
@@ -205,6 +207,7 @@ public class IB1
    * @return the predicted class for the instance 
    * @throws Exception if the instance can't be classified
    */
+  @Override
   public double classifyInstance(Instance instance) throws Exception {
     
     if (m_Train.numInstances() == 0) {
@@ -233,6 +236,7 @@ public class IB1
    *
    * @return a description of this classifier as a string.
    */
+  @Override
   public String toString() {
 
     return ("IB1 classifier");

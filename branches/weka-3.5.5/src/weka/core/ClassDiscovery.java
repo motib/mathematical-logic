@@ -571,6 +571,7 @@ public class ClassDiscovery {
      * @param obj	the object to compare with this Comparator
      * @return		true if the object is a StringCompare object as well
      */
+    @Override
     public boolean equals(Object obj) {
       return (obj instanceof StringCompare);
     }

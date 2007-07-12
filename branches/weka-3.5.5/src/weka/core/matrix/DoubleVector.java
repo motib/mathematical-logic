@@ -179,7 +179,7 @@ public class  DoubleVector implements Cloneable {
   public void  sortWithIndex( int xi, int xj, IntVector index ) {
     if( xi < xj ) { 
       double x, f, k;
-      int xm = (int) (xi + xj) / 2; // median index
+      int xm = (xi + xj) / 2; // median index
       x = Math.min( V[xi],             // median of three
 		    Math.max( V[xm], V[xj])); 
       int i = xi;
@@ -299,6 +299,7 @@ public class  DoubleVector implements Cloneable {
     
   /** Clones the DoubleVector object.
    */
+  @Override
   public Object  clone() { 
     int n = size();
     DoubleVector u = new DoubleVector( n );
@@ -689,6 +690,7 @@ public class  DoubleVector implements Cloneable {
 
   /** Convert the DoubleVecor to a string
    */ 
+  @Override
   public String  toString() {
     return toString( 5, false );
   }

@@ -90,6 +90,7 @@ public class TechnicalInformationHandlerJavadoc
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector        result;
     Enumeration   en;
@@ -113,6 +114,7 @@ public class TechnicalInformationHandlerJavadoc
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     super.setOptions(options);
 
@@ -124,6 +126,7 @@ public class TechnicalInformationHandlerJavadoc
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -166,6 +169,7 @@ public class TechnicalInformationHandlerJavadoc
    * @return		the generated Javadoc
    * @throws Exception 	in case the generation fails
    */
+  @Override
   protected String generateJavadoc(int index) throws Exception {
     String			result;
     TechnicalInformationHandler	handler;

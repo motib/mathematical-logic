@@ -240,6 +240,7 @@ public class Prism
      *
      * @return a description of the rules as a string
      */
+    @Override
     public String toString() {
 
       try {
@@ -316,13 +317,14 @@ public class Prism
    * @param inst the instance to be classified
    * @return the classification
    */
+  @Override
   public double classifyInstance(Instance inst) {
 
     int result = m_rules.resultRules(inst);
     if (result == -1) {
       return Instance.missingValue();
     } else {
-      return (double)result;
+      return result;
     }
   }
 
@@ -331,6 +333,7 @@ public class Prism
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -350,6 +353,7 @@ public class Prism
    * @param data the data to be used
    * @exception Exception if the classifier can't built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     int cl; // possible value of theClass
@@ -508,6 +512,7 @@ public class Prism
    *
    * @return a description of the classifier as a string
    */
+  @Override
   public String toString() {
 
     if (m_rules == null) {

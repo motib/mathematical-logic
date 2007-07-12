@@ -83,7 +83,7 @@ public class RuleItem implements Comparable, Serializable{
           
             m_premise = premise;
             m_consequence = consequence;
-            m_accuracy = RuleGeneration.expectation((double)ruleSupport,m_premise.m_counter,m_midPoints,m_priors);
+            m_accuracy = RuleGeneration.expectation(ruleSupport,m_premise.m_counter,m_midPoints,m_priors);
             //overflow, underflow
             if(Double.isNaN(m_accuracy) || m_accuracy < 0){
                 m_accuracy = Double.MIN_VALUE;
@@ -149,6 +149,7 @@ public class RuleItem implements Comparable, Serializable{
        * @param o RuleItem to compare
        * @return true if the rules are equal, false otherwise
        */      
+      @Override
       public  boolean equals(Object o){
        
           if(o == null)

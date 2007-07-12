@@ -28,10 +28,7 @@ import weka.gui.GenericArrayEditor;
 import weka.gui.PropertySelectorDialog;
 import weka.experiment.PropertyNode;
 import weka.experiment.Experiment;
-import weka.experiment.ResultProducer;
-import java.awt.Component;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
@@ -40,17 +37,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JFrame;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JScrollPane;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -269,6 +258,7 @@ public class GeneratorPropertyIteratorPanel extends JPanel
       GeneratorPropertyIteratorPanel gp = new GeneratorPropertyIteratorPanel();
       jf.getContentPane().add(gp, BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);
@@ -277,7 +267,7 @@ public class GeneratorPropertyIteratorPanel extends JPanel
       jf.pack();
       jf.setVisible(true);
       System.err.println("Short nap");
-      Thread.currentThread().sleep(3000);
+      Thread.sleep(3000);
       System.err.println("Done");
       gp.setExperiment(new Experiment());
     } catch (Exception ex) {

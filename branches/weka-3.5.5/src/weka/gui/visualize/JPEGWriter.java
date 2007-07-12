@@ -81,6 +81,7 @@ public class JPEGWriter extends JComponentWriter {
   /**
    * further initialization 
    */
+  @Override
   public void initialize() {
     super.initialize();
     
@@ -95,6 +96,7 @@ public class JPEGWriter extends JComponentWriter {
    * 
    * @return the name of the writer
    */
+  @Override
   public String getDescription() {
     return "JPEG-Image";
   }
@@ -106,6 +108,7 @@ public class JPEGWriter extends JComponentWriter {
    * 
    * @return the file extension
    */
+  @Override
   public String getExtension() {
     return ".jpg";
   }
@@ -165,6 +168,7 @@ public class JPEGWriter extends JComponentWriter {
    *
    * @throws Exception  if component of file are <code>null</code>
    */
+  @Override
   public void toOutput() throws Exception {
     BufferedImage                bi;
     JPEGImageEncoder             encoder;

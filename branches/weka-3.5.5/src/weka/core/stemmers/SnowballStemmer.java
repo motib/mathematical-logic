@@ -397,6 +397,7 @@ public class SnowballStemmer
    * 
    * @return a string representation of the stemmer
    */
+  @Override
   public String toString() {
     String      result;
 

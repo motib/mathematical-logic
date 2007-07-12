@@ -28,20 +28,8 @@ import java.util.EventObject;
 import java.util.Hashtable;
 import java.util.Enumeration;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.InputEvent;
-import java.awt.*;
 import java.io.Serializable;
-import java.io.Reader;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import java.beans.EventSetDescriptor;
 
 import weka.core.Instance;
@@ -336,6 +324,7 @@ public class Filter extends JPanel
 
 	  final String oldText = m_visual.getText();
 	  m_filterThread = new Thread() {
+	      @Override
 	      public void run() {
 		try {
 		  if (m_trainingSet != null) {
@@ -412,6 +401,7 @@ public class Filter extends JPanel
 	m_testingSet = e.getTestSet();
 	final String oldText = m_visual.getText();
 	m_filterThread = new Thread() {
+	    @Override
 	    public void run() {
 	      try {
 		if (m_testingSet != null) {

@@ -129,6 +129,7 @@ public class AssociationsPanel
     m_OutText.setFont(new Font("Monospaced", Font.PLAIN, 12));
     m_OutText.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     m_OutText.addMouseListener(new MouseAdapter() {
+      @Override
       public void mouseClicked(MouseEvent e) {
 	if ((e.getModifiers() & InputEvent.BUTTON1_MASK)
 	    != InputEvent.BUTTON1_MASK) {
@@ -140,6 +141,7 @@ public class AssociationsPanel
     m_History.setHandleRightClicks(false);
     // see if we can popup a menu for the selected result
     m_History.getList().addMouseListener(new MouseAdapter() {
+	@Override
 	public void mouseClicked(MouseEvent e) {
 	  if (((e.getModifiers() & InputEvent.BUTTON1_MASK)
 	       != InputEvent.BUTTON1_MASK) || e.isAltDown()) {
@@ -300,6 +302,7 @@ public class AssociationsPanel
       m_StartBut.setEnabled(false);
       m_StopBut.setEnabled(true);
       m_RunThread = new Thread() {
+	@Override
 	public void run() {
 	  // Copy the current state of things
 	  m_Log.statusMessage("Setting up...");
@@ -501,6 +504,7 @@ public class AssociationsPanel
       sp.setLog(lp);
       jf.getContentPane().add(lp, BorderLayout.SOUTH);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

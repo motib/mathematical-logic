@@ -407,7 +407,7 @@ public class AttributeSelection
 			  + " +-" 
 			  + Utils.doubleToString(m_rankResults[3][s[i]], 5, 2) 
 			+"  "
-			  + Utils.doubleToString(((double)(s[i] + 1)), 
+			  + Utils.doubleToString(((s[i] + 1)), 
 						 fieldWidth, 0)
 			  + " " 
 			  + m_trainInstances.attribute(s[i]).name() 
@@ -427,7 +427,7 @@ public class AttributeSelection
 						  m_numFolds * 100.0)
 						 , 3, 0) 
 			  + " %)  " 
-			  + Utils.doubleToString(((double)(i + 1)),
+			  + Utils.doubleToString(((i + 1)),
 						 fieldWidth, 0)
 			  + " " 
 			  + m_trainInstances.attribute(i).name() 

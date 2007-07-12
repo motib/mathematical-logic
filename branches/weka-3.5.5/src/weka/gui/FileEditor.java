@@ -26,7 +26,6 @@ package weka.gui;
 import java.awt.FontMetrics;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -48,6 +47,7 @@ public class FileEditor extends PropertyEditorSupport {
    *
    * @return a value of type 'String'
    */
+  @Override
   public String getJavaInitializationString() {
 
     File f = (File) getValue();
@@ -62,6 +62,7 @@ public class FileEditor extends PropertyEditorSupport {
    *
    * @return true
    */
+  @Override
   public boolean supportsCustomEditor() {
     return true;
   }
@@ -71,6 +72,7 @@ public class FileEditor extends PropertyEditorSupport {
    *
    * @return a value of type 'java.awt.Component'
    */
+  @Override
   public java.awt.Component getCustomEditor() {
 
     if (m_FileChooser == null) {
@@ -104,6 +106,7 @@ public class FileEditor extends PropertyEditorSupport {
    *
    * @return true.
    */
+  @Override
   public boolean isPaintable() {
     return true;
   }
@@ -114,6 +117,7 @@ public class FileEditor extends PropertyEditorSupport {
    * @param gfx the graphics context to use
    * @param box the area we are allowed to paint into
    */
+  @Override
   public void paintValue(java.awt.Graphics gfx, java.awt.Rectangle box) {
 
     FontMetrics fm = gfx.getFontMetrics();

@@ -119,6 +119,7 @@ public class MathExpression
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -144,6 +145,7 @@ public class MathExpression
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
        throws Exception {
     m_SelectCols.setUpper(instanceInfo.numAttributes() - 1);
@@ -163,6 +165,7 @@ public class MathExpression
    * collected with output().
    * @throws IllegalStateException if no input format has been set.
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
 
     if (getInputFormat() == null) {
@@ -189,6 +192,7 @@ public class MathExpression
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined
    */
+  @Override
   public boolean batchFinished() throws Exception {
 
     if (getInputFormat() == null) {
@@ -333,6 +337,7 @@ public class MathExpression
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     super.setOptions(options);
 
@@ -356,6 +361,7 @@ public class MathExpression
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
     Vector        result;
     String[]      options;
@@ -386,6 +392,7 @@ public class MathExpression
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     Enumeration enm = super.listOptions();

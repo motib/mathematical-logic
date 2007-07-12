@@ -189,6 +189,7 @@ public abstract class SimpleFilter
    *                        immediately
    * @see                   #reset()
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
     super.setInputFormat(instanceInfo);
 

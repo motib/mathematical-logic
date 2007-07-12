@@ -24,16 +24,13 @@ package weka.gui.beans;
 
 import java.util.Vector;
 import java.util.Enumeration;
-import java.util.Hashtable;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JComponent;
 import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.Dimension;
 import java.io.Serializable;
 import java.beans.EventSetDescriptor;
-import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.IntrospectionException;
 import java.beans.PropertyChangeListener;

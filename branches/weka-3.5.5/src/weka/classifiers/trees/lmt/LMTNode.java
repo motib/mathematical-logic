@@ -151,6 +151,7 @@ public class LMTNode
      * @param data the data to train with
      * @throws Exception if something goes wrong
      */
+    @Override
     public void buildClassifier(Instances data) throws Exception{
 	
 	//heuristic to avoid cross-validating the number of LogitBoost iterations
@@ -560,7 +561,7 @@ public class LMTNode
 	    } else {
 		//compute alpha
 		errorDiff /= m_totalInstanceWeight;		
-		m_alpha = errorDiff / (double)(getNumLeaves() - 1);
+		m_alpha = errorDiff / (getNumLeaves() - 1);
 		
 		for (int i = 0; i < m_sons.length; i++) m_sons[i].calculateAlphas();
 	    }
@@ -621,6 +622,7 @@ public class LMTNode
      * All nominal attributes are replaced by binary ones, and the class variable is replaced
      * by a pseudo-class variable that is used by LogitBoost.
      */
+    @Override
     protected Instances getNumericData(Instances train) throws Exception{
 	
 	Instances filteredData = new Instances(train);	
@@ -638,6 +640,7 @@ public class LMTNode
      * @param instance the instance
      * @return the array of F-values 
      */
+    @Override
     protected double[] getFs(Instance instance) throws Exception{
 	
 	double [] pred = new double [m_numClasses];
@@ -696,6 +699,7 @@ public class LMTNode
      * @param instance the instance
      * @return the array of probabilities
      */
+    @Override
     public double[] distributionForInstance(Instance instance) throws Exception {
 	
 	double[] probs;
@@ -737,6 +741,7 @@ public class LMTNode
      * Returns a description of the logistic model tree (tree structure and logistic models)
      * @return describing string
      */
+    @Override
     public String toString(){	
 	//assign numbers to logistic regression functions at leaves
 	assignLeafModelNumbers(0);	
@@ -835,6 +840,7 @@ public class LMTNode
      * Returns an array containing the coefficients of the logistic regression function at this node.
      * @return the array of coefficients, first dimension is the class, second the attribute. 
      */
+    @Override
     protected double[][] getCoefficients(){
        
 	//Need to take into account partial model fit at higher levels in the tree (m_higherRegressions) 
@@ -928,6 +934,7 @@ public class LMTNode
     /**
      * Cleanup in order to save memory.
      */
+    @Override
     public void cleanup() {
 	super.cleanup();
 	if (!m_isLeaf) {

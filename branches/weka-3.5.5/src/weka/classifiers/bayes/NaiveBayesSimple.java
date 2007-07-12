@@ -135,6 +135,7 @@ public class NaiveBayesSimple
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -157,6 +158,7 @@ public class NaiveBayesSimple
    * @param instances set of instances serving as training data 
    * @exception Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
 
     int attIndex = 0;
@@ -291,7 +293,7 @@ public class NaiveBayesSimple
 	  for (int i = 0; i < attribute.numValues(); i++) {
 	    m_Counts[j][attIndex][i] =
 	      (m_Counts[j][attIndex][i] + 1) 
-	      / (sum + (double)attribute.numValues());
+	      / (sum + attribute.numValues());
 	  }
 	}
       }
@@ -302,7 +304,7 @@ public class NaiveBayesSimple
     sum = Utils.sum(m_Priors);
     for (int j = 0; j < instances.numClasses(); j++)
       m_Priors[j] = (m_Priors[j] + 1) 
-	/ (sum + (double)instances.numClasses());
+	/ (sum + instances.numClasses());
   }
 
   /**
@@ -312,6 +314,7 @@ public class NaiveBayesSimple
    * @return predicted class probability distribution
    * @exception Exception if distribution can't be computed
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
     
     double [] probs = new double[instance.numClasses()];
@@ -347,6 +350,7 @@ public class NaiveBayesSimple
    *
    * @return a description of the classifier as a string.
    */
+  @Override
   public String toString() {
 
     if (m_Instances == null) {

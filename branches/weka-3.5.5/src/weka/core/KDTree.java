@@ -889,6 +889,7 @@ public class KDTree
    * @param instances 	the instances to build the tree from
    * @throws Exception	if something goes wrong
    */
+  @Override
   public void setInstances(Instances instances) throws Exception {
    buildKDTree(instances);
   }
@@ -943,6 +944,7 @@ public class KDTree
    * 			in the training set. 
    * @throws Exception 	if something goes wrong or instances are null
    */
+  @Override
   public void update(Instance instance) throws Exception {  //better to change to addInstance
     if(m_Instances==null)
       throw new Exception("No instances supplied yet. Have to call " +
@@ -963,6 +965,7 @@ public class KDTree
    * @param instance the new instance.  Usually this is the test instance 
    * supplied to update the range of attributes in the distance function.
    */
+  @Override
   public void addInstanceInfo(Instance instance) {
     m_EuclideanDistance.updateRanges(instance);
   }
@@ -972,6 +975,7 @@ public class KDTree
    * 
    * @return string representing the tree
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     KDTreeNode tree = m_Root;
@@ -1140,6 +1144,7 @@ public class KDTree
    * @throws Exception Throws an exception if called before calling kNearestNeighbours
    *         or nearestNeighbours.
    */
+  @Override
   public double[] getDistances() throws Exception {
     if(m_Instances==null || m_DistanceList==null)
       throw new Exception("The tree has not been supplied with a set of " +
@@ -1160,6 +1165,7 @@ public class KDTree
    * @throws Exception Throws an exception if the nearest neighbour could not be 
    *              found.
    */
+  @Override
   public Instances kNearestNeighbours(Instance target, int k) throws Exception {
     checkMissing(target);
     if(m_Instances==null) 
@@ -1197,6 +1203,7 @@ public class KDTree
    * @return the nearest neighbor
    * @throws Exception Throws an exception if the neighbours could not be found.
    */
+  @Override
   public Instance nearestNeighbour(Instance target) throws Exception {
     return (kNearestNeighbours(target, 1)).instance(0);
   }
@@ -1343,8 +1350,9 @@ public class KDTree
    *
    * @return the distance function
    */
+  @Override
   public DistanceFunction getDistanceFunction() {
-    return (DistanceFunction) m_EuclideanDistance;
+    return m_EuclideanDistance;
   }
   
   /** 
@@ -1353,6 +1361,7 @@ public class KDTree
    * @param df		the distance function to use
    * @throws Exception	if not EuclideanDistance
    */
+  @Override
   public void setDistanceFunction(DistanceFunction df) throws Exception {
     if(!(df instanceof EuclideanDistance))
       throw new Exception("KDTree currently only works with " +
@@ -1388,6 +1397,7 @@ public class KDTree
    * 
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector();
@@ -1426,6 +1436,7 @@ public class KDTree
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options)
     throws Exception {
 
@@ -1453,6 +1464,7 @@ public class KDTree
    * 
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     String[] superOptions = super.getOptions();
     String[] options = new String[7+superOptions.length];

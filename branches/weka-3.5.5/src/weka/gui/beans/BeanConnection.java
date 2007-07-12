@@ -350,9 +350,9 @@ public class BeanConnection implements Serializable {
           double angle;
           try {
             double a = 
-              (double)(bestSourcePt.getY() - 
+              (bestSourcePt.getY() - 
                        bestTargetPt.getY()) / 
-              (double)(bestSourcePt.getX() - bestTargetPt.getX());
+              (bestSourcePt.getX() - bestTargetPt.getX());
             angle = Math.atan(a);
           } catch(Exception ex) {
             angle = Math.PI / 2;
@@ -510,7 +510,7 @@ public class BeanConnection implements Serializable {
     }
     for (int i = 0; i < removeVector.size(); i++) {
       System.err.println("removing connection");
-      CONNECTIONS.removeElement((BeanConnection)removeVector.elementAt(i));
+      CONNECTIONS.removeElement(removeVector.elementAt(i));
     }
   }
 

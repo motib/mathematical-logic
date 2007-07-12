@@ -24,12 +24,8 @@ package weka.gui.beans;
 
 import java.util.Vector;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
 import java.io.Serializable;
-import java.awt.*;
 import java.beans.EventSetDescriptor;
 
 /**

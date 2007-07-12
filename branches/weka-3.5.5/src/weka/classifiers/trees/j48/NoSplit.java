@@ -46,6 +46,7 @@ public final class NoSplit extends ClassifierSplitModel{
    *
    * @exception Exception if split can't be built successfully
    */
+  @Override
   public final void buildClassifier(Instances instances) 
        throws Exception {
 
@@ -56,6 +57,7 @@ public final class NoSplit extends ClassifierSplitModel{
   /**
    * Always returns 0 because only there is only one subset.
    */
+  @Override
   public final int whichSubset(Instance instance){
     
     return 0;
@@ -64,6 +66,7 @@ public final class NoSplit extends ClassifierSplitModel{
   /**
    * Always returns null because there is only one subset.
    */
+  @Override
   public final double [] weights(Instance instance){
 
     return null;
@@ -72,6 +75,7 @@ public final class NoSplit extends ClassifierSplitModel{
   /**
    * Does nothing because no condition has to be satisfied.
    */
+  @Override
   public final String leftSide(Instances instances){
 
     return "";
@@ -80,6 +84,7 @@ public final class NoSplit extends ClassifierSplitModel{
   /**
    * Does nothing because no condition has to be satisfied.
    */
+  @Override
   public final String rightSide(int index, Instances instances){
 
     return "";
@@ -93,6 +98,7 @@ public final class NoSplit extends ClassifierSplitModel{
    * @param data the data containing instance structure info
    * @return a value of type 'String'
    */
+  @Override
   public final String sourceExpression(int index, Instances data) {
 
     return "true";  // or should this be false??

@@ -174,6 +174,7 @@ public class FlexibleDecimalFormat extends DecimalFormat {
     setFormat();
   }
 
+  @Override
   public StringBuffer format (double number, StringBuffer toAppendTo,
 			      FieldPosition pos) {
     if( grouping ) {

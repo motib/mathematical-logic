@@ -99,6 +99,7 @@ public class SelectedTag {
    * @param o the object to compare with
    * @return true if the tags and the selected tag are the same
    */
+  @Override
   public boolean equals(Object o) {
     if ((o == null) || !(o.getClass().equals(this.getClass()))) {
       return false;
@@ -136,6 +137,7 @@ public class SelectedTag {
    * 
    * @return the selected tag as string
    */
+  @Override
   public String toString() {
     return getSelectedTag().toString();
   }

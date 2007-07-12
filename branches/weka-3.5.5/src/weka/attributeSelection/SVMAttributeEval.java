@@ -32,7 +32,6 @@ import weka.core.SelectedTag;
 import weka.core.TechnicalInformation;
 import weka.core.TechnicalInformationHandler;
 import weka.core.Utils;
-import weka.core.Capabilities.Capability;
 import weka.core.TechnicalInformation.Field;
 import weka.core.TechnicalInformation.Type;
 import weka.filters.Filter;
@@ -621,6 +620,7 @@ public class SVMAttributeEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     return new SMO().getCapabilities();
   }
@@ -632,6 +632,7 @@ public class SVMAttributeEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator(Instances data) throws Exception {
     // can evaluator handle data?
     getCapabilities().testWithFail(data);
@@ -670,7 +671,7 @@ public class SVMAttributeEval
     }
     m_attScores = new double[data.numAttributes()];
     Iterator listIt = ordered.iterator();
-    for (double i = (double) numAttr; listIt.hasNext(); i = i - 1.0) {
+    for (double i = numAttr; listIt.hasNext(); i = i - 1.0) {
       m_attScores[((Integer) listIt.next()).intValue()] = i;
     }
   }
@@ -697,7 +698,7 @@ public class SVMAttributeEval
       filter.setValueIndex(classInd);
       filter.setInputFormat(data);
       Instances trainCopy = Filter.useFilter(data, filter);
-      double pctToElim = ((double) m_percentToEliminate) / 100.0;
+      double pctToElim = (m_percentToEliminate) / 100.0;
       while (numAttrLeft > 0) {
 	int numToElim;
 	if (pctToElim > 0) {
@@ -780,6 +781,7 @@ public class SVMAttributeEval
    * @param attribute the index of the attribute to be evaluated
    * @throws Exception if the attribute could not be evaluated
    */
+  @Override
   public double evaluateAttribute(int attribute) throws Exception {
     return m_attScores[attribute];
   }
@@ -788,6 +790,7 @@ public class SVMAttributeEval
    * Return a description of the evaluator
    * @return description as a string
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

@@ -57,6 +57,7 @@ public abstract class SingleClassifierEnhancer extends Classifier {
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(3);
@@ -94,6 +95,7 @@ public abstract class SingleClassifierEnhancer extends Classifier {
    * @param options the list of options as an array of strings
    * @exception Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     super.setOptions(options);
@@ -122,6 +124,7 @@ public abstract class SingleClassifierEnhancer extends Classifier {
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] classifierOptions = ((OptionHandler)m_Classifier).getOptions();
@@ -165,6 +168,7 @@ public abstract class SingleClassifierEnhancer extends Classifier {
    *
    * @return      the capabilities of the base classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities        result;
 

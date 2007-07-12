@@ -78,6 +78,7 @@ public class SerializedInstancesSaver
    *
    * @return a short file description
    */
+  @Override
   public String getFileDescription() {
     return "Binary serialized instances";
   }
@@ -85,6 +86,7 @@ public class SerializedInstancesSaver
   /**
    * Resets the Saver 
    */
+  @Override
   public void resetOptions() {
 
     super.resetOptions();
@@ -97,6 +99,7 @@ public class SerializedInstancesSaver
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -117,6 +120,7 @@ public class SerializedInstancesSaver
    * 
    * @throws IOException throws IOException if saving in batch mode is not possible
    */
+  @Override
   public void writeBatch() throws IOException {
       
       resetWriter();

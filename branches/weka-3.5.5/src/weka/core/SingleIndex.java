@@ -132,6 +132,7 @@ public class SingleIndex
    */
   //@ also signals (RuntimeException e) \old(m_Upper) < 0;
   //@ ensures \result != null;
+  @Override
   public /*@pure@*/ String toString() {
 
     if (m_IndexString.equals("")) {

@@ -224,6 +224,7 @@ public class DiscreteDistribution {
    *
    * @return a string representation of this object
    */
+  @Override
   public String toString() {
 
     // XXX MAYBE WE SHOULD USE STRINGBUFFER AND FIXED WIDTH ...

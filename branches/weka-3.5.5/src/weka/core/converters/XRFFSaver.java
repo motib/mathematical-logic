@@ -107,6 +107,7 @@ public class XRFFSaver
    * 
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector      result;
     
@@ -139,6 +140,7 @@ public class XRFFSaver
    *
    * @return		the current options
    */
+  @Override
   public String[] getOptions(){
     int       	i;
     Vector    	result;
@@ -184,6 +186,7 @@ public class XRFFSaver
    * @param options	the options to use
    * @throws Exception	if setting of options fails
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
 
@@ -203,6 +206,7 @@ public class XRFFSaver
    *
    * @return a short file description
    */
+  @Override
   public String getFileDescription() {
     return "XRFF data files";
   }
@@ -212,6 +216,7 @@ public class XRFFSaver
    *
    * @return the file extensions
    */
+  @Override
   public String[] getFileExtensions() {
     return new String[]{XRFFLoader.FILE_EXTENSION, XRFFLoader.FILE_EXTENSION_COMPRESSED};
   }
@@ -222,6 +227,7 @@ public class XRFFSaver
    * @param outputFile the destination file.
    * @throws IOException throws an IOException if file cannot be set
    */
+  @Override
   public void setFile(File outputFile) throws IOException  {
     if (outputFile.getAbsolutePath().endsWith(XRFFLoader.FILE_EXTENSION_COMPRESSED))
       setCompressOutput(true);
@@ -232,6 +238,7 @@ public class XRFFSaver
   /**
    * Resets the Saver 
    */
+  @Override
   public void resetOptions() {
     super.resetOptions();
     
@@ -310,6 +317,7 @@ public class XRFFSaver
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -330,6 +338,7 @@ public class XRFFSaver
    *
    * @param instances 	the instances
    */
+  @Override
   public void setInstances(Instances instances) {
     m_ClassIndex.setUpper(instances.numAttributes() - 1);
     instances.setClassIndex(m_ClassIndex.getIndex());
@@ -343,6 +352,7 @@ public class XRFFSaver
    * @param output 		the output stream.
    * @throws IOException 	throws an IOException if destination cannot be set
    */
+  @Override
   public void setDestination(OutputStream output) throws IOException {
     if (getCompressOutput())
       super.setDestination(new GZIPOutputStream(output));
@@ -356,6 +366,7 @@ public class XRFFSaver
    * @throws IOException 	throws IOException if saving in batch mode 
    * 				is not possible
    */
+  @Override
   public void writeBatch() throws IOException {
     if (getInstances() == null)
       throw new IOException("No instances to save");

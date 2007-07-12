@@ -22,9 +22,6 @@
 
 package weka.gui.treevisualizer;
 
-import javax.swing.*;
-import java.awt.*;
-
 /**
  * This class maintains a list that contains all the colornames from the 
  * dotty standard and what color (in RGB) they represent

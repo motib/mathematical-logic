@@ -30,10 +30,8 @@ import weka.core.SelectedTag;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /** 
  * A PropertyEditor that uses tags, where the tags are obtained from a
@@ -49,6 +47,7 @@ public class SelectedTagEditor extends PropertyEditorSupport {
    *
    * @return a value of type 'String'
    */
+  @Override
   public String getJavaInitializationString() {
 
     SelectedTag s = (SelectedTag)getValue();
@@ -73,6 +72,7 @@ public class SelectedTagEditor extends PropertyEditorSupport {
    *
    * @return a value of type 'String'
    */
+  @Override
   public String getAsText() {
 
     SelectedTag s = (SelectedTag)getValue();
@@ -85,6 +85,7 @@ public class SelectedTagEditor extends PropertyEditorSupport {
    * @param text the text of the selected tag.
    * @exception java.lang.IllegalArgumentException if an error occurs
    */
+  @Override
   public void setAsText(String text)
     {
 
@@ -107,6 +108,7 @@ public class SelectedTagEditor extends PropertyEditorSupport {
    *
    * @return an array of string tags.
    */
+  @Override
   public String[] getTags() {
 
     SelectedTag s = (SelectedTag)getValue();
@@ -140,6 +142,7 @@ public class SelectedTagEditor extends PropertyEditorSupport {
       PropertyValueSelector ps = new PropertyValueSelector(ce);
       JFrame f = new JFrame(); 
       f.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  System.exit(0);
 	}

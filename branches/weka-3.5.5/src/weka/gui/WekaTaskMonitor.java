@@ -26,13 +26,10 @@ package weka.gui;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.*;
-import java.awt.image.*;
 
 /** 
  * This panel records the number of weka tasks running and displays a
@@ -137,6 +134,7 @@ public class WekaTaskMonitor extends JPanel implements TaskLogger {
   	           ));
       jf.getContentPane().add(tm, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

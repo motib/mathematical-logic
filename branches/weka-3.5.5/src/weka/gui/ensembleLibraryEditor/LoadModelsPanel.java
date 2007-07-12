@@ -48,6 +48,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -203,7 +204,7 @@ public class LoadModelsPanel
 	ModelList.SortedListModel dataModel = ((ModelList.SortedListModel) m_ModelList.getModel());
 	
 	for (int i = 0; i < currentModels.length; i++) {
-	  dataModel.removeElement((EnsembleLibraryModel) currentModels[i]);
+	  dataModel.removeElement(currentModels[i]);
 	}
 	
 	// Shrink the selected range to the first index that was
@@ -223,7 +224,7 @@ public class LoadModelsPanel
     
     JScrollPane listView = new JScrollPane(m_ModelList);
     listView
-    .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     listView.setPreferredSize(new Dimension(150, 50));
     
     modelListPanel.setLayout(new BorderLayout());

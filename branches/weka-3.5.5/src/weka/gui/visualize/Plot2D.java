@@ -546,6 +546,7 @@ public class Plot2D extends JPanel {
 	  final JFrame jf = new JFrame("Weka : Instance info");
 	  final JFrame testf = m_InstanceInfo;
 	  jf.addWindowListener(new WindowAdapter() {
+	      @Override
 	      public void windowClosing(WindowEvent e) {
 		if (!newFrame || testf == null) {
 		  m_InstanceInfo = null;
@@ -658,7 +659,7 @@ public class Plot2D extends JPanel {
   int pturbX(double xvalP, double xj) {
     int xpturb = 0;
     if (m_JitterVal > 0) {
-      xpturb = (int)((double)m_JitterVal * (xj / 2.0));
+      xpturb = (int)(m_JitterVal * (xj / 2.0));
       if (((xvalP + xpturb) < m_XaxisStart) || 
 	  ((xvalP + xpturb) > m_XaxisEnd)) {
 	xpturb *= -1;
@@ -691,7 +692,7 @@ public class Plot2D extends JPanel {
   int pturbY(double yvalP, double yj) {
     int ypturb = 0;
     if (m_JitterVal > 0) {
-      ypturb = (int)((double)m_JitterVal * (yj / 2.0));
+      ypturb = (int)(m_JitterVal * (yj / 2.0));
       if (((yvalP + ypturb) < m_YaxisStart) || 
 	  ((yvalP + ypturb) > m_YaxisEnd)) {
 	ypturb *= -1;
@@ -1290,9 +1291,9 @@ public class Plot2D extends JPanel {
 						  nondecimal+1+precisionXmid,
 						  precisionXmid);
 	  int sw = m_labelMetrics.stringWidth(maxString);
-	  double mx = m_XaxisStart+((double)(m_XaxisEnd-m_XaxisStart)/2.0);
+	  double mx = m_XaxisStart+((m_XaxisEnd-m_XaxisStart)/2.0);
 	  gx.drawString(maxString,
-			(int)(mx-(((double)sw)/2.0)),
+			(int)(mx-((sw)/2.0)),
 			m_YaxisEnd+hf+m_tickSize);
 	  gx.drawLine((int)mx,m_YaxisEnd,(int)mx,m_YaxisEnd+m_tickSize);
 	}
@@ -1380,10 +1381,10 @@ public class Plot2D extends JPanel {
 						  nondecimal+1+precisionYmid,
 						  precisionYmid);
 	  int sw = m_labelMetrics.stringWidth(maxString);
-	  double mx = m_YaxisStart+((double)(m_YaxisEnd-m_YaxisStart)/2.0);
+	  double mx = m_YaxisStart+((m_YaxisEnd-m_YaxisStart)/2.0);
 	  gx.drawString(maxString,
 			m_XaxisStart-sw-m_tickSize-1,
-			(int)(mx+(((double)hf)/2.0)));
+			(int)(mx+((hf)/2.0)));
 	  gx.drawLine(m_XaxisStart-m_tickSize,(int)mx,m_XaxisStart,(int)mx);
 	}
       }
@@ -1483,6 +1484,7 @@ public class Plot2D extends JPanel {
    * Renders this component
    * @param gx the graphics context
    */
+  @Override
   public void paintComponent(Graphics gx) {
     super.paintComponent(gx);
     if (m_plotInstances != null 
@@ -1532,6 +1534,7 @@ public class Plot2D extends JPanel {
       final Plot2D p2 = new Plot2D();
       jf.getContentPane().add(p2, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    jf.dispose();
 	    System.exit(0);
@@ -1539,6 +1542,7 @@ public class Plot2D extends JPanel {
 	});
       
       p2.addMouseListener(new MouseAdapter() {
+	  @Override
 	  public void mouseClicked(MouseEvent e) {
 	    if ((e.getModifiers() & InputEvent.BUTTON1_MASK) ==
 		InputEvent.BUTTON1_MASK) {

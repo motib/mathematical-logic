@@ -107,6 +107,7 @@ public class PropertySheetPanel extends JPanel
       m_CapabilitiesText.setEditable(false);
       updateText();
       addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  m_Self.dispose();
 	  if (m_CapabilitiesFrame == m_Self) {
@@ -306,6 +307,7 @@ public class PropertySheetPanel extends JPanel
    *
    * @param l a value of type 'PropertyChangeListener'
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener l) {
     support.addPropertyChangeListener(l);
   }
@@ -315,6 +317,7 @@ public class PropertySheetPanel extends JPanel
    *
    * @param l a value of type 'PropertyChangeListener'
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener l) {
     support.removePropertyChangeListener(l);
   }
@@ -637,6 +640,7 @@ public class PropertySheetPanel extends JPanel
     ta.setCaretPosition(0);
     final JFrame jf = new JFrame("Information");
     jf.addWindowListener(new WindowAdapter() {
+      @Override
       public void windowClosing(WindowEvent e) {
         jf.dispose();
         if (m_HelpFrame == jf) {

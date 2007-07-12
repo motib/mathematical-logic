@@ -316,6 +316,7 @@ public class RandomForest
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     
     Vector newVector = new Vector();
@@ -351,6 +352,7 @@ public class RandomForest
    *
    * @return an array of strings suitable for passing to setOptions()
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -408,6 +410,7 @@ public class RandomForest
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception{
     String	tmpStr;
     
@@ -449,6 +452,7 @@ public class RandomForest
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     return new RandomTree().getCapabilities();
   }
@@ -459,6 +463,7 @@ public class RandomForest
    * @param data the instances to train the classifier with
    * @throws Exception if something goes wrong
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     // can classifier handle the data?
@@ -492,6 +497,7 @@ public class RandomForest
    * @return the distribution the forest generates for the instance
    * @throws Exception if computation fails
    */
+  @Override
   public double[] distributionForInstance(Instance instance) throws Exception {
 
     return m_bagger.distributionForInstance(instance);
@@ -502,6 +508,7 @@ public class RandomForest
    *
    * @return a string containing a description of the classifier
    */
+  @Override
   public String toString() {
 
     if (m_bagger == null) 

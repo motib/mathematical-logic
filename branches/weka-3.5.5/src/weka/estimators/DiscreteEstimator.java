@@ -58,7 +58,7 @@ public class DiscreteEstimator extends Estimator implements IncrementalEstimator
       for(int i = 0; i < numSymbols; i++) {
         m_Counts[i] = 1;
       }
-      m_SumOfCounts = (double)numSymbols;
+      m_SumOfCounts = numSymbols;
     }
   }
   
@@ -74,7 +74,7 @@ public class DiscreteEstimator extends Estimator implements IncrementalEstimator
     for(int iSymbol = 0; iSymbol < nSymbols; iSymbol++) {
       m_Counts[iSymbol] = fPrior;
     }
-    m_SumOfCounts = fPrior * (double) nSymbols;
+    m_SumOfCounts = fPrior * nSymbols;
   }
   
   /**
@@ -83,6 +83,7 @@ public class DiscreteEstimator extends Estimator implements IncrementalEstimator
    * @param data the new data value 
    * @param weight the weight assigned to the data value 
    */
+  @Override
   public void addValue(double data, double weight) {
     
     m_Counts[(int)data] += weight;
@@ -95,12 +96,13 @@ public class DiscreteEstimator extends Estimator implements IncrementalEstimator
    * @param data the value to estimate the probability of
    * @return the estimated probability of the supplied value
    */
+  @Override
   public double getProbability(double data) {
     
     if (m_SumOfCounts == 0) {
       return 0;
     }
-    return (double)m_Counts[(int)data] / m_SumOfCounts;
+    return m_Counts[(int)data] / m_SumOfCounts;
   }
   
   /**
@@ -143,6 +145,7 @@ public class DiscreteEstimator extends Estimator implements IncrementalEstimator
   /**
    * Display a representation of this estimator
    */
+  @Override
   public String toString() {
     
     StringBuffer result = new StringBuffer("Discrete Estimator. Counts = ");
@@ -166,6 +169,7 @@ public class DiscreteEstimator extends Estimator implements IncrementalEstimator
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     

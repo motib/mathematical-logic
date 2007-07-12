@@ -216,6 +216,7 @@ public class NominalPrediction implements Prediction, Serializable {
    *
    * @return a human readable representation of this prediction.
    */
+  @Override
   public String toString() {
 
     StringBuffer sb = new StringBuffer();

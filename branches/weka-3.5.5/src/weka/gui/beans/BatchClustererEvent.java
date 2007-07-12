@@ -22,7 +22,6 @@
 
 package weka.gui.beans;
 
-import weka.core.Instances;
 import weka.clusterers.Clusterer;
 import java.util.EventObject;
 

@@ -66,6 +66,7 @@ public class MultiNomialBMAEstimator
      * @return a description of the classifier suitable for
      * displaying in the explorer/experimenter gui
      */
+    @Override
     public String globalInfo() {
       return 
       	  "Multinomial BMA Estimator.";
@@ -78,6 +79,7 @@ public class MultiNomialBMAEstimator
      * @param bayesNet the bayes net to use
      * @throws Exception if number of parents doesn't fit (more than 1)
      */
+    @Override
     public void estimateCPTs(BayesNet bayesNet) throws Exception {
         initCPTs(bayesNet);
         
@@ -98,7 +100,7 @@ public class MultiNomialBMAEstimator
                 FastVector values = new FastVector();
                 values.addElement("0");
                 values.addElement("1");
-                Attribute a = new Attribute(instances.attribute(iAttribute).name(), (FastVector) values);
+                Attribute a = new Attribute(instances.attribute(iAttribute).name(), values);
                 instances.deleteAttributeAt(iAttribute);
                 instances.insertAttributeAt(a,iAttribute);
             }
@@ -215,6 +217,7 @@ public class MultiNomialBMAEstimator
      * @throws Exception if the instance could not be incorporated in
      * the model.
      */
+    @Override
     public void updateClassifier(BayesNet bayesNet, Instance instance) throws Exception {
         throw new Exception("updateClassifier does not apply to BMA estimator");
     } // updateClassifier
@@ -225,6 +228,7 @@ public class MultiNomialBMAEstimator
      * @param bayesNet the bayes net to use
      * @throws Exception doesn't apply
      */
+    @Override
     public void initCPTs(BayesNet bayesNet) throws Exception {
         // Reserve sufficient memory
         bayesNet.m_Distributions = new Estimator[bayesNet.m_Instances.numAttributes()][2];
@@ -256,6 +260,7 @@ public class MultiNomialBMAEstimator
      * @return predicted class probability distribution
      * @throws Exception if there is a problem generating the prediction
      */
+    @Override
     public double[] distributionForInstance(BayesNet bayesNet, Instance instance) throws Exception {
         Instances instances = bayesNet.m_Instances;
         int nNumClasses = instances.numClasses();
@@ -315,6 +320,7 @@ public class MultiNomialBMAEstimator
      * 
      * @return an enumeration of all the available options
      */
+    @Override
     public Enumeration listOptions() {
         Vector newVector = new Vector(1);
 
@@ -349,6 +355,7 @@ public class MultiNomialBMAEstimator
      * @param options the list of options as an array of strings
      * @throws Exception if an option is not supported
      */
+    @Override
     public void setOptions(String[] options) throws Exception {
         setUseK2Prior(Utils.getFlag("k2", options));
 
@@ -360,6 +367,7 @@ public class MultiNomialBMAEstimator
      * 
      * @return an array of strings suitable for passing to setOptions
      */
+    @Override
     public String[] getOptions() {
         String[] superOptions = super.getOptions();
         String[] options = new String[1 + superOptions.length];

@@ -62,6 +62,7 @@ public class NullStemmer
    * 
    * @return a string representation of the stemmer
    */
+  @Override
   public String toString() {
     return getClass().getName();
   }

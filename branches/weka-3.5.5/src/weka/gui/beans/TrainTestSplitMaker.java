@@ -28,13 +28,6 @@ import java.util.Random;
 import java.util.Enumeration;
 import java.io.Serializable;
 import java.util.Vector;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import java.awt.*;
 
 /**
  * Bean that accepts data sets, training sets, test sets and produces
@@ -152,10 +145,12 @@ public class TrainTestSplitMaker
    *
    * @param e a <code>DataSetEvent</code> value
    */
+  @Override
   public void acceptDataSet(DataSetEvent e) {
     if (m_splitThread == null) {
       final Instances dataSet = new Instances(e.getDataSet());
       m_splitThread = new Thread() {
+	  @Override
 	  public void run() {
 	    try {
 	      dataSet.randomize(new Random(m_randomSeed));
@@ -266,6 +261,7 @@ public class TrainTestSplitMaker
   /**
    * Stop processing
    */
+  @Override
   public void stop() {
     // tell the listenee (upstream bean) to stop
     if (m_listenee instanceof BeanCommon) {

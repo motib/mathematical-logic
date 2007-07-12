@@ -109,7 +109,7 @@ public class ClassifierDecList implements Serializable {
     m_sons = null;
     indeX = 0;
     sumOfWeights = data.sumOfWeights();
-    noSplit = new NoSplit (new Distribution((Instances)data));
+    noSplit = new NoSplit (new Distribution(data));
     if (leaf)
       m_localModel = noSplit;
     else
@@ -173,7 +173,7 @@ public class ClassifierDecList implements Serializable {
     if (Utils.eq(maxProb,0))
       return -1.0;
     else
-      return (double)maxIndex;
+      return maxIndex;
   }
 
   /** 
@@ -230,6 +230,7 @@ public class ClassifierDecList implements Serializable {
   /**
    * Prints rules.
    */
+  @Override
   public String toString(){
 
     try {
@@ -276,7 +277,7 @@ public class ClassifierDecList implements Serializable {
     for (i = 0; i < m_sons.length; i++)
       if (son(i) == null) {
 	if (Utils.sm(localModel().distribution().perBag(i),
-		     (double)m_minNumObj))
+		     m_minNumObj))
 	  estimated = Double.MAX_VALUE;
 	else{
 	  estimated = 0;
@@ -310,7 +311,7 @@ public class ClassifierDecList implements Serializable {
       for (int i = 0; i < m_sons.length; i++)
 	if (son(i) != null) {
 	  if (Utils.grOrEq(localModel().distribution().perBag(i),
-			   (double)m_minNumObj)) {
+			   m_minNumObj)) {
 	    estimated = son(i).getSizeOfBranch();
 	    if (Utils.sm(estimated,min)) {
 	      min = estimated;
@@ -410,7 +411,7 @@ public class ClassifierDecList implements Serializable {
    */
   protected ClassifierSplitModel localModel(){
     
-    return (ClassifierSplitModel)m_localModel;
+    return m_localModel;
   }
 
   /**

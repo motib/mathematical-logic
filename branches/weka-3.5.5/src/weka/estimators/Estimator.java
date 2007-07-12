@@ -225,7 +225,7 @@ implements Cloneable, Serializable, OptionHandler, CapabilitiesHandler{
     Instances workData = new Instances(data, 0);
     double factor = getInstancesFromClass(data, attrIndex,
 					  classIndex, 
-					  (double)classValue, workData);
+					  classValue, workData);
 
     // if no data return
     if (workData.numInstances() == 0) return;
@@ -253,7 +253,7 @@ implements Cloneable, Serializable, OptionHandler, CapabilitiesHandler{
     Instances workData = new Instances(data, 0);
     double factor = getInstancesFromClass(data, attrIndex,
             classIndex, 
-            (double)classValue, workData);
+            classValue, workData);
 
     // if no data return
     if (workData.numInstances() == 0) return;
@@ -541,6 +541,7 @@ implements Cloneable, Serializable, OptionHandler, CapabilitiesHandler{
    * @param obj the object to compare against
    * @return true if the two objects are equal
    */
+  @Override
   public boolean equals(Object obj) {
     
     if ((obj == null) || !(obj.getClass().equals(this.getClass()))) {

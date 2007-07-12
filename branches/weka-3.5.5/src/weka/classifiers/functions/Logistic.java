@@ -219,6 +219,7 @@ public class Logistic extends Classifier
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector newVector = new Vector(3);
     newVector.addElement(new Option("\tTurn on debugging output.",
@@ -251,6 +252,7 @@ public class Logistic extends Classifier
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     setDebug(Utils.getFlag('D', options));
 
@@ -272,6 +274,7 @@ public class Logistic extends Classifier
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 	
     String [] options = new String [5];
@@ -293,6 +296,7 @@ public class Logistic extends Classifier
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String debugTipText() {
     return "Output debug information to the console.";
   }
@@ -302,6 +306,7 @@ public class Logistic extends Classifier
    *
    * @param debug true if debugging output should be printed
    */
+  @Override
   public void setDebug(boolean debug) {
     m_Debug = debug;
   }
@@ -311,6 +316,7 @@ public class Logistic extends Classifier
    *
    * @return true if debugging output will be printed
    */
+  @Override
   public boolean getDebug() {
     return m_Debug;
   }      
@@ -399,6 +405,7 @@ public class Logistic extends Classifier
      * @param x the current values of variables
      * @return the value of the objective function 
      */
+    @Override
     protected double objectiveFunction(double[] x){
       double nll = 0; // -LogLikelihood
       int dim = m_NumPredictors+1; // Number of variables per class
@@ -441,6 +448,7 @@ public class Logistic extends Classifier
      * @param x the current values of variables
      * @return the gradient vector 
      */
+    @Override
     protected double[] evaluateGradient(double[] x){
       double[] grad = new double[x.length];
       int dim = m_NumPredictors+1; // Number of variables per class
@@ -496,6 +504,7 @@ public class Logistic extends Classifier
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -519,6 +528,7 @@ public class Logistic extends Classifier
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances train) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(train);
@@ -688,6 +698,7 @@ public class Logistic extends Classifier
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double [] distributionForInstance(Instance instance) 
     throws Exception {
 	
@@ -746,6 +757,7 @@ public class Logistic extends Classifier
    *
    * @return a string describing the classifer built.
    */
+  @Override
   public String toString() {
 	
     String result = "Logistic Regression with ridge parameter of "+m_Ridge;

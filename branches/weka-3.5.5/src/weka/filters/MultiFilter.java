@@ -74,6 +74,7 @@ public class MultiFilter
    * @return 		a description of the filter suitable for
    * 			displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "Applies several filters successively. In case all supplied filters " 
@@ -85,6 +86,7 @@ public class MultiFilter
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     Enumeration enm = super.listOptions();
@@ -115,6 +117,7 @@ public class MultiFilter
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String        tmpStr;
     String        filter;
@@ -143,6 +146,7 @@ public class MultiFilter
    *
    * @return 		an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -168,6 +172,7 @@ public class MultiFilter
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     if (getFilters().length == 0)
       return super.getCapabilities();
@@ -182,6 +187,7 @@ public class MultiFilter
    * @see #m_NewBatch
    * @see #m_FirstBatchDone
    */
+  @Override
   protected void reset() {
     super.reset();
     m_StreamableChecked = false;
@@ -294,6 +300,7 @@ public class MultiFilter
    * @see         #setInputFormat(Instances)
    * @see         #m_FirstBatchDone
    */
+  @Override
   protected boolean hasImmediateOutputFormat() {
     return isStreamableFilter();
   }
@@ -312,6 +319,7 @@ public class MultiFilter
    * @see                   #batchFinished()
    * @see                   #preprocess(Instances)
    */
+  @Override
   protected Instances determineOutputFormat(Instances inputFormat) throws Exception {
     Instances   result;
     int         i;
@@ -335,6 +343,7 @@ public class MultiFilter
    * @return            the modified data
    * @throws Exception  in case the processing goes wrong
    */
+  @Override
   protected Instance process(Instance instance) throws Exception {
     Instance    result;
     int         i;
@@ -361,6 +370,7 @@ public class MultiFilter
    * @see               #batchFinished()
    * @see               #process(Instance)
    */
+  @Override
   protected Instances process(Instances instances) throws Exception {
     Instances     result;
     int           i;

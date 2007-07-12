@@ -22,7 +22,6 @@
 
 package weka.gui.beans;
 
-import java.io.File;
 import java.beans.*;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -58,7 +57,7 @@ public class StripChartCustomizer extends JPanel
    * @param object a StripChart
    */
   public void setObject(Object object) {
-    m_cvEditor.setTarget((StripChart)object);
+    m_cvEditor.setTarget(object);
   }
 
   /**
@@ -66,6 +65,7 @@ public class StripChartCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.addPropertyChangeListener(pcl);
   }
@@ -75,6 +75,7 @@ public class StripChartCustomizer extends JPanel
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.removePropertyChangeListener(pcl);
   }

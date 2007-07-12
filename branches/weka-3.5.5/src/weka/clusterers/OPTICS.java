@@ -175,6 +175,7 @@ public class OPTICS
      *
      * @return      the capabilities of this clusterer
      */
+    @Override
     public Capabilities getCapabilities() {
       Capabilities result = super.getCapabilities();
 
@@ -192,6 +193,7 @@ public class OPTICS
      * @param instances The instances that need to be clustered
      * @throws java.lang.Exception If clustering was not successful
      */
+    @Override
     public void buildClusterer(Instances instances) throws Exception {
         // can clusterer handle the data?
         getCapabilities().testWithFail(instances);
@@ -227,7 +229,7 @@ public class OPTICS
         }
 
         long time_2 = System.currentTimeMillis();
-        elapsedTime = (double) (time_2 - time_1) / 1000.0;
+        elapsedTime = (time_2 - time_1) / 1000.0;
 
         if (writeOPTICSresults) {
             String fileName = "";
@@ -339,6 +341,7 @@ public class OPTICS
      * @throws java.lang.Exception If instance could not be clustered
      * successfully
      */
+    @Override
     public int clusterInstance(Instance instance) throws Exception {
         throw new Exception();
     }
@@ -350,6 +353,7 @@ public class OPTICS
      * @throws java.lang.Exception If number of clusters could not be returned
      * successfully
      */
+    @Override
     public int numberOfClusters() throws Exception {
         return numberOfGeneratedClusters;
     }
@@ -720,6 +724,7 @@ public class OPTICS
      * 
      * @return the clusterer as string
      */
+    @Override
     public String toString() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("OPTICS clustering results\n" +

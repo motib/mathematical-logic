@@ -24,13 +24,6 @@ package weka.gui.beans;
 
 import java.io.Serializable;
 import java.util.Vector;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import java.awt.*;
 
 /**
  * Bean that accepts a data sets and produces a training set
@@ -94,6 +87,7 @@ public class TrainingSetMaker
   /**
    * Stop any action
    */
+  @Override
   public void stop() {
     // do something
   }

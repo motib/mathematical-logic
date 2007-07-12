@@ -240,7 +240,7 @@ public class AveragingResultProducer
     m_ResultProducer.doRunKeys(run);
     checkForMultipleDifferences();
 
-    Object [] template = (Object [])((Object [])m_Keys.elementAt(0)).clone();
+    Object [] template = ((Object [])m_Keys.elementAt(0)).clone();
     template[m_KeyIndex] = null;
     // Check for duplicate keys
     checkForDuplicateKeys(template);
@@ -299,7 +299,7 @@ public class AveragingResultProducer
       // Check that the keys only differ on the selected key field
       checkForMultipleDifferences();
       
-      template = (Object [])((Object [])m_Keys.elementAt(0)).clone();
+      template = ((Object [])m_Keys.elementAt(0)).clone();
       template[m_KeyIndex] = null;
       // Check for duplicate keys
       checkForDuplicateKeys(template);
@@ -1144,6 +1144,7 @@ public class AveragingResultProducer
    *
    * @return a text description of the result producer.
    */
+  @Override
   public String toString() {
 
     String result = "AveragingResultProducer: ";

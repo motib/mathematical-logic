@@ -30,13 +30,8 @@ import java.io.Serializable;
 import java.util.Vector;
 import java.util.Enumeration;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.SwingConstants;
-import java.awt.*;
 import java.beans.*;
 import java.beans.beancontext.*;
 
@@ -202,6 +197,7 @@ public class DataVisualizer extends JPanel
    * @param name the name of the property of interest
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(String name,
 					PropertyChangeListener pcl) {
     m_bcSupport.addPropertyChangeListener(name, pcl);
@@ -213,6 +209,7 @@ public class DataVisualizer extends JPanel
    * @param name the name of the property of interest
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(String name,
 					   PropertyChangeListener pcl) {
     m_bcSupport.removePropertyChangeListener(name, pcl);
@@ -317,6 +314,7 @@ public class DataVisualizer extends JPanel
 	  jf.getContentPane().setLayout(new BorderLayout());
 	  jf.getContentPane().add(vis, BorderLayout.CENTER);
 	  jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	      @Override
 	      public void windowClosing(java.awt.event.WindowEvent e) {
 		jf.dispose();
 		m_framePoppedUp = false;
@@ -353,7 +351,8 @@ public class DataVisualizer extends JPanel
       
       jf.getContentPane().add(as, java.awt.BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
-        public void windowClosing(java.awt.event.WindowEvent e) {
+        @Override
+	public void windowClosing(java.awt.event.WindowEvent e) {
           jf.dispose();
           System.exit(0);
         }

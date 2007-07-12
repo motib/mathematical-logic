@@ -27,7 +27,6 @@ import weka.core.Utils;
 import weka.core.SerializedObject;
 import weka.core.xml.KOML;
 import weka.gui.ExtensionFileFilter;
-import weka.gui.ListSelectorDialog;
 import weka.gui.LogPanel;
 import weka.gui.LookAndFeel;
 import weka.gui.GenericObjectEditor;
@@ -45,7 +44,6 @@ import java.io.ObjectInputStream;
 import java.io.LineNumberReader;
 import java.io.InputStreamReader;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.StringTokenizer;
@@ -53,7 +51,6 @@ import java.util.Vector;
 import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Properties;
-import java.util.Enumeration;
 import java.util.Date;
 import java.util.Hashtable;
 import java.text.SimpleDateFormat;
@@ -64,9 +61,6 @@ import javax.swing.JFrame;
 import javax.swing.JWindow;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
-import javax.swing.JButton;
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
@@ -75,7 +69,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.JScrollPane;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JFileChooser;
@@ -84,7 +77,6 @@ import javax.swing.filechooser.FileFilter;
 
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Cursor;
 import java.awt.Graphics;
@@ -100,14 +92,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Insets;
-import java.awt.Component;
 import java.awt.FontMetrics;
 
 import java.beans.Customizer;
 import java.beans.EventSetDescriptor;
 import java.beans.Beans;
-import java.beans.PropertyDescriptor;
 import java.beans.MethodDescriptor;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
@@ -147,7 +136,7 @@ public class KnowledgeFlowApp extends JPanel implements PropertyChangeListener {
     try {
       BEAN_PROPERTIES = Utils.readProperties(PROPERTY_FILE);
       java.util.Enumeration keys =
-        (java.util.Enumeration)BEAN_PROPERTIES.propertyNames();
+        BEAN_PROPERTIES.propertyNames();
       if (!keys.hasMoreElements()) {
         throw new Exception( "Could not read a configuration file for the bean\n"
          +"panel. An example file is included with the Weka distribution.\n"

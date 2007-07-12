@@ -222,6 +222,7 @@ public class GenericObjectNode
    * 
    * @param o		the object to set
    */
+  @Override
   public void setUserObject(Object o) {
     if (o != null)
       super.setUserObject(o);
@@ -241,6 +242,7 @@ public class GenericObjectNode
    * 
    * @return		always null
    */
+  @Override
   public String toString() {
     return null;
     //return getClass().getName() + "[" + getUserObject().toString() + "]";
@@ -557,7 +559,7 @@ public class GenericObjectNode
 	
 	int index = ((Integer) m_UsedPropertyIndexes.get(j)).intValue();
 	
-	PropertyDescriptor property = (PropertyDescriptor) m_Properties[index];
+	PropertyDescriptor property = m_Properties[index];
 	Method setter = property.getWriteMethod();
 	Class[] params = setter.getParameterTypes();
 	

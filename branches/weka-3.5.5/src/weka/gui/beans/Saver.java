@@ -22,30 +22,6 @@
 
 package weka.gui.beans;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.*;
-import java.io.Serializable;
-import java.io.Reader;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import java.util.Vector;
-import java.util.Enumeration;
-import java.io.IOException;
-import java.beans.beancontext.*;
-import javax.swing.JButton;
-
-import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.*;
 
@@ -111,6 +87,7 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
       m_DS= ds;
     }
 
+    @Override
     public void run() {
       try {
         m_visual.setAnimated();
@@ -205,6 +182,7 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
   /** Method reacts to a dataset event and starts the writing process in batch mode
    * @param e a dataset event
    */  
+  @Override
   public synchronized void acceptDataSet(DataSetEvent e) {
   
       m_fileName = e.getDataSet().relationName();
@@ -228,6 +206,7 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
   /** Method reacts to a test set event and starts the writing process in batch mode
    * @param e test set event
    */  
+  @Override
   public synchronized void acceptTestSet(TestSetEvent e) {
   
       m_fileName = e.getTestSet().relationName();
@@ -257,6 +236,7 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
    * mode
    * @param e a training set event
    */  
+  @Override
   public synchronized void acceptTrainingSet(TrainingSetEvent e) {
   
       m_fileName = e.getTrainingSet().relationName();
@@ -285,7 +265,7 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
   /** Saves instances in batch mode */  
   public synchronized void saveBatch(){
   
-      m_Saver.setRetrieval(m_Saver.BATCH);
+      m_Saver.setRetrieval(weka.core.converters.Saver.BATCH);
       m_visual.setText(m_fileName);
       m_ioThread = new SaveBatchThread(Saver.this);
       m_ioThread.setPriority(Thread.MIN_PRIORITY);
@@ -298,11 +278,12 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
    * ended.
    * @param e instance event
    */  
+  @Override
   public synchronized void acceptInstance(InstanceEvent e) {
       
       
-      if(e.getStatus() == e.FORMAT_AVAILABLE){
-        m_Saver.setRetrieval(m_Saver.INCREMENTAL);
+      if(e.getStatus() == InstanceEvent.FORMAT_AVAILABLE){
+        m_Saver.setRetrieval(weka.core.converters.Saver.INCREMENTAL);
         m_structure = e.getStructure();
         m_fileName = m_structure.relationName();
         m_Saver.setInstances(m_structure);
@@ -310,7 +291,7 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
             if(((DatabaseSaver)m_Saver).getRelationForTableName())
                 ((DatabaseSaver)m_Saver).setTableName(m_fileName);
       }
-      if(e.getStatus() == e.INSTANCE_AVAILABLE){
+      if(e.getStatus() == InstanceEvent.INSTANCE_AVAILABLE){
         m_visual.setAnimated();
         if(m_count == 0){
             if(!m_isDBSaver){
@@ -332,7 +313,7 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
             ex.printStackTrace();
         }
       }
-      if(e.getStatus() == e.BATCH_FINISHED){
+      if(e.getStatus() == InstanceEvent.BATCH_FINISHED){
         try{  
             m_Saver.writeIncremental(e.getInstance());
             m_Saver.writeIncremental(null);
@@ -384,6 +365,7 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
   }
 
   /** Stops the bean */  
+  @Override
   public void stop() {
   }
   
@@ -400,7 +382,8 @@ public class Saver extends AbstractDataSink implements WekaWrapper {
 
       jf.getContentPane().add(tv, java.awt.BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
-        public void windowClosing(java.awt.event.WindowEvent e) {
+        @Override
+	public void windowClosing(java.awt.event.WindowEvent e) {
           jf.dispose();
           System.exit(0);
         }

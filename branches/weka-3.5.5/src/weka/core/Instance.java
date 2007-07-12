@@ -695,7 +695,7 @@ public class Instance
 	valIndex = attribute(attIndex).indexOfValue(value);
       }
     }
-    setValue(attIndex, (double)valIndex); 
+    setValue(attIndex, valIndex); 
   }
 
   /**
@@ -746,7 +746,7 @@ public class Instance
 	valIndex = att.indexOfValue(value);
       }
     }
-    setValue(att.index(), (double)valIndex);
+    setValue(att.index(), valIndex);
   }
 
   /**
@@ -868,6 +868,7 @@ public class Instance
    *
    * @return the instance's description as a string
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

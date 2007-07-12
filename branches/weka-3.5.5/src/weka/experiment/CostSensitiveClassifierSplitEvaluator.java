@@ -109,6 +109,7 @@ public class CostSensitiveClassifierSplitEvaluator
    * @return a description of the split evaluator suitable for
    * displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return " SplitEvaluator that produces results for a classification scheme "
       +"on a nominal class attribute, including weighted misclassification "
@@ -120,6 +121,7 @@ public class CostSensitiveClassifierSplitEvaluator
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(1);
@@ -180,6 +182,7 @@ public class CostSensitiveClassifierSplitEvaluator
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     
     String demandDir = Utils.getOption('D', options);
@@ -195,6 +198,7 @@ public class CostSensitiveClassifierSplitEvaluator
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
 
     String [] superOptions = super.getOptions();
@@ -257,6 +261,7 @@ public class CostSensitiveClassifierSplitEvaluator
    * @return an array containing objects of the type of each result column. 
    * The objects should be Strings, or Doubles.
    */
+  @Override
   public Object [] getResultTypes() {
     int addm = (m_AdditionalMeasures != null) 
       ? m_AdditionalMeasures.length 
@@ -316,6 +321,7 @@ public class CostSensitiveClassifierSplitEvaluator
    *
    * @return an array containing the name of each result column
    */
+  @Override
   public String [] getResultNames() {
     int addm = (m_AdditionalMeasures != null) 
       ? m_AdditionalMeasures.length 
@@ -382,6 +388,7 @@ public class CostSensitiveClassifierSplitEvaluator
    * the array may be Strings, Doubles, or null (for the missing value).
    * @throws Exception if a problem occurs while getting the results
    */
+  @Override
   public Object [] getResult(Instances train, Instances test)
   throws Exception {
     
@@ -509,6 +516,7 @@ public class CostSensitiveClassifierSplitEvaluator
    *
    * @return a text description of the split evaluator.
    */
+  @Override
   public String toString() {
 
     String result = "CostSensitiveClassifierSplitEvaluator: ";

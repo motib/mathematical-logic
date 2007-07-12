@@ -327,6 +327,7 @@ public class Debug
      * @see       #getStart()
      * @see       #getStop()
      */
+    @Override
     public String toString() {
       String    result;
       long      elapsed;
@@ -489,6 +490,7 @@ public class Debug
      * 
      * @return		the timestamp as string
      */
+    @Override
     public String toString() {
       return m_Formatter.format(getStamp());
     }
@@ -584,6 +586,7 @@ public class Debug
      * 
      * @return		a string representation of the logger
      */
+    @Override
     public String toString() {
       String	result;
       
@@ -799,6 +802,7 @@ public class Debug
      * 
      * @return		a string representation of the logger
      */
+    @Override
     public String toString() {
       String	result;
       
@@ -978,6 +982,7 @@ public class Debug
      * 
      * @return		random boolean
      */
+    @Override
     public boolean nextBoolean() {
       boolean result = super.nextBoolean();
       println("nextBoolean=" + result);
@@ -989,6 +994,7 @@ public class Debug
      * 
      * @param bytes	array to fill with random bytes
      */
+    @Override
     public void nextBytes(byte[] bytes) {
       super.nextBytes(bytes);
       println("nextBytes=" + Utils.arrayToString(bytes));
@@ -1000,6 +1006,7 @@ public class Debug
      * 
      * @return		random double
      */
+    @Override
     public double nextDouble() {
       double result = super.nextDouble();
       println("nextDouble=" + result);
@@ -1012,6 +1019,7 @@ public class Debug
      * 
      * @return		random float
      */
+    @Override
     public float nextFloat() {
       float result = super.nextFloat();
       println("nextFloat=" + result);
@@ -1025,6 +1033,7 @@ public class Debug
      * 
      * @return		random double, gaussian distributed
      */
+    @Override
     public double nextGaussian() {
       double result = super.nextGaussian();
       println("nextGaussian=" + result);
@@ -1037,6 +1046,7 @@ public class Debug
      * 
      * @return		random int
      */
+    @Override
     public int nextInt() {
       int result = super.nextInt();
       println("nextInt=" + result);
@@ -1051,6 +1061,7 @@ public class Debug
      * @param n		the upper limit (exclusive)
      * @return		random int
      */
+    @Override
     public int nextInt(int n) {
       int result = super.nextInt(n);
       println("nextInt(" + n + ")=" + result);
@@ -1063,6 +1074,7 @@ public class Debug
      * 
      * @return		random long
      */
+    @Override
     public long nextLong() {
       long result = super.nextLong();
       println("nextLong=" + result);
@@ -1074,6 +1086,7 @@ public class Debug
      * 
      * @param seed	the seed value
      */
+    @Override
     public void setSeed(long seed) {
       super.setSeed(seed);
       println("setSeed(" + seed + ")");
@@ -1084,6 +1097,7 @@ public class Debug
      * 
      * @return		a string representation
      */
+    @Override
     public String toString() {
       return this.getClass().getName() + ": " + getID();
     }

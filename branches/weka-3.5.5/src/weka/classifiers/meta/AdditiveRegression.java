@@ -179,6 +179,7 @@ public class AdditiveRegression
    * 
    * @return the default classifier classname
    */
+  @Override
   protected String defaultClassifierString() {
     
     return "weka.classifiers.trees.DecisionStump";
@@ -189,6 +190,7 @@ public class AdditiveRegression
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(4);
@@ -240,6 +242,7 @@ public class AdditiveRegression
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
 
     String optionString = Utils.getOption('S', options);
@@ -256,6 +259,7 @@ public class AdditiveRegression
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String [] getOptions() {
     
     String [] superOptions = super.getOptions();
@@ -308,6 +312,7 @@ public class AdditiveRegression
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -326,6 +331,7 @@ public class AdditiveRegression
    * @param data the training data
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
 
     super.buildClassifier(data);
@@ -380,6 +386,7 @@ public class AdditiveRegression
    * @return a prediction for the instance
    * @throws Exception if an error occurs
    */
+  @Override
   public double classifyInstance(Instance inst) throws Exception {
 
     double prediction = m_zeroR.classifyInstance(inst);
@@ -459,6 +466,7 @@ public class AdditiveRegression
    *
    * @return a description of the classifier as a string
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
 

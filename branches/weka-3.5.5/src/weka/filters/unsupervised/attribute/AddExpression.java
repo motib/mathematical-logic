@@ -285,6 +285,7 @@ public class AddExpression
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -309,6 +310,7 @@ public class AddExpression
    * @return true if the outputFormat may be collected immediately
    * @throws Exception if the format couldn't be set successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) throws Exception {
 
     m_attributeExpression = new AttributeExpression();
@@ -344,6 +346,7 @@ public class AddExpression
    * @throws IllegalStateException if no input format has been defined.
    * @throws Exception if there was a problem during the filtering.
    */
+  @Override
   public boolean input(Instance instance) throws Exception {
 
     if (getInputFormat() == null) {

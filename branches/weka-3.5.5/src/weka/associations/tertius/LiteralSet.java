@@ -97,6 +97,7 @@ public abstract class LiteralSet implements Serializable, Cloneable {
    *
    * @return A copy of this LiteralSet.
    */
+  @Override
   public Object clone() {
 
     Object result = null;
@@ -366,6 +367,7 @@ public abstract class LiteralSet implements Serializable, Cloneable {
   /**
    * Gives a String representation for this set of literals.
    */
+  @Override
   public abstract String toString();  
 }
 

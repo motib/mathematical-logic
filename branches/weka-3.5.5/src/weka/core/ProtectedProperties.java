@@ -62,6 +62,7 @@ public class ProtectedProperties extends Properties {
    * @return never returns without throwing an exception.
    * @throws UnsupportedOperationException always.
    */
+  @Override
   public Object setProperty(String key, String value)
     {
     
@@ -76,6 +77,7 @@ public class ProtectedProperties extends Properties {
    *
    * @throws UnsupportedOperationException always.
    */  
+  @Override
   public void load(InputStream inStream) {
     
     throw new
@@ -87,6 +89,7 @@ public class ProtectedProperties extends Properties {
    *
    * @throws UnsupportedOperationException always.
    */
+  @Override
   public void clear() {
     
     throw new
@@ -99,6 +102,7 @@ public class ProtectedProperties extends Properties {
    * @return never returns without throwing an exception.
    * @throws UnsupportedOperationException always.
    */
+  @Override
   public Object put(Object key,
 		    Object value) {
 
@@ -113,6 +117,7 @@ public class ProtectedProperties extends Properties {
    *
    * @throws UnsupportedOperationException always.
    */
+  @Override
   public void putAll(Map t) {
     
     throw new
@@ -125,6 +130,7 @@ public class ProtectedProperties extends Properties {
    * @return never returns without throwing an exception.
    * @throws UnsupportedOperationException always.
    */
+  @Override
   public Object remove(Object key) {
 
     throw new

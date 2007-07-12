@@ -141,8 +141,9 @@ public class VisualizePanel extends PrintablePanel {
 
       this.addMouseListener(new MouseAdapter() {
 	  ///////      
+	  @Override
 	  public void mousePressed(MouseEvent e) {
-	    if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
+	    if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK) {
 	      //
 	      if (m_sIndex == 0) {
 		//do nothing it will get dealt to in the clicked method
@@ -172,18 +173,19 @@ public class VisualizePanel extends PrintablePanel {
 	    //System.out.println("clicked");
 	  }
 	  //////
+	  @Override
 	  public void mouseClicked(MouseEvent e) {
 	    
 	    if ((m_sIndex == 2 || m_sIndex == 3) && 
 		(m_createShape || 
-		 (e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK)) {
+		 (e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK)) {
 	      if (m_createShape) {
 		//then it has been started already.
 
 		Graphics g = m_plot2D.getGraphics();
 		g.setColor(Color.black);
 		g.setXORMode(Color.white);
-		if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK &&
+		if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK &&
                     !e.isAltDown()) {
 		  m_shapePoints.addElement(new 
 		    Double(m_plot2D.convertToAttribX(e.getX())));
@@ -358,7 +360,7 @@ public class VisualizePanel extends PrintablePanel {
 		g.dispose();
 		//repaint();
 	      }
-	      else if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == MouseEvent.BUTTON1_MASK) {
+	      else if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK) {
 		//then this is the first point
 		m_createShape = true;
 		m_shapePoints = new FastVector(17);
@@ -395,6 +397,7 @@ public class VisualizePanel extends PrintablePanel {
 	  }
 	  
 	  /////////             
+	  @Override
 	  public void mouseReleased(MouseEvent e) {
 
 	    if (m_createShape) {
@@ -465,6 +468,7 @@ public class VisualizePanel extends PrintablePanel {
 	});
       
       this.addMouseMotionListener(new MouseMotionAdapter() {
+	  @Override
 	  public void mouseDragged(MouseEvent e) {
 	    //check if the user is dragging a box
 	    if (m_createShape) {
@@ -493,6 +497,7 @@ public class VisualizePanel extends PrintablePanel {
 	    }
 	  }
 	  
+	  @Override
 	  public void mouseMoved(MouseEvent e) {
 	    if (m_createShape) {
 	      if (((Double)m_shapePoints.elementAt(0)).intValue() == 2 || 
@@ -2163,6 +2168,7 @@ public class VisualizePanel extends PrintablePanel {
    * Set a name for this plot
    * @param plotName the name for the plot
    */
+  @Override
   public void setName(String plotName) {
     m_plotName = plotName;
   }
@@ -2172,6 +2178,7 @@ public class VisualizePanel extends PrintablePanel {
    * name is set.
    * @return the name of the plot
    */
+  @Override
   public String getName() {
     return m_plotName;
   }
@@ -2380,6 +2387,7 @@ public class VisualizePanel extends PrintablePanel {
       
       jf.getContentPane().add(sp, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

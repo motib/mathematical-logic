@@ -153,6 +153,7 @@ public class TextViewer
     m_history.setBorder(BorderFactory.createTitledBorder("Result list"));
     m_history.setHandleRightClicks(false);
     m_history.getList().addMouseListener(new MouseAdapter() {
+	@Override
 	public void mouseClicked(MouseEvent e) {
 	  if (((e.getModifiers() & InputEvent.BUTTON1_MASK)
 	       != InputEvent.BUTTON1_MASK) || e.isAltDown()) {
@@ -343,6 +344,7 @@ public class TextViewer
       m_resultsFrame.getContentPane().add(js, BorderLayout.CENTER);
       m_resultsFrame.getContentPane().add(m_history, BorderLayout.WEST);
       m_resultsFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    m_resultsFrame.dispose();
 	    m_resultsFrame = null;
@@ -393,6 +395,7 @@ public class TextViewer
    * @param name the name of the property of interest
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(String name,
 					PropertyChangeListener pcl) {
     m_bcSupport.addPropertyChangeListener(name, pcl);
@@ -404,6 +407,7 @@ public class TextViewer
    * @param name the name of the property of interest
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(String name,
 					   PropertyChangeListener pcl) {
     m_bcSupport.removePropertyChangeListener(name, pcl);
@@ -466,7 +470,8 @@ public class TextViewer
 				  +"method of this class.", "The Title"));
       jf.getContentPane().add(tv, java.awt.BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
-        public void windowClosing(java.awt.event.WindowEvent e) {
+        @Override
+	public void windowClosing(java.awt.event.WindowEvent e) {
           jf.dispose();
           System.exit(0);
         }

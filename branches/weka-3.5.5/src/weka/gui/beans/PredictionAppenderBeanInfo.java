@@ -39,6 +39,7 @@ public class PredictionAppenderBeanInfo extends SimpleBeanInfo {
    *
    * @return an <code>EventSetDescriptor[]</code> value
    */
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds =  
@@ -63,6 +64,7 @@ public class PredictionAppenderBeanInfo extends SimpleBeanInfo {
    *
    * @return a <code>PropertyDescriptor[]</code> value
    */
+  @Override
   public PropertyDescriptor[] getPropertyDescriptors() {
     try {
       PropertyDescriptor p1;
@@ -81,6 +83,7 @@ public class PredictionAppenderBeanInfo extends SimpleBeanInfo {
    *
    * @return a <code>BeanDescriptor</code> value
    */
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.PredictionAppender.class,
 			      PredictionAppenderCustomizer.class);

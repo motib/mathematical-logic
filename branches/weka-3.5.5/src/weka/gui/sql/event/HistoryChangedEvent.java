@@ -23,7 +23,6 @@
 
 package weka.gui.sql.event;
 
-import java.util.EventListener;
 import java.util.EventObject;
 
 import javax.swing.DefaultListModel;
@@ -75,6 +74,7 @@ public class HistoryChangedEvent extends EventObject {
    * returns the event in a string representation
    * @return        the event in a string representation
    */
+  @Override
   public String toString() {
     String        result;
 

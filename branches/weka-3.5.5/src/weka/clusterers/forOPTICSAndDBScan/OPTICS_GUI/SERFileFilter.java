@@ -67,6 +67,7 @@ public class SERFileFilter extends FileFilter {
     /**
      * Whether the given file is accepted by this filter.
      */
+    @Override
     public boolean accept(File f) {
         if (f != null) {
             if (f.isDirectory()) {
@@ -88,6 +89,7 @@ public class SERFileFilter extends FileFilter {
      * The description of this filter.
      * @see javax.swing.filechooser.FileView#getName
      */
+    @Override
     public String getDescription() {
         return description;
     }

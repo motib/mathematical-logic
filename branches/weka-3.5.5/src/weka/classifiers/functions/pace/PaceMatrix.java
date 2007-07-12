@@ -139,6 +139,7 @@ public class PaceMatrix
    * 
    * @return the clone
    */
+  @Override
   public Object clone () {
     PaceMatrix X = new PaceMatrix(m,n);
     double[][] C = X.getArray();
@@ -147,7 +148,7 @@ public class PaceMatrix
 	C[i][j] = A[i][j];
       }
     }
-    return (Object) X;
+    return X;
   }
     
   /** Add a value to an element and reset the element
@@ -394,6 +395,7 @@ public class PaceMatrix
    * 
    * @return the matrix as string
    */ 
+  @Override
   public String  toString() {
     return toString( 5, false );
   }
@@ -1032,7 +1034,7 @@ public class PaceMatrix
       PaceMatrix( X.times( new PaceMatrix(beta) ).
 		  plusEquals( randomNormal(n,1).times(sd) ) );
 
-    IntVector pvt = (IntVector) IntVector.seq(0, k1+k2);
+    IntVector pvt = IntVector.seq(0, k1+k2);
 
     /*System.out.println( "The OLS estimate (by jama.Matrix.solve()) is:\n\n" + 
       (new PaceMatrix(X.solve(Y))).getColumn(0) );*/

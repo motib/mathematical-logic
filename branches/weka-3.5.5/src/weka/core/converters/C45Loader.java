@@ -103,6 +103,7 @@ public class C45Loader
    * 
    * @throws IOException if something goes wrong
    */
+  @Override
   public void reset() throws IOException {
     m_structure = null;
     setRetrieval(NONE);
@@ -146,6 +147,7 @@ public class C45Loader
    * @param file the source file.
    * @exception IOException if an error occurs
    */
+  @Override
   public void setSource(File file) throws IOException {
     m_structure = null;
     setRetrieval(NONE);
@@ -197,6 +199,7 @@ public class C45Loader
    * @return the structure of the data set as an empty set of Instances
    * @exception IOException if an error occurs
    */
+  @Override
   public Instances getStructure() throws IOException {
     if (m_sourceFile == null) {
       throw new IOException("No source has beenspecified");
@@ -220,6 +223,7 @@ public class C45Loader
    * @return the structure of the data set as an empty set of Instances
    * @exception IOException if there is no source or parsing fails
    */
+  @Override
   public Instances getDataSet() throws IOException {
     if (m_sourceFile == null) {
       throw new IOException("No source has been specified");
@@ -264,6 +268,7 @@ public class C45Loader
    * if there are no more instances to be read
    * @exception IOException if there is an error during parsing
    */
+  @Override
   public Instance getNextInstance() throws IOException {
     if (m_sourceFile == null) {
       throw new IOException("No source has been specified");
@@ -336,7 +341,7 @@ public class C45Loader
 	      ConverterUtils.errms(tokenizer, "nominal value not declared in "
 				   +"header :"+val+" column "+i);
 	    }
-	    instance[counter++] = (double)index;
+	    instance[counter++] = index;
 	  } else if (m_structure.attribute(counter).isNumeric()) {
 	    try {
 	      instance[counter++] = Double.valueOf(val).doubleValue();

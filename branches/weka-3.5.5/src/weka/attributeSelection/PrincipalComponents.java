@@ -393,6 +393,7 @@ public class PrincipalComponents
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -417,6 +418,7 @@ public class PrincipalComponents
    * @param data the instances to analyse/transform
    * @throws Exception if analysis fails
    */
+  @Override
   public void buildEvaluator(Instances data) throws Exception {
     // can evaluator handle data?
     getCapabilities().testWithFail(data);
@@ -493,8 +495,8 @@ public class PrincipalComponents
 
     Matrix corr = new Matrix(m_correlation);
     corr.eigenvalueDecomposition(v, d);
-    m_eigenvectors = (double [][])v.clone();
-    m_eigenvalues = (double [])d.clone();
+    m_eigenvectors = v.clone();
+    m_eigenvalues = d.clone();
 
     // any eigenvalues less than 0 are not worth anything --- change to 0
     for (int i = 0; i < m_eigenvalues.length; i++) {
@@ -592,6 +594,7 @@ public class PrincipalComponents
    * @return the merit of a transformed attribute
    * @throws Exception if attribute can't be evaluated
    */
+  @Override
   public double evaluateAttribute(int att) throws Exception {
     if (m_eigenvalues == null) {
       throw new Exception("Principal components hasn't been built yet!");
@@ -696,6 +699,7 @@ public class PrincipalComponents
    * Returns a description of this attribute transformer
    * @return a String describing this attribute transformer
    */
+  @Override
   public String toString() {
     if (m_eigenvalues == null) {
       return "Principal components hasn't been built yet!";

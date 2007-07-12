@@ -109,6 +109,7 @@ public class RBFKernel
    * @return a description suitable for displaying in the
    *         explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "The RBF kernel. K(x, y) = e^-(gamma * <x-y, x-y>^2)";
@@ -119,6 +120,7 @@ public class RBFKernel
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector		result;
     Enumeration		en;
@@ -164,6 +166,7 @@ public class RBFKernel
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     
@@ -181,6 +184,7 @@ public class RBFKernel
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       i;
     Vector    result;
@@ -205,6 +209,7 @@ public class RBFKernel
    * @return 		the dot product
    * @throws Exception 	if something goes wrong
    */
+  @Override
   protected double evaluate(int id1, int id2, Instance inst1)
     throws Exception {
 
@@ -257,6 +262,7 @@ public class RBFKernel
    * 
    * @param data	the data to use
    */
+  @Override
   protected void initVars(Instances data) {
     super.initVars(data);
     
@@ -269,6 +275,7 @@ public class RBFKernel
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -285,6 +292,7 @@ public class RBFKernel
    * @param data	the data to base the kernel on
    * @throws Exception	if something goes wrong
    */
+  @Override
   public void buildKernel(Instances data) throws Exception {
     // does kernel handle the data?
     if (!getChecksTurnedOff())
@@ -301,6 +309,7 @@ public class RBFKernel
    * 
    * @return 		a string representaiton of the kernel
    */
+  @Override
   public String toString() {
     return "RBF kernel: K(x,y) = e^-(" + getGamma() + "* <x-y,x-y>^2)";
   }

@@ -305,7 +305,7 @@ public class Agrawal
           int age, int elevel, int car, int zipcode,
           double hvalue, int hyears, double loan) {
         double disposable = (2.0 * (salary + commission) / 3.0
-            - 5000.0 * (double) elevel - 20000.0);
+            - 5000.0 * elevel - 20000.0);
         return disposable > 0 ? 0 : 1;
       }
     },
@@ -315,7 +315,7 @@ public class Agrawal
           int age, int elevel, int car, int zipcode,
           double hvalue, int hyears, double loan) {
         double disposable = (2.0 * (salary + commission) / 3.0
-            - 5000.0 * (double) elevel - loan / 5.0 - 10000.0);
+            - 5000.0 * elevel - loan / 5.0 - 10000.0);
         return disposable > 0 ? 0 : 1;
       }
     },
@@ -326,9 +326,9 @@ public class Agrawal
           double hvalue, int hyears, double loan) {
         double equity = 0.0;
         if (hyears >= 20)
-          equity = hvalue * ((double) hyears - 20.0) / 10.0;
+          equity = hvalue * (hyears - 20.0) / 10.0;
         double disposable = (2.0 * (salary + commission) / 3.0
-            - 5000.0 * (double) elevel + equity / 5.0 - 10000.0);
+            - 5000.0 * elevel + equity / 5.0 - 10000.0);
         return disposable > 0 ? 0 : 1;
       }
     } 
@@ -437,6 +437,7 @@ public class Agrawal
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = enumToVector(super.listOptions());
 
@@ -496,6 +497,7 @@ public class Agrawal
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String        tmpStr;
 
@@ -521,6 +523,7 @@ public class Agrawal
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -667,6 +670,7 @@ public class Agrawal
    * @return single mode flag
    * @throws Exception if mode is not set yet
    */
+  @Override
   public boolean getSingleModeFlag() throws Exception {
     return true;
   }
@@ -681,6 +685,7 @@ public class Agrawal
    * @throws Exception if the generating of the format failed
    * @see  #getSeed()
    */
+  @Override
   public Instances defineDataFormat() throws Exception {
     FastVector      atts;
     FastVector      attValues;
@@ -778,6 +783,7 @@ public class Agrawal
    * @throws Exception if the generator only works with generateExamples
    * which means in non single mode
    */
+  @Override
   public Instance generateExample() throws Exception {
     Instance      result;
     double        salary;
@@ -821,7 +827,7 @@ public class Agrawal
       elevel     = random.nextInt(5);
       car        = 1 + random.nextInt(20);
       zipcode    = random.nextInt(9);
-      hvalue     = (9.0 - (double) zipcode) * 100000.0
+      hvalue     = (9.0 - zipcode) * 100000.0
                    * (0.5 + random.nextDouble());
       hyears     = 1 + random.nextInt(30);
       loan       = random.nextDouble() * 500000.0;
@@ -849,7 +855,7 @@ public class Agrawal
         commission = perturbValue(commission, 10000, 75000);
       age    = (int) Math.round(perturbValue(age, 20, 80));
       hvalue = perturbValue(
-                  hvalue, (9.0 - (double) zipcode) * 100000.0, 0, 135000);
+                  hvalue, (9.0 - zipcode) * 100000.0, 0, 135000);
       hyears = (int) Math.round(perturbValue(hyears, 1, 30));
       loan   = perturbValue(loan, 0, 500000);
     }
@@ -882,6 +888,7 @@ public class Agrawal
    * which means in single mode
    * @see   #getSeed()
    */
+  @Override
   public Instances generateExamples() throws Exception {
     Instances       result;
     int             i;
@@ -902,6 +909,7 @@ public class Agrawal
    * 
    * @return string contains info about the generated rules
    */
+  @Override
   public String generateStart () {
     return "";
   }
@@ -914,6 +922,7 @@ public class Agrawal
    * @return string contains info about the generated rules
    * @throws Exception if the generating of the documentaion fails
    */
+  @Override
   public String generateFinished() throws Exception {
     return "";
   }

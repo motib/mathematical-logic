@@ -26,18 +26,13 @@ package weka.gui;
 import weka.core.Instances;
 
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.BorderFactory;
 
 /**
  * Creates a panel that displays the attributes contained in a set of
@@ -122,6 +117,7 @@ public class AttributeListPanel extends JPanel {
      * @param column the column index.
      * @return the name of the column.
      */
+    @Override
     public String getColumnName(int column) {
       
       switch (column) {
@@ -140,6 +136,7 @@ public class AttributeListPanel extends JPanel {
      * @param col the column index.
      * @return the class of elements in the column.
      */
+    @Override
     public Class getColumnClass(int col) {
       return getValueAt(0, col).getClass();
     }
@@ -151,6 +148,7 @@ public class AttributeListPanel extends JPanel {
      * @param col ignored
      * @return false
      */
+    @Override
     public boolean isCellEditable(int row, int col) {
 
       return false;
@@ -226,6 +224,7 @@ public class AttributeListPanel extends JPanel {
       jf.getContentPane().setLayout(new BorderLayout());
       jf.getContentPane().add(asp, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

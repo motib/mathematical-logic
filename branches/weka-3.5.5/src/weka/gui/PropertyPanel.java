@@ -23,7 +23,6 @@
 
 package weka.gui;
 
-import weka.core.ClassDiscovery;
 import weka.core.OptionHandler;
 import weka.core.Utils;
 
@@ -113,6 +112,7 @@ public class PropertyPanel
     setOpaque(true);
     final Component comp = this;
     addMouseListener(new MouseAdapter() {
+      @Override
       public void mouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 1) {
           if (    (evt.getButton() == MouseEvent.BUTTON1) && !evt.isAltDown() && !evt.isShiftDown() ) {
@@ -212,6 +212,7 @@ public class PropertyPanel
   /**
    * Cleans up when the panel is destroyed.
    */
+  @Override
   public void removeNotify() {
 
     super.removeNotify();
@@ -226,6 +227,7 @@ public class PropertyPanel
    *
    * @param g the current graphics context
    */
+  @Override
   public void paintComponent(Graphics g) {
 
     if (!m_HasCustomPanel) {

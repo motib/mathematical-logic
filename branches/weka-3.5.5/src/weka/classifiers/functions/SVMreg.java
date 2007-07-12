@@ -258,6 +258,7 @@ public class SVMreg
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Enumeration enm;
     Vector result = new Vector();
@@ -378,6 +379,7 @@ public class SVMreg
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported 
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     String[]	tmpOptions;
@@ -425,6 +427,7 @@ public class SVMreg
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       	i;
     Vector    	result;
@@ -456,6 +459,7 @@ public class SVMreg
    *
    * @return		the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = getKernel().getCapabilities();
     result.setOwner(this);
@@ -484,6 +488,7 @@ public class SVMreg
    * @param instances the set of training instances
    * @throws Exception if the classifier can't be built successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(instances);
@@ -576,6 +581,7 @@ public class SVMreg
    * @return the classification
    * @throws Exception if classification can't be done successfully
    */
+  @Override
   public double classifyInstance(Instance instance) throws Exception {
     // Filter instance
     m_Missing.input(instance);
@@ -719,6 +725,7 @@ public class SVMreg
    *
    * @return a description of the classifier as a string
    */
+  @Override
   public String toString() {
     StringBuffer text = new StringBuffer();
     

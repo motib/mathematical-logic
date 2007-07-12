@@ -28,17 +28,13 @@ import java.awt.Graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.Random;
-import java.awt.image.CropImageFilter;
-import java.awt.image.FilteredImageSource;
 import javax.swing.JFrame;
 import java.util.Vector;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import javax.swing.JLabel;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
 import java.util.LinkedList;
 import java.io.ObjectInputStream;
 import java.io.IOException;
@@ -46,7 +42,6 @@ import java.util.Enumeration;
 import java.io.Serializable;
 import java.beans.EventSetDescriptor;
 
-import weka.core.Queue;
 import weka.core.Instances;
 import weka.core.Instance;
 
@@ -77,6 +72,7 @@ public class StripChart
 
   // Class providing a panel for the plot
   private class StripPlotter extends JPanel {
+    @Override
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
       if (m_osi != null) {
@@ -127,6 +123,7 @@ public class StripChart
    * Class providing a panel for displaying the y axis
    */
   private JPanel m_scalePanel = new JPanel() {
+      @Override
       public void paintComponent(Graphics gx) {
 	super.paintComponent(gx);
 	if (m_labelMetrics == null) {
@@ -148,6 +145,7 @@ public class StripChart
    * Class providing a panel for the legend
    */
   private JPanel m_legendPanel = new JPanel() {
+      @Override
       public void paintComponent(Graphics gx) {
 	super.paintComponent(gx);
 
@@ -329,6 +327,7 @@ public class StripChart
     if (m_updateHandler == null) {
       m_updateHandler = new Thread() {
 	  private double [] dataPoint;
+	  @Override
 	  public void run() {
 	    while (true) {
 	      if (m_outputFrame != null) {
@@ -380,6 +379,7 @@ public class StripChart
 				    TitledBorder.DEFAULT_POSITION, lf, 
 				    Color.blue));
       m_outputFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    if (m_updateHandler != null) {
 	      System.err.println("Interrupting");
@@ -780,6 +780,7 @@ public class StripChart
       final StripChart jd = new StripChart();
       jf.getContentPane().add(jd, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

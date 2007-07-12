@@ -173,6 +173,7 @@ public class MIOptimalBall
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -221,6 +222,7 @@ public class MIOptimalBall
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances data) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(data);
@@ -399,6 +401,7 @@ public class MIOptimalBall
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance newBag)
     throws Exception {  
 
@@ -440,6 +443,7 @@ public class MIOptimalBall
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
 
@@ -456,6 +460,7 @@ public class MIOptimalBall
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     
@@ -485,6 +490,7 @@ public class MIOptimalBall
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported 
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     setDebug(Utils.getFlag('D', options));
 

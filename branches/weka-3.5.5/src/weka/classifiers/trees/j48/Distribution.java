@@ -329,7 +329,7 @@ public class Distribution implements Cloneable, Serializable {
     int i;
 
     for (i = startIndex; i < lastPlusOne; i++) {
-      instance = (Instance) source.instance(i);
+      instance = source.instance(i);
       classIndex = (int)instance.classValue();
       sumOfWeights = sumOfWeights+instance.weight();
       m_perClassPerBag[bagIndex][classIndex] += instance.weight();
@@ -381,6 +381,7 @@ public class Distribution implements Cloneable, Serializable {
   /**
    * Clones distribution (Deep copy of distribution).
    */
+  @Override
   public final Object clone() {
 
     int i,j;
@@ -434,7 +435,7 @@ public class Distribution implements Cloneable, Serializable {
     int i;
 
     for (i = startIndex; i < lastPlusOne; i++) {
-      instance = (Instance) source.instance(i);
+      instance = source.instance(i);
       classIndex = (int)instance.classValue();
       sumOfWeights = sumOfWeights+instance.weight();
       m_perClassPerBag[bagIndex][classIndex] -= instance.weight();
@@ -622,7 +623,7 @@ public class Distribution implements Cloneable, Serializable {
   public final double laplaceProb(int classIndex) {
 
     return (m_perClass[classIndex] + 1) / 
-      (totaL + (double) actualNumClasses());
+      (totaL + actualNumClasses());
   }
 
   /**
@@ -631,7 +632,7 @@ public class Distribution implements Cloneable, Serializable {
   public final double laplaceProb(int classIndex, int intIndex) {
 
     return (m_perClassPerBag[intIndex][classIndex] + 1.0) /
-      (m_perBag[intIndex] + (double) actualNumClasses());
+      (m_perBag[intIndex] + actualNumClasses());
   }
 
   /**
@@ -716,7 +717,7 @@ public class Distribution implements Cloneable, Serializable {
     int i;
 
     for (i = startIndex; i < lastPlusOne; i++) {
-      instance = (Instance) source.instance(i);
+      instance = source.instance(i);
       classIndex = (int)instance.classValue();
       weight = instance.weight();
       m_perClassPerBag[from][classIndex] -= weight;

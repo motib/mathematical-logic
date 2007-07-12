@@ -124,7 +124,7 @@ public class PlotData2D {
       m_plotInstances = Filter.useFilter(m_plotInstances, addF);
       m_plotInstances.setClassIndex(m_plotInstances.numAttributes()-1);
       for (int i = 0; i < m_plotInstances.numInstances(); i++) {
-	m_plotInstances.instance(i).setValue(0,(double)i);
+	m_plotInstances.instance(i).setValue(0,i);
       }
       m_plotInstances.setRelationName(originalRelationName);
     } catch (Exception ex) {

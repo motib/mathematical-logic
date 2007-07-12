@@ -23,7 +23,6 @@
 
 package weka.gui;
 
-import java.awt.Component;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.Container;
@@ -33,8 +32,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
 
-import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;

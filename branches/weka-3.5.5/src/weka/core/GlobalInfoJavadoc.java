@@ -80,6 +80,7 @@ public class GlobalInfoJavadoc
    * @return		the generated Javadoc
    * @throws Exception 	in case the generation fails
    */
+  @Override
   protected String generateJavadoc(int index) throws Exception {
     String		result;
     Method		method;

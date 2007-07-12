@@ -137,7 +137,7 @@ public class ListOptions
     
     handler = (OptionHandler) Class.forName(getClassname()).newInstance();
     
-    enm = ((OptionHandler) handler).listOptions();
+    enm = (handler).listOptions();
     while (enm.hasMoreElements()) {
       option = (Option) enm.nextElement();
       result.append(option.synopsis() + '\n');

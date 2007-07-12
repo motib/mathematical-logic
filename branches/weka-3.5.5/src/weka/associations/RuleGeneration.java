@@ -133,7 +133,7 @@ public class RuleGeneration implements Serializable {
         Double actualPrior = (Double)priors.get(new Double(midPoints[i]));
         if(actualPrior != null){
             if(actualPrior.doubleValue() != 0){
-                double addend = actualPrior.doubleValue() * binomialDistribution(midPoints[i], ruleCount, (double)premiseCount);
+                double addend = actualPrior.doubleValue() * binomialDistribution(midPoints[i], ruleCount, premiseCount);
                 denominator += addend;
                 numerator += addend*midPoints[i];
             }
@@ -189,7 +189,7 @@ public class RuleGeneration implements Serializable {
     
     do{  
         m_minRuleCount = 1;
-        while(expectation((double)m_minRuleCount,premise.m_counter,m_midPoints,m_priors) <= m_expectation){
+        while(expectation(m_minRuleCount,premise.m_counter,m_midPoints,m_priors) <= m_expectation){
             m_minRuleCount++;
             if(m_minRuleCount > premise.m_counter)
                 return m_best;
@@ -239,7 +239,7 @@ public class RuleGeneration implements Serializable {
                         m_change = true;
                         redundant = removeRedundant(current);
                         m_expectation = ((RuleItem)(m_best.first())).accuracy();
-                        while(expectation((double)m_minRuleCount, (current.premise()).m_counter,m_midPoints,m_priors) < m_expectation){
+                        while(expectation(m_minRuleCount, (current.premise()).m_counter,m_midPoints,m_priors) < m_expectation){
                             m_minRuleCount++;
                             if(m_minRuleCount > (current.premise()).m_counter)
                                 break;

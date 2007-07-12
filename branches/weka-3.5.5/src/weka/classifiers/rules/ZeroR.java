@@ -82,6 +82,7 @@ public class ZeroR
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -111,6 +112,7 @@ public class ZeroR
    * @param instances set of instances serving as training data 
    * @exception Exception if the classifier has not been generated successfully
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(instances);
@@ -163,6 +165,7 @@ public class ZeroR
    * @param instance the instance to be classified
    * @return index of the predicted class
    */
+  @Override
   public double classifyInstance(Instance instance) {
 
     return m_ClassValue;
@@ -175,6 +178,7 @@ public class ZeroR
    * @return predicted class probability distribution
    * @exception Exception if class is numeric
    */
+  @Override
   public double [] distributionForInstance(Instance instance) 
        throws Exception {
 	 
@@ -183,7 +187,7 @@ public class ZeroR
       result[0] = m_ClassValue;
       return result;
     } else {
-      return (double []) m_Counts.clone();
+      return m_Counts.clone();
     }
   }
   
@@ -192,6 +196,7 @@ public class ZeroR
    *
    * @return a description of the classifier as a string.
    */
+  @Override
   public String toString() {
 
     if (m_Class ==  null) {

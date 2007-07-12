@@ -46,6 +46,7 @@ public class AttributeValueLiteral extends Literal {
     m_index = index;
   }
 
+  @Override
   public boolean satisfies(Instance instance) {
 
     if (m_index == -1) {
@@ -69,6 +70,7 @@ public class AttributeValueLiteral extends Literal {
     }
   }
 
+  @Override
   public boolean negationSatisfies(Instance instance) {
 
     if (m_index == -1) {
@@ -92,6 +94,7 @@ public class AttributeValueLiteral extends Literal {
     }
   }
 
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

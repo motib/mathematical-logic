@@ -89,6 +89,7 @@ public class IsotonicRegression extends Classifier implements WeightedInstancesH
    * @return the prediction
    * @throws Exception if an error occurs
    */
+  @Override
   public double classifyInstance(Instance inst) throws Exception {
     
     if (inst.isMissing(m_attribute.index())) {
@@ -107,6 +108,7 @@ public class IsotonicRegression extends Classifier implements WeightedInstancesH
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -224,6 +226,7 @@ public class IsotonicRegression extends Classifier implements WeightedInstancesH
    * @param insts the training data.
    * @throws Exception if an error occurs
    */
+  @Override
   public void buildClassifier(Instances insts) throws Exception {
 
     // can classifier handle the data?
@@ -249,6 +252,7 @@ public class IsotonicRegression extends Classifier implements WeightedInstancesH
    *
    * @return a description of the classifier.
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();

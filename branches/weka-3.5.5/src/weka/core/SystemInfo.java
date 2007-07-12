@@ -95,6 +95,7 @@ public class SystemInfo {
   /**
    * returns a string representation of all the system properties
    */
+  @Override
   public String toString() {
     Enumeration     enm;
     String          result;

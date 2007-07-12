@@ -61,6 +61,7 @@ public class NaiveBayes
   	 * @param instances the instances to work with
   	 * @throws Exception if something goes wrong
   	 */
+	@Override
 	public void buildStructure (BayesNet bayesNet, Instances instances) throws Exception {
         for (int iAttribute = 0; iAttribute < instances.numAttributes(); iAttribute++) {
         	if (iAttribute != instances.classIndex()) {

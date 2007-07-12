@@ -80,6 +80,7 @@ public class NeuralNode extends NeuralConnection {
    * already.
    * @return The output value, or NaN, if the value has not been calculated.
    */
+  @Override
   public double outputValue(boolean calculate) {
     
     if (Double.isNaN(m_unitValue) && calculate) {
@@ -97,6 +98,7 @@ public class NeuralNode extends NeuralConnection {
    * already.
    * @return The error value, or NaN, if the value has not been calculated.
    */
+  @Override
   public double errorValue(boolean calculate) {
 
     if (!Double.isNaN(m_unitValue) && Double.isNaN(m_unitError) && calculate) {
@@ -112,6 +114,7 @@ public class NeuralNode extends NeuralConnection {
    * connected as inputs to this one.
    * This is also the time that the update for the listeners will be performed.
    */
+  @Override
   public void reset() {
     
     if (!Double.isNaN(m_unitValue) || !Double.isNaN(m_unitError)) {
@@ -132,6 +135,7 @@ public class NeuralNode extends NeuralConnection {
    * return the threshold value. If no value exists for the specified 
    * connection, NaN will be returned.
    */
+  @Override
   public double weightValue(int n) {
     if (n >= m_numInputs || n < -1) {
       return Double.NaN;
@@ -165,6 +169,7 @@ public class NeuralNode extends NeuralConnection {
    * @param l The learning rate to use.
    * @param m The momentum to use.
    */
+  @Override
   public void updateWeights(double l, double m) {
     
     if (!m_weightsUpdated && !Double.isNaN(m_unitError)) {
@@ -185,6 +190,7 @@ public class NeuralNode extends NeuralConnection {
    * @param n It's connection number for this connection.
    * @return True if the connection was made, false otherwise.
    */
+  @Override
   protected boolean connectInput(NeuralConnection i, int n) {
     
     //the function that this overrides can do most of the work.
@@ -204,6 +210,7 @@ public class NeuralNode extends NeuralConnection {
    * This will allocate more space for input connection information
    * if the arrays for this have been filled up.
    */
+  @Override
   protected void allocateInputs() {
     
     NeuralConnection[] temp1 = new NeuralConnection[m_inputList.length + 15];
@@ -238,6 +245,7 @@ public class NeuralNode extends NeuralConnection {
    * @return True if the connection was removed, false if the connection was 
    * not found.
    */
+  @Override
   protected boolean disconnectInput(NeuralConnection i, int n) {
     
     int loc = -1;
@@ -272,6 +280,7 @@ public class NeuralNode extends NeuralConnection {
    * This function will remove all the inputs to this unit.
    * In doing so it will also terminate the connections at the other end.
    */
+  @Override
   public void removeAllInputs() {
     super.removeAllInputs();
     

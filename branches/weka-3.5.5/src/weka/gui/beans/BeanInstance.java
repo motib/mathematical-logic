@@ -24,7 +24,6 @@ package weka.gui.beans;
 
 import java.util.Vector;
 import java.beans.Beans;
-import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.Dimension;

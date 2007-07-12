@@ -174,6 +174,7 @@ public class VotedPerceptron
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
 
     Vector newVector = new Vector(4);
@@ -221,6 +222,7 @@ public class VotedPerceptron
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     
     String iterationsString = Utils.getOption('I', options);
@@ -254,6 +256,7 @@ public class VotedPerceptron
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
 
     String[] options = new String [8];
@@ -274,6 +277,7 @@ public class VotedPerceptron
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -299,6 +303,7 @@ public class VotedPerceptron
    * @param insts the data to train the classifier with
    * @throws Exception if something goes wrong during building
    */
+  @Override
   public void buildClassifier(Instances insts) throws Exception {
  
     // can classifier handle the data?
@@ -359,6 +364,7 @@ public class VotedPerceptron
    * @return the distribution
    * @throws Exception if something goes wrong
    */
+  @Override
   public double[] distributionForInstance(Instance inst) throws Exception {
 
     // Filter instance
@@ -398,6 +404,7 @@ public class VotedPerceptron
    * 
    * @return the model as string
    */
+  @Override
   public String toString() {
 
     return "VotedPerceptron: Number of perceptrons=" + m_K;

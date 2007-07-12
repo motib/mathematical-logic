@@ -58,6 +58,7 @@ public class DbUtils extends DatabaseUtils {
    * @return true if the query generated results
    * @exception SQLException if an error occurs
    */
+  @Override
   public boolean execute(String query) throws SQLException {
     m_PreparedStatement = m_Connection.prepareStatement(
         query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);

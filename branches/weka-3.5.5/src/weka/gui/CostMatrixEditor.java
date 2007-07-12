@@ -138,6 +138,7 @@ public class CostMatrixEditor
      * @param rowIndex the row position
      * @param columnIndex the column position
      */
+    @Override
     public void setValueAt(Object aValue,
 			   int rowIndex,
 			   int columnIndex) {
@@ -168,6 +169,7 @@ public class CostMatrixEditor
      * @param columnIndex the column position
      * @return true
      */    
+    @Override
     public boolean isCellEditable(int rowIndex,
 				  int columnIndex) {
 
@@ -182,6 +184,7 @@ public class CostMatrixEditor
      * @param columnIndex the column position
      * @return Double.class
      */    
+    @Override
     public Class getColumnClass(int columnIndex) {
 
       return Object.class;

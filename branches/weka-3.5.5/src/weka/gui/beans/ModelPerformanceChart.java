@@ -30,13 +30,8 @@ import java.io.Serializable;
 import java.util.Vector;
 import java.util.Enumeration;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import java.awt.*;
 import java.beans.*;
 import java.beans.beancontext.*;
 
@@ -212,6 +207,7 @@ public class ModelPerformanceChart extends JPanel
    * @param name the name of the property of interest
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(String name,
 					PropertyChangeListener pcl) {
     m_bcSupport.addPropertyChangeListener(name, pcl);
@@ -223,6 +219,7 @@ public class ModelPerformanceChart extends JPanel
    * @param name the name of the property of interest
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(String name,
 					   PropertyChangeListener pcl) {
     m_bcSupport.removePropertyChangeListener(name, pcl);
@@ -293,6 +290,7 @@ public class ModelPerformanceChart extends JPanel
 	  jf.getContentPane().setLayout(new BorderLayout());
 	  jf.getContentPane().add(m_visPanel, BorderLayout.CENTER);
 	  jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	      @Override
 	      public void windowClosing(java.awt.event.WindowEvent e) {
 		jf.dispose();
 		m_framePoppedUp = false;
@@ -332,7 +330,8 @@ public class ModelPerformanceChart extends JPanel
 
       jf.getContentPane().add(as, java.awt.BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
-        public void windowClosing(java.awt.event.WindowEvent e) {
+        @Override
+	public void windowClosing(java.awt.event.WindowEvent e) {
           jf.dispose();
           System.exit(0);
         }

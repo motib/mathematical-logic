@@ -25,10 +25,8 @@ package weka.gui.experiment;
 
 import weka.experiment.Experiment;
 import weka.experiment.RemoteExperiment;
-import java.awt.Component;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,16 +34,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JFrame;
-import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JScrollPane;
 import javax.swing.JButton;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
@@ -186,6 +178,7 @@ public class DistributeExperimentPanel extends JPanel {
       jf.getContentPane().add(m_hostList,
 			      BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	  @Override
 	  public void windowClosing(WindowEvent e) {
 	    jf.dispose();
 	  }
@@ -235,6 +228,7 @@ public class DistributeExperimentPanel extends JPanel {
       jf.getContentPane().add(new DistributeExperimentPanel(new Experiment()),
 			      BorderLayout.CENTER);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

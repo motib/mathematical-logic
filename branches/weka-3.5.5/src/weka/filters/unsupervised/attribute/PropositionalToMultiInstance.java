@@ -226,6 +226,7 @@ public class PropositionalToMultiInstance
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -254,6 +255,7 @@ public class PropositionalToMultiInstance
    * @throws Exception if the input format can't be set 
    * successfully
    */
+  @Override
   public boolean setInputFormat(Instances instanceInfo) 
     throws Exception {
 
@@ -334,6 +336,7 @@ public class PropositionalToMultiInstance
    *
    * @param instance the instance to be added to the queue.
    */
+  @Override
   protected void push(Instance instance) {
     if (instance != null) {
       super.push(instance);
@@ -349,6 +352,7 @@ public class PropositionalToMultiInstance
    * @return true if there are instances pending output
    * @throws IllegalStateException if no input structure has been defined
    */
+  @Override
   public boolean batchFinished() {
 
     if (getInputFormat() == null) {

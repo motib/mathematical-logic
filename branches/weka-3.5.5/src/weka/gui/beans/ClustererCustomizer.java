@@ -22,17 +22,11 @@
 
 package weka.gui.beans;
 
-import weka.core.Utils;
-import weka.core.OptionHandler;
 import java.beans.*;
 import java.awt.BorderLayout;
-import java.awt.event.*;
 import javax.swing.JPanel;
-import javax.swing.JCheckBox;
 import weka.gui.GenericObjectEditor;
 import weka.gui.PropertySheetPanel;
-import weka.gui.PropertyPanel;
-import weka.clusterers.Clusterer;
 
 
 /**
@@ -80,6 +74,7 @@ public class ClustererCustomizer extends JPanel implements Customizer {
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.addPropertyChangeListener(pcl);
   }
@@ -89,6 +84,7 @@ public class ClustererCustomizer extends JPanel implements Customizer {
    *
    * @param pcl a <code>PropertyChangeListener</code> value
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener pcl) {
     m_pcSupport.removePropertyChangeListener(pcl);
   }

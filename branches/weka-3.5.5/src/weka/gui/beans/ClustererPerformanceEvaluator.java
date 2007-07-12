@@ -24,24 +24,9 @@ package weka.gui.beans;
 
 import weka.clusterers.Clusterer;
 import weka.clusterers.ClusterEvaluation;
-import weka.core.Instances;
-import weka.core.Instance;
-import weka.core.FastVector;
-import weka.gui.Logger;
-import weka.gui.visualize.PlotData2D;
-
 import java.io.Serializable;
 import java.util.Vector;
 import java.util.Enumeration;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import javax.swing.JFrame;
-import javax.swing.BorderFactory;
-import java.awt.*;
-import javax.swing.JScrollPane;
 
 /**
  * A bean that evaluates the performance of batch trained clusterers
@@ -95,6 +80,7 @@ public class ClustererPerformanceEvaluator extends AbstractEvaluator implements 
     try {
       if (m_evaluateThread == null) {
 	m_evaluateThread = new Thread() {
+	    @Override
 	    public void run() {
               boolean numericClass = false;  
 	      final String oldText = m_visual.getText();
@@ -179,6 +165,7 @@ public class ClustererPerformanceEvaluator extends AbstractEvaluator implements 
   /**
    * Try and stop any action
    */
+  @Override
   public void stop() {
     // tell the listenee (upstream bean) to stop
     if (m_listenee instanceof BeanCommon) {

@@ -22,7 +22,6 @@
 
 package weka.classifiers.rules.part;
 
-import weka.classifiers.trees.j48.ClassifierSplitModel;
 import weka.classifiers.trees.j48.Distribution;
 import weka.classifiers.trees.j48.ModelSelection;
 import weka.classifiers.trees.j48.NoSplit;
@@ -64,6 +63,7 @@ public class C45PruneableDecList extends ClassifierDecList{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   public void buildDecList(Instances data, boolean leaf) throws Exception {
     
     Instances [] localInstances,localPruneInstances;
@@ -79,7 +79,7 @@ public class C45PruneableDecList extends ClassifierDecList{
     m_sons = null;
     indeX = 0;
     sumOfWeights = data.sumOfWeights();
-    noSplit = new NoSplit (new Distribution((Instances)data));
+    noSplit = new NoSplit (new Distribution(data));
     if (leaf)
       m_localModel = noSplit;
     else
@@ -132,13 +132,14 @@ public class C45PruneableDecList extends ClassifierDecList{
    *
    * @exception Exception if something goes wrong
    */
+  @Override
   protected ClassifierDecList getNewDecList(Instances data, boolean leaf) 
        throws Exception {
 	 
     C45PruneableDecList newDecList = 
       new C45PruneableDecList(m_toSelectModel,CF, m_minNumObj);
     
-    newDecList.buildDecList((Instances)data, leaf);
+    newDecList.buildDecList(data, leaf);
     
     return newDecList;
   }

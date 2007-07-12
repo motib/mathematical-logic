@@ -186,6 +186,7 @@ public class CumulativeDiscreteDistribution
    * @return <code> true </code> if <code> o </code> equals <code>
    * this, </code> <code> false </code> otherwise
    */
+  @Override
   public boolean equals(Object o) {
     if (!(o instanceof CumulativeDiscreteDistribution)) {
       return false;
@@ -209,6 +210,7 @@ public class CumulativeDiscreteDistribution
    * 
    * @return a string representation of the distribution.
    */
+  @Override
   public String toString() {
     // XXX MAYBE WE SHOULD USE STRINGBUFFER AND USE A FIXED
     // NUMBER OF DECIMALS BEHIND THE COMMA

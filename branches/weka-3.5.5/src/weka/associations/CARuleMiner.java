@@ -24,7 +24,6 @@ package weka.associations;
 
 import weka.core.Instances;
 import weka.core.FastVector;
-import weka.core.WekaException;
 import weka.core.OptionHandler;
 
 /** 

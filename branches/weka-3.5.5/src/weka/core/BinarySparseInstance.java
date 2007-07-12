@@ -23,7 +23,6 @@
 package weka.core;
 
 import java.util.*;
-import java.io.*;
 
 /**
  * Class for storing a binary-data-only instance as a sparse vector. A
@@ -161,6 +160,7 @@ public class BinarySparseInstance extends SparseInstance {
    *
    * @return the shallow copy
    */
+  @Override
   public Object copy() {
 
     return new BinarySparseInstance(this);
@@ -173,6 +173,7 @@ public class BinarySparseInstance extends SparseInstance {
    * @param inst the instance to be merged with this one
    * @return the merged instances
    */
+  @Override
   public Instance mergeInstance(Instance inst) {
 
     int [] indices = new int [numValues() + inst.numValues()];
@@ -203,6 +204,7 @@ public class BinarySparseInstance extends SparseInstance {
    * @param array containing the means and modes
    * @exception IllegalArgumentException if numbers of attributes are unequal
    */
+  @Override
   public void replaceMissingValues(double[] array) {
 	 
     // Does nothing, since we don't store missing values.
@@ -218,6 +220,7 @@ public class BinarySparseInstance extends SparseInstance {
    * attribute is nominal (or a string) then this is the new value's
    * index as a double).  
    */
+  @Override
   public void setValue(int attIndex, double value) {
 
     int index = locateIndex(attIndex);
@@ -252,6 +255,7 @@ public class BinarySparseInstance extends SparseInstance {
    * attribute is nominal (or a string) then this is the new value's
    * index as a double).  
    */
+  @Override
   public void setValueSparse(int indexOfIndex, double value) {
 
     if (value == 0) {
@@ -268,6 +272,7 @@ public class BinarySparseInstance extends SparseInstance {
    *
    * @return an array containing all the instance attribute values
    */
+  @Override
   public double[] toDoubleArray() {
 
     double[] newValues = new double[m_NumAttributes];
@@ -285,6 +290,7 @@ public class BinarySparseInstance extends SparseInstance {
    *
    * @return the instance's description as a string
    */
+  @Override
   public String toString() {
 
     StringBuffer text = new StringBuffer();
@@ -319,6 +325,7 @@ public class BinarySparseInstance extends SparseInstance {
    * attribute is nominal (or a string) then it returns the value's index as a 
    * double).
    */
+  @Override
   public double value(int attIndex) {
 
     int index = locateIndex(attIndex);
@@ -338,6 +345,7 @@ public class BinarySparseInstance extends SparseInstance {
    * attribute is nominal (or a string) then it returns the value's index as a 
    * double).
    */
+  @Override
   public final double valueSparse(int indexOfIndex) {
 
     int index = m_Indices[indexOfIndex]; // Throws if out of bounds
@@ -350,6 +358,7 @@ public class BinarySparseInstance extends SparseInstance {
    *
    * @param pos the attribute's position
    */
+  @Override
   void forceDeleteAttributeAt(int position) {
 
     int index = locateIndex(position);
@@ -378,6 +387,7 @@ public class BinarySparseInstance extends SparseInstance {
    *
    * @param pos the attribute's position
    */
+  @Override
   void forceInsertAttributeAt(int position)  {
 
     int index = locateIndex(position);

@@ -36,6 +36,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 /**
  * A simple panel for displaying information, e.g. progress information etc.
@@ -114,7 +115,7 @@ public class InfoPanel extends JPanel {
    * @param icon      the filename of the icon
    */
   public void append(String msg, String icon) {
-    append(new JLabel(msg, ComponentHelper.getImageIcon(icon), JLabel.LEFT));
+    append(new JLabel(msg, ComponentHelper.getImageIcon(icon), SwingConstants.LEFT));
   }
 
   /**

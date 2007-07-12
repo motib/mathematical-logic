@@ -120,6 +120,7 @@ public class MahalanobisEstimator extends Estimator implements IncrementalEstima
    * @param data the new data value 
    * @param weight the weight assigned to the data value 
    */
+  @Override
   public void addValue(double data, double weight) {
     
   }
@@ -130,6 +131,7 @@ public class MahalanobisEstimator extends Estimator implements IncrementalEstima
    * @param data the value to estimate the probability of
    * @return the estimated probability of the supplied value
    */
+  @Override
   public double getProbability(double data) {
     
     double delta = data - m_ValueMean;
@@ -140,6 +142,7 @@ public class MahalanobisEstimator extends Estimator implements IncrementalEstima
   }
   
   /** Display a representation of this estimator */
+  @Override
   public String toString() {
     
     if (m_CovarianceInverse == null) {
@@ -158,6 +161,7 @@ public class MahalanobisEstimator extends Estimator implements IncrementalEstima
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     

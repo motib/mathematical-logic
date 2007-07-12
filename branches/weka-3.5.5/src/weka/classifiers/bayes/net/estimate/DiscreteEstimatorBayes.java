@@ -75,7 +75,7 @@ public class DiscreteEstimatorBayes extends Estimator
       m_Counts[iSymbol] = m_fPrior;
     } 
 
-    m_SumOfCounts = m_fPrior * (double) m_nSymbols;
+    m_SumOfCounts = m_fPrior * m_nSymbols;
   }    // DiscreteEstimatorBayes
 
   /**
@@ -84,6 +84,7 @@ public class DiscreteEstimatorBayes extends Estimator
    * @param data the new data value
    * @param weight the weight assigned to the data value
    */
+  @Override
   public void addValue(double data, double weight) {
     m_Counts[(int) data] += weight;
     m_SumOfCounts += weight;
@@ -95,6 +96,7 @@ public class DiscreteEstimatorBayes extends Estimator
    * @param data the value to estimate the probability of
    * @return the estimated probability of the supplied value
    */
+  @Override
   public double getProbability(double data) {
     if (m_SumOfCounts == 0) {
 
@@ -102,7 +104,7 @@ public class DiscreteEstimatorBayes extends Estimator
       return 0;
     } 
 
-    return (double) m_Counts[(int) data] / m_SumOfCounts;
+    return m_Counts[(int) data] / m_SumOfCounts;
   } 
 
   /**
@@ -188,6 +190,7 @@ public class DiscreteEstimatorBayes extends Estimator
    * 
    * @return a string representation of the estimator
    */
+  @Override
   public String toString() {
     String result = "Discrete Estimator. Counts = ";
 

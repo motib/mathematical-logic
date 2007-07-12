@@ -168,7 +168,7 @@ public class LBR
       m_NumInstsSet =  m_NumInstances = numInstances;
       m_NumAttsSet = m_NumAtts = numAtts;
       
-      m_InstIndexes = new boolean [(int)numInstances];
+      m_InstIndexes = new boolean [numInstances];
       
       /* set all indexes to value */
       int i = 0;
@@ -177,7 +177,7 @@ public class LBR
 	i++;
       }
       
-      m_AttIndexes = new boolean [(int)numAtts];
+      m_AttIndexes = new boolean [numAtts];
       
       /* set all indexes to true */
       i = 0;
@@ -212,7 +212,7 @@ public class LBR
       
       System.arraycopy(FromIndexes.m_InstIndexes, 0, m_InstIndexes, 0, m_NumInstances);
       
-      m_AttIndexes = new boolean [(int)m_NumAtts];
+      m_AttIndexes = new boolean [m_NumAtts];
       
       System.arraycopy(FromIndexes.m_AttIndexes, 0, m_AttIndexes, 0, m_NumAtts);
       m_ClassIndex = FromIndexes.m_ClassIndex;
@@ -232,10 +232,10 @@ public class LBR
       if(index < 0 || index >= m_NumInstances)
 	throw new IllegalArgumentException("Invalid Instance Index value");
       // checks that the index isn't alreading set to value
-      if(m_InstIndexes[(int)index] != value) {
+      if(m_InstIndexes[index] != value) {
 	
 	// set the value
-	m_InstIndexes[(int)index] = value;
+	m_InstIndexes[index] = value;
 	
 	// a change has been made, so sequential array is invalid
 	m_SequentialInstanceIndex_valid = false;
@@ -297,10 +297,10 @@ public class LBR
       if(index < 0 || index >= m_NumAtts)
 	throw new IllegalArgumentException("Invalid Attribute Index value");
       // checks that the index isn't alreading set to value
-      if(m_AttIndexes[(int)index] != value) {
+      if(m_AttIndexes[index] != value) {
 	
 	// set the value
-	m_AttIndexes[(int)index] = value;
+	m_AttIndexes[index] = value;
 	
 	// a change has been made, so sparse array is invalid
 	m_SequentialAttIndex_valid = false;  
@@ -325,7 +325,7 @@ public class LBR
       if(index < 0 || index >= m_NumInstances)
 	throw new IllegalArgumentException("Invalid index value");
       
-      return m_InstIndexes[(int)index]; 
+      return m_InstIndexes[index]; 
     }
     
     /**
@@ -340,7 +340,7 @@ public class LBR
       if(index < 0 || index >= m_NumInstances)
 	throw new IllegalArgumentException("Invalid index value");
       
-      return m_SequentialInstIndexes[(int)index]; 
+      return m_SequentialInstIndexes[index]; 
     }
     
     /**
@@ -417,7 +417,7 @@ public class LBR
       if(index < 0 || index >= m_NumAtts)
          throw new IllegalArgumentException("Invalid index value");
       
-      return m_AttIndexes[(int)index];
+      return m_AttIndexes[index];
     }
     
     /**
@@ -432,7 +432,7 @@ public class LBR
       if(index < 0 || index >= m_NumAtts)
 	throw new IllegalArgumentException("Invalid index value");
       
-      return m_SequentialAttIndexes[(int)index];
+      return m_SequentialAttIndexes[index];
     }
     
     /**
@@ -550,7 +550,7 @@ public class LBR
       int size;
       size = m_NumInstsSet;
       
-      m_SequentialInstIndexes = new int [(int)size];
+      m_SequentialInstIndexes = new int [size];
       
       int j = 0;
       for(int i = 0; i < m_NumInstances; i++) {
@@ -580,7 +580,7 @@ public class LBR
       int size;
       size = m_NumAttsSet;
       
-      m_SequentialAttIndexes = new int [(int)size];
+      m_SequentialAttIndexes = new int [size];
       
       int j = 0;
       for(int i = 0; i < m_NumAtts; i++) {
@@ -706,6 +706,7 @@ public class LBR
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -730,6 +731,7 @@ public class LBR
    * @param instances set of instances serving as training data
    * @throws Exception if the preparation has not been generated.
    */
+  @Override
   public void buildClassifier(Instances instances) throws Exception {
     int attIndex, i, j;
     bestCnt = 0;
@@ -765,7 +767,7 @@ public class LBR
     
     // prepare arrays
     for (attIndex = 0; attIndex < m_numAtts; attIndex++) {
-      Attribute attribute = (Attribute) instances.attribute(attIndex);
+      Attribute attribute = instances.attribute(attIndex);
       for (j = 0; j < m_numClasses; j++) {
         m_Counts[j][attIndex] = new int[attribute.numValues()];
         m_tCounts[j][attIndex] = new int[attribute.numValues()];
@@ -774,7 +776,7 @@ public class LBR
 
     // Compute counts and priors
     for(i = 0; i < m_numInsts; i++) {
-      Instance instance = (Instance) instances.instance(i);
+      Instance instance = instances.instance(i);
       int classValue = (int)instance.classValue();
       // pointer for more efficient access to counts matrix in loop
       int [][] countsPointer = m_tCounts[classValue];
@@ -808,6 +810,7 @@ public class LBR
    * @return predicted class probability distribution
    * @throws Exception if distribution can't be computed
    */
+  @Override
   public double[] distributionForInstance(Instance testInstance)
   throws Exception {
     
@@ -823,10 +826,10 @@ public class LBR
     int [] tempD_subsetBestAtts = null;
     Indexes subInstances = new Indexes(m_numInsts, m_numAtts, true, m_Instances.classIndex());
     
-    boolean [] subLocalErrorFlags = new  boolean [(int)subInstances.getNumInstances()+1];
+    boolean [] subLocalErrorFlags = new  boolean [subInstances.getNumInstances()+1];
     // Step 2': Get localErrors, localErrorFlags, and training data set.
     int localErrors = m_Errors;
-    boolean [] localErrorFlags = (boolean []) m_ErrorFlags.clone();
+    boolean [] localErrorFlags = m_ErrorFlags.clone();
     
     // The number of errors on New, Not on Old in the subset.
     int errorsNewNotOld = 0;
@@ -919,13 +922,13 @@ public class LBR
             
             // -------------------------------------------------------------------------------
             tempSubInstances.setSequentialDataset(true);
-            tempD_subsetBestInsts = (int []) tempSubInstances.m_SequentialInstIndexes.clone();
-            tempD_subsetBestAtts = (int []) tempSubInstances.m_SequentialAttIndexes.clone();
+            tempD_subsetBestInsts = tempSubInstances.m_SequentialInstIndexes.clone();
+            tempD_subsetBestAtts = tempSubInstances.m_SequentialAttIndexes.clone();
             // -------------------------------------------------------------------------------
             // Step 15:
             tempErrorsBest = tempErrors;
 
-            tempErrorFlagBest = (boolean []) subLocalErrorFlags.clone();
+            tempErrorFlagBest = subLocalErrorFlags.clone();
 
             // Step 16:
             attributeBest = subAttrIndex;
@@ -966,6 +969,7 @@ public class LBR
    *
    * @return a description of the classifier as a string.
    */
+  @Override
   public String toString() {
     
     if (m_Instances == null) {
@@ -1027,12 +1031,12 @@ public class LBR
     
     instanceIndex.setSequentialDataset(true);
     int tempInstanceClassValue;
-    int [] tempAttributeValues = new int[(int)instanceIndex.m_NumSeqAttsSet+1];
+    int [] tempAttributeValues = new int[instanceIndex.m_NumSeqAttsSet+1];
     Instance tempInstance;
     for(inst = 0; inst < instanceIndex.m_NumSeqInstsSet; inst++) {
       instIndex = instanceIndex.m_SequentialInstIndexes[inst];
       //get the leave-one-out instance
-      tempInstance = (Instance) m_Instances.instance(instIndex);
+      tempInstance = m_Instances.instance(instIndex);
       if (!tempInstance.classIsMissing()) {
       tempInstanceClassValue = (int)tempInstance.classValue();
       // pointer to first index of counts matrix for efficiency
@@ -1058,7 +1062,7 @@ public class LBR
           AIndex = instanceIndex.m_SequentialAttIndexes[attIndex];
           if (!tempInstance.isMissing(AIndex)) {
             sumForCounts = Utils.sum(countsPointer[AIndex]);
-            posteriors *= ((countsPointer[AIndex][tempAttributeValues[attIndex]] + 1) / (sumForCounts + (double)tempInstance.attribute(AIndex).numValues()));
+            posteriors *= ((countsPointer[AIndex][tempAttributeValues[attIndex]] + 1) / (sumForCounts + tempInstance.attribute(AIndex).numValues()));
           }
         }
         
@@ -1135,7 +1139,7 @@ public class LBR
    }
 
     for(i = 0; i < instanceIndex.m_NumSeqInstsSet; i++) {
-      instance = (Instance) m_Instances.instance(instanceIndex.m_SequentialInstIndexes[i]);
+      instance = m_Instances.instance(instanceIndex.m_SequentialInstIndexes[i]);
       for(attIndex = 0; attIndex < instanceIndex.m_NumSeqAttsSet; attIndex++) {
         AIndex = instanceIndex.m_SequentialAttIndexes[attIndex];
         m_Counts[(int)instance.classValue()][AIndex][(int)instance.value(AIndex)]++;
@@ -1174,7 +1178,7 @@ public class LBR
         AIndex = instanceIndex.m_SequentialAttIndexes[attIndex];
         sumForCounts = Utils.sum(countsPointer[AIndex]);
         if (!instance.isMissing(AIndex)) {
-          posteriorsArray[j] *= ((countsPointer[AIndex][(int)instance.value(AIndex)] + 1) / (sumForCounts + (double)instance.attribute(AIndex).numValues()));
+          posteriorsArray[j] *= ((countsPointer[AIndex][(int)instance.value(AIndex)] + 1) / (sumForCounts + instance.attribute(AIndex).numValues()));
         }
       }
     }

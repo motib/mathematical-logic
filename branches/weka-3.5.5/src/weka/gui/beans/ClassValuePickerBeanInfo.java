@@ -38,6 +38,7 @@ public class ClassValuePickerBeanInfo
    *
    * @return an <code>EventSetDescriptor[]</code> value
    */
+  @Override
   public EventSetDescriptor [] getEventSetDescriptors() {
     try {
       EventSetDescriptor [] esds = 
@@ -57,6 +58,7 @@ public class ClassValuePickerBeanInfo
    *
    * @return a <code>PropertyDescriptor[]</code> value
    */
+  @Override
   public PropertyDescriptor[] getPropertyDescriptors() {
     try {
       PropertyDescriptor p1;
@@ -69,6 +71,7 @@ public class ClassValuePickerBeanInfo
     return null;
   }
 
+  @Override
   public BeanDescriptor getBeanDescriptor() {
     return new BeanDescriptor(weka.gui.beans.ClassValuePicker.class,
 			      ClassValuePickerCustomizer.class);

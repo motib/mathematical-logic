@@ -26,7 +26,6 @@ package weka.associations.tertius;
 
 import weka.core.Instance;
 import weka.core.Instances;
-import java.util.Enumeration;
 
 /**
  * @author Peter A. Flach
@@ -49,6 +48,7 @@ public class IndividualInstance extends Instance {
     m_parts = instance.m_parts;
   }
 
+  @Override
   public Object copy() {
 
     IndividualInstance result = new IndividualInstance(this);

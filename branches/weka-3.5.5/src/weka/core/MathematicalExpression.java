@@ -124,6 +124,7 @@ public class MathematicalExpression {
      * @return			the next token
      * @throws IOException	if something goes wrong
      */
+    @Override
     public int nextToken() throws IOException {
       super.nextToken();
       if (ttype == TT_WORD) {
@@ -176,7 +177,7 @@ public class MathematicalExpression {
      * @param v the value of the constant
      */
     public TreeNode(double v) {
-      type = Tokenizer.TT_NUMBER;
+      type = StreamTokenizer.TT_NUMBER;
       nval = v;
     }
     
@@ -263,7 +264,7 @@ public class MathematicalExpression {
      */  
     public double eval(Map symbols) throws Exception {
       switch (type) {
-	case Tokenizer.TT_NUMBER: return nval;
+	case StreamTokenizer.TT_NUMBER: return nval;
 	case Tokenizer.TT_VAR: 
 	  if (!symbols.containsKey(sval)) {
 	    throw new Exception("Unknow symbol " + sval);
@@ -318,7 +319,7 @@ public class MathematicalExpression {
     MathematicalExpression.Tokenizer tokenizer = new Tokenizer(new StringReader(exp));
     tokenizer.nextToken();
     MathematicalExpression.TreeNode res = parseExp(tokenizer);
-    if (tokenizer.ttype != Tokenizer.TT_EOF) {
+    if (tokenizer.ttype != StreamTokenizer.TT_EOF) {
       throw new Exception("Syntax Error: end of file expected.");
     }
     return res;
@@ -381,7 +382,7 @@ public class MathematicalExpression {
    */    
   protected static MathematicalExpression.TreeNode parseAtom(MathematicalExpression.Tokenizer tokenizer) throws Exception {
     switch (tokenizer.ttype) {
-      case Tokenizer.TT_NUMBER:
+      case StreamTokenizer.TT_NUMBER:
 	MathematicalExpression.TreeNode res = new TreeNode(tokenizer.nval);
 	tokenizer.nextToken();
 	return res;

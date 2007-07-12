@@ -141,6 +141,7 @@ public class AttributeSelectionPanel extends JPanel {
      * @param column the column index.
      * @return the name of the column.
      */
+    @Override
     public String getColumnName(int column) {
       
       switch (column) {
@@ -162,6 +163,7 @@ public class AttributeSelectionPanel extends JPanel {
      * @param row the row index.
      * @param col the column index.
      */
+    @Override
     public void setValueAt(Object value, int row, int col) {
       
       if (col == 1) {
@@ -175,6 +177,7 @@ public class AttributeSelectionPanel extends JPanel {
      * @param col the column index.
      * @return the class of elements in the column.
      */
+    @Override
     public Class getColumnClass(int col) {
       return getValueAt(0, col).getClass();
     }
@@ -186,6 +189,7 @@ public class AttributeSelectionPanel extends JPanel {
      * @param col the column index.
      * @return true if col == 1.
      */
+    @Override
     public boolean isCellEditable(int row, int col) {
 
       if (col == 1) { 
@@ -415,6 +419,7 @@ public class AttributeSelectionPanel extends JPanel {
       jf.getContentPane().setLayout(new BorderLayout());
       jf.getContentPane().add(asp, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

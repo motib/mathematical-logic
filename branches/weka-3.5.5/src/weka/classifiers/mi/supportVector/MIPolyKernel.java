@@ -103,6 +103,7 @@ public class MIPolyKernel
    * @return 		the dot product
    * @throws Exception 	if something goes wrong
    */
+  @Override
   protected double evaluate(int id1, int id2, Instance inst1)
     throws Exception {
 
@@ -140,6 +141,7 @@ public class MIPolyKernel
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 

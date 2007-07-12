@@ -130,6 +130,7 @@ public class ResultHistoryPanel
     }
     m_List.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     m_List.addMouseListener(new RMouseAdapter() {
+      @Override
       public void mouseClicked(MouseEvent e) {
 	if ((e.getModifiers() & InputEvent.BUTTON1_MASK)
 	    == InputEvent.BUTTON1_MASK) {
@@ -155,6 +156,7 @@ public class ResultHistoryPanel
     });
 
     m_List.addKeyListener(new RKeyAdapter() {
+      @Override
       public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DELETE) {
           int selected = m_List.getSelectedIndex();
@@ -354,6 +356,7 @@ public class ResultHistoryPanel
       m_FramedOutput.put(name, ta);
       final JFrame jf = new JFrame(name);
       jf.addWindowListener(new WindowAdapter() {
+	@Override
 	public void windowClosing(WindowEvent e) {
 	  m_FramedOutput.remove(jf.getTitle());
 	  jf.dispose();
@@ -434,6 +437,7 @@ public class ResultHistoryPanel
       jd.addResult("blah3", new StringBuffer("Nothing to see here3"));
       jf.getContentPane().add(jd, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

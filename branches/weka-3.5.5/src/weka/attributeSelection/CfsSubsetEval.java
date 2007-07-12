@@ -293,6 +293,7 @@ public class CfsSubsetEval
    * @return            the capabilities of this evaluator
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
     
@@ -322,6 +323,7 @@ public class CfsSubsetEval
    * @throws Exception if the evaluator has not been 
    * generated successfully
    */
+  @Override
   public void buildEvaluator (Instances data)
     throws Exception {
 
@@ -369,6 +371,7 @@ public class CfsSubsetEval
    * @return the merit
    * @throws Exception if the subset could not be evaluated
    */
+  @Override
   public double evaluateSubset (BitSet subset)
     throws Exception {
     double num = 0.0;
@@ -969,6 +972,7 @@ public class CfsSubsetEval
    *
    * @return the description as a string
    */
+  @Override
   public String toString () {
     StringBuffer text = new StringBuffer();
 
@@ -1073,6 +1077,7 @@ public class CfsSubsetEval
    * @return a possibly ranked list of postprocessed attributes
    * @throws Exception if postprocessing fails for some reason
    */
+  @Override
   public int[] postProcess (int[] attributeSet)
     throws Exception {
     int j = 0;

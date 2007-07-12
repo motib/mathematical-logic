@@ -90,6 +90,7 @@ public abstract class CachedKernel
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector		result;
     Enumeration		en;
@@ -115,6 +116,7 @@ public abstract class CachedKernel
    * @param options 	the list of options as an array of strings
    * @throws Exception 	if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     
@@ -132,6 +134,7 @@ public abstract class CachedKernel
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int       i;
     Vector    result;
@@ -170,6 +173,7 @@ public abstract class CachedKernel
    * @return 		the result of the kernel function
    * @throws Exception 	if something goes wrong
    */
+  @Override
   public double eval(int id1, int id2, Instance inst1) throws Exception {
 		
     double result = 0;
@@ -250,6 +254,7 @@ public abstract class CachedKernel
    * 
    * @return 		the number of kernel evaluation.
    */
+  @Override
   public int numEvals() {
     return m_kernelEvals;
   }
@@ -259,6 +264,7 @@ public abstract class CachedKernel
    * 
    * @return 		the number of cache hits.
    */
+  @Override
   public int numCacheHits() {
     return m_cacheHits;
   }
@@ -266,6 +272,7 @@ public abstract class CachedKernel
   /**
    * Frees the cache used by the kernel.
    */
+  @Override
   public void clean() {
     m_storage = null;
     m_keys = null;
@@ -347,6 +354,7 @@ public abstract class CachedKernel
    * 
    * @param data	the data to use
    */
+  @Override
   protected void initVars(Instances data) {
     super.initVars(data);
     
@@ -373,6 +381,7 @@ public abstract class CachedKernel
    * @param data	the data to base the kernel on
    * @throws Exception	if something goes wrong
    */
+  @Override
   public void buildKernel(Instances data) throws Exception {
     // does kernel handle the data?
     if (!getChecksTurnedOff())

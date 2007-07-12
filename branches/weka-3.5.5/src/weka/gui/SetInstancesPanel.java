@@ -191,6 +191,7 @@ public class SetInstancesPanel extends JPanel {
       if (returnVal == JFileChooser.APPROVE_OPTION) {
 	final File selected = m_FileChooser.getSelectedFile();
 	m_IOThread = new Thread() {
+	  @Override
 	  public void run() {
 	    setInstancesFromFile(selected);
 	    m_IOThread = null;
@@ -228,6 +229,7 @@ public class SetInstancesPanel extends JPanel {
 	  m_LastURL = urlName;
 	  final URL url = new URL(urlName);
 	  m_IOThread = new Thread() {
+	    @Override
 	    public void run() {
 	      setInstancesFromURL(url);
 	      m_IOThread = null;
@@ -392,6 +394,7 @@ public class SetInstancesPanel extends JPanel {
    *
    * @param l a value of type 'PropertyChangeListener'
    */
+  @Override
   public void addPropertyChangeListener(PropertyChangeListener l) {
     m_Support.addPropertyChangeListener(l);
   }
@@ -401,6 +404,7 @@ public class SetInstancesPanel extends JPanel {
    *
    * @param l a value of type 'PropertyChangeListener'
    */
+  @Override
   public void removePropertyChangeListener(PropertyChangeListener l) {
     m_Support.removePropertyChangeListener(l);
   }

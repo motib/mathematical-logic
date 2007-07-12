@@ -186,6 +186,7 @@ public class MIDD
    *
    * @return an enumeration of all the available options
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
 
@@ -219,6 +220,7 @@ public class MIDD
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     setDebug(Utils.getFlag('D', options));
 
@@ -235,6 +237,7 @@ public class MIDD
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     
@@ -290,6 +293,7 @@ public class MIDD
      * @param x the current values of variables
      * @return the value of the objective function 
      */
+    @Override
     protected double objectiveFunction(double[] x){
       double nll = 0; // -LogLikelihood
       for(int i=0; i<m_Classes.length; i++){ // ith bag
@@ -326,6 +330,7 @@ public class MIDD
      * @param x the current values of variables
      * @return the gradient vector 
      */
+    @Override
     protected double[] evaluateGradient(double[] x){
       double[] grad = new double[x.length];
       for(int i=0; i<m_Classes.length; i++){ // ith bag
@@ -377,6 +382,7 @@ public class MIDD
    *
    * @return      the capabilities of this classifier
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities result = super.getCapabilities();
 
@@ -425,6 +431,7 @@ public class MIDD
    * boosted classifier.
    * @throws Exception if the classifier could not be built successfully
    */
+  @Override
   public void buildClassifier(Instances train) throws Exception {
     // can classifier handle the data?
     getCapabilities().testWithFail(train);
@@ -560,6 +567,7 @@ public class MIDD
    * @return the distribution
    * @throws Exception if the distribution can't be computed successfully
    */
+  @Override
   public double[] distributionForInstance(Instance exmp) 
     throws Exception {
 
@@ -604,6 +612,7 @@ public class MIDD
    *
    * @return a string describing the classifer built.
    */
+  @Override
   public String toString() {
 
     //double CSq = m_LLn - m_LL;

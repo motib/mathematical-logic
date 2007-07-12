@@ -23,28 +23,13 @@
 package weka.gui.boundaryvisualizer;
 
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.JPanel;
-import javax.swing.ToolTipManager;
 import java.util.Vector;
-import java.util.Random;
 import java.rmi.*;
 
-import com.sun.image.codec.jpeg.*;
-import java.awt.image.*;
 import java.io.*;
 
 import weka.core.*;
 import weka.classifiers.Classifier;
-import weka.classifiers.bayes.NaiveBayesSimple;
-import weka.classifiers.bayes.NaiveBayes;
-import weka.classifiers.trees.J48;
-import weka.classifiers.lazy.IBk;
-import weka.classifiers.functions.Logistic;
-import weka.clusterers.EM;
-import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.Remove;
-import weka.filters.unsupervised.attribute.Add;
 import weka.experiment.RemoteExperimentListener;
 import weka.experiment.RemoteExperimentEvent;
 import weka.experiment.Compute;
@@ -134,6 +119,7 @@ public class BoundaryPanelDistributed extends BoundaryPanel {
     m_listeners.addElement(r);
   }
 
+  @Override
   protected void initialize() {
     super.initialize();
 
@@ -193,6 +179,7 @@ public class BoundaryPanelDistributed extends BoundaryPanel {
    *
    * @exception Exception if an error occurs
    */
+  @Override
   public void start() throws Exception {
     // done in the sub task
     /*     m_numOfSamplesPerGenerator = 
@@ -367,6 +354,7 @@ public class BoundaryPanelDistributed extends BoundaryPanel {
   protected void launchNext(final int wtask, final int ah) {
     Thread subTaskThread;
     subTaskThread = new Thread() {
+	@Override
 	public void run() {
 	  m_remoteHostsStatus[ah] = IN_USE;
 	  //	  m_subExpComplete[wtask] = TaskStatusInfo.PROCESSING;
@@ -468,7 +456,7 @@ public class BoundaryPanelDistributed extends BoundaryPanel {
 			  (double)startTime;
 			double timeToGo = 
 			  ((100.0 - percentComplete) 
-			   / (double)percentComplete) * timeSoFar;
+			   / percentComplete) * timeSoFar;
 			if (timeToGo < m_hostPollingTime[ah]) {
 			  m_hostPollingTime[ah] = (int)timeToGo;
 			}
@@ -489,7 +477,7 @@ public class BoundaryPanelDistributed extends BoundaryPanel {
 			  /*&& minTaskPollTime < 30000*/) {		
 			if (percentComplete > 0) {
 			  m_hostPollingTime[ah] = 
-			    (int)((25.0 / (double)percentComplete) * 
+			    (int)((25.0 / percentComplete) * 
 				  m_hostPollingTime[ah]);
 			} else {
 			  m_hostPollingTime[ah] *= 2;
@@ -618,6 +606,7 @@ public class BoundaryPanelDistributed extends BoundaryPanel {
       jf.setSize(bv.getMinimumSize());
       //      jf.setSize(200,200);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	  @Override
 	  public void windowClosing(java.awt.event.WindowEvent e) {
 	    jf.dispose();
 	    System.exit(0);

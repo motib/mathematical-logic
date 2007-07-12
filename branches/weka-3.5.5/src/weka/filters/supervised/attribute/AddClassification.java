@@ -113,6 +113,7 @@ public class AddClassification
    * @return 		a description of the filter suitable for
    * 			displaying in the explorer/experimenter gui
    */
+  @Override
   public String globalInfo() {
     return 
         "A filter for adding the classification, the class distribution and "
@@ -125,6 +126,7 @@ public class AddClassification
    *
    * @return 		an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector        	result;
     Enumeration   	en;
@@ -209,6 +211,7 @@ public class AddClassification
    * @param options	the options to use
    * @throws Exception	if setting of options fails
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     String[] 	tmpOptions;
@@ -258,6 +261,7 @@ public class AddClassification
    *
    * @return 		an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     int		i;
     Vector	result;
@@ -298,6 +302,7 @@ public class AddClassification
    * @return            the capabilities of this object
    * @see               Capabilities
    */
+  @Override
   public Capabilities getCapabilities() {
     Capabilities 	result;
     
@@ -494,6 +499,7 @@ public class AddClassification
    * @see   #hasImmediateOutputFormat()
    * @see   #batchFinished()
    */
+  @Override
   protected Instances determineOutputFormat(Instances inputFormat)
       throws Exception {
     
@@ -554,6 +560,7 @@ public class AddClassification
    * @throws Exception  in case the processing goes wrong
    * @see               #batchFinished()
    */
+  @Override
   protected Instances process(Instances instances) throws Exception {
     Instances		result;
     double[]		newValues;

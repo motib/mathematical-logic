@@ -64,6 +64,7 @@ public class NBTreeModelSelection extends ModelSelection {
   /**
    * Selects NBTree-type split for the given dataset.
    */
+  @Override
   public final ClassifierSplitModel selectModel(Instances data){
 
     double globalErrors = 0;
@@ -110,8 +111,8 @@ public class NBTreeModelSelection extends ModelSelection {
 	while (enu.hasMoreElements()) {
 	  attribute = (Attribute) enu.nextElement();
 	  if ((attribute.isNumeric()) ||
-	      (Utils.sm((double)attribute.numValues(),
-			(0.3*(double)m_allData.numInstances())))){
+	      (Utils.sm(attribute.numValues(),
+			(0.3*m_allData.numInstances())))){
 	    multiVal = false;
 	    break;
 	  }
@@ -187,6 +188,7 @@ public class NBTreeModelSelection extends ModelSelection {
   /**
    * Selects NBTree-type split for the given dataset.
    */
+  @Override
   public final ClassifierSplitModel selectModel(Instances train, Instances test) {
 
     return selectModel(train);

@@ -34,7 +34,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
-import javax.swing.SwingConstants;
 import javax.swing.JViewport;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -132,6 +131,7 @@ public class LogPanel extends JPanel implements Logger, TaskLogger {
       // create log window
       final JFrame jf = new JFrame("Log");
       jf.addWindowListener(new WindowAdapter() {
+	  @Override
 	  public void windowClosing(WindowEvent e) {
 	    jf.setVisible(false);
 	  }
@@ -165,7 +165,7 @@ public class LogPanel extends JPanel implements Logger, TaskLogger {
 	JPanel p2 = new JPanel();
 	p2.setLayout(new BorderLayout());
 	p2.add(p1, BorderLayout.CENTER);
-	p2.add((java.awt.Component)m_TaskMonitor, BorderLayout.EAST);
+	p2.add(m_TaskMonitor, BorderLayout.EAST);
 	add(p2, BorderLayout.SOUTH);
       }
     } else {
@@ -184,7 +184,7 @@ public class LogPanel extends JPanel implements Logger, TaskLogger {
 	JPanel p2 = new JPanel();
 	p2.setLayout(new BorderLayout());
 	p2.add(m_StatusLab,BorderLayout.CENTER);
-	p2.add((java.awt.Component)m_TaskMonitor, BorderLayout.EAST);
+	p2.add(m_TaskMonitor, BorderLayout.EAST);
 	add(p2, BorderLayout.SOUTH);
       }
     }
@@ -224,6 +224,7 @@ public class LogPanel extends JPanel implements Logger, TaskLogger {
    */
   private void addPopup() {
     addMouseListener(new MouseAdapter() {
+	@Override
 	public void mouseClicked(MouseEvent e) {
 	  if (((e.getModifiers() & InputEvent.BUTTON1_MASK)
 	       != InputEvent.BUTTON1_MASK) || e.isAltDown()) {
@@ -324,6 +325,7 @@ public class LogPanel extends JPanel implements Logger, TaskLogger {
       final LogPanel lp = new LogPanel();
       jf.getContentPane().add(lp, BorderLayout.CENTER);
       jf.addWindowListener(new java.awt.event.WindowAdapter() {
+	@Override
 	public void windowClosing(java.awt.event.WindowEvent e) {
 	  jf.dispose();
 	  System.exit(0);

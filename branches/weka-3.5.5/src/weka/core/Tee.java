@@ -239,6 +239,7 @@ public class Tee
   /**
    * flushes all the printstreams
    */
+  @Override
   public void flush() {
     for (int i = 0; i < size(); i++)
       ((PrintStream) m_Streams.get(i)).flush();
@@ -249,6 +250,7 @@ public class Tee
    * 
    * @param x the object to print
    */
+  @Override
   public void print(int x) {
     printHeader();
     for (int i = 0; i < size(); i++)
@@ -261,6 +263,7 @@ public class Tee
    * 
    * @param x the object to print
    */
+  @Override
   public void print(boolean x) {
     printHeader();
     for (int i = 0; i < size(); i++)
@@ -273,6 +276,7 @@ public class Tee
    * 
    * @param x the object to print
    */
+  @Override
   public void print(String x) {
     printHeader();
     for (int i = 0; i < size(); i++)
@@ -285,6 +289,7 @@ public class Tee
    * 
    * @param x the object to print
    */
+  @Override
   public void print(Object x) {
     printHeader();
     for (int i = 0; i < size(); i++)
@@ -295,6 +300,7 @@ public class Tee
   /**
    * prints a new line to the streams
    */
+  @Override
   public void println() {
     printHeader();
     for (int i = 0; i < size(); i++)
@@ -307,6 +313,7 @@ public class Tee
    * 
    * @param x the object to print
    */
+  @Override
   public void println(int x) {
     printHeader();
     for (int i = 0; i < size(); i++)
@@ -319,6 +326,7 @@ public class Tee
    * 
    * @param x the object to print
    */
+  @Override
   public void println(boolean x) {
     printHeader();
     for (int i = 0; i < size(); i++)
@@ -331,6 +339,7 @@ public class Tee
    * 
    * @param x the object to print
    */
+  @Override
   public void println(String x) {
     printHeader();
     for (int i = 0; i < size(); i++)
@@ -344,6 +353,7 @@ public class Tee
    * 
    * @param x the object to print
    */
+  @Override
   public void println(Object x) {
     String                  line;
     Throwable               t;
@@ -370,6 +380,7 @@ public class Tee
    * 
    * @return only the classname and the number of streams
    */
+  @Override
   public String toString() {
     return this.getClass().getName() + ": " + m_Streams.size();
   }

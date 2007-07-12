@@ -78,6 +78,7 @@ public abstract class AbstractFileLoader
    * 
    * @throws IOException if something goes wrong
    */
+  @Override
   public void reset() throws IOException {
     m_structure = null;
     setRetrieval(NONE);
@@ -90,6 +91,7 @@ public abstract class AbstractFileLoader
    * @param file the source file.
    * @exception IOException if an error occurs
    */
+  @Override
   public void setSource(File file) throws IOException {
     m_structure = null;
     setRetrieval(NONE);
@@ -143,7 +145,7 @@ public abstract class AbstractFileLoader
   public static void runFileLoader(AbstractFileLoader loader, String[] options) {
     // help request?
     try {
-      String[] tmpOptions = (String[]) options.clone();
+      String[] tmpOptions = options.clone();
       if (Utils.getFlag('h', tmpOptions)) {
 	System.err.println("\nHelp requested\n" + makeOptionStr(loader));
 	return;

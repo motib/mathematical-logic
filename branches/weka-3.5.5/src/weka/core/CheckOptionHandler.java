@@ -81,6 +81,7 @@ public class CheckOptionHandler
    *
    * @return an enumeration of all the available options.
    */
+  @Override
   public Enumeration listOptions() {
     Vector result = new Vector();
     
@@ -138,6 +139,7 @@ public class CheckOptionHandler
    * @param options the list of options as an array of strings
    * @throws Exception if an option is not supported
    */
+  @Override
   public void setOptions(String[] options) throws Exception {
     String      tmpStr;
     
@@ -157,6 +159,7 @@ public class CheckOptionHandler
    *
    * @return an array of strings suitable for passing to setOptions
    */
+  @Override
   public String[] getOptions() {
     Vector        result;
     String[]      options;
@@ -299,7 +302,7 @@ public class CheckOptionHandler
     OptionHandler	result;
     
     try {
-      result = (OptionHandler) m_OptionHandler.getClass().newInstance();
+      result = m_OptionHandler.getClass().newInstance();
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -448,7 +451,7 @@ public class CheckOptionHandler
 	println(printOptions(userOptions));
       if (getDebug())
 	println("  Setting canonical user options");
-      handler.setOptions((String[])userOptions.clone());
+      handler.setOptions(userOptions.clone());
       if (getDebug())
 	println("  Checking canonical user options");
       userOptionsCheck = handler.getOptions();
@@ -514,6 +517,7 @@ public class CheckOptionHandler
    * Runs some diagnostic tests on an optionhandler object. Output is
    * printed to System.out (if not silent).
    */
+  @Override
   public void doTests() {
     println("OptionHandler: " + m_OptionHandler.getClass().getName() + "\n");
 
