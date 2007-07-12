@@ -1,0 +1,17 @@
+[PropertyInfo]
+appropriate,boolean,false,false, , ,true,<default>
+confidence,double,false,false, , ,false,<default>
+fColumn,Column,false,false, , ,false,<default>
+isAtomic,boolean,false,false, , ,false,<default>
+items,TreeMap,false,false, , ,false,<default>
+itemsAsString,Map,false,false, , ,false,<default>
+numOfCols,int,false,false, , ,false,<default>
+sColumn,Column,false,false, , ,false,<default>
+supports,String,false,false, , ,true,<default>
+tag,boolean,false,false, , ,false,<default>
+tt,DecimalFormat,false,false, , ,false,<default>
+[IconNames]
+
+
+
+
