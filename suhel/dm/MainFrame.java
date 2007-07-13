@@ -7,6 +7,19 @@ import javax.swing.*;
 import java.beans.*;
 import java.io.*;
 import javax.swing.event.*;
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 /**
  * <p>Title: MCAR</p>
  * <p>Description: </p>
@@ -474,22 +487,22 @@ public class MainFrame extends JFrame {
   }
 
   void sss_actionPerformed(ActionEvent e) {
-    try{
-//      trainDatamine.printConfidences(support,confidence);
-      Chooser chooser=new Chooser(this);
-      if(!chooser.isFileSelected("Predict"))return;
-      trainDatamine.rules.applyToDatamineAndSaveTo(testDatamine,chooser.getFileName());
-      trainDatamine.rules.saveWithPrediction(chooser.getFileName());
-    }catch (IOException ioe){}
+//    try{
+////      trainDatamine.printConfidences(support,confidence);
+//      Chooser chooser=new Chooser(this);
+//      if(!chooser.isFileSelected("Predict"))return;
+//      trainDatamine.rules.applyToDatamineAndSaveTo(testDatamine,chooser.getFileName());
+//      trainDatamine.rules.saveWithPrediction(chooser.getFileName());
+//    }catch (IOException ioe){}
 
   }
 
   void jMenuItem15_actionPerformed(ActionEvent e) {
-  try{
+//  try{
 //    trainDatamine.printConfidences(support,confidence);
-    StringBuffer sb=trainDatamine.rules.applyToDatamine(testDatamine);
-    txtAreaMain.append(sb.toString());
-  }catch (IOException ioe){}
+//    StringBuffer sb=trainDatamine.rules.applyToDatamine(testDatamine);
+//    txtAreaMain.append(sb.toString());
+//  }catch (IOException ioe){}
   }
 
   void jMenuItem11_actionPerformed(ActionEvent e) {

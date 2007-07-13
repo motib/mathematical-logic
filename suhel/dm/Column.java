@@ -5,6 +5,7 @@ import java.util.*;
 //import javax.*;
 import javax.swing.*;
 import java.text.DecimalFormat;
+import org.apache.log4j.*;
 
 /**
   <p>Title: data mining</p>
@@ -17,10 +18,16 @@ import java.text.DecimalFormat;
 public class Column {
   private final DataMine dm;
   final long columnId;
+
   private boolean isAtomic=false;
-  private boolean tag=false;// indicate that the column either an atomic or the subcolumns exist;
+  private boolean tag=false;// indicates that the column is either an atomic or the subcolumns exist;
+  /*
+   * columnId  = 1001101
+   * fColumnId = 100110-
+   * sColumnId = -001101 
+   */
   private Column fColumn,sColumn;
-  private int numOfCols;
+  //private int numOfCols;
   private final int oSupport;
   private double confidence;
   TreeMap items;//to be changed later to HashMap
@@ -34,7 +41,7 @@ public class Column {
 //    JOptionPane.showMessageDialog(null,"new column minimum occ"+oSupport);
     confidence=con;
     columnId=intClmn;
-    numOfCols=dm.CLASS;
+    //numOfCols=dm.CLASS;
     if (columnName.length(intClmn)==1){
       isAtomic=true;
       tag= true;
