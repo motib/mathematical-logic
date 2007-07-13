@@ -49,6 +49,19 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JMenuItem;
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 /** 
  * Support for drawing a property value in a component.
  *
@@ -111,74 +124,81 @@ public class PropertyPanel
     setToolTipText("Left-click to edit properties for this object, right-click/Alt+Shift+left-click for menu");
     setOpaque(true);
     final Component comp = this;
-    addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent evt) {
-        if (evt.getClickCount() == 1) {
-          if (    (evt.getButton() == MouseEvent.BUTTON1) && !evt.isAltDown() && !evt.isShiftDown() ) {
-            showPropertyDialog();
-          }
-          else if (    (evt.getButton() == MouseEvent.BUTTON3) 
-              	    || ((evt.getButton() == MouseEvent.BUTTON1) && evt.isAltDown() && evt.isShiftDown()) ) {
-            JPopupMenu menu = new JPopupMenu();
-            JMenuItem item;
+	this.addMouseListener(new MouseAdapter() {
+		public void mouseClicked(MouseEvent evt) {
+			if (evt.getClickCount() == 1) {
+				if ((evt.getButton() == MouseEvent.BUTTON1)
+					&& !evt.isAltDown()
+					&& !evt.isShiftDown()) {
+					showPropertyDialog();
+				} else if ((evt.getButton() == MouseEvent.BUTTON3)
+					|| ((evt.getButton() == MouseEvent.BUTTON1)
+						&& evt.isAltDown() && evt.isShiftDown())) {
+					JPopupMenu menu = new JPopupMenu();
+					JMenuItem item;
 
-            if (m_Editor.getValue() != null) {
-              item = new JMenuItem("Show properties...");
-              item.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                  showPropertyDialog();
-                }
-              });
-              menu.add(item);
+					if (m_Editor.getValue() != null) {
+						item = new JMenuItem("Show properties...");
+						item.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								showPropertyDialog();
+							}
+						});
+						menu.add(item);
 
-              item = new JMenuItem("Copy configuration to clipboard");
-              item.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                  String str = m_Editor.getValue().getClass().getName();
-                  if (m_Editor.getValue() instanceof OptionHandler)
-                    str += " " + Utils.joinOptions(((OptionHandler) m_Editor.getValue()).getOptions());
-                  StringSelection selection = new StringSelection(str.trim());
-                  Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                  clipboard.setContents(selection, selection);
-                }
-              });
-              menu.add(item);
-            }
-            
-            item = new JMenuItem("Enter configuration...");
-            item.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-        	String str = JOptionPane.showInputDialog(
-        	                 comp, 
-        	                 "Configuration (<classname> [<options>])");
-        	if (str != null) {
-        	  try {
-        	    String[] options = Utils.splitOptions(str);
-        	    String classname = options[0];
-        	    options[0] = "";
-        	    m_Editor.setValue(
-        		Utils.forName(
-        		    Object.class, classname, options));
-        	  }
-        	  catch (Exception ex) {
-        	    ex.printStackTrace();
-        	    JOptionPane.showMessageDialog(
-        		comp, 
-        		"Error parsing commandline:\n" + ex, 
-        		"Error...",
-        		JOptionPane.ERROR_MESSAGE);
-        	  }
-        	}
-              }
-            });
-            menu.add(item);
-            
-            menu.show(comp, evt.getX(), evt.getY());
-          }
-        }
-      }
-    });
+						item = new JMenuItem("Copy configuration to clipboard");
+						item.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								String str = m_Editor.getValue().getClass()
+									.getName();
+								if (m_Editor.getValue() instanceof OptionHandler)
+									str += " "
+										+ Utils
+											.joinOptions(((OptionHandler) m_Editor
+												.getValue()).getOptions());
+								StringSelection selection = new StringSelection(
+									str.trim());
+								Clipboard clipboard = Toolkit
+									.getDefaultToolkit().getSystemClipboard();
+								clipboard.setContents(selection, selection);
+							}
+						});
+						menu.add(item);
+					}
+
+					item = new JMenuItem("Enter configuration...");
+					item.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String str = JOptionPane.showInputDialog(
+								comp,
+								"Configuration (<classname> [<options>])");
+							if (str != null) {
+								try {
+									String[] options = Utils.splitOptions(str);
+									String classname = options[0];
+									options[0] = "";
+									m_Editor.setValue(Utils.forName(
+										Object.class,
+										classname,
+										options));
+								} catch (Exception ex) {
+									ex.printStackTrace();
+									JOptionPane.showMessageDialog(
+										comp,
+										"Error parsing commandline:\n" + ex,
+										"Error...",
+										JOptionPane.ERROR_MESSAGE);
+								}
+							}
+						}
+					});
+					menu.add(item);
+
+					menu.show(comp, evt.getX(), evt.getY());
+				}
+			}
+		}
+	});
     Dimension newPref = getPreferredSize();
     newPref.height = getFontMetrics(getFont()).getHeight() * 5 / 4;
     newPref.width = newPref.height * 5;
