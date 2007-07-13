@@ -80,7 +80,7 @@ System.out.println("\nsuhel  time1 is: "+(t2End-t2Start));
     //DataMine dm4 =DataMineFile.setFilePath("c://a//contact2.txt");
     ///dm.rules.applyToDatamineAndSaveTo(dm,"c://a//ssss");
 
-    dm.rules.applyToDataMineFileAndSaveTo("c://a//contact.txt","c://a//contact_Analysis");//Test file and save the results
+    //dm.rules.applyToDataMineFileAndSaveTo("c://a//contact.txt","c://a//contact_Analysis");//Test file and save the results
 
 }
 

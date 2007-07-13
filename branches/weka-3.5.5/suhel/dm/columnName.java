@@ -14,6 +14,9 @@ public class columnName {
   public columnName() {
   }
 
+  /**
+   * Count how many bits in the binary representation  in the column
+   */
   public static int length(long lon){
     int len=0;
     for (byte i=63; i>=0; i--){
@@ -22,7 +25,11 @@ public class columnName {
     }
     return len ;
   }
-// the binary representaion of the long number
+  
+  /**
+   * Return String value of  the binary representation of the number
+   */
+  
   public static String binary(long lon){
     String s="";
     for (byte i=63; i>=0; i--){
@@ -34,7 +41,11 @@ public class columnName {
     }
     return s;
   }
-//the first sub column
+
+
+  /**
+   * get long number which differs only in one bit in the binary representation (remove the first "1" bit from the right)
+   */
   public static long firstSubColumn(long lon){
     long lon2;
     for (byte i=63; i>=0; i--){
@@ -46,6 +57,10 @@ public class columnName {
     return -1;
   }
 
+
+  /**
+   * get long number which differs only in one bit in the binary representation (remove the first "1" bit from the left)
+   */
   public static long secondSubColumn(long lon){
     long lon2;
     for (byte i=0; i<=63; i++){
@@ -56,6 +71,7 @@ public class columnName {
     }
     return -1;
   }
+  
   // lon is the colomn name
   public static int[] orgColNames(long lon,int numOfCols){
     long lon2=0L;
@@ -72,6 +88,12 @@ public class columnName {
   index[0]=cols-1;
   return index;
   }
+  
+  /**
+   * 
+   * @param lon  
+   * @return
+   */
   public static int atomicOrgColName(long lon){
     for (int i=0; i<=63; i++){
       if (((1L<<i) & lon) != 0)
