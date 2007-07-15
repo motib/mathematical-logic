@@ -63,17 +63,17 @@ public static void main(String[] args){
   t2End=d2End.getTime();
   System.out.println("\nsuhel  time1 is: "+(t2End-t2Start));
   long lo=10;
-  System.out.println("\nbinary "+columnName.binary(lo));
-  int[] aa=columnName.orgColNames(lo,63);
+  System.out.println("\nbinary "+ColumnName.binary(lo));
+  int[] aa=ColumnName.orgColNames(lo,63);
   int loop=aa[0];
   System.out.println();
   for (int i=1; i<=loop; i++){
     System.out.print("\t"+aa[i]);
   }
-  System.out.println("\nLONG LENGTH  "+columnName.length(lo));
-  System.out.println("\natomic  "+columnName.atomicOrgColName(lo));
-  System.out.println("\nfirst sub column  "+columnName.firstSubColumn(lo));
-  System.out.println("\nsecond sub column  "+columnName.secondSubColumn(lo));
+  System.out.println("\nLONG LENGTH  "+ColumnName.length(lo));
+  System.out.println("\natomic  "+ColumnName.atomicOrgColName(lo));
+  System.out.println("\nfirst sub column  "+ColumnName.firstSubColumn(lo));
+  System.out.println("\nsecond sub column  "+ColumnName.secondSubColumn(lo));
   double b[]={0.50,0.015,0.8,0.100,0.90};
   int a[]={2,3,2,3};
  DecimalFormat tt=new DecimalFormat("0000000000000000000000000000000000.0000");

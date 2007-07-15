@@ -110,7 +110,7 @@ public class Rules {
     double[] b = {
 	(double) nomin / occ,
 	(double) nomin / orgSize,
-	(double) 1.0 - (double) columnName.length(columnId) / dm.allColumns,
+	(double) 1.0 - (double) ColumnName.length(columnId) / dm.allColumns,
 	(double) occ / orgSize,
 	(double) ( (double) dm.allColumns - (double) columnId) /
 	(double) dm.allColumns,

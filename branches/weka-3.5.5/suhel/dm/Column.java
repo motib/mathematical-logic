@@ -34,26 +34,32 @@ public class Column {
   Map itemsAsString;
   private DecimalFormat tt=new DecimalFormat("00.0000");
 
-  // check if the column is atomic, if not check the subcolumns if existed
-  public Column(long intClmn, int oSup,double con ,DataMine datMin) {
-    dm=datMin;
-    oSupport=oSup;
-//    JOptionPane.showMessageDialog(null,"new column minimum occ"+oSupport);
-    confidence=con;
-    columnId=intClmn;
-    //numOfCols=dm.CLASS;
-    if (columnName.length(intClmn)==1){
+   //check if the column is atomic, if not check the subcolumns if existed
+
+   /**
+    * 
+    * @param columnId 
+    * @param oSup
+    * @param con
+    * @param datMin
+    */
+  public Column(long columnId, int oSupport,double confidence ,DataMine dm) {
+    this.dm=dm;
+    this.oSupport=oSupport;
+    this.confidence=confidence;
+    this.columnId=columnId;
+    if (ColumnName.length(columnId)==1){
       isAtomic=true;
       tag= true;
       return;
     }
-    long sub1=columnName.firstSubColumn(intClmn);
-    long sub2=columnName.secondSubColumn(intClmn);
-    if(   !datMin.existingColumns.keySet().contains(new Long(sub1))
-       || !datMin.existingColumns.keySet().contains(new Long(sub2)))
+    long sub1=ColumnName.firstSubColumn(columnId);
+    long sub2=ColumnName.secondSubColumn(columnId);
+    if(   !dm.existingColumns.keySet().contains(sub1)
+       || !dm.existingColumns.keySet().contains(sub2))
       return;
-    fColumn=(Column)datMin.existingColumns.get(new Long(sub1));
-    sColumn=(Column)datMin.existingColumns.get(new Long(sub2));
+    fColumn=(Column)dm.existingColumns.get(sub1);
+    sColumn=(Column)dm.existingColumns.get(sub2);
     tag = true;
   }
 
@@ -70,7 +76,7 @@ public class Column {
     Iterator iter2=dm.allLines.iterator();
     while(iter2.hasNext()){
       Integer ttt=(Integer)iter2.next();
-      String s=((String[])dm.entity.get(ttt))[columnName.atomicOrgColName(columnId)];
+      String s=((String[])dm.entity.get(ttt))[ColumnName.atomicOrgColName(columnId)];
       if(ts.keySet().contains(s)){
         Integer fi=(Integer)ts.get(s);
         ((Sccl)items.get(fi)).lines.add(ttt);
@@ -90,7 +96,7 @@ public class Column {
     Iterator iter2=dm.allLines.iterator();
     while(iter2.hasNext()){
       Integer ttt=(Integer)iter2.next();
-      String s=((String[])dm.entity.get(ttt))[columnName.atomicOrgColName(columnId)];
+      String s=((String[])dm.entity.get(ttt))[ColumnName.atomicOrgColName(columnId)];
       if(itemsAsString.keySet().contains(s)){
         Integer fi=(Integer)itemsAsString.get(s);
         ((Sccl)items.get(fi)).lines.add(ttt);
@@ -226,12 +232,12 @@ public class Column {
 
 
   private String getLine(Integer itm){
-    int[] index=columnName.orgColNames(columnId,60);//numOfCols
+    int[] index=ColumnName.orgColNames(columnId,60);//numOfCols
     int cols=index[0];
     String sss1="";
     for (int j=1; j<=cols; j++){
        sss1 +="C"+index[j]+"="+((String[])dm.entity.get(itm))[index[j]];
-       if(index[j] <columnName.length(columnId))
+       if(index[j] <ColumnName.length(columnId))
         sss1+="\tAND\t";
     }
     return sss1;
