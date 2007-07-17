@@ -30,8 +30,8 @@ public class Column {
   //private int numOfCols;
   private final int oSupport;
   private double confidence;
-  TreeMap items;//to be changed later to HashMap
-  Map itemsAsString;
+  TreeMap<Integer,Sccl> items;//to be changed later to HashMap
+  Map <String,Integer> itemsAsString;
   private DecimalFormat tt=new DecimalFormat("00.0000");
 
    //check if the column is atomic, if not check the subcolumns if existed
@@ -58,8 +58,8 @@ public class Column {
     if(   !dm.existingColumns.keySet().contains(sub1)
        || !dm.existingColumns.keySet().contains(sub2))
       return;
-    fColumn=(Column)dm.existingColumns.get(sub1);
-    sColumn=(Column)dm.existingColumns.get(sub2);
+    fColumn=dm.existingColumns.get(sub1);
+    sColumn=dm.existingColumns.get(sub2);
     tag = true;
   }
 
@@ -70,41 +70,41 @@ public class Column {
   }
 
   private void generateOccurances(){
-    items=new TreeMap();
-    Map ts= new HashMap();
+    items=new TreeMap<Integer,Sccl>();
+    Map<String,Integer> tempSet= new HashMap<String,Integer>();
     // scan the entity and get the distinct values and the lines which accompany each distinct value
     Iterator iter2=dm.allLines.iterator();
     while(iter2.hasNext()){
-      Integer ttt=(Integer)iter2.next();
-      String s=((String[])dm.entity.get(ttt))[ColumnName.atomicOrgColName(columnId)];
-      if(ts.keySet().contains(s)){
-        Integer fi=(Integer)ts.get(s);
-        ((Sccl)items.get(fi)).lines.add(ttt);
+      Integer line=(Integer)iter2.next();
+      String s=((String[])dm.entity.get(line))[ColumnName.atomicOrgColName(columnId)];
+      if(tempSet.keySet().contains(s)){
+        Integer fi=(Integer)tempSet.get(s);
+        ((Sccl)items.get(fi)).lines.add(line);
       }else{
-        ts.put(s,ttt);
+	tempSet.put(s,line);
         Sccl ss= new Sccl();
-        ss.lines.add(ttt);
-        items.put(ttt,ss);
+        ss.lines.add(line);
+        items.put(line,ss);
       }
     }
   }
 ///generate Test occurances,
  public boolean generateTestOccurances(){
-    itemsAsString=new HashMap();
-    items=new TreeMap();
+    itemsAsString=new HashMap<String,Integer>();
+    items=new TreeMap<Integer,Sccl>();
     // scan the entity and get the distinct values and the lines which accompany each distinct value
     Iterator iter2=dm.allLines.iterator();
     while(iter2.hasNext()){
-      Integer ttt=(Integer)iter2.next();
-      String s=((String[])dm.entity.get(ttt))[ColumnName.atomicOrgColName(columnId)];
+      Integer line=(Integer)iter2.next();
+      String s=((String[])dm.entity.get(line))[ColumnName.atomicOrgColName(columnId)];
       if(itemsAsString.keySet().contains(s)){
         Integer fi=(Integer)itemsAsString.get(s);
-        ((Sccl)items.get(fi)).lines.add(ttt);
+        ((Sccl)items.get(fi)).lines.add(line);
       }else{
-        itemsAsString.put(s,ttt);
+        itemsAsString.put(s,line);
         Sccl ss= new Sccl();
-        ss.lines.add(ttt);
-        items.put(ttt,ss);
+        ss.lines.add(line);
+        items.put(line,ss);
       }
     }
     return true;
@@ -248,7 +248,7 @@ public class Column {
   }
 
   public TreeSet getValueOccurances(String value){
-    Integer matchLine=(Integer)itemsAsString.get(value);
+    Integer matchLine=itemsAsString.get(value);
     if(matchLine==null)return new TreeSet();
 //    JOptionPane.showMessageDialog(null,"getValueOccurances\n value: "+value+
 //              "\n first Occurance: "+matchLine.intValue());
