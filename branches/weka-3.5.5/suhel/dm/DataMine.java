@@ -32,6 +32,15 @@ public class DataMine {
 
 
 
+  public DataMine(String filename,String instance){
+    try{
+      instances=new Instances(new FileReader(filename));
+    }catch (Exception fnf){
+      System.err.print(fnf.getStackTrace());
+    }
+    classArray= new String[8];
+    CLASS="";
+  }
   /**
    * 
    * @param entity
