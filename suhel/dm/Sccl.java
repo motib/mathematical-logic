@@ -13,25 +13,25 @@ import javax.swing.*;
  */
 
 public class Sccl {
-  public TreeSet lines;
+  public TreeSet<Integer> lines;
   public int oSupport;
   public double confidence;
   public String classId;
 
   public Sccl(){
-    lines=new TreeSet();
+    lines=new TreeSet<Integer>();
   }
   public Sccl(Sccl tsccl){
     oSupport=tsccl.oSupport;
     confidence=tsccl.confidence;
     classId=tsccl.classId;
-    lines=new TreeSet(tsccl.lines);
+    lines=new TreeSet<Integer>(tsccl.lines);
   }
 
   public Sccl(int s,double c, String cid, TreeSet ts) {
     oSupport=s;
     confidence=c;
     classId= cid;
-    lines=new TreeSet(ts);
+    lines=new TreeSet<Integer>(ts);
   }
 }

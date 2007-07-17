@@ -220,7 +220,7 @@ public class DataMine {
   public Set getRuleColValOcc(String cond,int clmn){
     long clmnNm=1;
     for(int i=0;i<clmn-1;i++)clmnNm*=2;
-    Column c=(Column)existingColumns.get(clmnNm);
+    Column c=existingColumns.get(clmnNm);
     Integer fstOcc=(Integer)c.itemsAsString.get(cond);
     if(fstOcc==null)return new HashSet();
     Sccl sccl=(Sccl)c.items.get(fstOcc);
@@ -308,7 +308,7 @@ public class DataMine {
   }
 
   public Set getValueOccurancesInColumn(String value,long colId){
-    Column clmn=(Column)existingColumns.get(new Long(colId));
+    Column clmn=existingColumns.get(colId);
     return clmn.getValueOccurances(value);
   }
 
