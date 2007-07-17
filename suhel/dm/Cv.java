@@ -4,6 +4,7 @@ package dm;
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
+import org.apache.log4j.*;
 /**
  * <p>Title: MCAR</p>
  * <p>Description: </p>
@@ -14,6 +15,7 @@ import javax.swing.*;
  */
 
 public class Cv {
+  static Logger log = Logger.getLogger(Cv.class);
   String fileName="";
   DataMine dm;
   DataMine dmTrn;

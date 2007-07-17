@@ -4,6 +4,9 @@ package dm;
 import java.util.*;
 //import javax.*;
 import javax.swing.*;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.*;
 /**
  * <p>Title: data mining</p>
  * <p>Description: fadi project </p>
@@ -13,6 +16,7 @@ import javax.swing.*;
  */
 
 public class Sccl {
+  static Logger log = Logger.getLogger(Sccl.class);
   public TreeSet<Integer> lines;
   public int oSupport;
   public double confidence;

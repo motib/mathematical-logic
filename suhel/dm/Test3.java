@@ -1,5 +1,5 @@
 package dm;
-
+import org.apache.log4j.*;
 /**
  * <p>Title: MCAR</p>
  * <p>Description: </p>
@@ -10,6 +10,7 @@ package dm;
  */
 
 public class Test3 {
+  static Logger log = Logger.getLogger(Test3.class);
   public Test3() {
   }
   public  static void wwww(int[] a){

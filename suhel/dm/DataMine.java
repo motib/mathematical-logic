@@ -184,7 +184,7 @@ public class DataMine {
   public StringBuffer printSupports(double support,double confidence){
     StringBuffer otpt=new StringBuffer();
     generateColumns(support,confidence);
-    Iterator itr =existingColumns.keySet().iterator();
+    Iterator<Long> itr =existingColumns.keySet().iterator();
     while(itr.hasNext()){
       Long myInt = (Long)itr.next();
       Column clmn=(Column)existingColumns.get(myInt);
@@ -205,7 +205,7 @@ public class DataMine {
     return b;
 
   }
-  public boolean delLines(Set lines){
+  public boolean delLines(Set<Integer> lines){
     existingColumns.clear();
     boolean b=allLines.removeAll(lines);
     TOTAL_ENTITIES=allLines.size();
@@ -217,13 +217,13 @@ public class DataMine {
     boolean b=setLines(entity.keySet());
     return b;
   }
-  public Set getRuleColValOcc(String cond,int clmn){
+  public Set<Integer> getRuleColValOcc(String cond,int clmn){
     long clmnNm=1;
     for(int i=0;i<clmn-1;i++)clmnNm*=2;
     Column c=existingColumns.get(clmnNm);
     Integer fstOcc=(Integer)c.itemsAsString.get(cond);
-    if(fstOcc==null)return new HashSet();
-    Sccl sccl=(Sccl)c.items.get(fstOcc);
+    if(fstOcc==null)return new HashSet<Integer>();
+    Sccl sccl=c.getSccl(fstOcc);
     return sccl.lines;
   }
 

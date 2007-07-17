@@ -2,7 +2,7 @@ package dm;
 import java.text.*;
 import java.io.*;
 import java.util.*;
-
+import org.apache.log4j.*;
 /**
  * <p>Title: data mining</p>
  * <p>Description: fadi project </p>
@@ -12,6 +12,7 @@ import java.util.*;
  */
 
 class Tools {
+  static Logger log = Logger.getLogger(Tools.class);
    static DecimalFormat tt=new DecimalFormat("0000000000000000000000.00000");
 
   public Tools() {

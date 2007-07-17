@@ -2,7 +2,7 @@ package dm;
 
 import java.awt.*;
 import javax.swing.*;
-
+import org.apache.log4j.*;
 /**
  * <p>Title: MCAR</p>
  * <p>Description: </p>
@@ -13,6 +13,7 @@ import javax.swing.*;
  */
 
 public class DialogChangeParameters extends JDialog {
+  static Logger log = Logger.getLogger(DialogChangeParameters.class);
   JPanel panel1 = new JPanel();
   GridLayout gridLayout1 = new GridLayout();
   GridLayout gridLayout2 = new GridLayout();

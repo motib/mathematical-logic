@@ -1,7 +1,9 @@
 package dm;
 
+import org.apache.log4j.*;
 
 public class ColumnName {
+  static Logger log = Logger.getLogger(ColumnName.class);
 
   public ColumnName() {
   }

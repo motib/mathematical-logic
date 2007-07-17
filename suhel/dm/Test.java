@@ -5,7 +5,7 @@ package dm;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
-
+import org.apache.log4j.*;
 /**
  * <p>Title: data mining</p>
  * <p>Description:  fadi project</p>
@@ -15,6 +15,7 @@ import java.io.*;
  * */
 
 public class Test {
+  static Logger log = Logger.getLogger(Test.class);
 /*
 public static void main(String[] args){
 int rows=1000000;

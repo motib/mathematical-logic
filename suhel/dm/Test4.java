@@ -1,5 +1,5 @@
 package dm;
-
+import org.apache.log4j.*;
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -10,6 +10,7 @@ package dm;
  */
 
 public class Test4 {
+  static Logger log = Logger.getLogger(Test4.class);
   public Test4() {
   }
   public static void main(String[] args) {

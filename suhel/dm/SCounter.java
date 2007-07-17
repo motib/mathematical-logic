@@ -1,7 +1,9 @@
 package dm;
 import java.util.*;
+import org.apache.log4j.*;
 
 public class SCounter {
+  static Logger log = Logger.getLogger(SCounter.class);
   TreeMap values, nextValues;
   private int hitCounter=0;
   private String name="";
