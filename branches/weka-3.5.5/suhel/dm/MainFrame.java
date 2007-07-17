@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.beans.*;
 import java.io.*;
 import javax.swing.event.*;
-
+import org.apache.log4j.*;
 /**
 * This code was edited or generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -30,7 +30,7 @@ import javax.swing.event.*;
  */
 
 public class MainFrame extends JFrame {
-
+  static Logger log = Logger.getLogger(MainFrame.class);
   DataMine trainDatamine;
   DataMine testDatamine;
   Cv cv;

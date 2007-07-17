@@ -6,7 +6,7 @@ import java.util.*;
 import javax.swing.*;
 import java.text.DecimalFormat;
 import org.apache.log4j.*;
-
+import org.apache.log4j.*;
 /**
   <p>Title: data mining</p>
  * <p>Description:  fadi project</p>
@@ -16,6 +16,7 @@ import org.apache.log4j.*;
  */
 
 public class Column {
+  static Logger log = Logger.getLogger(Column.class);
   private final DataMine dm;
   final long columnId;
 
@@ -30,7 +31,7 @@ public class Column {
   //private int numOfCols;
   private final int oSupport;
   private double confidence;
-  TreeMap<Integer,Sccl> items;//to be changed later to HashMap
+  private TreeMap<Integer,Sccl> items;//to be changed later to HashMap
   Map <String,Integer> itemsAsString;
   private DecimalFormat tt=new DecimalFormat("00.0000");
 
@@ -87,6 +88,10 @@ public class Column {
         items.put(line,ss);
       }
     }
+  }
+  
+  public Sccl getSccl(Integer line){
+    return items.get(line);
   }
 ///generate Test occurances,
  public boolean generateTestOccurances(){

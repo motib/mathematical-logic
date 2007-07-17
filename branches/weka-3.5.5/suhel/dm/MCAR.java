@@ -1,8 +1,11 @@
 package dm;
 
 import javax.swing.UIManager;
-import java.awt.*;
 
+import org.apache.log4j.Logger;
+
+import java.awt.*;
+import org.apache.log4j.*;
 /**
  * <p>Title: MMAC</p>
  * <p>Description: </p>
@@ -13,6 +16,7 @@ import java.awt.*;
  */
 
 public class MCAR {
+  static Logger log = Logger.getLogger(MCAR.class);
   boolean packFrame = false;
 
   //Construct the application

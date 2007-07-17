@@ -1,5 +1,6 @@
 package dm;
 import java.util.*;
+import org.apache.log4j.*;
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -10,11 +11,12 @@ import java.util.*;
  */
 
 public class classColumn {
-
+  static Logger log = Logger.getLogger(classColumn.class);
   private DataMine dm;
-          Map items;
+  Map items;
 
   public classColumn(DataMine datMin) {
+
     dm=datMin;
     items=new HashMap();
     // scan the class column and get the distinct values and the lines which accompany each distinct value
@@ -24,13 +26,13 @@ public class classColumn {
 
       String s=(String)((String[])dm.entity.get(ttt))[0];
       if(items.keySet().contains(s)){
-        ((Set)items.get(s)).add(ttt);
+	((Set)items.get(s)).add(ttt);
       }else{
-        Set ss= new TreeSet();
-        ss.add(ttt);
-        items.put(s,ss);
+	Set ss= new TreeSet();
+	ss.add(ttt);
+	items.put(s,ss);
       }
     }
-//      System.out.println("\n" + items.entrySet());
+//  System.out.println("\n" + items.entrySet());
   }
 }

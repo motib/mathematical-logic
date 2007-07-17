@@ -5,8 +5,11 @@ package dm;
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
-import java.text.*;
 
+import org.apache.log4j.Logger;
+
+import java.text.*;
+import org.apache.log4j.*;
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -17,6 +20,7 @@ import java.text.*;
  */
 
 public class Rules {
+  static Logger log = Logger.getLogger(Rules.class);
   final int orgSize;
   int minOcc = 0;
   int accOcc = 0;
@@ -373,11 +377,9 @@ public class Rules {
     Iterator itr = rankedRuleSet.entrySet().iterator();
     Map.Entry e = (Map.Entry) itr.next();
     long[] a = (long[]) e.getValue();
-    //    while (itr.hasNext()) {
-    //      Map.Entry e=(Map.Entry)itr.next();
-    //      long[] a=(long[])e.getValue();
+   
     Column clmn = (Column) dm.existingColumns.get(new Long(a[0]));
-    Sccl itm = (Sccl) clmn.items.get(new Integer( (int) a[1]));
+    Sccl itm = (Sccl) clmn.getSccl(new Integer( (int) a[1]));
     String cls = itm.classId;
     TreeSet ts = new TreeSet(itm.lines);
     ts.retainAll( (Set) dm.classCol.items.get(cls));
@@ -393,7 +395,7 @@ public class Rules {
   }
 
   public Set checkRules2() throws IOException {
-    Set deletedLines = new HashSet();
+    Set<Integer> deletedLines = new HashSet<Integer>();
     int sz = 0;
     //to test the order of the ranked rules
     System.out.println(printRankedRuls());
@@ -405,7 +407,7 @@ public class Rules {
       long[] a = (long[]) e.getValue();
       //JOptionPane.showMessageDialog(null,"ranked col" +a[0]+" "+a[1]);
       Column clmn = (Column) dm.existingColumns.get(new Long(a[0]));
-      Sccl itm = (Sccl) clmn.items.get(new Integer( (int) a[1]));
+      Sccl itm = (Sccl) clmn.getSccl(new Integer( (int) a[1]));
       //JOptionPane.showMessageDialog(null,"clmnId" +clmn.columnId);
       //JOptionPane.showMessageDialog(null,"itm lines " +itm.lines);
       String cls = itm.classId;
@@ -576,62 +578,7 @@ public class Rules {
     }
     destDm = testDm;
   }
-  /*  Rule pickARule(TreeSet PRemainRules){
-	        ///
-	        int lastDefaultLine=-1;
-	        if(PRemainRules.size()>1)
-	          lastDefaultLine=((Integer)PRemainRules.last()).intValue();
-	//    System.out.println("remain new:"+PRemainRules);
-	        Map tm= new HashMap();
-	        Iterator itr=PRemainRules.iterator();
-	        while( itr.hasNext()){
-	          int line=((Integer)itr.next()).intValue();
-	          if(line==lastDefaultLine)continue;
-	          String ruleId=(String)al.get(line-1);
-	          Rule rl=(Rule)mp.get(ruleId);
-	      //    String stcls;
-	          for(int i=0; i<rl.numOfClasses; i++){
-	            String stcls=rl.clss[i];
-	            Integer freq=(Integer)tm.get(stcls);
-	            if(freq==null){
-	              tm.put(stcls,new Integer(rl.clssOcc[i]));
-	            }else{
-	              tm.put(stcls,new Integer(freq.intValue()+rl.clssOcc[i]));
-	            }
-	          }
-	        }
-	        // calculate the max class
-	        String[] sortClass=new String[tm.size()] ;
-	        int[] sortOcc=new int[tm.size()];
-	        //fill array with the values from tm
-	        int allOcc=0;
-	        int index=0;
-	        Iterator iter=tm.entrySet().iterator();
-	        while(iter.hasNext()){
-	          Map.Entry e=(Map.Entry)iter.next();
-	          sortClass[index]=(String)e.getKey();
-	          sortOcc[index]=((Integer)e.getValue()).intValue();
-	          allOcc+=((Integer)e.getValue()).intValue();
-	          index++;
-	        }
-	        ///buble sort according to the occoransces
-	        for(int i=0; i<sortOcc.length; i++){
-	          for(int j=0; j<sortOcc.length-1;j++){
-	            if(sortOcc[j+1]>sortOcc[j]){
-	              String tempS=sortClass[j];
-	              sortClass[j]=sortClass[j+1];
-	              sortClass[j+1]=tempS;
-	              int tempI=sortOcc[j];
-	              sortOcc[j]=sortOcc[j+1];
-	              sortOcc[j+i]=tempI;
-	            }//end if
-	          }//end for 1
-	        }//enf for 2
-	        Rule resultRule=new Rule(numOfCols,new String[numOfCols],allOcc,
-	                                    sortClass.length,sortClass,sortOcc);
-	        return resultRule;
-	      }
-   */
+
 
 
   public void applyToDatamineAndSaveToOld(DataMine testDm, String desFile) throws
@@ -757,6 +704,20 @@ public class Rules {
 
     return result;
   }
+ 
+
+  public void resetCounters() {
+    Iterator itr = counterMap.values().iterator();
+    while (itr.hasNext()) {
+      SCounter tsc = (SCounter) itr.next();
+      tsc.reset();
+    }
+  }
+
+  public int getCounterSize(String name) {
+    SCounter tsc = (SCounter) counterMap.get(name);
+    return tsc.getSize();
+  }
   public String prntCounterMaps() {
     String result = "";
     result += prntCounterMap("confidence");
@@ -776,20 +737,7 @@ public class Rules {
      */
     return result;
   }
-
-  public void resetCounters() {
-    Iterator itr = counterMap.values().iterator();
-    while (itr.hasNext()) {
-      SCounter tsc = (SCounter) itr.next();
-      tsc.reset();
-    }
-  }
-
-  public int getCounterSize(String name) {
-    SCounter tsc = (SCounter) counterMap.get(name);
-    return tsc.getSize();
-  }
-
+  
   public String prntCounterSizes() {
     String result = "\n\n Counters Sizes";
     /*

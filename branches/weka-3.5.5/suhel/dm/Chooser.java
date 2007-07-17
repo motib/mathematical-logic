@@ -1,9 +1,13 @@
 package dm;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
 import java.awt.Frame;
 
 import java.io.*;
+import org.apache.log4j.*;
 /**
  * <p>Title: MCAR</p>
  * <p>Description: </p>
@@ -14,6 +18,7 @@ import java.io.*;
  */
 
 public class Chooser {
+  static Logger log = Logger.getLogger(Chooser.class);
   private String fileName;
   private boolean isSelected=false;
   private Frame frame;

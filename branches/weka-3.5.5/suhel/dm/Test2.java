@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.*;
 import java.io.*;
 import java.text.DecimalFormat;
-
+import org.apache.log4j.*;
 /**
  * <p>Title: data mining</p>
  * <p>Description:  fadi project</p>
@@ -14,7 +14,7 @@ import java.text.DecimalFormat;
  * */
 
 public class Test2 {
-
+  static Logger log = Logger.getLogger(Test2.class);
 public static void main(String[] args){
   int rows=5;
   int cols=1000000;

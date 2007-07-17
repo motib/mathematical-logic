@@ -2,6 +2,7 @@ package dm;
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
+import org.apache.log4j.*;
 /**
  * <p>Title: MCAR</p>
  * <p>Description: </p>
@@ -12,6 +13,7 @@ import javax.swing.*;
  */
 
 public class FileResort {
+  static Logger log = Logger.getLogger(FileResort.class);
       ArrayList result=new ArrayList();
 
 

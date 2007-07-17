@@ -1,5 +1,6 @@
 package dm;
 import javax.swing.*;
+import org.apache.log4j.*;
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -10,6 +11,7 @@ import javax.swing.*;
  */
 
 public class Rule {
+  static Logger log = Logger.getLogger(Rule.class);
   private String ruleId;
   String[] cols;
   int numOfClasses=1;

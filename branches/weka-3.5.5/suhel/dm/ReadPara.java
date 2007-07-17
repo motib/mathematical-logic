@@ -4,6 +4,7 @@ package dm;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
+import org.apache.log4j.*;
 /**
  * <p>Title: data mining</p>
  * <p>Description: fadi project </p>
@@ -14,6 +15,7 @@ import javax.swing.*;
 
 public class ReadPara
 {
+  static Logger log = Logger.getLogger(ReadPara.class);
      StringTokenizer token;
     public  File filePath=new File("c:\\Moaath.txt");
     private  FileReader file;
