@@ -13,7 +13,7 @@ import org.apache.log4j.*;
 
 class Tools {
   static Logger log = Logger.getLogger(Tools.class);
-   static DecimalFormat tt=new DecimalFormat("0000000000000000000000.00000");
+  static DecimalFormat tt=new DecimalFormat("0000000000000000000000.00000");
 
   public Tools() {
   }
@@ -25,14 +25,16 @@ class Tools {
     while(count<requiredLines){
       int num=(int)Math.round(Math.random()*size-0.5);
       if(!ts.contains(new Integer(num))){
-        ts.add(new Integer(num));
-        result[count]=num;
-        count++;
+	ts.add(new Integer(num));
+	result[count]=num;
+	count++;
       }
     }
     return result;
   }
-/*
+
+ 
+  /*
 b[0]=conf
 b[1]=supp
 b[2]=1- len/(cols num) //column Length
@@ -45,23 +47,23 @@ a[1]=supp sift
 a[2]=len shift
 a[3]=occo shift
 a[4]=colId shift
-*/
+   */
   public static long setItemId(long columnName,int itemLine){
     long result=columnName*1000000+itemLine;
     return result;
   }
   static double ruleOrder(int[] a,double[] b){
-//    for(int k=0;k<b.length; k++){
-//    System.out.print(b[k]+"\t");
- //   }
+//  for(int k=0;k<b.length; k++){
+//  System.out.print(b[k]+"\t");
+    //   }
     double sum=0.0;
     for(int i=0; i<5; i++){
       sum=Math.round((sum+Math.abs(b[i]))* Math.pow(10,a[i]));
-//      System.out.println(tt.format(sum));
-    }
-      sum+=b[5];
 //    System.out.println(tt.format(sum));
-//    DecimalFormat tt=new DecimalFormat("0000000000000000000000000000.000000000");
+    }
+    sum+=b[5];
+//  System.out.println(tt.format(sum));
+//  DecimalFormat tt=new DecimalFormat("0000000000000000000000000000.000000000");
 
     return sum;
   }
@@ -76,10 +78,10 @@ a[4]=colId shift
       Iterator i2=cc2.iterator();
       int tntn=((Integer)i1.next()).intValue();
       while (i2.hasNext()){
-        int[] a= new int[2];
-        a[0]=tntn;
-        a[1]=((Integer)i2.next()).intValue();
-        ss.add(a);
+	int[] a= new int[2];
+	a[0]=tntn;
+	a[1]=((Integer)i2.next()).intValue();
+	ss.add(a);
       }
     }
     return new HashSet(ss);
@@ -94,7 +96,7 @@ a[4]=colId shift
     out2.close();
   }
 
-//  public SetDataMin
+//public SetDataMin
 }
 
 /*class timeMeasure{
@@ -157,4 +159,4 @@ a[4]=colId shift
     return d1;
   }
 }
-*/
+ */
