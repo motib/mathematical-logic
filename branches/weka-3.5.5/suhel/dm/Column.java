@@ -7,13 +7,7 @@ import javax.swing.*;
 import java.text.DecimalFormat;
 import org.apache.log4j.*;
 import org.apache.log4j.*;
-/**
-  <p>Title: data mining</p>
- * <p>Description:  fadi project</p>
- * <p>Copyright: Copyright (c) 2003</p>
- * <p>Company: Bradford University</p>
- * @version 1.0
- */
+import weka.core.*;
 
 public class Column {
   static Logger log = Logger.getLogger(Column.class);
@@ -32,11 +26,10 @@ public class Column {
   private final int oSupport;
   private double confidence;
   private TreeMap<Integer,Sccl> items;//to be changed later to HashMap
-  Map <String,Integer> itemsAsString;
+  private Map <String,Integer> itemsAsString;
   private DecimalFormat tt=new DecimalFormat("00.0000");
 
-   //check if the column is atomic, if not check the subcolumns if existed
-
+   
    /**
     * 
     * @param columnId 
@@ -70,17 +63,18 @@ public class Column {
     return generateValues();
   }
 
+  
   private void generateOccurances(){
     items=new TreeMap<Integer,Sccl>();
     Map<String,Integer> tempSet= new HashMap<String,Integer>();
     // scan the entity and get the distinct values and the lines which accompany each distinct value
-    Iterator iter2=dm.allLines.iterator();
+    Iterator<Integer> iter2=dm.allLines.iterator();
     while(iter2.hasNext()){
-      Integer line=(Integer)iter2.next();
-      String s=((String[])dm.entity.get(line))[ColumnName.atomicOrgColName(columnId)];
+      Integer line=iter2.next();
+      String s=dm.entity.get(line)[ColumnName.atomicOrgColName(columnId)];
       if(tempSet.keySet().contains(s)){
-        Integer fi=(Integer)tempSet.get(s);
-        ((Sccl)items.get(fi)).lines.add(line);
+        Integer fi= tempSet.get(s);
+          items.get(fi).lines.add(line);
       }else{
 	tempSet.put(s,line);
         Sccl ss= new Sccl();
@@ -89,6 +83,7 @@ public class Column {
       }
     }
   }
+  
   
   public Sccl getSccl(Integer line){
     return items.get(line);
@@ -114,17 +109,20 @@ public class Column {
     }
     return true;
   }
+ public Integer getItemInt(String cond){
+   return itemsAsString.get(cond);
+ }
 /////
   // generate the items of the Atomic column
   private boolean generateAtomicValues(){
     generateOccurances();
  // remove the items which has not the appropriate support
-    TreeMap myMap=new TreeMap(items);
-    Iterator itr=myMap.keySet().iterator();
+    TreeMap<Integer,Sccl> myMap=new TreeMap<Integer,Sccl>(items);
+    Iterator<Integer> itr=myMap.keySet().iterator();
     while(itr.hasNext()){
-      Integer tgr=(Integer)itr.next();
-      Sccl itemContent=(Sccl)items.get(tgr);
-      if (!isSurvived(itemContent))items.remove(tgr);
+      Integer item=itr.next();
+      Sccl itemContent=items.get(item);
+      if (!isSurvived(itemContent))items.remove(item);
       }
     // check the items , if there is any value return true
     if(items.size()==0) return false;
@@ -156,12 +154,55 @@ public class Column {
   private boolean isSurvived(Sccl itm){
     if (itm.lines.size()<oSupport) return false;
     //calculate the confidence
-    Map tm= new HashMap();
-    TreeSet ts=(TreeSet)itm.lines;
-    Iterator itr=ts.iterator();
+    Map<String,Integer> tm= new HashMap<String,Integer>();
+    TreeSet<Integer> ts= itm.lines;
+    Iterator<Integer> itr=ts.iterator();
     while( itr.hasNext()){
-      String stcls=dm.classArray[((Integer)itr.next()).intValue()];
-      Integer freq=(Integer)tm.get(stcls);
+      String stcls=dm.classArray[itr.next().intValue()];
+      Integer freq=tm.get(stcls);
+      tm.put(stcls,( freq==null? new Integer(1):new Integer(freq.intValue()+1)));
+    }
+    // calculate the max confidence
+    String maxClass=" ";
+    int maxInt=0;
+    for (Iterator  i=tm.entrySet().iterator(); i.hasNext(); ) {
+      Map.Entry<String,Integer> e = (Map.Entry) i.next();
+      int j= e.getValue() .intValue() ;
+      if( j > maxInt){
+        maxInt=j;
+        maxClass= e.getKey();
+      }
+    }
+    if (maxInt<oSupport)return false;//check support
+    double cnf=(double)maxInt/(double)ts.size();
+    int rowId=  itm.lines.first().intValue();
+    itm.classId=maxClass;
+    itm.confidence=cnf;
+    itm.oSupport=maxInt;
+    if( cnf >= confidence ){ //check confidence
+      dm.rules.rankARule(ts.size(),maxInt, columnId, rowId, maxClass);
+      dm.rules.idis.add(new Long(Tools.setItemId(columnId,rowId)));
+    }
+    return true;
+  }
+
+
+  
+  public TreeSet<Integer> getValueOccurances(String value){
+    Integer matchLine=itemsAsString.get(value);
+    if(matchLine==null)return new TreeSet<Integer>();
+    Sccl resultSccl=(Sccl)items.get(matchLine);
+    TreeSet<Integer> resultSet=resultSccl.lines;
+    return new TreeSet<Integer>(resultSet);
+  }
+  private boolean isSurvivedNew(Sccl itm){
+    //calculate the confidence
+    Map<String,Integer> tm= new HashMap<String,Integer>();
+    TreeSet<Integer> ts=itm.lines;
+    Iterator<Integer> itr=ts.iterator();
+    while( itr.hasNext()){
+      String stcls=dm.classArray[(itr.next()).intValue()];
+      Integer freq=tm.get(stcls);
       tm.put(stcls,( freq==null? new Integer(1):new Integer(freq.intValue()+1)));
     }
     // calculate the max confidence
@@ -175,20 +216,55 @@ public class Column {
         maxClass=(String)e.getKey();
       }
     }
-    if (maxInt<oSupport)return false;//check support
     double cnf=(double)maxInt/(double)ts.size();
     int rowId=((Integer)itm.lines.first()).intValue();
     itm.classId=maxClass;
     itm.confidence=cnf;
     itm.oSupport=maxInt;
-    if( cnf >= confidence ){ //check confidence
+    if( dm.rules.idis.contains(new Long(Tools.setItemId(columnId,rowId))))//check confidence
       dm.rules.rankARule(ts.size(),maxInt, columnId, rowId, maxClass);
-      dm.rules.idis.add(new Long(Tools.setItemId(columnId,rowId)));
-    }
     return true;
   }
-
-
+  private boolean generateAtomicValuesNew(){
+    generateOccurances();
+ // remove the items which has not the appropriate support
+    TreeMap myMap=new TreeMap(items);
+    Iterator itr=myMap.keySet().iterator();
+    while(itr.hasNext()){
+      Integer tgr=(Integer)itr.next();
+      Sccl itemContent=(Sccl)items.get(tgr);
+      if (!isSurvived(itemContent))items.remove(tgr);
+      }
+    // check the items , if there is any value return true
+    if(items.size()==0) return false;
+    return true;
+  }
+    private boolean generateValuesNew(){
+    items=new TreeMap();
+    boolean result=false;
+    Set possibleEntity =new HashSet(Tools.decart(fColumn.items.keySet(),sColumn.items.keySet()));
+    Iterator itr= possibleEntity.iterator();
+    while(itr.hasNext()){
+      int[] ia=(int[])itr.next();
+      if(genarateItemValueNew(new Integer(ia[0]),new Integer(ia[1])))
+        result= true;
+    }
+    return result;
+  }
+  private boolean genarateItemValueNew(Integer fItem, Integer sItem){
+    Sccl tsccl=new Sccl((Sccl)fColumn.items.get(fItem));
+    TreeSet ts=(TreeSet)((Sccl)sColumn.items.get(sItem)).lines;
+    tsccl.lines.retainAll(ts);
+    if ( tsccl.lines.size() == 0) return false;
+    if (!isSurvivedNew(tsccl))return false;
+    items.put(tsccl.lines.first(),tsccl);
+    return true;
+    }
+  public boolean isAppropriateNew(){
+    if(tag==false) return false;
+    if (isAtomic) return generateAtomicValuesNew();
+    return generateValuesNew();
+  }
   public String calculateColumnConfidences(double confi){
     confidence=confi;
     String otpt1="\n\n Confidences for the column "+columnId+" are:"+
@@ -252,84 +328,7 @@ public class Column {
     return ts.toString();
   }
 
-  public TreeSet getValueOccurances(String value){
-    Integer matchLine=itemsAsString.get(value);
-    if(matchLine==null)return new TreeSet();
-//    JOptionPane.showMessageDialog(null,"getValueOccurances\n value: "+value+
-//              "\n first Occurance: "+matchLine.intValue());
-    Sccl resultSccl=(Sccl)items.get(matchLine);
-    TreeSet resultSet=(TreeSet)resultSccl.lines;
-    return new TreeSet(resultSet);
-  }
-  private boolean isSurvivedNew(Sccl itm){
-    //calculate the confidence
-    Map tm= new HashMap();
-    TreeSet ts=(TreeSet)itm.lines;
-    Iterator itr=ts.iterator();
-    while( itr.hasNext()){
-      String stcls=dm.classArray[((Integer)itr.next()).intValue()];
-      Integer freq=(Integer)tm.get(stcls);
-      tm.put(stcls,( freq==null? new Integer(1):new Integer(freq.intValue()+1)));
-    }
-    // calculate the max confidence
-    String maxClass=" ";
-    int maxInt=0;
-    for (Iterator i=tm.entrySet().iterator(); i.hasNext(); ) {
-      Map.Entry e = (Map.Entry) i.next();
-      int j=((Integer)e.getValue()).intValue() ;
-      if( j > maxInt){
-        maxInt=j;
-        maxClass=(String)e.getKey();
-      }
-    }
-    double cnf=(double)maxInt/(double)ts.size();
-    int rowId=((Integer)itm.lines.first()).intValue();
-    itm.classId=maxClass;
-    itm.confidence=cnf;
-    itm.oSupport=maxInt;
-    if( dm.rules.idis.contains(new Long(Tools.setItemId(columnId,rowId))))//check confidence
-      dm.rules.rankARule(ts.size(),maxInt, columnId, rowId, maxClass);
-    return true;
-  }
-  private boolean generateAtomicValuesNew(){
-    generateOccurances();
- // remove the items which has not the appropriate support
-    TreeMap myMap=new TreeMap(items);
-    Iterator itr=myMap.keySet().iterator();
-    while(itr.hasNext()){
-      Integer tgr=(Integer)itr.next();
-      Sccl itemContent=(Sccl)items.get(tgr);
-      if (!isSurvived(itemContent))items.remove(tgr);
-      }
-    // check the items , if there is any value return true
-    if(items.size()==0) return false;
-    return true;
-  }
-    private boolean generateValuesNew(){
-    items=new TreeMap();
-    boolean result=false;
-    Set possibleEntity =new HashSet(Tools.decart(fColumn.items.keySet(),sColumn.items.keySet()));
-    Iterator itr= possibleEntity.iterator();
-    while(itr.hasNext()){
-      int[] ia=(int[])itr.next();
-      if(genarateItemValueNew(new Integer(ia[0]),new Integer(ia[1])))
-        result= true;
-    }
-    return result;
-  }
-  private boolean genarateItemValueNew(Integer fItem, Integer sItem){
-    Sccl tsccl=new Sccl((Sccl)fColumn.items.get(fItem));
-    TreeSet ts=(TreeSet)((Sccl)sColumn.items.get(sItem)).lines;
-    tsccl.lines.retainAll(ts);
-    if ( tsccl.lines.size() == 0) return false;
-    if (!isSurvivedNew(tsccl))return false;
-    items.put(tsccl.lines.first(),tsccl);
-    return true;
-    }
-  public boolean isAppropriateNew(){
-    if(tag==false) return false;
-    if (isAtomic) return generateAtomicValuesNew();
-    return generateValuesNew();
-  }
+  
 
+  
 }

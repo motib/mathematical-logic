@@ -11,7 +11,9 @@ import weka.core.*;
 
 public class DataMine {
   static Logger log = Logger.getLogger(DataMine.class);
-
+  /**
+   * line number , String Array of the row items, row[0] is the class
+   */
   public Map<Integer,String[]> entity;
   classColumn classCol;
   //holds the position of CLASS attribute
@@ -38,8 +40,47 @@ public class DataMine {
     }catch (Exception fnf){
       System.err.print(fnf.getStackTrace());
     }
-    classArray= new String[8];
-    CLASS="";
+    this. instances=new Instances(instances);
+    int numOfCols=instances.numAttributes();
+    TOTAL_ENTITIES=instances.numInstances();
+    log.trace("TOTAL_ENTITES  "+ TOTAL_ENTITIES);
+    log.trace("numOfCols "+numOfCols);
+
+    orgSize=TOTAL_ENTITIES;
+    classArray= new String[TOTAL_ENTITIES];
+   
+    entity=new TreeMap<Integer,String[]>();
+
+    
+    log.info("Instances: "+instances.toString());
+
+    int line=1;
+    Enumeration<Instance> ins=instances.enumerateInstances();
+    while (ins.hasMoreElements()) {
+      String[] row=new String[numOfCols];
+      Instance inselem = (Instance) ins.nextElement();
+      for (int i = 0; i < numOfCols-1; i++) {
+	row[i+1]=inselem.stringValue(i);
+	System.out.print(inselem.stringValue(i)+"\t");
+      }
+      System.out.println("\t");
+      row[0]=inselem.stringValue(numOfCols-1);
+      log.trace("row[0] :"+row[0]);
+      classArray[line]=inselem.stringValue(numOfCols-1);
+      entity.put(line, row);
+    }
+
+    allLines= new TreeSet<Integer>(entity.keySet());
+    CLASS=((String[])entity.get(new Integer(1))).length;
+
+
+    existingColumns =new TreeMap<Long, Column>();
+    //Get the number of possible compound columns 
+    allColumns=Math.round(Math.pow(2,CLASS-1))-1;
+    rules=new Rules(this);
+    classCol=new classColumn(this);
+
+
   }
   /**
    * 
@@ -167,7 +208,9 @@ public class DataMine {
     }
     return true;
   }
-
+  public String getClassValue(int index){
+    return classArray[index];
+  }
   //generate the occurances atomic columns, no need to check the support and the confidence
   public boolean generateOccuranceColumns(){
     existingColumns.clear();
@@ -230,12 +273,16 @@ public class DataMine {
     long clmnNm=1;
     for(int i=0;i<clmn-1;i++)clmnNm*=2;
     Column c=existingColumns.get(clmnNm);
-    Integer fstOcc=(Integer)c.itemsAsString.get(cond);
+    Integer fstOcc=c.getItemInt(cond);
     if(fstOcc==null)return new HashSet<Integer>();
     Sccl sccl=c.getSccl(fstOcc);
     return sccl.lines;
   }
-
+/**
+ *
+ * @param PFileName
+ * @param o: o[0]=entity;o[1]=classes;
+ */
   void dataReader(String PFileName,Object[] o){
     String[] classes;
     TreeMap entts;
@@ -250,9 +297,6 @@ public class DataMine {
       entts=new TreeMap();
       classes=new String[size+1];
       int numOfCols=0;
-
-
-
       s=in.readLine().toUpperCase().trim();//
       while(!s.startsWith("@DATA") && s.startsWith("@ATTRIBUTE")){
 	numOfCols++;
@@ -294,9 +338,9 @@ public class DataMine {
     String result="\n";
     Iterator iter=entity.entrySet().iterator();
     while(iter.hasNext()){
-      Map.Entry e= (Map.Entry)iter.next();
-      result+="\n"+((Integer)e.getKey()).intValue();
-      line=(String[])e.getValue();
+      Map.Entry<Integer,String[]> e= (Map.Entry<Integer,String[]>)iter.next();
+      result+="\n"+(e.getKey()).intValue();
+      line=e.getValue();
       for(int i=1; i<line.length; i++){
 	result+="\t"+line[i];
       }
@@ -316,7 +360,7 @@ public class DataMine {
     rules.iterate2(minRemainInst,conf,supp,numOfItr);
   }
 
-  public Set getValueOccurancesInColumn(String value,long colId){
+  public Set<Integer>  getValueOccurancesInColumn(String value,long colId){
     Column clmn=existingColumns.get(colId);
     return clmn.getValueOccurances(value);
   }
