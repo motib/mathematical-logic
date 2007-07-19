@@ -1,14 +1,8 @@
 package dm;
 import javax.swing.*;
 import org.apache.log4j.*;
-/**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2004</p>
- * <p>Company: </p>
- * @author unascribed
- * @version 1.0
- */
+
+
 
 public class Rule {
   static Logger log = Logger.getLogger(Rule.class);
@@ -39,7 +33,7 @@ public class Rule {
       clss[i]=clss2[i];
       clssOcc[i]=clssOcc2[i];
     }
-//    System.out.println(s+"numOfClasses "+numOfClasses+"clss "+clss[0]+" occ"+clssOcc[0] );
+//    log.info(s+"numOfClasses "+numOfClasses+"clss "+clss[0]+" occ"+clssOcc[0] );
     ruleId=s;
   }
 
@@ -49,8 +43,9 @@ public class Rule {
   //just if the Id are identical
   public boolean updateRule(Rule rl2){
     if (!this.getId().equals(rl2.getId())){
-      JOptionPane.showMessageDialog(null, "error in the ruleId");
+      log.error(  "error in the ruleId");
       return false;}
+    
       clss[numOfClasses]=rl2.clss[0];
       clssOcc[numOfClasses]=rl2.clssOcc[0];
     for(int i=0; i<rl2.numOfClasses;i++){

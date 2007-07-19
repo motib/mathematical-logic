@@ -33,13 +33,13 @@ public class Rules {
    * key :String ruleId e.g. 20|*|47|
    * value: Rule type object
    */
-  Map mp;
+  Map<String,Rule> mp;
   /**
    * Arraylist al: contain the id of the survived rules of the ranked rule set.
    * the actual rules (Rule objects) exist in Map mp
    * items: ruleId added in a ranked order
    */
-  ArrayList al;
+  ArrayList<String> al;
   DataMine dm;
   //added lately to check the classifiers
   SCounter con1, con2, con3, con4, con5, con6;
@@ -97,11 +97,11 @@ public class Rules {
     Iterator itr = rankedRuleSet.entrySet().iterator();
     while (itr.hasNext()) {
       Map.Entry e = (Map.Entry) itr.next();
-      double dbl = ( (Double) e.getKey()).doubleValue();
+      //double dbl = ( (Double) e.getKey()).doubleValue();
       long[] a = (long[]) e.getValue();
       int tint = (int) a[1];
       Column clmn = (Column) dm.existingColumns.get(new Long(a[0]));
-      s2 += "\n" + tt.format(dbl) + "\t" + a[0] + "\t" + a[1] + "\t" +
+      s2 += "\n" + tt.format("dbl") + "\t" + a[0] + "\t" + a[1] + "\t" +
       clmn.calculateItemConfidence(new Integer(tint)) + "\n"; //+clmn.prntRuleOcc(new Integer(tint));//tt.format
     }
     return s + s2;
@@ -192,11 +192,18 @@ public class Rules {
 	clssOcc));
     return true;
   }
-  private String fillCols(String[] cols, long clm, int itm) {
+  /**
+   * 
+   * @param cols
+   * @param clm
+   * @param item
+   * @return 
+   */
+  private String fillCols(String[] cols, long clm, int item) {
     String s = "";
     for (byte i = 0; i < numOfCols; i++) {
       if ( ( (1L << i) & clm) != 0) {
-	cols[i] = ( (String[]) dm.entity.get(new Integer(itm)))[i + 1];
+	cols[i] = ( (String[]) dm.entity.get(new Integer(item)))[i + 1];
       }
       else {
 	cols[i] = "*";
@@ -398,11 +405,11 @@ public class Rules {
     return deletedLines;
   }
 
-  public Set checkRules2() throws IOException {
+  public Set<Integer> checkRules2() throws IOException {
     Set<Integer> deletedLines = new HashSet<Integer>();
     int sz = 0;
     //to test the order of the ranked rules
-    System.out.println(printRankedRuls());
+    log.info(printRankedRuls());
     //    System.out.println("inside Ckeck rules ,All lines :"+ dm.allLines);
     // end test
     Iterator itr = rankedRuleSet.entrySet().iterator();
@@ -410,20 +417,19 @@ public class Rules {
       Map.Entry e = (Map.Entry) itr.next();
       long[] a = (long[]) e.getValue();
       //JOptionPane.showMessageDialog(null,"ranked col" +a[0]+" "+a[1]);
-      Column clmn = (Column) dm.existingColumns.get(new Long(a[0]));
-      Sccl itm = (Sccl) clmn.getSccl(new Integer( (int) a[1]));
-      //JOptionPane.showMessageDialog(null,"clmnId" +clmn.columnId);
-      //JOptionPane.showMessageDialog(null,"itm lines " +itm.lines);
+      Column clmn =  dm.existingColumns.get(new Long(a[0]));
+      Sccl itm = clmn.getSccl(new Integer( (int) a[1]));
+
+
       String cls = itm.classId;
-      TreeSet ts = new TreeSet(itm.lines);
+      TreeSet<Integer> ts = new TreeSet<Integer>(itm.lines);
       ts.retainAll( (Set) dm.classCol.items.get(cls));
       ts.removeAll(deletedLines);
       if (ts.size() == 0)continue;
       addRule(a[0], (int) a[1], ts.size(), cls);
-      //JOptionPane.showMessageDialog(null,"a"+a[0]+"\t"+a[1]);
       deletedLines.addAll(ts);
     }
-    //JOptionPane.showMessageDialog(null,"DELETED lINES ="+ deletedLines.size());
+
 
     accOcc += deletedLines.size(); //+addDefaultClass(deletedLines)
 
@@ -541,7 +547,7 @@ public class Rules {
   }
 
   void setRulesDataMine() {
-    Map entts = new HashMap(mp.size() + 100);
+    Map<Integer,String[]> entts = new HashMap<Integer,String[]>(mp.size() + 100);
     String[] aClass = new String[mp.size() + 1];
     for (int i = 0; i < al.size(); i++) {
       String[] row = new String[numOfCols + 1];
@@ -558,22 +564,22 @@ public class Rules {
   IOException {
     setRulesDataMine();
     pc.clear();
-    //   System.out.println(rulesDataMine.printDataMine());
+    //   log.info(rulesDataMine.printDataMine());
     int counter = 0;
-    Iterator iter = testDm.entity.entrySet().iterator();
+    Iterator  iter =  testDm.entity.entrySet().iterator();
     while (iter.hasNext()) {
       Map.Entry e = (Map.Entry) iter.next();
-      TreeSet remainRules = new TreeSet(rulesDataMine.entity.keySet());
+      TreeSet<Integer> remainRules = new TreeSet<Integer>(rulesDataMine.entity.keySet());
       String[] row = (String[]) e.getValue();
       String condit = "";
-      for (int cd = 1; cd <= numOfCols; cd++) { //for test to be deleted later
-	condit += row[cd] + " ";
-      }
+//      for (int cd = 1; cd <= numOfCols; cd++) { //for test to be deleted later
+//	condit += row[cd] + " ";
+//      }
       for (int i = 1; i <= numOfCols; i++) {
 	long intCol = (long) Math.pow(2, i - 1);
-	TreeSet ts = new TreeSet();
-	ts.addAll( (Set) rulesDataMine.getValueOccurancesInColumn(row[i],intCol));
-	ts.addAll( (Set) rulesDataMine.getValueOccurancesInColumn("*", intCol));
+	TreeSet<Integer> ts = new TreeSet<Integer>();
+	ts.addAll(   rulesDataMine.getValueOccurancesInColumn(row[i],intCol));
+	ts.addAll(   rulesDataMine.getValueOccurancesInColumn("*", intCol));
 	remainRules.retainAll(ts);
       }
       Rule rl = pickARule(remainRules);
