@@ -5,17 +5,23 @@ import java.util.*;
 //import javax.*;
 import javax.swing.*;
 
-import org.apache.log4j.Logger;
 import org.apache.log4j.*;
-/**
- * <p>Title: data mining</p>
- * <p>Description: fadi project </p>
- * <p>Copyright: Copyright (c) 2003</p>
- * <p>Company: Bradford University</p>
- * @version 1.0
- */
 
-public class Sccl {
+
+
+public class Sccl implements Comparable<Sccl>{
+  public int compareTo(Sccl o) {
+    int result=0;
+    
+    if(this.confidence == o.confidence){
+      if(this.oSupport == o.oSupport){
+	if(true);
+      }
+    }
+    // TODO Auto-generated method stub
+    return result;
+  }
+
   static Logger log = Logger.getLogger(Sccl.class);
   public TreeSet<Integer> lines;
   public int oSupport;
