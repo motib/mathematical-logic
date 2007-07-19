@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 import java.text.*;
 import org.apache.log4j.*;
+
+import test.RuleOrder;
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -51,14 +53,14 @@ public class Rules {
    * long[0]: columnId (inside the datamine)
    * long[1]: itemId (inside the column)
    */
-  public TreeMap rankedRuleSet;
+  public TreeMap<RuleOrder,long[]> rankedRuleSet;
   /**
    * TreeMap pc (predicted class)
    * Key: Integer line ids of tested datamine
    * value:String the corrosponding rule ids in the classifier
    */
   TreeMap pc = new TreeMap(); ///added when writing saveWithPredition() method
-  Set idis = new HashSet(); //contains the original idis of the rules (new)
+  Set<Long> idis = new HashSet<Long>(); //contains the original idis of the rules (new)
   DataMine destDm;
 
   public Rules(DataMine dm2) {
@@ -67,7 +69,9 @@ public class Rules {
     numOfCols = dm.CLASS - 1;
     mp = new HashMap();
     al = new ArrayList();
-    rankedRuleSet = new TreeMap();
+    rankedRuleSet = new TreeMap<RuleOrder,long[]>();
+    
+    RuleOrder.setOrder(new int[]{1,1,1,1,1,1,1,1,1});
     //added lately to check the classifiers
     con1 = new SCounter();
     con2 = new SCounter();
@@ -107,7 +111,7 @@ public class Rules {
 
   public void rankARule(int occ, int nomin, long columnId, int rowId,
       String pClass) {
-    System.out.println("rank \tcolId= " + columnId + "\trowId=" + rowId +
+    log.info("rank \tcolId= " + columnId + "\trowId=" + rowId +
 	"\tpClass " + pClass);
     rankARule(occ, nomin, columnId, rowId);
   }
@@ -128,7 +132,7 @@ public class Rules {
     rl[1] = rowId;
 
     //  System.out.println("rank rule Code="+tt.format(hCode)+"\tcolId= "+columnId+"\trowId="+rowId);
-    rankedRuleSet.put(new Double( -hCode), rl);
+    rankedRuleSet.put(new RuleOrder( b), rl);
     //added lately to check the classifier
 
     int digits = 0;

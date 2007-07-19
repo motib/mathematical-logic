@@ -175,11 +175,13 @@ public class Column {
     }
     if (maxInt<oSupport)return false;//check support
     double cnf=(double)maxInt/(double)ts.size();
-    int rowId=  itm.lines.first().intValue();
-    itm.classId=maxClass;
-    itm.confidence=cnf;
-    itm.oSupport=maxInt;
     if( cnf >= confidence ){ //check confidence
+      
+     int rowId=  itm.lines.first().intValue();
+     itm.classId=maxClass;
+     itm.confidence=cnf;
+     itm.oSupport=maxInt;
+   
       dm.rules.rankARule(ts.size(),maxInt, columnId, rowId, maxClass);
       dm.rules.idis.add(new Long(Tools.setItemId(columnId,rowId)));
     }
