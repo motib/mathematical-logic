@@ -35,7 +35,8 @@ weka.filters.Filter= \
  weka.filters.supervised.attribute, \
  weka.filters.supervised.instance, \
  weka.filters.unsupervised.attribute, \
- weka.filters.unsupervised.instance
+ weka.filters.unsupervised.instance, \
+ weka.filters.mcar
 
 # Lists the UnsupervisedFilters-Packages I want to choose from
 weka.filters.UnsupervisedFilter = \
