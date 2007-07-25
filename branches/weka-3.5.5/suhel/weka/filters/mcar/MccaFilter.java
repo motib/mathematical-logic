@@ -57,7 +57,7 @@ public class MccaFilter extends SimpleBatchFilter {
 	log.info(data.instance(i).value(n));
 	values[n+1] = data.instance(i).value(n);
 	log.info(data.instance(i).value(n));
-	//double td=mapline[n].addValue(values[n+1], i);
+	double td=mapline[n].addValue(values[n+1], i);
 	mValues[n+1]=td;
       }
       values[0] = i;
