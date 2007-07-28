@@ -149,6 +149,10 @@ public class Tool {
     return result;
   }
 
+  public static String printItemMap(Map map){
+    
+    return null;
+  }
   /**
    * @param args
    */
