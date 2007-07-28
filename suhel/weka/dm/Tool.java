@@ -1,8 +1,10 @@
 package weka.dm;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 import java.io.*;
 
@@ -13,7 +15,6 @@ import weka.core.*;
 import org.apache.log4j.*;
 import weka.classifiers.mcar.*;
 import weka.filters.mcar.LineFilter;
-import weka.filters.mcar.MapLine;
 
 public class Tool {
   static Logger log=Logger.getLogger(Tool.class);
@@ -165,6 +166,21 @@ public class Tool {
        e.printStackTrace();
     }
     //log.info(ins.toString())
+  }
+  
+  public static Set<int[]> decart(Set<Integer> s1, Set<Integer> s2){
+    Set<int[]> result=new HashSet<int[]>();
+    if(s1.size()==0)log.warn("S1 is empty");
+    if(s2.size()==0)log.warn("S2 is empty");
+    for (Integer is1 : s1) {
+      for (Integer is2 : s2) {
+	int[] item=new int[2];
+	item[0]=is1;
+	item[1]=is2;
+	result.add(item);
+      }
+    }
+    return result;
   }
 
   
