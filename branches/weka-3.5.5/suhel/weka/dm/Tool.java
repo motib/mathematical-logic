@@ -170,6 +170,7 @@ public class Tool {
   
   public static Set<int[]> decart(Set<Integer> s1, Set<Integer> s2){
     Set<int[]> result=new HashSet<int[]>();
+    //TODO delete the if condition later for performance
     if(s1.size()==0)log.warn("S1 is empty");
     if(s2.size()==0)log.warn("S2 is empty");
     for (Integer is1 : s1) {
