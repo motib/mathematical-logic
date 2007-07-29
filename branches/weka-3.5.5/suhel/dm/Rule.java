@@ -33,7 +33,7 @@ public class Rule {
       clss[i]=clss2[i];
       clssOcc[i]=clssOcc2[i];
     }
-//    log.info(s+"numOfClasses "+numOfClasses+"clss "+clss[0]+" occ"+clssOcc[0] );
+    log.info("RuleID: "+ s+"numOfClasses "+numOfClasses+"clss "+clss[0]+" occ"+clssOcc[0] );
     ruleId=s;
   }
 

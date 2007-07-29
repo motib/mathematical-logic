@@ -8,6 +8,7 @@ import java.awt.Frame;
 
 import java.io.*;
 import org.apache.log4j.*;
+
 /**
  * <p>Title: MCAR</p>
  * <p>Description: </p>
@@ -27,7 +28,7 @@ public class Chooser {
   }
 
   public boolean isFileSelected(String dialogType){
-    JFileChooser chooser=new JFileChooser();
+    JFileChooser chooser=new JFileChooser("data");
     chooser.setCurrentDirectory(new File("c://a//contact.txt"));
     if(dialogType.equals("open"))
         chooser.setDialogType(JFileChooser.OPEN_DIALOG);

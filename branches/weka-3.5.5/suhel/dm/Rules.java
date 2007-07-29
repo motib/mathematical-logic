@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 import java.text.*;
 import org.apache.log4j.*;
 
+import weka.core.Instance;
+
 
 /**
  * <p>Title: </p>
@@ -59,7 +61,7 @@ public class Rules {
    * Key: Integer line ids of tested datamine
    * value:String the corrosponding rule ids in the classifier
    */
-  TreeMap pc = new TreeMap(); ///added when writing saveWithPredition() method
+  TreeMap<Integer,Rule> pc = new TreeMap<Integer, Rule>(); ///added when writing saveWithPredition() method
   Set<Long> idis = new HashSet<Long>(); //contains the original idis of the rules (new)
   DataMine destDm;
 
@@ -101,7 +103,8 @@ public class Rules {
       long[] a = (long[]) e.getValue();
       int tint = (int) a[1];
       Column clmn = (Column) dm.existingColumns.get(new Long(a[0]));
-      s2 += "\n" + tt.format("dbl") + "\t" + a[0] + "\t" + a[1] + "\t" +
+      if(clmn==null)log.error("Column not found :"+ a[0]);
+      s2 += "\n" +  a[0] + "\t" + a[1] + "\t" +
       clmn.calculateItemConfidence(new Integer(tint)) + "\n"; //+clmn.prntRuleOcc(new Integer(tint));//tt.format
     }
     return s + s2;
@@ -177,13 +180,15 @@ public class Rules {
   }
 
   public boolean addRule(long clmn2, int itm2, int occ2, String cls) {
-    String[] cols = new String[numOfCols];
+    
     String[] clss = new String[100];
     clss[0] = cls; //this is not good ,but to be changed later
     int[] clssOcc = new int[100];
     clssOcc[0] = occ2;
     int allOcc = occ2;
-    String ruleId = fillCols(cols, clmn2, itm2);
+    String[] cols = getRuleCondition( clmn2, itm2);;
+
+    //String ruleId = fillCols(cols, clmn2, itm2);
     addRule(new Rule(numOfCols,
 	cols,
 	allOcc,
@@ -194,27 +199,25 @@ public class Rules {
   }
   /**
    * 
-   * @param cols
-   * @param clm
-   * @param item
+   * @param clm long
+   * @param item line
    * @return 
    */
-  private String fillCols(String[] cols, long clm, int item) {
-    String s = "";
+  private String[] getRuleCondition(long column, int item){
+    String[] cols=new String[numOfCols];
     for (byte i = 0; i < numOfCols; i++) {
-      if ( ( (1L << i) & clm) != 0) {
+      if ( ( (1L << i) & column) != 0) {
 	cols[i] = ( (String[]) dm.entity.get(new Integer(item)))[i + 1];
       }
       else {
 	cols[i] = "*";
       }
-      s += cols[i] + "|";
     }
-    return s;
+    return cols;
   }
-  public boolean addRule(Rule rl) {
+  protected boolean addRule(Rule rl) {
     String s = rl.getId();
-    Rule trl = (Rule) mp.get(s);
+    Rule trl =  mp.get(s);
     if (trl == null) {
       mp.put(s, rl);
       al.add(s);
@@ -516,8 +519,8 @@ public class Rules {
     RemainInstOcc -= deletedRows.size();
     dm.delLines(deletedRows);
     int rem = dm.TOTAL_ENTITIES;
-    System.out.println(" 1  lines remained :" + rem + "\titeration :" + iter +
-	"\trankedRules :" + rankedRuleSet.size());
+    //System.out.println(" 1  lines remained :" + rem + "\titeration :" + iter +
+//	"\trankedRules :" + rankedRuleSet.size());
     if (minRemainInstOcc >= dm.TOTAL_ENTITIES) {
       JOptionPane.showMessageDialog(null, "l   ast iteratiom " + iter);
     }
@@ -560,21 +563,48 @@ public class Rules {
     rulesDataMine = new DataMine(entts, aClass);
     rulesDataMine.generateOccuranceColumns();
   }
+//setRulesDataMine();//to be called once before calling classifyInstances 
+  public double classifyInstance(Instance inst) throws Exception {
+    String[] row=new String[numOfCols+1];
+    int classIndex=inst.classIndex();
+    log.info("classIndex = "+classIndex);
+    for (int i = 1; i < row.length; i++) {
+      row[i]=inst.stringValue(i-1);
+    }
+    //class
+    row[0]=inst.stringValue(classIndex);
+    //double result = .01;
+    
+    TreeSet<Integer> remainRules = new TreeSet<Integer>(rulesDataMine.entity.keySet());
+    for (int i = 1; i <= numOfCols; i++) {
+	long intCol = (long) Math.pow(2, i - 1);
+	TreeSet<Integer> ts = new TreeSet<Integer>();
+	ts.addAll(   rulesDataMine.getValueOccurancesInColumn(row[i],intCol));
+	ts.addAll(   rulesDataMine.getValueOccurancesInColumn("*", intCol));
+	remainRules.retainAll(ts);
+    }
+    Rule rl = pickARule(remainRules);
+    String classValue=rl.clss[0];
+    if(classValue.equals(row[0]))return 1.0; else return 0.0;
+    //pc.put( 5, rl);
+   
+
+
+    //return result;
+
+  }
+
   public void applyToDatamineAndSaveTo2(DataMine testDm, String desFile) throws
   IOException {
     setRulesDataMine();
     pc.clear();
     //   log.info(rulesDataMine.printDataMine());
     int counter = 0;
-    Iterator  iter =  testDm.entity.entrySet().iterator();
+    Iterator<Map.Entry<Integer,String[]> > iter =  testDm.entity.entrySet().iterator();
     while (iter.hasNext()) {
-      Map.Entry e = (Map.Entry) iter.next();
+      Map.Entry<Integer,String[]> e =  iter.next();
       TreeSet<Integer> remainRules = new TreeSet<Integer>(rulesDataMine.entity.keySet());
-      String[] row = (String[]) e.getValue();
-      String condit = "";
-//      for (int cd = 1; cd <= numOfCols; cd++) { //for test to be deleted later
-//	condit += row[cd] + " ";
-//      }
+      String[] row =   e.getValue();
       for (int i = 1; i <= numOfCols; i++) {
 	long intCol = (long) Math.pow(2, i - 1);
 	TreeSet<Integer> ts = new TreeSet<Integer>();
@@ -628,16 +658,16 @@ public class Rules {
     applyToDatamineAndSaveToOld(testDataMine, resultFile);
 
   }
-  Rule pickARule(TreeSet PRemainRules) {
-    int line = ( (Integer) PRemainRules.first()).intValue();
-    String ruleId = (String) al.get(line - 1);
-    Rule rl = (Rule) mp.get(ruleId);
+  Rule pickARule(TreeSet<Integer> PRemainRules) {
+    int line =  PRemainRules.first().intValue();
+    String ruleId = al.get(line - 1);
+    Rule rl =  mp.get(ruleId);
     return rl;
   }
-  Rule pickARuleOld(TreeSet PRemainRules) {
-    int line = ( (Integer) PRemainRules.first()).intValue();
-    String ruleId = (String) al.get(line - 1);
-    Rule rl = (Rule) mp.get(ruleId);
+  Rule pickARuleOld(TreeSet<Integer> PRemainRules) {
+    int line =  PRemainRules.first().intValue();
+    String ruleId =  al.get(line - 1);
+    Rule rl =  mp.get(ruleId);
     return rl;
   }
   ///
@@ -652,8 +682,7 @@ public class Rules {
     while (iter.hasNext()) {
       Integer lineNum = (Integer) iter.next();
       String[] LineValues = (String[]) testDataMine.entity.get(lineNum);
-      Rule rl = (Rule) pc.get(lineNum);
-      //Rule rl=(Rule)mp.get(rlId);
+      Rule rl =  pc.get(lineNum);
       String bestClass = rl.clss[0];
       int bestOcc = rl.clssOcc[0];
       int bestJi = 0;

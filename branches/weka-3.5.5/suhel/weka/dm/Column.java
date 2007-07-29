@@ -160,15 +160,18 @@ public class Column {
     FastVector atts=new FastVector(2);
     FastVector nullVectr=null;
     Attribute line=new Attribute("line",nullVectr);
+    Attribute count=new Attribute("counts");
     Attribute occs=new Attribute("occs",nullVectr);
 
     atts.addElement(line);
+    atts.addElement(count);
     atts.addElement(occs);
     result=new Instances(relationName,atts,0);
     for (Map.Entry<Integer,Set<Integer>> iter : map.entrySet()) {
-      Instance ins=new Instance(2);
+      Instance ins=new Instance(3);
       ins.setDataset(result);
       ins.setValue(0, String.valueOf(iter.getKey()) );
+      
 
 
       String occStr="";
@@ -178,7 +181,8 @@ public class Column {
 	occStr+=ln.toString()+"-";
       }
       // occStr+="'";
-      ins.setValue(1, occStr );
+      ins.setValue(1, lns.size());
+      ins.setValue(2, occStr );
       result.add(ins);
     }
 

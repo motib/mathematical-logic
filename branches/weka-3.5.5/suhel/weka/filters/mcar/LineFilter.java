@@ -4,6 +4,7 @@ import weka.core.*;
 import weka.core.Capabilities.*;
 import weka.filters.*;
 import weka.core.Instances;
+import weka.dm.MapLine;
 import weka.filters.SimpleBatchFilter;
 import weka.gui.beans.ClassValuePicker;
 
