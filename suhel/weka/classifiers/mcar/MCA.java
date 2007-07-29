@@ -26,9 +26,14 @@ import weka.filters.unsupervised.attribute.Normalize;
 import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 import weka.filters.unsupervised.attribute.Standardize;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Vector;
 import org.apache.log4j.*;
+
+import dm.Cv;
+import dm.DataMine;
 
 /**
  <!-- globalinfo-start -->
@@ -67,9 +72,16 @@ import org.apache.log4j.*;
 
 public class MCA 
 extends Classifier 
-implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
-  
+implements Serializable,OptionHandler, IntervalEstimator, TechnicalInformationHandler {
+
   static Logger log= Logger.getLogger(MCA.class);
+
+  DataMine trainDatamine;
+  DataMine testDatamine;
+  Cv cv;//??
+  double support=0.05;
+  double confidence=0.40;
+  int iteration=1;
 
   /** for serialization */
   static final long serialVersionUID = -8620066949967678545L;
@@ -77,12 +89,12 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
   /** The filter used to make attributes numeric. */
   protected NominalToBinary m_NominalToBinary;
 
-  
+
   /** no filter */
   public static final int FILTER_NONE = 0;
   /** The filter to apply to the training data */
   public static final Tag [] TAGS_FILTER = {
-   
+
     new Tag(FILTER_NONE, "No normalization/standardization")
   };
 
@@ -100,7 +112,7 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
       and has a numeric class. */
   protected boolean m_checksTurnedOff = false;
 
-  
+
   protected double m_support=0.05;
   protected double m_confidence=0.4;
   protected int m_iter=1;
@@ -108,7 +120,7 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
   /** The class index from the training data */
   protected int m_classIndex = -1;
 
-  
+
 
   /** The number of training instances */
   protected int m_NumTrain = 0;
@@ -116,14 +128,14 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
   /** The training data. */
   protected double m_avg_target;
 
-  
+
   /**
    * the default constructor
    */
   public MCA() {
     super();
 
-    
+
   }
 
   /**
@@ -134,7 +146,7 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
   public String globalInfo() {
 
     return  "Implements MCAR classifier\n\n  "
-        + getTechnicalInformation().toString();
+    + getTechnicalInformation().toString();
   }
 
   /**
@@ -194,7 +206,13 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
   @Override
   public void buildClassifier(Instances insts) throws Exception {
 
-    
+    try{
+      trainDatamine= new DataMine(insts);
+     // trainDatamine.iterate2(0.0,confidence,support,iteration);
+      trainDatamine.iterate(0.0,confidence,support,2);
+      log.info("\n--->Classifier has been buit successfully");
+    }catch (IOException ioe){}
+
 
   }
 
@@ -209,9 +227,9 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
   @Override
   public double classifyInstance(Instance inst) throws Exception {
 
-
-    double result = .01;
-
+   
+    double result =  trainDatamine.rules.classifyInstance(inst);
+    
     return result;
 
   }
@@ -238,7 +256,7 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
    * @return tha variance
    * @throws Exception if computation fails
    */
-  
+
 
   /**
    * Returns an enumeration describing the available options.
@@ -250,10 +268,10 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
 
     Vector result = new Vector();
 
-     Enumeration enm = super.listOptions();
-     while (enm.hasMoreElements())
-       result.addElement(enm.nextElement());
- 
+    Enumeration enm = super.listOptions();
+    while (enm.hasMoreElements())
+      result.addElement(enm.nextElement());
+
     result.addElement(new Option(
 	"\tLevel of Gaussian Noise.\n"
 	+ "\t(default: 1.0)",
@@ -275,13 +293,13 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
   }
 
 
-  
+
   @Override
   public void setOptions(String[] options) throws Exception {
     String	tmpStr;
     String[]	tmpOptions;
 
-    
+
 
     tmpStr = Utils.getOption('S', options);
     if (tmpStr.length() != 0)
@@ -301,7 +319,7 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
     else
       setM_iter(1);
 
-   
+
 
     super.setOptions(options);
   }
@@ -318,9 +336,9 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
     String[]  options;
 
     result = new Vector();
-//    options = super.getOptions();
-//    for (i = 0; i < options.length; i++)
-//      result.add(options[i]);
+//  options = super.getOptions();
+//  for (i = 0; i < options.length; i++)
+//  result.add(options[i]);
 
     result.add("-S");
     result.add("" + getM_support());
@@ -344,7 +362,7 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
     return "The kernel to use.";
   }
 
-  
+
 
   /**
    * Returns the tip text for this property
@@ -390,7 +408,7 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
 
 
 
-  
+
 
   public double getM_support() {
     return m_support;
@@ -408,8 +426,8 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
     this.m_confidence = m_confidence;
   }
 
-  
-  
+
+
   /**
    * Prints out the classifier.
    *
@@ -418,8 +436,8 @@ implements OptionHandler, IntervalEstimator, TechnicalInformationHandler {
   @Override
   public String toString() {
 
-  
-    return "ddd";
+    
+    return trainDatamine.rules.getClassifier().toString();
   }
 
   /**

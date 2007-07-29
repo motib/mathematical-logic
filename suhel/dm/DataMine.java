@@ -27,7 +27,7 @@ public class DataMine {
   int TOTAL_ENTITIES;
   public TreeMap <Long, Column>existingColumns;
   long allColumns=0L;
-  Rules rules;
+  public Rules rules;
   //holds the line numbers
   public Set<Integer> allLines;
   Instances instances;
@@ -112,8 +112,8 @@ public class DataMine {
     this. instances=new Instances(instances);
     int numOfCols=instances.numAttributes();
     TOTAL_ENTITIES=instances.numInstances();
-    log.trace("TOTAL_ENTITES  "+ TOTAL_ENTITIES);
-    log.trace("numOfCols "+numOfCols);
+    //log.trace("TOTAL_ENTITES  "+ TOTAL_ENTITIES);
+    //log.trace("numOfCols "+numOfCols);
 
     orgSize=TOTAL_ENTITIES;
     classArray= new String[TOTAL_ENTITIES];
@@ -121,7 +121,7 @@ public class DataMine {
     entity=new TreeMap<Integer,String[]>();
 
     
-    log.info("Instances: "+instances.toString());
+    //log.info("Instances: "+instances.toString());
 
     int line=1;
     Enumeration<Instance> ins=instances.enumerateInstances();
@@ -134,7 +134,7 @@ public class DataMine {
       }
       System.out.println("\t");
       row[0]=inselem.stringValue(numOfCols-1);
-      log.trace("row[0] :"+row[0]);
+      //log.trace("row[0] :"+row[0]);
       classArray[line]=inselem.stringValue(numOfCols-1);
       entity.put(line, row);
     }
