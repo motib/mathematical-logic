@@ -36,6 +36,7 @@ import dm.Chooser;
 */
 public class SwingApp extends javax.swing.JFrame {
 static Logger log=Logger.getLogger(SwingApp.class);
+private JMenuItem mnuPrintExistingColumns;
 	WorkBench wb=new WorkBench();
 	{
 		//Set Look & Feel
@@ -126,6 +127,12 @@ static Logger log=Logger.getLogger(SwingApp.class);
 					toolBar.add(btnTest);
 					btnTest.setText("Test");
 					btnTest.setLayout(null);
+					btnTest.setEnabled(false);
+					btnTest.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							btnTestActionPerformed(evt);
+						}
+					});
 				}
 			}
 			{
@@ -174,6 +181,11 @@ static Logger log=Logger.getLogger(SwingApp.class);
 						mnuCleanLeft = new JMenuItem();
 						screen.add(mnuCleanLeft);
 						mnuCleanLeft.setText("Clean Left");
+						mnuCleanLeft.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								txtLeft.setText("");
+							}
+						});
 					}
 				}
 				{
@@ -194,10 +206,24 @@ static Logger log=Logger.getLogger(SwingApp.class);
 						mnuPrintInstance = new JMenuItem();
 						mnuPrint.add(mnuPrintInstance);
 						mnuPrintInstance.setText("Print File");
+						mnuPrintInstance.setEnabled(false);
 						mnuPrintInstance
 							.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								mnuPrintInstanceActionPerformed(evt);
+							}
+							});
+					}
+					{
+						mnuPrintExistingColumns = new JMenuItem();
+						mnuPrint.add(mnuPrintExistingColumns);
+						mnuPrintExistingColumns
+							.setText("Print Existing Columns");
+						mnuPrintExistingColumns.setEnabled(false);
+						mnuPrintExistingColumns
+							.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								mnuPrintExistingColumnsActionPerformed(evt);
 							}
 							});
 					}
@@ -217,6 +243,9 @@ static Logger log=Logger.getLogger(SwingApp.class);
 		    try{
 			    Instances data= new Instances(new FileReader(dataFile));
 			    wb.setData(data);
+			    btnTest.setEnabled(true);
+			    mnuPrintInstance.setEnabled(true);
+			   
 		      
 		    }catch(Exception e){
 		      
@@ -237,6 +266,23 @@ static Logger log=Logger.getLogger(SwingApp.class);
 		//TODO add your code for mnuClean.actionPerformed
 		txt.setText("");
 		
+	}
+	
+	private void mnuPrintExistingColumnsActionPerformed(ActionEvent evt) {
+		if(wb.existingColumns == null){
+			lblStatus.setText("existing coulmns are not set yet");
+			return;
+		}
+		if(wb.existingColumns.size()==0){
+			lblStatus.setText("no columns in the existing columns");
+			return;
+		}
+		txt.setText(wb.printColumns());
+	}
+	
+	private void btnTestActionPerformed(ActionEvent evt) {
+		wb.generate(0, 2);
+		mnuPrintExistingColumns.setEnabled(true);
 	}
 
 }
