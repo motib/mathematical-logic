@@ -20,11 +20,16 @@ public class Column {
 	private Map<Long,Column> existingColumns=null;
 	final long columnId;
 	private Map<Integer, Set<Integer>> items=new HashMap<Integer, Set<Integer>>();
+	private Map<Integer, Set<Integer>> rItems=new HashMap<Integer, Set<Integer>>();
 	private Set<Integer> ruleSet=null;
 	private Column fColumn,sColumn;
 
 	private int oSupport=-1;
 
+
+	public Map<Integer, Set<Integer>> getRItems() {
+		return rItems;
+	}
 
 	public Column(Instances instances,long columnId,Map<Long,Column> existingColumns) {
 		super();
@@ -42,9 +47,9 @@ public class Column {
 		if(   ! existingColumns.keySet().contains(sub1)
 				|| ! existingColumns.keySet().contains(sub2))
 			return false;//w
-			fColumn= existingColumns.get(sub1);
-			sColumn= existingColumns.get(sub2);
-			return true;
+		fColumn= existingColumns.get(sub1);
+		sColumn= existingColumns.get(sub2);
+		return true;
 	}
 
 
@@ -122,6 +127,7 @@ public class Column {
 		}
 
 		items=new HashMap<Integer, Set<Integer>>();
+		rItems=new HashMap<Integer, Set<Integer>>();
 		Map<Integer, Set<Integer>> map=null;
 		if(isAtomic()) 
 			map= generateAtomicOccurances();
@@ -130,7 +136,11 @@ public class Column {
 
 		for (Map.Entry<Integer, Set<Integer>> iter : map.entrySet()) {
 			Set<Integer> s=iter.getValue();
-			if(s.size() >= oSupport)	items.put(iter.getKey(), s);
+			if(s.size() >= oSupport)
+				items.put(iter.getKey(), s);
+			else
+				rItems.put(iter.getKey(), s);
+			
 		}
 
 		if(items.size()>0)
@@ -149,6 +159,10 @@ public class Column {
 
 	public  Instances getItemsAsInstances( ){
 		return getItemsAsInstances(this.items, instances.relationName()+","+this.columnId);
+	}
+	
+	public Instances getRItemsAsInstances(){
+		return getItemsAsInstances(this.rItems, instances.relationName()+","+this.columnId+",R");
 	}
 	public static int first(Set<Integer> set){
 		int result=Integer.MAX_VALUE;
