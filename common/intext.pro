@@ -5,6 +5,7 @@
 
 :- module(intext,
   [symbol_opr/2,
+   latex_opr/2,
    to_external/2,
    to_external_list/2,
    to_internal/2,
@@ -22,6 +23,18 @@ symbol_opr(~ ,   neg).
 symbol_opr(# ,   always).
 symbol_opr(<> ,  eventually).
 symbol_opr(@,    next).
+
+latex_opr('\\oplus',   xor).
+latex_opr('\\leftrightarrow', eqv).
+latex_opr('\\rightarrow', imp).
+latex_opr('\\vee',   or).
+latex_opr('\\wedge',   and).
+latex_opr('\\neg',   neg).
+latex_opr('\\Box',   always).
+latex_opr('\\Diamond',  eventually).
+latex_opr('\\ocircle',    next).
+latex_opr('\\forall',    'forall').
+latex_opr('\\exists',   'exists').
 
 %  to_external(Int, Ext) -
 %    translates Int in internal format to Ext in external format

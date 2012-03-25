@@ -4,6 +4,7 @@
 
 user:file_search_path(common,'../common').
   :- ensure_loaded(common(ops)).
+  :- ensure_loaded(common(io)).
   :- ensure_loaded(common(intext)).
   :- ensure_loaded(check).
 
