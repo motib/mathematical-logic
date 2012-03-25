@@ -3,9 +3,11 @@
 %  Test program for resolution.
 
 user:file_search_path(common,'../common').
-:- ensure_loaded(common(ops)).
-:- ensure_loaded(common(intext)).
-:- ensure_loaded(resolv).
+  :- ensure_loaded(common(ops)).
+  :- ensure_loaded(common(intext)).
+  :- ensure_loaded(common(io)).
+  :- ensure_loaded(resolv).
+  :- ensure_loaded(cnfprop).
 
 test(A) :-
   write_formula(A), nl,

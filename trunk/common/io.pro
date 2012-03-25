@@ -3,6 +3,10 @@
 %  module io
 
 :- module(io, [
+  explain/1,
+  explain/2,
+  clear_verbose/0,
+  set_verbose/0,
   write_formula/1,
   write_formula_list/1,
   write_tt_line/3,
@@ -12,8 +16,26 @@
   write_clauses/1,
   write_unified/3,
   write_tl_tableau/4,
-  write_fulfil/4
+  write_fulfil/4,
+  write_latex/1
   ]).
+
+:- dynamic verbose/0.
+
+set_verbose :- verbose, !.
+set_verbose :- assert(verbose).
+
+clear_verbose :- retract(verbose).
+
+explain(S) :- verbose, !, write(S), nl.
+explain(_).
+
+explain(S, Goal) :-
+  verbose, !,
+  write(S),
+  call(Goal),
+  nl.
+explain(_, _).
 
 %  term_length(T, L) - L is the length of term T
 
@@ -332,3 +354,61 @@ write_fulfil_result(R) :-
   write_tableau_result(open).
 write_fulfil_result(_) :-
   write_tableau_result(closed).
+
+
+  
+%  write_latex(Fml) - write the formula Fml in LaTex
+
+write_latex(Fml) :-
+  copy_term(Fml, Fml1),          % Do not instantiate original formula.
+  numbervars(Fml1, x, 1, _),     % Instantiate variables for output.
+  write_latex1(Fml1).
+
+%  Quantifiers
+write_latex1(all(X, A)) :- !,
+  latex_opr(Q, 'forall'),
+  write(Q),
+  write(' '),
+  write_term(X),
+  write(' '),
+  write_latex1(A).
+write_latex1(ex(X, A))  :- !,
+  latex_opr(Q, 'exists'),
+  write(Q),
+  write(' '),
+  write_term(X),
+  write(' '),
+  write_latex1(A).
+
+%  Binary operators
+write_latex1(Fml) :-
+  Fml =.. [Opr, A, B],
+  latex_opr(L, Opr), !,
+  write_latex2(L, A, B).
+
+%  Unary operators
+write_latex1(Fml) :-
+  Fml =.. [Opr, A],
+  latex_opr(L, Opr), !,
+  write(L),
+  write(' '),
+  write_latex1(A).
+
+%  Atoms
+write_latex1(A) :-
+  atom(A), !,
+  write(A).
+
+%  Terms
+write_latex1(A) :-
+  A =.. [F | Vars],
+  write(F), write('('),
+  write_subterms(Vars),
+  write(')').
+
+%  write_latex2(Fml) - add parentheses for binary formulas
+
+write_latex2(Op, A, B) :-
+  write('('), write_latex1(A), write(' '),
+  write(Op),
+  write(' '), write_latex1(B), write(')').

@@ -75,6 +75,7 @@ complement(Literal, neg Literal).
 eliminate([], _, A, A).
 eliminate([H|T], Literal, SoFar, A) :-
   member(Literal, H), !,
+  explain('Deleting clause: ', dpll:put_clause(H)),
   eliminate(T, Literal, SoFar, A).
 eliminate([H|T], Literal, SoFar, A) :-
   eliminate(T, Literal, [H|SoFar], A).
@@ -87,6 +88,7 @@ eliminate([H|T], Literal, SoFar, A) :-
 delete_complement([], _, A, A).
 delete_complement([H|T], Literal, SoFar, A) :-
   member(Literal, H), !,
+  explain('Deleting literal from clause: ', dpll:put_clause(H)),
   delete(H, Literal, H1),
   delete_complement(T, Literal, [H1|SoFar], A).
 delete_complement([H|T], Literal, SoFar, A) :-
@@ -108,16 +110,19 @@ put_clauses1([H]) :- !,
   put_clause(H),
   write(']'), nl.
 put_clauses1([H|T]) :-
-  write('['),
   put_clause(H),
-  write(']'),
   write(','), nl,
   put_clauses1(T).
 
-put_clause([]) :- !.
-put_clause([H]) :-
+put_clause(C) :-
+  write('['),
+  put_clause1(C),
+  write(']').
+
+put_clause1([]) :- !.
+put_clause1([H]) :-
   write_formula(H).
-put_clause([H|T]) :-
+put_clause1([H|T]) :-
   write_formula(H),
   write(','),
-  put_clause(T).
+  put_clause1(T).

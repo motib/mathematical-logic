@@ -19,7 +19,7 @@
 \title{\bfseries Mathematical Logic for Computer Science\\
 \bfseries\large (Third Edition)\\\mbox{}\\
 \bfseries\Large Prolog Programs\\\mbox{}\\
-\bfseries\normalsize Version 3.0.0}
+\bfseries\normalsize Version 3.1.0}
 
 %\date{}
 \begin{document}
@@ -76,6 +76,7 @@ for the list of files):
 \begin{itemize}
 \item \p{common} - modules and files used by other programs
 \item \p{prop}   - propositional logic
+\item \p{dpll}   - DPLL algorithm
 \item \p{fol}    - first-order logic
 \item \p{tl}     - temporal logic
 \end{itemize}
@@ -120,17 +121,33 @@ Instead, the following operators are used to for input and output:
 Module \p{intext} contains predicates that translate between the
 notations.
 
-Here is a formula followed by its external and internal representations:
+Other modules in the directory \p{common} are \p{defs} which contain the
+semantic definitions of the Boolean operators and \p{io} which performs
+input and output of the various logical formalisms. 
+
+The predicate \p{write\_latex} writes a formula in \LaTeX{}.
+
+Here is a formula in \LaTeX{} followed by its external and internal representations:
 \begin{itemize}
 \item $(p \oplus q)  \leftrightarrow (\neg (p \rightarrow q) \vee \neg (q\rightarrow p) )$.
 \item \verb+(p xor q)  eqv (neg (p imp q) or neg (q imp p))+
 \item \verb=(p + q) <-> (~(p -> q) v ~(q -> p))=
 \end{itemize}
 
-Other modules in the directory \p{common} are \p{defs} which contain the
-semantic definitions of the Boolean operators and \p{io} which performs
-input and output of the various logical formalisms. 
+\subsection{Verbose explanations}
 
+The predicate \p{explain} in module \p{io} enables verbose explanations
+of the steps of algorithms. There are two forms: \p{explain(A)} prints
+\p{A} and \p{explain(A,G)} prints \p{A} and then calls the goal \p{G}.
+Turn verbose explanations on and off using the predicates
+\p{set\_verbose} and \p{clear\_verbose}.
+
+Currently, verbose explanations are used in the DPLL algorithm:
+\begin{verbatim}
+  explain('Deleting clause: ', dpll:put_clause(H))
+
+  explain('Deleting literal from clause: ', dpll:put_clause(H))
+\end{verbatim}
 
 
 \section{Propositional logic}
@@ -309,6 +326,11 @@ duplicates, and the literals in the clauses are sorted so that duplicate
 clauses can be identified.
 
 
+\subsection{DIMACS format}
+
+The predicate \p{to\_dimacs} takes a set of clauses (a list of lists of
+literals) and writes it to a file in a format known as ``simplified
+DIMACS cnf'' format that is used by SAT solvers.
 
 
 \subsection{Resolution}\label{s.resprop}
@@ -336,7 +358,6 @@ resolve(S) :-
   write_clauses(S), nl,        
   resolve([C | S]).            % add the resolvent to the set
 \end{verbatim}
-
 
 
 \subsection{Binary decision diagrams}\label{s.bdd}
@@ -434,7 +455,6 @@ controlling for $\vee$ and $F$ is controlling for $\wedge$.
 The restriction and quantification operations are also implemented.
 
 
-
 \section{DPLL algorithm}
 
 The DPLL algorithm \p{dpll} works on a set of clauses represented as a
@@ -447,14 +467,16 @@ Both predicates use \p{eliminate} to delete clauses that contain the
 literal and \p{delete\_complement} to delete occurrences of the
 complement of the literals.
 
-The test program the four-queens problem given in the book. The
-predicate \p{put\_clauses} displays the set of clauses with each clause
-on a separate row. If the literal entered is \p{p12}, the predicate
-terminates with the empty set of clauses and the assignments to positive
-literals give the answer, and, similarly, if the literal entered is
-\p{p13}. If the literals entered are \p{p11} followed by \p{p23}, the
-predicate terminates with a set containing the empty clause, showing
-that the set is unsatisfiable.
+The test program \p{dpll-queens-t.pro} is for the four-queens problem
+given in the book. The predicate \p{put\_clauses} displays the set of
+clauses with each clause on a separate row. If the literal entered is
+\p{p12}, the predicate terminates with the empty set of clauses and the
+assignments to positive literals give the answer, and, similarly, if the
+literal entered is \p{p13}. If the literals entered are \p{p11} followed
+by \p{p23}, the predicate terminates with a set containing the empty
+clause, showing that the set is unsatisfiable. The file also contains
+the same problem using the encoding in Exercise 1. The test program
+\p{dpll-k33-t.pro} contains the Tseitin clauses for the graph $K_{3,3}$.
 
 \section{First-order logic}
 
@@ -863,7 +885,10 @@ Directory \p{prop} &  (propositional logic)\\
 \p{resolv.pro}   & resolution.\\
 \p{bdd.pro}      & BDD algorithms.\\
 \p{bddwrite.pro} & display of BDDs.\\
+\\
+Directory \p{dpll} &  (DPLL algorithm)\\
 \p{dpll.pro}     & DPLL algorithm.\\
+\p{dimacs.pro}   & Conversion to DIMACS format.\\
 \\
 Directory \p{fol}  & (first-order logic)\\
 \p{cnffol.pro}   & conversion of a formula to CNF\\

@@ -1,25 +1,15 @@
 % Copyright 2000-2012 by M. Ben-Ari. GNU GPL. See prolog.pdf.
 
-%  Test four-queens program for dpll
+%  Convert CNF for four-queens problem to DIMACS format
 
 user:file_search_path(common, '../common').
-  :- ensure_loaded(common(ops)).
-  :- ensure_loaded(common(intext)).
-  :- ensure_loaded(common(io)).
-  :- ensure_loaded(dpll).
+:- ensure_loaded(common(ops)).
+:- ensure_loaded(dimacs).
 
-
-%  Run four-queens and save the output to a file
-
-four-queens-file :-
-  tell('four-queens.txt'),
-  four-queens,
-  told.
-
-%  Call dpll with the clauses for the four-queens problem  
-
-four-queens :-
-  dpll(
+t0 :-
+  to_dimacs(
+    'four-queens.cnf',
+    'Four-queens problem',
   [
   [p11, p12, p13, p14], 
   [p21, p22, p23, p24],
