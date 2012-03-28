@@ -9,23 +9,23 @@ user:file_search_path(common,'../common').
 
 testall :-
   tell('test.tex'),
-  write('\\documentclass{article}'), nl,
-  write('\\usepackage{wasysym}'), nl,
-  write('\\begin{document}'), nl,
-  write('\\begin{displaymath}'), nl,
-  write('\\begin{array}{l}'), nl,
+  write('\\documentclass{article}\n'),
+  write('\\usepackage{wasysym}\n'),
+  write('\\begin{document}\n'),
+  write('\\begin{displaymath}\n'),
+  write('\\begin{array}{l}\n'),
   p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11,
   f1, f2, f3, f4,
   t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13,
-  write('\\end{array}'), nl,
-  write('\\end{displaymath}'), nl,
-  write('\\end{document}'), nl,
+  write('\\end{array}\n'),
+  write('\\end{displaymath}\n'),
+  write('\\end{document}\n'), nl,
   told.
 
 test(F) :-
   to_internal(F, F1),
   write_latex(F1),
-  write('\\\\'), nl.
+  write('\\\\\n').
   
 test1(F) :-
   to_internal(F, F1),
