@@ -10,14 +10,19 @@ user:file_search_path(common, '../common').
 
 %  Run four-queens and save the output to a file
 
-four-queens-file :-
+four_queens_file(Mode) :-
   tell('four-queens.txt'),
-  four-queens,
+  four_queens(Mode),
+  told.
+
+four_queens_ex_file(Mode) :-
+  tell('four-queens-ex.txt'),
+  four_queens_ex(Mode),
   told.
 
 %  Call dpll with the clauses for the four-queens problem  
 
-four-queens :-
+four_queens(Mode) :-
   dpll(
   [
   [p11, p12, p13, p14], 
@@ -55,11 +60,11 @@ four-queens :-
   [neg p32, neg p41], [neg p32, neg p43],
   [neg p33, neg p42], [neg p33, neg p44],
   [neg p34, neg p43]
-  ]).
+  ], Mode, _, _).
 
 %  Four queens with the encoding in Exercise 1  
 
-four-queens-ex :-
+four_queens_ex(Mode) :-
   dpll(
   [
   [p11, p12, p13, p14], 
@@ -92,4 +97,4 @@ four-queens-ex :-
   [neg p42, p11, p13, p14, p21, p23, p34],
   [neg p43, p11, p12, p14, p22, p24, p31],
   [neg p44, p12, p13, p21, p23, p31, p32]
-  ]).
+  ], Mode, _, _).

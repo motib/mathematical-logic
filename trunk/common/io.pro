@@ -190,7 +190,7 @@ write_list(List) :- checklist(write, List).
 %    Write the elements of List with comma separators.
 %    The elements are written by Pred.
 
-write_comma_list(Pred, [T1, T2 | Tail]) :-
+write_comma_list(Pred, [T1, T2 | Tail]) :- !,
   call(Pred, T1),
   write(','),
   write_comma_list(Pred, [T2 | Tail]).
