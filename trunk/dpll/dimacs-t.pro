@@ -1,9 +1,8 @@
-% Copyright 2000-2012 by M. Ben-Ari. GNU GPL. See prolog.pdf.
+% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 %  Convert CNF for four-queens problem to DIMACS format
 
-user:file_search_path(common, '../common').
-:- ensure_loaded(common(ops)).
+:- ensure_loaded(neg).
 :- ensure_loaded(dimacs).
 
 t0 :-
@@ -16,34 +15,40 @@ t0 :-
   [p31, p32, p33, p34],
   [p41, p42, p43, p44],
   
-  [neg p11, neg p12], [neg p11, neg p13], [neg p11, neg p14], 
-  [neg p12, neg p13], [neg p12, neg p14], [neg p13, neg p14],
-  [neg p21, neg p22], [neg p21, neg p23], [neg p21, neg p24],
-  [neg p22, neg p23], [neg p22, neg p24], [neg p23, neg p24],
-  [neg p31, neg p32], [neg p31, neg p33], [neg p31, neg p34],
-  [neg p32, neg p33], [neg p32, neg p34], [neg p33, neg p34],
-  [neg p41, neg p42], [neg p41, neg p43], [neg p41, neg p44],
-  [neg p42, neg p43], [neg p42, neg p44], [neg p43, neg p44],
+  [~p11, ~p12], [~p11, ~p13], [~p11, ~p14], 
+  [~p12, ~p13], [~p12, ~p14], [~p13, ~p14],
+  [~p21, ~p22], [~p21, ~p23], [~p21, ~p24],
+  [~p22, ~p23], [~p22, ~p24], [~p23, ~p24],
+  [~p31, ~p32], [~p31, ~p33], [~p31, ~p34],
+  [~p32, ~p33], [~p32, ~p34], [~p33, ~p34],
+  [~p41, ~p42], [~p41, ~p43], [~p41, ~p44],
+  [~p42, ~p43], [~p42, ~p44], [~p43, ~p44],
   
-  [neg p11, neg p21], [neg p11, neg p31], [neg p11, neg p41],
-  [neg p21, neg p31], [neg p21, neg p41], [neg p31, neg p41],
-  [neg p12, neg p22], [neg p12, neg p32], [neg p12, neg p42],
-  [neg p22, neg p32], [neg p22, neg p42], [neg p32, neg p42],
-  [neg p13, neg p23], [neg p13, neg p33], [neg p13, neg p43],
-  [neg p23, neg p33], [neg p23, neg p43], [neg p33, neg p43],
-  [neg p14, neg p24], [neg p14, neg p34], [neg p14, neg p44],
-  [neg p24, neg p34], [neg p24, neg p44], [neg p34, neg p44],
+  [~p11, ~p21], [~p11, ~p31], [~p11, ~p41],
+  [~p21, ~p31], [~p21, ~p41], [~p31, ~p41],
+  [~p12, ~p22], [~p12, ~p32], [~p12, ~p42],
+  [~p22, ~p32], [~p22, ~p42], [~p32, ~p42],
+  [~p13, ~p23], [~p13, ~p33], [~p13, ~p43],
+  [~p23, ~p33], [~p23, ~p43], [~p33, ~p43],
+  [~p14, ~p24], [~p14, ~p34], [~p14, ~p44],
+  [~p24, ~p34], [~p24, ~p44], [~p34, ~p44],
   
-  [neg p11, neg p22], [neg p11, neg p33], [neg p11, neg p44],
-  [neg p12, neg p21], [neg p12, neg p23], [neg p12, neg p34],  
-  [neg p13, neg p22], [neg p13, neg p31], [neg p13, neg p24],
-  [neg p14, neg p23], [neg p14, neg p32], [neg p14, neg p41],
-  [neg p21, neg p32], [neg p21, neg p43],
-  [neg p22, neg p31], [neg p22, neg p33], [neg p22, neg p44],
-  [neg p23, neg p32], [neg p23, neg p41], [neg p23, neg p34],
-  [neg p24, neg p33], [neg p24, neg p42],
-  [neg p31, neg p42],
-  [neg p32, neg p41], [neg p32, neg p43],
-  [neg p33, neg p42], [neg p33, neg p44],
-  [neg p34, neg p43]
+  [~p11, ~p22], [~p11, ~p33], [~p11, ~p44],
+  [~p12, ~p21], [~p12, ~p23], [~p12, ~p34],  
+  [~p13, ~p22], [~p13, ~p31], [~p13, ~p24],
+  [~p14, ~p23], [~p14, ~p32], [~p14, ~p41],
+  [~p21, ~p32], [~p21, ~p43],
+  [~p22, ~p31], [~p22, ~p33], [~p22, ~p44],
+  [~p23, ~p32], [~p23, ~p41], [~p23, ~p34],
+  [~p24, ~p33], [~p24, ~p42],
+  [~p31, ~p42],
+  [~p32, ~p41], [~p32, ~p43],
+  [~p33, ~p42], [~p33, ~p44],
+  [~p34, ~p43]
   ]).
+
+t1 :-
+  from_dimacs(four, 'four.cnf', 'four.pro').
+
+t2 :-
+  from_dimacs(hole6, 'hole6.cnf', 'hole6.pro').

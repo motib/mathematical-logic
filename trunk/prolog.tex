@@ -19,7 +19,7 @@
 \title{\bfseries Mathematical Logic for Computer Science\\
 \bfseries\large (Third Edition)\\\mbox{}\\
 \bfseries\Large Prolog Programs\\\mbox{}\\
-\bfseries\normalsize Version 3.2.0}
+\bfseries\normalsize Version 3.3.0}
 
 %\date{}
 \begin{document}
@@ -139,7 +139,7 @@ of the steps of algorithms. There are two forms: \p{explain(A)} prints
 \p{A} and \p{explain(A,G)} prints \p{A} and then calls the goal \p{G}.
 Turn verbose explanations on and off using the predicates
 \p{set\_verbose} and \p{clear\_verbose}. Currently, verbose explanations
-are used in the DPLL algorithm only.
+(implemented differently) are used in the DPLL algorithm only.
 
 
 \newpage
@@ -444,6 +444,50 @@ The restriction and quantification operations are also implemented.
 
 \section{SAT solving with the DPLL algorithm}
 
+The programs in this directory are self-contained.
+
+\subsection{Negation operator}
+File \p{neg.pro} contains the definition of the \verb+~+ operator
+and should be loaded (once).
+
+\subsection{Input/output}
+
+Module \p{io.pro} exports the predicates \p{write\_literal(Literal)},
+\p{write\_clause(Clause)}, \p{write\_clauses(Set)}.
+
+It also implements writing explanations (in a different manner than
+described above):
+\begin{itemize}
+\item \p{set\_verbose(N)} is called by the user to set the verbosity
+level to \p{N} (default 0).
+
+\item \p{explain(N, S)}, \p{explain(N, S, G)}: \p{N} is the verbosity
+level at or above which the explanation will be written; \p{S} is a
+string (atom) to be written; \p{G} is a goal to be run after the string
+is written.
+\end{itemize}
+
+\subsection{DIMACS}
+Module \p{dimacs.pro} transforms a set of clauses (a list of lists
+of literals) to and from \emph{simplified DIMACS cnf format} that is
+used by SAT solvers.
+\begin{itemize}
+\item \p{to\_dimacs(File, Comment, Clauses)} transforms the \p{Clauses}
+into DIMACS format and writes them to the \p{File} with a \p{Comment}. 
+
+\item \p{from\_dimacs(Predicate, InFile, OutFile)} reads \p{InFile} in
+DIMACS format and transforms the data into clauses written on
+\p{OutFile}. The output file is in the form for calling \p{dpll}:
+\begin{verbatim}
+:- ensure_loaded(neg).
+:- ensure_loaded(dpll).
+Predicate(Mode) :-
+  dpll( ... list of clauses ..., Mode, _, _).
+\end{verbatim}
+\end{itemize}
+
+\subsection{DPLL algorithm}
+
 The predicate \p{dpll} implements the DPLL algorithm on a set of clauses
 represented as a list of lists of literals. The predicate takes two
 arguments as input---the set of clauses and a mode---and returns two
@@ -458,7 +502,9 @@ performs a search by choosing in turn each literal in the clause and
 assigning it true.
 
 The predicate \p{dpll} invokes the predicate \p{dpll1} which has
-additional arguments for accumulating the choices and assignment.
+additional arguments for accumulating the choices and assignment. It
+also adds an argument which is a \emph{set} of all the literals in the
+clauses so that the same literal will not be chosen more than once. 
 
 If the set of clauses is empty, the set of assignments satisfies the
 formula; the choices, the assignment and the positive literals in the
@@ -466,41 +512,46 @@ assignment are printed. If the set contains the empty clause, the set is
 not satisfied by this assignment and the predicate fails. Otherwise,
 \p{unit\_propagate} is called. If it succeeds, the result is recursively
 passed to \p{dpll}. If not, the user is prompted for a literal or a
-literal is chosen from the set of clauses and the set is partially
-evaluated for this assignment by the predicate \p{evaluate}. Both
-predicates use \p{eliminate} to delete clauses that contain the literal
-and \p{delete\_complement} to delete occurrences of the complement of
-the literals.
+literal is chosen from the set of unassigned literals and the set is
+partially evaluated for this assignment by the predicate \p{evaluate}.
+Both predicates use \p{eliminate} to delete clauses that contain the
+literal and \p{delete\_complement} to delete occurrences of the
+complement of the literals.
 
-The module \p{dpll} contains its own version of the predicate
-\p{put\_clauses}; it displays the set of clauses with each clause on a
-separate row. If \p{set\_verbose} has been run, the algorithm will
-print: (1) the set of clauses that result from unit propagation, (2) the
-clauses that are deleted and (3) the literals deleted from each clause.
+\subsection{Explanations}
 
-The test program \p{dpll-queens-t.pro} is for the four-queens problem
-given in the book. If the literal entered is \p{p12}, the predicate
+The explanations displayed (by verbosity level):
+\begin{enumerate}
+\setcounter{enumi}{-1}
+\item Reports that the set is satisfiable or unsatisfiable. In in search
+mode, the literals chosen. In interactive mode, the current set of
+clauses and the prompt for a literal are always written.
+\item For satisfying assignments: the choices of literals, the full set
+of assignments and the assignments to positive literals (useful for
+display a solution to the four-queens problem).
+\item The initial sets of literals and and variables. The clauses that
+result from unit propagation.
+\item The clauses deleted when a literal is assigned true and the
+clauses from which a literal is deleted when a literal is assigned
+false. 
+\end{enumerate}
+
+\subsection{Test programs}
+
+\begin{itemize}
+\item \p{queens.pro} contains the four-queens problem in two encodings:
+one given in Section 6.4 of the book and the other from exercise 1.
+If the first literal entered is, for example, \p{p12}, the predicate
 terminates with the empty set of clauses and the assignments to positive
-literals give the answer. Similarly, a solution is obtained if the
-literal entered is \p{p13}. If the literals entered are, for example,
-\p{p11} followed by \p{p23}, the predicate terminates with a set
-containing the empty clause, showing that the set is unsatisfiable. The
-test program also contains the encoding of the four-queens problem
-described in Exercise 1.
-
-The test program \p{dpll-tseitin-t.pro} contains the Tseitin clauses for
-the graphs $K_{2,2}$, $K_{3,3}$ and the example used in Section 4.5 of
-the book. The sets of clauses are, of course, unsatisfiable. Be careful
-with the clauses for $K_{3,3}$, as a search takes quite a while and
-generates a very large amount of output. For each set of clauses, a
+literals give the answer.
+\item \p{tseitin.pro} contains the Tseitin clauses for the graphs
+$K_{2,2}$, $K_{3,3}$ and the example from Section 4.5 of the book. The
+sets of clauses are unsatisfiable, but, for each set of clauses, a
 satisfiable variant is given; these are obtained by complementing one
 literal in the set.
-
-\subsection{DIMACS format}
-
-The predicate \p{to\_dimacs} takes a set of clauses (a list of lists of
-literals) and writes it to a file in \emph{simplified DIMACS cnf format}
-that is used by SAT solvers.
+\item \p{pigeon.pro} contains the pigeon-hole problem (Exercise 6.4) for
+two and three holes.
+\end{itemize}
 
 
 \newpage
@@ -902,7 +953,7 @@ associativity.\\
 \p{def.pro}      & correspondence between symbols and internal operators.\\
             & semantic definition of Boolean operators.\\
 \p{intext.pro}   & conversion from external to internal format and conversely.\\
-\p{io.pro}       & display predicates for all programs (except BDDs).\\
+\p{io.pro}       & display predicates for all programs (except BDDs and DPLL).\\
 \\
 Directory \p{prop} &  (propositional logic)\\
 \p{tt.pro}       & truth tables.\\
@@ -915,6 +966,11 @@ Directory \p{prop} &  (propositional logic)\\
 \\
 Directory \p{dpll} &  (DPLL algorithm)\\
 \p{dpll.pro}     & DPLL algorithm.\\
+\p{neg.pro}      & definition of the negation operator.\\
+\p{io.pro}       & display predicates for clauses and explanations.\\
+\p{queens.pro} & test programs.\\
+\p{pigeon.pro} & \\
+\p{tseitin.pro} & \\
 \p{dimacs.pro}   & Conversion to DIMACS format.\\
 \\
 Directory \p{fol}  & (first-order logic)\\
