@@ -11,11 +11,6 @@ queens4_file(Mode) :-
   queens4(Mode),
   told.
 
-queens4_ex_file(Mode) :-
-  tell('four-queens-ex.txt'),
-  queens4_ex(Mode),
-  told.
-
 %  Call dpll with the clauses for the four-queens problem  
 
 queens4(Mode) :-
@@ -56,41 +51,4 @@ queens4(Mode) :-
   [~p32, ~p41], [~p32, ~p43],
   [~p33, ~p42], [~p33, ~p44],
   [~p34, ~p43]
-  ], Mode, _, _).
-
-%  Four queens with the encoding in Exercise 1  
-
-queens4_ex(Mode) :-
-  dpll(
-  [
-  [p11, p12, p13, p14], 
-  [p21, p22, p23, p24],
-  [p31, p32, p33, p34],
-  [p41, p42, p43, p44],
-  
-  [~p11, ~p12], [~p11, ~p13], [~p11, ~p14], 
-  [~p12, ~p13], [~p12, ~p14], [~p13, ~p14],
-  [~p21, ~p22], [~p21, ~p23], [~p21, ~p24],
-  [~p22, ~p23], [~p22, ~p24], [~p23, ~p24],
-  [~p31, ~p32], [~p31, ~p33], [~p31, ~p34],
-  [~p32, ~p33], [~p32, ~p34], [~p33, ~p34],
-  [~p41, ~p42], [~p41, ~p43], [~p41, ~p44],
-  [~p42, ~p43], [~p42, ~p44], [~p43, ~p44],
-
-  [~p11, p23, p24, p32, p34, p42, p43],
-  [~p12, p24, p31, p33, p41, p43, p44],
-  [~p13, p21, p32, p34, p41, p42, p44],
-  [~p14, p21, p22, p31, p33, p42, p43],
-  [~p21, p13, p14, p33, p34, p42, p44],
-  [~p22, p14, p34, p41, p43],
-  [~p23, p11, p31, p42, p44],
-  [~p24, p11, p12, p31, p32, p41, p43],
-  [~p31, p12, p14, p23, p24, p43, p44],
-  [~p32, p11, p13, p24, p44],
-  [~p33, p12, p14, p21, p41],
-  [~p34, p11, p13, p21, p22, p41, p42],
-  [~p41, p12, p13, p22, p24, p33, p34],
-  [~p42, p11, p13, p14, p21, p23, p34],
-  [~p43, p11, p12, p14, p22, p24, p31],
-  [~p44, p12, p13, p21, p23, p31, p32]
   ], Mode, _, _).
