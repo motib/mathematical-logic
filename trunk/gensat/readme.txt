@@ -1,18 +1,24 @@
                      GenerateSat
 
-Copyright 2010 by Moti Ben-Ari. This work is licensed under the Creative
-Commons Attribution-ShareAlike 3.0 License. To view a copy of this
-license, visit \url{http://creativecommons.org/licenses/by-sa/3.0/}; or,
-(b) send a letter to Creative Commons, 543 Howard Street, 5th Floor, San
-Francisco, California, 94105, USA.
+Copyright 2010-12 by Moti Ben-Ari. This work is licensed under the
+Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of
+this license, visit
+\url{http://creativecommons.org/licenses/by-sa/3.0/}; or, (b) send a
+letter to Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
+California, 94105, USA.
 
 The program is copyright under the GNU General Public License.
 
 GenerateSat is a Java program that generates propositional formulas as
 sets of Tseitin clauses on the complete bipartite graph Kn,n. For an
-explanation of the construction of Tseitin clauses, see Section 4.4 of
-M. Ben-Ari, Mathematical Logic for Computer Science, Springer, 2001.
-A formula is written as a Promela program for verification with Spin.
+explanation of the construction of Tseitin clauses, see Section 4.5 of
+M. Ben-Ari, Mathematical Logic for Computer Science, Springer, 2012.
+
+The formulas can be written as Promela programs for verification with
+Spin or as Prolog programs.
+
+                       Promela
+
 Here is the program that is generated for K2,2:
 
 active proctype sat() {
@@ -66,7 +72,7 @@ GenerateSat also generates batch files for these verifications.
 
 Usage:
 
-  GenerateSat n [k [r]]\n" +
+  GenerateSatPML n [k [r]]
     n is the size of the graph Kn,n
     k is the number of satisfiable formulas generated
     r is the number of random verifications for each such formula
@@ -75,3 +81,13 @@ The generated files are named satn-i.pml, where i is 0 for the
 unsatisfiable formula and 1..k for the satisfiable formulas.
 
 This archive contains the files satn-0.pml for n=2..6.
+
+                       Prolog
+
+These programs are intended for use with the LearnSAT SAT solver. See
+the LearnSAT documentation. The usage is the same as for Promela except
+that batch files are not generated.
+
+  GenerateSatPRO n [k [r]]
+    n is the size of the graph Kn,n
+    k is the number of satisfiable formulas generated
