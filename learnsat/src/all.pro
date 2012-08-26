@@ -3,7 +3,7 @@
 % Regression testing:
 %   run all the examples with all display options set (except "dot"). 
 
-:- ensure_loaded([examples,pigeon,queens,tseitin]).
+:- use_module([examples,pigeon,queens,tseitin]).
 
 all :-
   set_mode(ncb),

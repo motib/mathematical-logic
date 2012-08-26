@@ -6,9 +6,12 @@
 %    conflict-driven clause learning (CDCL) and
 %    non-chronological backtracking NCB
 
-:- module(dpll, [dpll/2]).
+:- module(dpll, [op(610, fy,  ~), dpll/2]).
 
-:- ensure_loaded([config,counters,display]).
+:- use_module([config,counters,display]).
+
+:- reexport(display, 
+  [show_config/0, usage/0, set_display/1, clear_display/1, set_mode/1]).
 
 
 %  Data structures

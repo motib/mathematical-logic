@@ -1,6 +1,6 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
-:- ensure_loaded([negation,display,dpll]).
+:- use_module(dpll).
 
 %  Test four-queens program for dpll
 

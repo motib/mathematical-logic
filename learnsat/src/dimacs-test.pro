@@ -2,8 +2,7 @@
 
 %  Convert CNF for four-queens problem to DIMACS format
 
-:- ensure_loaded(negation).
-:- ensure_loaded(dimacs).
+:- use_module(dimacs).
 
 t0 :-
   to_dimacs(
