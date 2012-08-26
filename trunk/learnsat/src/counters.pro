@@ -1,20 +1,18 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(counters,
-  [show_counters/0, increment/1, init_counters/2]).
+  [show_counters/0, increment/1, init_counters/2, get_file_counter/1]).
 
-:- dynamic unit_counter/1, choice_counter/1, conflict_counter/1,
-   clause_counter/1, variable_counter/1,
-   file_counter/1.
+:- dynamic
+     unit_counter/1,   choice_counter/1,   conflict_counter/1,
+     clause_counter/1, variable_counter/1, file_counter/1.
 
 %  Counters for units propagated, choices made, conflicts encountered
-%    init_counters/2 - set clause and variable counters and
-%                      reset the other counters to 0
-%    increment/1     - increment unit, choice or conflict counter
-%    show_counters/0 - write the counters
-%
-%  Counter file_counter used in this module for generating
-%    file names for dot files of the implication graphs
+%  Counter to generate file names for implication graphs
+%  Counter for number of clauses and variables
+
+%  init_counters/2    - set clause and variable counters and
+%                       reset the other counters to 0
 
 init_counters(Clauses, Variables) :-
   retractall(clause_counter(_)),
@@ -30,8 +28,10 @@ init_counters(Clauses, Variables) :-
   retractall(conflict_counter(_)),
   assert(conflict_counter(0)),
   retractall(file_counter(_)),
-  assert(file_counter(1)).
+  assert(file_counter(0)).
 
+
+%  increment/1 - a counter
 
 increment(unit) :-
   retract(unit_counter(N)),
@@ -45,8 +45,14 @@ increment(conflict) :-
   retract(conflict_counter(N)),
   N1 is N + 1,
   assert(conflict_counter(N1)).
+increment(file) :-
+  retract(file_counter(N)),
+  N1 is N + 1,
+  assert(file_counter(N1)).
 
 
+  %  show_counters/0    - write the counters
+  
 show_counters :-
   clause_counter(N1),
   variable_counter(N2),
@@ -63,3 +69,9 @@ show_counters :-
   write(N4),
   write(', conflicts='),
   write(N5), nl.
+
+
+  %  get_file_counter/1 - return the file counter
+
+get_file_counter(N) :-
+  file_counter(N).

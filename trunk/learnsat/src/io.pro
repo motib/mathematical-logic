@@ -9,6 +9,8 @@
   write_dot/1, write_graph/1
   ]).
 
+:- use_module(counters).
+  
 %  write_clauses/2
 %    Clauses - write the set of clauses
 %    Clauses (second occurrence) - to obtain clause number
@@ -57,14 +59,14 @@ write_assignments1([H|T]) :-
   write(','),
   write_assignments1(T).
 
-write_assignment(assign(V, N, Depth, _)) :- !,
+write_assignment(assign(V, N, Depth, _)) :-
   write(V), write('='), write(N), write('@'), write(Depth).
 write_assignment(kappa) :-
   write(kappa).
 
 
 %  write_graph/1
-%    graph(Nodes, Edges)
+%    graph(Nodes, Edges) where Nodes and Edges are lists
 
 write_graph(graph(Nodes, Edges)) :-
   write('[\n'),
@@ -72,6 +74,8 @@ write_graph(graph(Nodes, Edges)) :-
   write('\n]\n[\n'),
   write_edges(Edges),
   write('\n]').
+
+%  write_nodes/1 - write the list of nodes as assignments
 
 write_nodes([]).
 write_nodes([node(N)]) :- !,
@@ -81,32 +85,23 @@ write_nodes([node(N) | Tail]) :-
   write(',\n'),
   write_nodes(Tail).
 
+%  write_edges/1 - write the list of edges as "source -n-> target"
+
 write_edges([]).
 write_edges([edge(From, N, To)]) :- !,
-  write_assignment(From), write('-'),
-  write(N), write('->'), write_assignment(To).
+  write_assignment(From), write(' -'),
+  write(N), write('-> '), write_assignment(To).
 write_edges([edge(From, N, To) | Tail]) :-
-  write_assignment(From), write('-'), 
-  write(N), write('->'), write_assignment(To), write(',\n'),
+  write_assignment(From), write(' -'), 
+  write(N), write('-> '), write_assignment(To), write(',\n'),
   write_edges(Tail).
 
 
 %  write_dot/1
-%    Write the implication Graph to a file in dot format for GraphViz
-%  create_file_name/1
-%    The File name is taken from the file argument of the program
-%  get_file_counter/1
-%    N is taken from file_counter (or 0 if not initialized)
-%      and is incremented for each subsequent file
-%  remove_extension/2, remove_period/2
-%    Remove the extension from the file name and add "-graph-N.dot"
-%
-%  write_dot/1
-%    Edges - only the edges are needed as dot takes the nodes from them
+%    Write the implication graph to a file in dot format for GraphViz
+%    Only the edges are needed as dot takes the nodes from them
 %    Call write_assignment to write each node (including "kappa")
 %    Label each edge with the clause
-%  label_decision_node/1
-%    Decorate a decision node
 
 write_dot(graph(_, Edges)) :-
   create_file_name(Name),
@@ -115,32 +110,6 @@ write_dot(graph(_, Edges)) :-
   write_dot1(Edges),
   write('}'),
   told.
-
-create_file_name(Name) :-
-  get_file_counter(F1),
-  current_prolog_flag(argv, [_, File | _]),
-  remove_extension(File, File1),
-  atom_concat(File1, '-graph-', F2),
-  atom_concat(F2, F1, F3),
-  atom_concat(F3, '.dot', Name),
-  F4 is F1 + 1,
-  assert(file_counter(F4)).
-
-get_file_counter(N) :- 
-  retract(file_counter(N)), !.
-get_file_counter(0).
-
-remove_extension(File, File1) :-
-  atom_chars(File, List),
-  reverse(List, List1),
-  remove_period(List1, List2), !,
-  reverse(List2, List3),
-  atom_chars(File1, List3).
-remove_extension(File, File).
-
-remove_period(['.' | Tail], Tail) :- !.
-remove_period([_ | Tail], Tail1)  :-
-  remove_period(Tail, Tail1).
 
 write_dot1([]).
 write_dot1([edge(From, N, To) | Tail]) :-
@@ -154,6 +123,38 @@ write_dot1([edge(From, N, To) | Tail]) :-
   write('"];\n'),
   label_decision_node(From),
   write_dot1(Tail).
+
+
+%  create_file_name/1
+%    The File name is taken from the file argument of the program
+%      remove the extension from the name and add "-graph-N.dot"
+
+create_file_name(Name) :-
+  get_file_counter(F1),
+  current_prolog_flag(argv, [_, File | _]),
+  remove_extension(File, File1),
+  atom_concat(File1, '-graph-', F2),
+  atom_concat(F2, F1, F3),
+  atom_concat(F3, '.dot', Name),
+  increment(file).
+
+%  remove_extension/2, remove_period/2
+%    Remove the extension by search for the period from the end
+
+remove_extension(File, File1) :-
+  atom_chars(File, List),
+  reverse(List, List1),
+  remove_period(List1, List2), !,
+  reverse(List2, List3),
+  atom_chars(File1, List3).
+remove_extension(File, File).
+
+remove_period(['.' | Tail], Tail) :- !.
+remove_period([_ | Tail], Tail1)  :-
+  remove_period(Tail, Tail1).
+
+%  label_decision_node/1
+%    Decorate a decision node with bold and red
 
 label_decision_node(Node) :-
   Node = assign(_, _, _, yes), !,

@@ -4,7 +4,10 @@
 
 :- use_module(dimacs).
 
-t0 :-
+from_dimacs :-
+  from_dimacs(four, 'four-queens.cnf', 'four-queens.pro').
+
+to_dimacs :-
   to_dimacs(
     'four-queens.cnf',
     'Four-queens problem',
@@ -45,9 +48,3 @@ t0 :-
   [~p33, ~p42], [~p33, ~p44],
   [~p34, ~p43]
   ]).
-
-t1 :-
-  from_dimacs(four, 'four.cnf', 'four.pro').
-
-t2 :-
-  from_dimacs(hole6, 'hole6.cnf', 'hole6.pro').

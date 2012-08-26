@@ -2,8 +2,6 @@
 
 :- module(dimacs, [op(610, fy,  ~), to_dimacs/3, from_dimacs/3]).
 
-:- use_module(io).
-
 %  Convert a CNF formula in Prolog notation to and from DIMACS format
 %    The Prolog notation is a list of clauses,
 %    each clause is a list of literals,
@@ -94,7 +92,7 @@ only_digits([_ | Tail], Tail1) :-
 
 from_dimacs(Predicate, InFile, OutFile) :-
   tell(OutFile),
-  write(':- use_module([negation,display,dpll]).\n\n'),
+  write(':- use_module(dpll).\n\n'),
   write(Predicate),
   write(' :-\n  dpll(\n'),
   see(InFile),
@@ -172,3 +170,20 @@ to_clause1([' ' | Tail], Temp, SoFar, List) :- !,
   to_clause1(Tail, ['p'], [Atom | SoFar], List).
 to_clause1([N | Tail], Temp, SoFar, List) :-
   to_clause1(Tail, [N | Temp], SoFar, List). 
+
+%  write_clauses(Clauses)
+%    Clauses - write the set of clauses
+
+write_clauses([]) :- !,
+  write('[]').
+write_clauses(Clauses) :-
+  write('[\n'),
+  write_clauses1(Clauses),
+  write(']').
+
+write_clauses1([H]) :- !,
+  write(H), nl.
+write_clauses1([H|T]) :-
+  write(H),
+  write(',\n'),
+  write_clauses1(T).

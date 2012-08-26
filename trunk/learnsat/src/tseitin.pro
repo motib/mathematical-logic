@@ -2,18 +2,7 @@
 
 :- use_module(dpll).
 
-%  Test Tseitin clauses for K2,2, K3,3 and example in Section 4.5
-
-%  Run and save the output to a file
-
-ex_file :-
-  tell('tseitin-ex.txt'),
-  ex,
-  told.
-ex_file :-
-  told.
-
-%  Call dpll with the clauses  
+%  Tseitin clauses for example in Section 4.5 of MLCS
 
 ex :-
   dpll(
@@ -24,7 +13,7 @@ ex :-
   [~q, r, t], [q, ~r, t], [q, r, ~t], [~q, ~r, ~t]
 	], _).
   
-%  Satisfiable set of clauses
+%  Satisfiable Tseitin clauses for example in Section 4.5 of MLCS
 
 exs :-
   dpll(
@@ -36,16 +25,7 @@ exs :-
 	], _).
   
 
-%  Run and save the output to a file
-
-k22_file :-
-  tell('tseitin-k22.txt'),
-  k22,
-  told.
-k22_file :-
-  told.
-
-%  Call dpll with the clauses  
+%  Tseitin clauses for K_{2,2}  
 
 k22 :-
   dpll(
@@ -56,8 +36,8 @@ k22 :-
   [p2, ~p3], [~p2,  p3]
 	], _).
 
-%  Satisfiable set of clauses
-  
+%  Satisfiable Tseitin clauses for K_{2,2}
+
 k22s :-
   dpll(
   [
@@ -67,16 +47,7 @@ k22s :-
   [p2, ~p3], [~p2,  ~p3]
 	], _).
   
-%  Run and save the output to a file
-
-k33_file :-
-  tell('tseitin-k33.txt'),
-  k33,
-  told.
-k33_file :-
-  told.
-
-%  Call dpll with the clauses  
+%  Satisfiable Tseitin clauses for K_{3,3}
 
 k33 :-
   dpll(
@@ -91,7 +62,7 @@ k33 :-
 	[p2, ~p5,  p8],        [p2,  p5, ~p8],        [~p2, ~p5, ~p8]
 	], _).
 
-%  Satisfiable set of clauses
+%  Satisfiable Tseitin clauses for K_{3,3}
 
 k33s :-
   dpll(

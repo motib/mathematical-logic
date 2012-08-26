@@ -2,13 +2,8 @@
 
 :- use_module(dpll).
 
-%  3-hole pigeon hole problem
+%  Pigeon-hole problem for 2 and 3 holes
 %  pij means that pigeon i is placed in hole j
-
-hole2_file :-
-  tell('hole2.txt'),
-  hole2,
-  told.
 
 hole2 :-
   dpll(
@@ -19,11 +14,6 @@ hole2 :-
   [~p11, ~p21], [~p11, ~p31], [~p21, ~p31], 
   [~p12, ~p22], [~p12, ~p32], [~p22, ~p32]
   ], _).
-
-hole3_file :-
-  tell('hole3.txt'),
-  hole3,
-  told.
 
 hole3 :-
   dpll(
