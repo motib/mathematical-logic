@@ -1,6 +1,6 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
-:- ensure_loaded([negation,display,dpll]).
+:- use_module(dpll).
 
 %  Example from Marques-Silva, Lynce, Malik in the Handbook
 %  Figures 4.1, 4.2 with changes to ensure the order of assignments

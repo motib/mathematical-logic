@@ -1,6 +1,6 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
-:- ensure_loaded([negation,display,dpll]).
+:- use_module(dpll).
 
 %  Test Tseitin clauses for K2,2, K3,3 and example in Section 4.5
 

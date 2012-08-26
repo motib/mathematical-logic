@@ -23,7 +23,7 @@
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\url{http: //www.weizmann.ac.il/sci-tea/benari/}}
 \title{\bfseries \ls\\\mbox{}\\
 \bfseries\large User's Guide\\\mbox{}\\
-\bfseries\normalsize Version 1.0.1}
+\bfseries\normalsize Version 1.0.2}
 
 %\date{}
 \begin{document}
@@ -82,12 +82,11 @@ The design of \ls{} is based on the following principles:
 \begin{itemize}
 
 \item A very detailed trace of the algorithm's execution can be
-displayed and the specific content of the trace can be set by the user.
+displayed. The content of the trace can be set by the user.
 
-\item The \pl{} language is used so that the programs will be very
-concise and easy to understand. The source code includes extensive
-comments. Very little knowledge of \pl{} is needed just to run the
-program.
+\item The \pl{} language is used so that the programs will be concise
+and easy to understand. The source code includes extensive comments.
+Little knowledge of \pl{} is needed just to run the program.
 
 \item The distribution includes test programs, including those taken
 from published descriptions of the algorithms.
@@ -111,7 +110,7 @@ contains an archive of \pl{} programs for the algorithms in my textbook
 \end{center}
 
 Download and open the zip archive \p{learnsat-N.zip}. The \pl{} source
-code in in directory \p{src} and the documentation is in directory
+code in the directory \p{src} and the documentation is in the directory
 \p{docs}.
 
 The programs were developed using \sw{} Version 6.0.0:
@@ -126,40 +125,39 @@ program can be launched by double-clicking on its name in a file list.
 
 \section{Running \ls}
 
-\subsection{Preparing a file to check satisfiability}
+\subsection{Creating a file to check satisfiability}
 
-To use \ls{}, prepare a \pl{} program that calls the predicate \p{dpll}
-with a set of clauses structured as a list of lists of literals. Here is
-an extract from the file \p{pigeon.pro}; it expresses the pigeon-hole
+To check the satisfiability of a CNF formula, create a \pl{} program
+that calls the predicate \p{dpll} with the set of clauses represented as
+a list of lists of literals. Here is a program for the pigeon-hole
 problem for two holes and three pigeons, where \p{pij} means that pigeon
 \p{i} is in hole \p{j}:
 
 \begin{verbatim}
-:- ensure_loaded([negation,display,dpll]).
+:- use_module(dpll).
 
 hole2 :-
   dpll(
   [
   [p11, p12],   [p21, p22],   [p31, p32],   % Each pigeon in hole 1 or 2 
-  [~p11, ~p21], [~p11, ~p31], [~p21, ~p31], % No pair in hole 1
-  [~p12, ~p22], [~p12, ~p32], [~p22, ~p32], % No pair in hole 2
+  [~p11, ~p21], [~p11, ~p31], [~p21, ~p31], % No pair is in hole 1
+  [~p12, ~p22], [~p12, ~p32], [~p22, ~p32], % No pair is in hole 2
   ], _).
 \end{verbatim}
 
-The first line requests that the modules of \ls{} be loaded; then, a
-predicate \p{hole2} is defined. It calls \p{dpll} with the set of
-clauses. The result can be returned as the second argument, but we have
-left it anonymous since we are interested in the display of the
-execution trace.
+The result (a satisfying assignment or \p{unsatisfiable}) is returned as
+the second argument, but can be left it anonymous if only the trace is
+of interest.
 
 \subsection{Loading and running a file}
 
-Once this file has been loaded (by double-clicking or by entering
-\p{[pigeon]} at the \pl{} prompt), the predicate \p{hole2} can be run.
-The output will be a trace of the DPLL algorithm:
+Once this file has been loaded (by double-clicking or by consulting
+\p{[pigeon]}), the query \p{hole2} can be run. After the execution
+terminates with \p{true} you must press return to get a new prompt. The
+output will be a trace of the DPLL algorithm:
 
 \begin{verbatim}
-1 ?- hole2.
+?- hole2.
 LearnSAT v1.0.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Decision assignment: p11=0@1
 Propagate unit p12 derived from: 1. [p11,p12]
@@ -175,8 +173,6 @@ Clauses=9, variables=6, units propagated=56, choices=12, conflicts=12
 
 true.
 \end{verbatim}
-All \pl{} queries must be terminated by a period and after the execution
-terminates with \p{true} you must press return to get a new prompt.
 
 The trace output can be directed to a file:
 
@@ -184,35 +180,32 @@ The trace output can be directed to a file:
 hole2_file :- tell('hole2.txt'), hole2, told.
 \end{verbatim}
 
-\subsection{Algorithmic mode}
+\subsection{Algorithmic modes and display options}
 
-\ls{} can run in three modes:
+\ls{} can run in one of three modes set by the predicate \p{set\_mode(Mode)}:
 \begin{itemize}
-\item \p{dpll}: DPLL algorithm (this is the default);
+\item \p{dpll}: DPLL algorithm (default);
 \item \p{cdcl}: DPLL with conflict-directed clause learning;
 \item \p{ncb}:  DPLL with CDCL and non-chronological backtracking.
 \end{itemize}
-Set the mode as follows:
-\begin{verbatim}
-?- set_mode(ncb).
-\end{verbatim}
 
-The pigeon-hole program runs much more efficiently in
-\p{cdcl} mode:
+The pigeon-hole program runs much more efficiently in \p{cdcl} mode:
 \begin{verbatim}
+?- set_mode(cdcl).
+true.
+?- hole2.
+                ...
+Unsatisfiable
 Clauses=9, variables=6, units propagated=29, choices=12, conflicts=12
 \end{verbatim}
 
-\subsection{Display options}
-
 You can control the content of the trace output of \ls{} with the
 predicates \p{set\_display} and \p{clear\_display}. The argument to
-these predicates can be \p{all}, \p{default} or a single option or a
-list of options taken from table in the Appendix.
-
-%~\ref{tab.display} (where \p{*} denotes
-%the default options).
-
+these predicates can be \p{all} or \p{default} or a single option or a
+list of options taken from table in the Appendix. If you need to change
+the mode and options frequently, you can write a predicate to do so, or
+you can change the defaults can be changed by editing the file
+\p{config.pro}.
 
 \subsection{Online help}
 
@@ -222,77 +215,51 @@ arguments.
 The version, the default and current mode, and the default and current
 display options can be shown by running \p{show\_config}.
 
-\subsection{Changing the defaults}
-
-If you need to change the mode and options frequently, you can write a
-predicate to do so:
-\begin{verbatim}
-init :-
-  set_display(all),
-  clear_display([graph,incremental,dot]),
-  set_mode(ncb).
-\end{verbatim}
-
-Alternatively, the defaults can be changed by editing the following
-lines in the file \p{config.pro}:
-
-\begin{verbatim}
-default_mode(dpll).
-default_display([backtrack, conflict, decision, learned, result, unit]).
-\end{verbatim}
-
 \subsection{Implication graphs}
 
 \ls{} constructs the implication graph when a conflict clause is
-encountered. The trace output can display a list of the nodes and edges
-of the final graph, as well as of the graphs that are built during
-each incremental stage of the construction.
+encountered and the graph can be displayed (both the final graph and the
+graphs that are constructed at each step). The graph can also be written
+to a file in \dt{} format which can be rendered using
+\textsc{GraphViz}:\footnote{\url{http://www.graphviz.org/}.}
 
-Files with the implication graphs in \dt{} format can be written by
-\ls{}.
-The graphs can then be rendered using the \dt{} tool of \textsc{GraphViz}
-(\url{http://www.graphviz.org/}):
 \begin{verbatim}
 dot -Tpng examples-graph-0.dot > examples-graph-0.png
 \end{verbatim}
-Figure~\ref{fig.ig} shows the graph that was generated from running
-\ls{} on the example from \cite{mlm}; the clauses for this example are:
-\begin{verbatim}
-       1. [x1,x031,~x2]
-       2. [x1,~x3]
-       3. [x2,x3,x4]
-       4. [~x4,~x5]
-       5. [x021,~x4,~x6]
-       6. [x5,x6]
-\end{verbatim}
 
-\begin{figure}[tb]
+\pagebreak[3]
+
+Here is the graph that was generated by running \ls{} on the example
+from \cite{mlm}:
 \begin{center}
 \includegraphics[keepaspectratio=true,width=\textwidth]{graph}
-\caption{Implication graph}\label{fig.ig}
 \end{center}
-\end{figure}
+The clauses were slightly modified from those in the paper:
+\begin{verbatim}
+  1. [x1,x031,~x2]   2. [x1,~x3]         3. [x2,x3,x4]
+  4. [~x4,~x5]       5. [x021,~x4,~x6]   6. [x5,x6]
+\end{verbatim}
 
-\subsection{Test programs}
-
-Several test program are included in the \ls{} archive.
+\section{Test programs included in \ls{}}
 
 \begin{itemize}
-\item \p{queens.pro} contains the four-queens problem as given in
+
+\item \p{queens.pro}: The four-queens problem as given in
 \cite[Section 6.4]{mlcs}.
-\item \p{tseitin.pro} contains the Tseitin clauses for the graphs
-$K_{2,2}$, $K_{3,3}$ and the example from \cite[Section 4.5]{mlcs}. The
-sets of clauses are unsatisfiable, but, for each set of clauses, a
-satisfiable variant is given; these were obtained by complementing one
-literal in the set.
+
+\item \p{tseitin.pro}: Tseitin clauses for the graphs $K_{2,2}$,
+$K_{3,3}$ and the example from \cite[Section 4.5]{mlcs}. These formulas
+are unsatisfiable, but for each one a satisfiable variant is given.
+
 \item \p{pigeon.pro} contains the pigeon-hole problem for
 two and three holes \cite[Exercise 6.4]{mlcs}.
+
 \item \p{examples.pro} contains examples from papers on SAT
 solvers \cite{mz,mlm,ms}.
 \end{itemize}
 
 
-\subsection{DIMACS transformation}
+\section{DIMACS transformation}
 
 The predicates in the file \p{dimacs.pro} convert a set of clauses in
 \pl{} format (a list of lists of literals) to and from \emph{simplified
@@ -309,8 +276,6 @@ running \p{dpll}:
 Predicate :- dpll(List, _).
 \end{verbatim}
 \end{itemize}
-The test program \p{dimacs-test.pro} transforms the set of clauses for
-the four-queens problem from \pl{} clauses to DIMACS and back.
 
 \newpage
 
@@ -323,11 +288,6 @@ list does not including the test programs and the program for DIMACS
 conversion discussed above.}
 
 \begin{itemize}
-\item \p{negation.pro} is a file that declares the negation operator:
-\begin{verbatim}
-:- op(610, fy,  ~).
-\end{verbatim}
-
 \item \p{dpll.pro} is the main module for the DPLL algorithms. It is
 described in more detail below.
 
@@ -341,12 +301,12 @@ for units, choices and conflicts, as well as a counter for adding a
 number to the file names for implication graphs.
 
 \item \p{display.pro} is the module that maintains the mode and display
-options, and writes the data. The main predicate is \p{display/2,3,4},
-whose first argument is a display option and whose additional
-arguments supply the data to be displayed. The dummy display option
-\p{none} is used to distinguish between the initial state (no options,
-so set the default options) and a state where all options have been
-cleared.
+options, and writes the data. The main predicates are \p{display/2},
+\p{display/3}, \p{display/4}, whose first argument is a display option
+and whose additional arguments supply the data to be displayed. The
+dummy display option \p{none} is used to distinguish between the initial
+state (no options, so set the default options) and a state where all
+options have been cleared.
 
 \item \p{config.pro} is a module that facilitates changing the default
 options. It consists of just three facts: \p{version}, \p{default\_mode}
@@ -355,6 +315,8 @@ and \p{default\_display}.
 \end{itemize}
 
 \subsection{The DPLL algorithm}
+
+The negation operator is defined as \verb+op(610, fy, ~)+ and exported.
 
 The predicate \p{dpll} implements the DPLL algorithm on a set of clauses
 represented as a list of lists of literals. It always succeeds,
@@ -433,8 +395,6 @@ the backtrack level. In the example, the highest level is 1 where
 
 \subsection{Auxiliary predicates}
 
-The following simple auxiliary predicates are used:
-
 \begin{itemize}
 
 \item \p{evaluate} a set of clauses; returns \p{ok} or \p{conflict}.
@@ -494,13 +454,17 @@ propagation.
 \p{set\_mode}&Set the algorithmic mode\\
 \p{to\_dimacs}&Convert from \pl{} term to DIMACS\\
 \p{from\_dimacs}&Convert from DIMACS to \pl{} term\\
-\hline\hline
+\hline
+\multicolumn{2}{c}{}\\
+\hline
 \multicolumn{2}{|c|}{\textbf{\large Modes}}\\
 \hline
 \p{dpll} & DPLL algorithm (default)\\
 \p{cdcl} & DPLL with conflict-directed clause learning\\
 \p{ncb} &  DPLL with CDCL and non-chronological backtracking\\
-\hline\hline
+\hline
+\multicolumn{2}{c}{}\\
+\hline
 \multicolumn{2}{|c|}{\textbf{\large Display options}}\\
 \hline
 \p{all}       &  all of the options\\

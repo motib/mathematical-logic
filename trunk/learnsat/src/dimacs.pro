@@ -1,6 +1,8 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
-:- ensure_loaded(io).
+:- module(dimacs, [op(610, fy,  ~), to_dimacs/3, from_dimacs/3]).
+
+:- use_module(io).
 
 %  Convert a CNF formula in Prolog notation to and from DIMACS format
 %    The Prolog notation is a list of clauses,
@@ -92,7 +94,7 @@ only_digits([_ | Tail], Tail1) :-
 
 from_dimacs(Predicate, InFile, OutFile) :-
   tell(OutFile),
-  write(':- ensure_loaded([negation,display,dpll]).\n\n'),
+  write(':- use_module([negation,display,dpll]).\n\n'),
   write(Predicate),
   write(' :-\n  dpll(\n'),
   see(InFile),

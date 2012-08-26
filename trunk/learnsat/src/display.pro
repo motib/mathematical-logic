@@ -9,7 +9,7 @@
   set_mode/1, get_mode/1, init_mode/0,
   show_config/0]).
 
-:- ensure_loaded([config,counters,io]).
+:- use_module([config,counters,io]).
 
 %  show_config/0
 %    Display version, default mode and display options
@@ -74,7 +74,10 @@ get_mode(dpll).
 %  usage/0 - print usage documentation
 
 usage :-
-  write('LearnSAT v1.0.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.\n'),
+  write('LearnSAT v'),
+  version(V),
+  write(V),
+  write('. Copyright 2012 by Moti Ben-Ari. GNU GPL.\n'),
   write('  dpll(Clauses, Decisions)\n'),
   write('    Clauses:   a list of list of literals (p or ~p)\n'),
   write('    Decisions: satisfying assignments or [] if unsatisfiable\n'),
