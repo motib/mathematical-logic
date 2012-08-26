@@ -23,7 +23,7 @@
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\url{http: //www.weizmann.ac.il/sci-tea/benari/}}
 \title{\bfseries \ls\\\mbox{}\\
 \bfseries\large User's Guide\\\mbox{}\\
-\bfseries\normalsize Version 1.0.2}
+\bfseries\normalsize Version 1.0.3}
 
 %\date{}
 \begin{document}
@@ -215,7 +215,7 @@ arguments.
 The version, the default and current mode, and the default and current
 display options can be shown by running \p{show\_config}.
 
-\subsection{Implication graphs}
+\subsection{Implication graphs}\label{s.impl}
 
 \ls{} constructs the implication graph when a conflict clause is
 encountered and the graph can be displayed (both the final graph and the
@@ -300,6 +300,17 @@ graphs.
 for units, choices and conflicts, as well as a counter for adding a
 number to the file names for implication graphs.
 
+\item \p{display.pro} is the module that writes the explanations using
+the predicates \p{display/2},
+\p{display/3}, \p{display/4}, whose first argument is a display option
+and whose additional arguments supply the data to be displayed.
+
+\item \p{modes.pro} sets, clears and checks the execution mode and the
+display options. It also implements \p{usage} and \p{show\_config}. The
+dummy display option \p{none} is used to distinguish between the initial
+state (no options, so set the default options) and a state where all
+options have been cleared.
+
 \item \p{display.pro} is the module that maintains the mode and display
 options, and writes the data. The main predicates are \p{display/2},
 \p{display/3}, \p{display/4}, whose first argument is a display option
@@ -344,20 +355,20 @@ a new assignment.
 See \cite{mlm} for a detailed description of CDCL.
 
 An \emph{implication graph} represents the result of unit propagation
-that causes a conflict. Consider the graph in Figure~\ref{fig.ig}: There
-are three source nodes, one for each of the decision assignments (to
-\p{x021}, \p{x031}, \p{x1}) that are sufficient to cause a conflict by
-unit propagation. The conflict is represented by the sink node \p{kappa}
-and the assignments that were forced by unit propagation are represented
-by nodes labeled with the assignments. The edges of the graph are
-labeled with (the numbers of) the clauses that are \emph{antecedents} of
-each node; these are the unit clauses that forced the assignment
-labeling that node. There is an edge for each literal in the unit clause
-(except the one whose assignment is forced) and the sources of these
-edges are the assignments to those literals. For example, the decision
-assignments at levels 2 and 3 to \p{x031} and \p{x1} cause clause 1
-(\verb+[x1, x031, ~x2]+) to become a unit clause and force the
-assignment of 0 to \p{x2}.
+that causes a conflict. Consider the graph shown in
+Section~\ref{s.impl}: There are three source nodes, one for each of the
+decision assignments (to \p{x021}, \p{x031}, \p{x1}) that are sufficient
+to cause a conflict by unit propagation. The conflict is represented by
+the sink node \p{kappa} and the assignments that were forced by unit
+propagation are represented by nodes labeled with the assignments. The
+edges of the graph are labeled with (the numbers of) the clauses that
+are \emph{antecedents} of each node; these are the unit clauses that
+forced the assignment labeling that node. There is an edge for each
+literal in the unit clause (except the one whose assignment is forced)
+and the sources of these edges are the assignments to those literals.
+For example, the decision assignments at levels 2 and 3 to \p{x031} and
+\p{x1} cause clause 1 (\verb+[x1, x031, ~x2]+) to become a unit clause
+and force the assignment of 0 to \p{x2}.
 
 In \ls{}, the implication graph is built incrementally. Whenever a unit
 clause is found, the predicate \p{get\_graph} is called with the unit
@@ -374,9 +385,9 @@ clause (the antecedent clause of the \p{kappa} node) as the current
 clause and starts resolving. The second clause for each resolution step
 is one that clashes with the current clause on a literal that is
 assigned at the current level \emph{by unit propagation}. For example,
-given the conflict clause \p{[x5,x6]} from Figure~\ref{fig.ig}, both
-\p{x5} and \p{x6} were assigned by unit propagation at this level, so we
-can successively resolve with the antecedent clauses of the assignments
+given the conflict clause \p{[x5,x6]} from the figure, both \p{x5} and
+\p{x6} were assigned by unit propagation at this level, so we can
+successively resolve with the antecedent clauses of the assignments
 \verb+[~x4,~x5]+ and \verb+[x021,~x4,~x6]+. The resolution terminates
 when a \emph{unique implication point (UIP)} is encountered; this is a
 clause where only one literal is assigned at the current level. This
@@ -392,6 +403,8 @@ choosing an assignment to avoid choosing variables at a lower level than
 the backtrack level. In the example, the highest level is 1 where
 \p{x021} was assigned.
 
+
+\pagebreak[4]
 
 \subsection{Auxiliary predicates}
 
@@ -410,8 +423,8 @@ $\rightarrow$ \emph{Action} with an internal \p{!, fail} to implement
 non-chronological backtracing; see the comments and Section~4.7 of the
 \sw{} Reference Manual.
 
-\item \p{is\_assigned} checks if a literal is assigned a value; if so,
-the value of the literal (0 or 1) is returned.
+\item \p{is\_assigned} checks if a literal is assigned a value
+and if so returns that value (0 or 1).
 
 \item \p{resolve} performs resolution on two clauses.
 

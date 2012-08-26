@@ -8,9 +8,9 @@
 
 :- module(dpll, [op(610, fy,  ~), dpll/2]).
 
-:- use_module([config,counters,display]).
+:- use_module([config,counters,modes,display]).
 
-:- reexport(display, 
+:- reexport(modes, 
   [show_config/0, usage/0, set_display/1, clear_display/1, set_mode/1]).
 
 
@@ -42,7 +42,7 @@ dpll(Clauses, Decisions) :-
   literals_to_variables(Literals_List, [], Variables_Set),
       % Initialize the counters, the mode and the dynamic databases
   init_counters(Clauses, Variables_Set),
-  init_mode,
+  init_mode(_),
   retractall(learned(_)),
   assert(learned([])),
   retractall(backtrack(_)),

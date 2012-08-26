@@ -2,18 +2,7 @@
 
 :- use_module(dpll).
 
-%  Test four-queens program for dpll
-
-%  Run four-queens and save the output to a file
-
-queens4_file :-
-  tell('four-queens.txt'),
-  queens4,
-  told.
-queens4_file :-
-  told.
-
-%  Call dpll with the clauses for the four-queens problem  
+%  Four-queens problem
 
 queens4 :-
   dpll(
