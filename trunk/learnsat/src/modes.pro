@@ -7,7 +7,7 @@
 :- module(modes, [
   set_display/1, clear_display/1, init_display/0, check_option/1,
   set_mode/1, get_mode/1, init_mode/1,
-  usage/0,
+  usage/0, display_copyright_notice/0,
   show_config/0]).
 
 :- use_module([config,io]).
@@ -72,8 +72,12 @@ all_display([
 
 %  If there are already display options, don't change them
 init_display :-
+  display_copyright_notice,
+  init_display1.
+
+init_display1 :-
   display_option(_), !.
-init_display :-
+init_display1 :-
   default_display(List),
   set_display(List).
 
@@ -187,12 +191,16 @@ show_config.
 
 
 %  usage/0 - print usage documentation
+%  display_copyright_notice/0 - also used by dpll
 
-usage :-
+display_copyright_notice :-
   write('LearnSAT v'),
   version(V),
   write(V),
-  write('. Copyright 2012 by Moti Ben-Ari. GNU GPL.\n\n'),
+  write('. Copyright 2012 by Moti Ben-Ari. GNU GPL.\n').
+
+usage :-
+  display_copyright_notice, nl,
   write('  dpll(Clauses, Decisions)\n'),
   write('    Clauses:   a list of list of literals (p or ~p)\n'),
   write('    Decisions: satisfying assignments or [] if unsatisfiable\n\n'),
