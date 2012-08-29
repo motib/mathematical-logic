@@ -21,36 +21,18 @@ display(assignments, Assignments) :-
 display(backtrack, Highest) :-
   get_mode(Mode), Mode = ncb,
   check_option(backtrack), !,
-  write('Non-chronological backtracking to level '),
+  write('Non-chronological backtracking to level: '),
   write(Highest), nl.
 
 display(clauses, Clauses) :-
   check_option(clauses), !,
-  write('Clauses to be checked:\n'),
+  write('Clauses to be checked for satisfiability:\n'),
   write_clauses(Clauses, Clauses), nl.
 
 display(decision, Assignment) :-
   check_option(decision), !,
   write('Decision assignment: '),
   write_assignment(Assignment), nl.
-
-display(dot, Graph) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(dot), !,
-  write('Writing dot graph\n'),
-  write_dot(Graph).
-
-display(graph, Graph) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(graph), !,
-  write('Implication graph (final):\n'),
-  write_graph(Graph), nl.
-
-display(incremental, Graph) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(incremental), !,
-  write('Implication graph (incremental):\n'),
-  write_graph(Graph), nl.
 
 display(learned, Learned) :-
   get_mode(Mode), Mode \= dpll,
@@ -64,20 +46,16 @@ display(literal, Literal) :-
   write('Literal assigned at this level: '),
   write(Literal), nl.
 
+display(partial, Assignments) :-
+  check_option(partial), !,
+  write('Assignments so far:\n'),
+  write_assignments(Assignments), nl.
+
 display(skipping, Assignment) :-
   get_mode(Mode), Mode = ncb,
   check_option(skipping), !,
   write('Skipping alternative to: '),
   write_assignment(Assignment), nl.
-
-display(uip, no) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(uip), !,
-  write('Not a UIP because two literals are assigned at this level\n').
-
-display(uip, yes) :-
-  check_option(uip), !,
-  write('UIP because one literal is assigned at this level\n').
 
 display(variables, Variables) :-
   check_option(variables), !,
@@ -95,35 +73,80 @@ display(conflict, Conflict, Clauses) :-
   write('Conflict clause: '),
   write_clause(Conflict, Clauses), nl.
 
+display(dot, Graph, Clauses) :-
+  get_mode(Mode), Mode \= dpll,
+  check_option(dot), !,
+  get_file_counter(N),
+  write('Writing dot graph: '),
+  write(N), nl,
+  % For option "labels" call write_dot with the list of clauses
+  (check_option(labels) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_dot(Graph, Clauses1).
+
+display(graph, Graph, Clauses) :-
+  get_mode(Mode), Mode \= dpll,
+  check_option(graph), !,
+  write('Implication graph (final):\n'),
+  write_graph(Graph), nl,
+  display(dot, Graph, Clauses).
+
+display(incremental, Graph, Clauses) :-
+  get_mode(Mode), Mode \= dpll,
+  check_option(incremental), !,
+  write('Implication graph (incremental):\n'),
+  write_graph(Graph), nl,
+  display(dot, Graph, Clauses).
+
 display(result, satisfiable, Assignments) :-
   check_option(result), !,
   write('Satisfying assignments:\n'),
   write_assignments(Assignments), nl,
-  show_counters, nl.
+  show_counters.
 
 display(result, unsatisfiable, _) :-
   check_option(result), !,
-  write('Unsatisfiable\n'),
-  show_counters, nl.
+  write('Unsatisfiable:\n'),
+  show_counters.
+
+display(uip, no, Level) :-
+  get_mode(Mode), Mode \= dpll,
+  check_option(uip), !,
+  write('Not a UIP because two literals are assigned at this level: '),
+  write(Level), nl.
+
+display(uip, yes, Level) :-
+  check_option(uip), !,
+  write('UIP because one literal is assigned at this level: '),
+  write(Level), nl.
 
 display(_, _, _).
 
 
 %  Four arguments
 
+%  Empty clause is a flag to prevent duplicate evaluation from find_unit
+display(evaluate, [], _, _) :- !.
+display(evaluate, Clause, Reason, Literal) :-
+  check_option(evaluate), !,
+  write('Evaluate: '),
+  write(Clause),
+  write(Reason),
+  (Literal \= none -> write(Literal), write(' deleted') ; true),
+  nl.
+
 display(resolvent, Clause, Clause1, Clause2) :-
   get_mode(Mode), Mode \= dpll,
   check_option(resolvent), !,
-  write('Resolvent of '),
+  write('Resolvent of: '),
   write(Clause),
-  write(' with '),
+  write(' with: '),
   write(Clause1),
-  write(' is '),
+  write(' is: '),
   write(Clause2), nl.
 
 display(unit, Literal, Unit, Clauses) :-
   check_option(unit), !,
-  write('Propagate unit '),
+  write('Propagate unit: '),
   write(Literal),
   write(' derived from: '),
   write_clause(Unit, Clauses), nl.

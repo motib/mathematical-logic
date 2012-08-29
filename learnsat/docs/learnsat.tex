@@ -23,7 +23,7 @@
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\url{http: //www.weizmann.ac.il/sci-tea/benari/}}
 \title{\bfseries \ls\\\mbox{}\\
 \bfseries\large User's Guide\\\mbox{}\\
-\bfseries\normalsize Version 1.0.4}
+\bfseries\normalsize Version 1.0.6}
 
 %\date{}
 \begin{document}
@@ -159,14 +159,14 @@ output will be a trace of the DPLL algorithm:
 \begin{verbatim}
 ?- hole2.
 LearnSAT v1.0.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
-Decision assignment: p11=0@1
+Decision assignment: p11=0
 Propagate unit p12 derived from: 1. [p11,p12]
 Propagate unit ~p22 derived from: 7. [~p12,~p22]
 Propagate unit p21 derived from: 2. [p21,p22]
 Propagate unit ~p31 derived from: 6. [~p21,~p31]
 Propagate unit p32 derived from: 3. [p31,p32]
 Conflict clause: 8. [~p12,~p32]
-Decision assignment: p11=1@1
+Decision assignment: p11=1
                 ...
 Unsatisfiable
 Clauses=9, variables=6, units propagated=56, choices=12, conflicts=12
@@ -195,17 +195,23 @@ The pigeon-hole program runs much more efficiently in \p{cdcl} mode:
 true.
 ?- hole2.
                 ...
-Unsatisfiable
-Clauses=9, variables=6, units propagated=29, choices=12, conflicts=12
+Unsatisfiable:
+Statistics: clauses=9, variables=6, units propagated=29, choices=12,
+  conflicts=12
 \end{verbatim}
 
-You can control the content of the trace output of \ls{} with the
-predicates \p{set\_display} and \p{clear\_display}. The argument to
-these predicates can be \p{all} or \p{default} or a single option or a
-list of options taken from table in the Appendix. If you need to change
-the mode and options frequently, you can write a predicate to do so, or
-you can change the defaults can be changed by editing the file
-\p{config.pro}.
+\ls{} writes extensive trace output as it executes the algorithms. Each
+line starts with a string followed by a colon to make it easy to
+postprocess the output. In \p{cdcl} and \p{ncb} modes, the assignments
+are written together with their levels in the format \p{p1=0@3} used in
+\cite{mlm}.
+
+The content of the trace is controlled using \p{set\_display} and
+\p{clear\_display}. The argument to these predicates can be \p{all} or
+\p{default} or a single option or a list of options taken from table in
+the Appendix. If you need to change the mode and options frequently, you
+can write a predicate to do so, or you can change the defaults by
+editing the file \p{config.pro}.
 
 \subsection{Online help}
 
@@ -219,12 +225,22 @@ display options can be shown by running \p{show\_config}.
 
 \ls{} constructs the implication graph when a conflict clause is
 encountered and the graph can be displayed (both the final graph and the
-graphs that are constructed at each step). The graph can also be written
-to a file in \dt{} format which can be rendered using
+graphs that are incrementally constructed). 
+
+The graph can
+also be written to a file in \dt{} format which can be rendered using
 \textsc{GraphViz}:\footnote{\url{http://www.graphviz.org/}.}
 
 \begin{verbatim}
 dot -Tpng examples-graph-0.dot > examples-graph-0.png
+\end{verbatim}
+You can choose to label the edges with clause numbers as in \cite{mlm}
+or with the clauses themselves.
+
+A script to run \dt{} on all the files for the incremental graphs; for
+example, in Windows:
+\begin{verbatim}
+for %%F in (*.dot) do c:\...\graphviz\bin\dot -Tpng %%F > %%~nF.png
 \end{verbatim}
 
 \pagebreak[3]
@@ -234,7 +250,8 @@ from \cite{mlm}:
 \begin{center}
 \includegraphics[keepaspectratio=true,width=\textwidth]{graph}
 \end{center}
-The clauses were slightly modified from those in the paper:
+The atom names were modified so that the sequence of assignments
+will be as in the paper:
 \begin{verbatim}
   1. [x1,x031,~x2]   2. [x1,~x3]         3. [x2,x3,x4]
   4. [~x4,~x5]       5. [x021,~x4,~x6]   6. [x5,x6]
@@ -291,10 +308,9 @@ conversion discussed above.}
 \item \p{dpll.pro} is the main module for the DPLL algorithms. It is
 described in more detail below.
 
-\item \p{io.pro} is a module that writes: (a) assignments in the format
-\p{p1=0@3} used in \cite{mlm}; (b) clauses together with their position
-numbers from the list of clauses input to the program; (c) implication
-graphs.
+\item \p{io.pro} is a module that writes: (a) assignments; (b) clauses
+together with their position numbers from the list of clauses input to
+the program; (c) implication graphs.
 
 \item \p{counters.pro} is the module that maintains and displays counters
 for units, choices and conflicts, as well as a counter for adding a
@@ -489,15 +505,17 @@ propagation.
 \p{clauses}   &  clauses to be checked for satisfiability   \\
 \p{conflict}* &  conflict clauses                           \\
 \p{decision}* &  decision assignments                       \\
+\p{evaluate}  &  evaluation of clauses for an assignment    \\
 \p{dot}       &  implication graphs in dot format           \\
 \p{graph}     &  implication graphs                         \\
 \p{incremental}& incremental build of the implication graphs\\
-\p{learned}*  &  learned clauses                             \\
+\p{learned}*  &  learned clauses                            \\
 \p{literal}   &  literals found assigned during CDCL        \\
+\p{partial}   &  partial assignment so far                  \\
 \p{resolvent} &  resolvents created during CDCL             \\
 \p{result}*   &  result of the algorithm                    \\
 \p{skipping}  &  assignments skipped when backtracking      \\
-\p{uip}       &  unique implication points                   \\
+\p{uip}       &  unique implication points                  \\
 \p{unit}*     &  unit clauses                               \\
 \p{variables} &  variables that are not assigned so far     \\
 \hline

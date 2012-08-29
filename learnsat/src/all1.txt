@@ -1,4 +1,4 @@
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [x1,x031,~x2],
@@ -223,7 +223,7 @@ Satisfying assignments:
 [x021=1@1,x031=0@2,x1=0@3,x2=0@3,x3=0@3,x4=1@3,x5=0@3,x6=1@3]
 Clauses=6, variables=8, units propagated=10, choices=6, conflicts=1
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [ax1,x4],
@@ -425,7 +425,7 @@ Satisfying assignments:
 [ax1=0@1,bx3=1@2,cx2=0@3,dx7=0@4,x10=0@5,x11=1@3,x12=0@5,x4=1@1,x8=1@5,x9=0@6]
 Clauses=8, variables=10, units propagated=8, choices=9, conflicts=1
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [x1,x2],
@@ -672,7 +672,7 @@ Satisfying assignments:
 [ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,dx13=0@5,x1=0@6,x2=1@6,x3=1@6,x4=1@6,x5=1@6,x6=0@6,x7=0@7,x8=0@8]
 Clauses=9, variables=13, units propagated=10, choices=12, conflicts=1
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [p11,p12],
@@ -1311,7 +1311,7 @@ Non-chronological backtracking to level 0
 Unsatisfiable
 Clauses=9, variables=6, units propagated=29, choices=12, conflicts=12
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [p11,p12,p13],
@@ -3990,7 +3990,7 @@ Non-chronological backtracking to level 0
 Unsatisfiable
 Clauses=22, variables=12, units propagated=105, choices=34, conflicts=26
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [p11,p12,p13,p14],
@@ -4768,7 +4768,7 @@ Satisfying assignments:
 [p11=0@1,p12=0@2,p13=1@3,p14=0@3,p21=1@3,p22=0@3,p23=0@3,p24=0@3,p31=0@3,p32=0@3,p33=0@3,p34=1@3,p41=0@3,p42=1@3,p43=0@3,p44=0@3]
 Clauses=80, variables=16, units propagated=25, choices=5, conflicts=1
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [~p,q],
@@ -5363,7 +5363,7 @@ Non-chronological backtracking to level 0
 Unsatisfiable
 Clauses=12, variables=5, units propagated=24, choices=12, conflicts=10
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [~p,q],
@@ -5698,7 +5698,7 @@ Satisfying assignments:
 [p=1@1,q=1@1,r=1@1,s=1@1,t=1@1]
 Clauses=12, variables=5, units propagated=14, choices=6, conflicts=3
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [~p0,~p1],
@@ -6045,7 +6045,7 @@ Non-chronological backtracking to level 0
 Unsatisfiable
 Clauses=8, variables=4, units propagated=14, choices=8, conflicts=8
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [~p0,~p1],
@@ -6165,7 +6165,7 @@ Satisfying assignments:
 [p0=1@1,p1=0@1,p2=1@1,p3=0@1]
 Clauses=8, variables=4, units propagated=6, choices=2, conflicts=1
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [~p0,~p1,p2],
@@ -11139,7 +11139,7 @@ Non-chronological backtracking to level 0
 Unsatisfiable
 Clauses=24, variables=9, units propagated=151, choices=79, conflicts=46
 
-LearnSAT v1.0.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.0.4. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked:
 [
 1. [~p0,~p1,p2],

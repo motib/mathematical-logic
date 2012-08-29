@@ -97,6 +97,7 @@ dpll1(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   to_literal(Assignment, Literal),
   display(unit, Literal, Unit, Clauses1),
   display(caused, SoFar),
+  display(partial, [Assignment | SoFar]),
 
       % Evaluate the set of Clauses using the assignments SoFar
       %   together with the Assignment returned by find_unit
@@ -104,10 +105,11 @@ dpll1(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   evaluate(Clauses1, [Assignment | SoFar], Conflict, Result),
 
       % Get the new implication Graph1, adding the new Assignment
-      % The Number of the clause that became a Unit labels the new edges
+      % The Number of the clause that became a Unit (or the clause
+      %   itself with option "labels") labels the new edges
   nth1(Number, Clauses1, Unit),
   extend_graph(Unit, Number, Assignment, SoFar, Graph, Graph1),
-  display(incremental, Graph1),
+  display(incremental, Graph1, Clauses),
 
       % Call ok_or_conflict with the Result of the evaluation,
       %   the Conflict clause, the new Graph1 and add the new Assignment
@@ -130,6 +132,7 @@ dpll1(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   increment(choice),
   display(variables, Variables),
   display(decision, Assignment),
+  display(partial, [Assignment | SoFar]),
 
       % Evaluate the set of Clauses using the assignments SoFar
       %   together with the Assignment that was chosen
@@ -167,8 +170,7 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
   extend_graph(Conflict, Number, kappa, SoFar, Graph, Graph1),
 
       % Display the graph and write the dot file
-  display(graph, Graph1),
-  display(dot, Graph1),
+  display(graph, Graph1, Clauses),
 
       % Compute the learned clause and save in the database
       %   (but not if in dpll mode)
@@ -205,7 +207,7 @@ find_unit([], _, _, _, _) :- !, fail.
 %  Evaluating the head of the list returns a unit
 %  Create an assignment (not a decision) from the literal
 find_unit([Head | _], Level, SoFar, Head, Assignment) :-
-  evaluate_clause(Head, SoFar, notfound, Unit, Result),
+  evaluate_clause(Head, [], SoFar, notfound, Unit, Result),
   Result = unit, !,
   to_assignment(Unit, Level, no, Assignment).
 
@@ -226,7 +228,7 @@ evaluate([], _, _, ok).
 
 %  Evaluating the first clause returns unsatisfied, so return conflict
 evaluate([Head | _], Assignments, Head, conflict) :-
-  evaluate_clause(Head, Assignments, notfound, _, Result),
+  evaluate_clause(Head, Head, Assignments, notfound, _, Result),
   Result = unsatisfied, !.
 
 %  The clause not unsatisfied, so recurse on the rest of the clauses
@@ -234,9 +236,10 @@ evaluate([_ | Tail], Assignments, Conflict, Result) :-
   evaluate(Tail, Assignments, Conflict, Result).
 
 
-%  evaluate_clause/5
+%  evaluate_clause/6
 %    Evaluate a single clause
 %      Clause      - the clause
+%      Original    - original clause for displaying
 %      Assignments - the assignments with which to evaluate the clause
 %      Found       - a flag that an unassigned literal has been found
 %                  - set to notfound in the initial call evaluate_clause
@@ -244,28 +247,34 @@ evaluate([_ | Tail], Assignments, Conflict, Result) :-
 %      Unit        - if the result is unit, return the unit
 %      Result      - return satisfied, unsatisfied, unit, unresolved
 
+
 %  End of the list of literals in the clause:
 %    If a single unassigned literal is found, this is a unit clause
-evaluate_clause([], _, found, _, unit) :- !.
+evaluate_clause([], Original, _, found, _, unit) :- !,
+  display(evaluate, Original, ' is a unit clause', none).
 %    Otherwise, the clause is unsatisfied
-evaluate_clause([], _, _, _, unsatisfied).
+evaluate_clause([], Original, _, _, _, unsatisfied) :-
+  display(evaluate, Original, ' is false', none).
 
 %  If a literal is assigned 1 (true), return satisfied
-evaluate_clause([Head | _], Assignments, _, _, satisfied) :-
-  is_assigned(Head, Assignments, 1), !.
+evaluate_clause([Head | _], Original, Assignments, _, _, satisfied) :-
+  is_assigned(Head, Assignments, 1), !,
+  display(evaluate, Original, ' is true', none).
 
 %  If a literal is assigned 0 (false), recurse on the remaining literals
-evaluate_clause([Head | Tail], Assignments, Found, Unit, Result) :-
+evaluate_clause([Head | Tail], Original, Assignments, Found, Unit, Result) :-
   is_assigned(Head, Assignments, 0), !,
-  evaluate_clause(Tail, Assignments, Found, Unit, Result).
+  display(evaluate, Original, ' has literal ', Head),
+  evaluate_clause(Tail, Original, Assignments, Found, Unit, Result).
 
 %  If an unassigned literal is found:
 %    if one has been found before, the clause is unresolved
-evaluate_clause([_| _], _, found, _, unresolved) :- !.
+evaluate_clause([_| _], _, _, found, _, unresolved) :- !.
+
 %    otherwise, continue searching with found flag set
 %    and unify the Head as the Unit returned
-evaluate_clause([Head | Tail], Assignment, notfound, Head, Result) :-
-  evaluate_clause(Tail, Assignment, found, _, Result).
+evaluate_clause([Head | Tail], Original, Assignment, notfound, Head, Result) :-
+  evaluate_clause(Tail, Original, Assignment, found, _, Result).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -404,13 +413,13 @@ compute_learned_clause1(_, _, _, Clause, Clause).
 %      Number  - the number of literals assigned at this level
 
 %  If two literals are assigned at this level, the clause is not a uip
-check_uip(_, _, _, 2) :- !,
-  display(uip, no),
+check_uip(_, _, Level, 2) :- !,
+  display(uip, no, Level),
   fail.
 
 %  If one literal is assigned at this level, the clause is a uip
-check_uip([], _, _, 1) :-
-  display(uip, yes).
+check_uip([], _, Level, 1) :-
+  display(uip, yes, Level).
 
 % For a literal, check if its variable is assigned at this level
 check_uip([Head | Tail], Nodes, Level, N) :-

@@ -12,6 +12,8 @@
 
 :- use_module([config,io]).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    Algorithmic modes
 
 %  LearnSAT can be run in three modes;
 %    dpll - DPLL algorithm
@@ -52,23 +54,20 @@ get_mode(Mode) :-
 get_mode(Mode) :-
   default_mode(Mode).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     Display options
   
 %  Database of display options
 %    "none" is a dummy option to distinguish initialization from none
 
 :- dynamic display_option/1.
 
-%  check_display/1 - check if a display option is set
-check_option(Option) :-
-  display_option(Option).
-
-
 %  all_display/1, default_display/1 (in file config), init_display/0
 
 all_display([
-  assignments, backtrack, clauses, conflict, decision, dot, graph,
-  incremental, learned, literal, none, resolvent, result, skipping, uip,
-  unit, variables]).
+  assignments, backtrack, clauses, conflict, decision, dot, evaluate,
+  graph, incremental, labels, learned, literal, none, partial,
+  resolvent, result, skipping, uip, unit, variables]).
 
 %  If there are already display options, don't change them
 init_display :-
@@ -81,6 +80,9 @@ init_display1 :-
   default_display(List),
   set_display(List).
 
+%  check_display/1 - check if a display option is set
+check_option(Option) :-
+  display_option(Option).
 
 %  set_display/1, clear_display/1
 %    Set or clear display options
@@ -166,6 +168,8 @@ not_recognized(X) :-
   write('Display option '), write(X), write(' not recognized.\n'),
   write('Run "usage" for a list of options.\n').
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Display configuration and usage
 
 %  show_config/0
 %    Display version, default mode and display options
@@ -213,19 +217,22 @@ usage :-
   write('  set_display(D), clear_display(D),\n'),
   write('        where D is all, or default (* below),\n'),
   write('        or one of, or a list of one or more of:\n'),
-  write('    [assignments] assignments that caused a conflict\n'),
-  write('    [backtrack]*  level of non-chronological backtracking\n'),
-  write('    [clauses]     clauses to be checked for satisfiability\n'),
-  write('    [conflict]*   conflict clause\n'),
-  write('    [decision]*   decision assignments\n'),
-  write('    [dot]         implication graph in dot format\n'),
-  write('    [graph]       implication graph\n'),
-  write('    [incremental] incremental build of the implication graph\n'),
-  write('    [learned]*    learned clause\n'),
-  write('    [literal]     literals found assigned during CDCL\n'),
-  write('    [resolvent]   resolvents created during CDCL\n'),
-  write('    [result]*     result of the algorithm with statistics\n'),
-  write('    [skipping]    assignments skipped when backtracking\n'),
-  write('    [uip]         unique implication point\n'),
-  write('    [unit]*       unit clauses\n'),
-  write('    [variables]   variables that are not assigned so far\n').
+  write('    assignments  assignments that caused a conflict\n'),
+  write('    backtrack *  level of non-chronological backtracking\n'),
+  write('    clauses      clauses to be checked for satisfiability\n'),
+  write('    conflict *   conflict clause\n'),
+  write('    decision *   decision assignments\n'),
+  write('    dot          implication graph in dot format\n'),
+  write('    evaluate     evaluation of clauses for an assignment\n'),
+  write('    graph        implication graph\n'),
+  write('    incremental  incremental build of the implication graph\n'),
+  write('    labels       graph labeled with clauses, not just numbers\n'),
+  write('    learned *    learned clause\n'),
+  write('    literal      literals found assigned during CDCL\n'),
+  write('    partial      partial assignment so far\n'),
+  write('    resolvent    resolvents created during CDCL\n'),
+  write('    result *     result of the algorithm with statistics\n'),
+  write('    skipping     assignments skipped when backtracking\n'),
+  write('    uip          unique implication point\n'),
+  write('    unit *       unit clauses\n'),
+  write('    variables    variables that are not assigned so far\n').
