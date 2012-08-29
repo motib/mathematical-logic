@@ -79,23 +79,23 @@ display(dot, Graph, Clauses) :-
   get_file_counter(N),
   write('Writing dot graph: '),
   write(N), nl,
-  % For option "labels" call write_dot with the list of clauses
-  (check_option(labels) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_dot(Graph, Clauses1).
+  write_dot(Graph, Clauses).
 
 display(graph, Graph, Clauses) :-
   get_mode(Mode), Mode \= dpll,
   check_option(graph), !,
   write('Implication graph (final):\n'),
-  write_graph(Graph), nl,
-  display(dot, Graph, Clauses).
+  (check_option(labels) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_graph(Graph, Clauses1), nl,
+  display(dot, Graph, Clauses1).
 
 display(incremental, Graph, Clauses) :-
   get_mode(Mode), Mode \= dpll,
   check_option(incremental), !,
   write('Implication graph (incremental):\n'),
-  write_graph(Graph), nl,
-  display(dot, Graph, Clauses).
+  (check_option(labels) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_graph(Graph, Clauses1), nl,
+  display(dot, Graph, Clauses1).
 
 display(result, satisfiable, Assignments) :-
   check_option(result), !,

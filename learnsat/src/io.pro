@@ -6,7 +6,7 @@
 :- module(io, [
   write_assignment/1, write_assignments/1,
   write_clause/2, write_clauses/2,
-  write_dot/2, write_graph/1
+  write_dot/2, write_graph/2
   ]).
 
 :- use_module([counters, modes]).
@@ -67,14 +67,15 @@ write_assignment(kappa) :-
   write(kappa).
 
 
-%  write_graph/1
+%  write_graph/2
 %    graph(Nodes, Edges) where Nodes and Edges are lists
+%    Clauses for writing the clause and not just the number on an edge
 
-write_graph(graph(Nodes, Edges)) :-
+write_graph(graph(Nodes, Edges), Clauses) :-
   write('[\n'),
   write_nodes(Nodes),
   write('\n]\n[\n'),
-  write_edges(Edges),
+  write_edges(Edges, Clauses),
   write('\n]').
 
 %  write_nodes/1 - write the list of nodes as assignments
@@ -87,17 +88,25 @@ write_nodes([node(N) | Tail]) :-
   write(',\n'),
   write_nodes(Tail).
 
-%  write_edges/1 - write the list of edges as "source -n-> target"
+%  write_edges/2 - write the list of edges as "source -n-> target"
 
-write_edges([]).
-write_edges([edge(From, N, To)]) :- !,
-  write_assignment(From), write(' -'),
-  write(N), write('-> '), write_assignment(To).
-write_edges([edge(From, N, To) | Tail]) :-
-  write_assignment(From), write(' -'), 
-  write(N), write('-> '), write_assignment(To), write(',\n'),
-  write_edges(Tail).
+write_edges([], _).
+write_edges([E], Clauses) :- !,
+  write_arrow(E, Clauses).
+write_edges([E | Tail], Clauses) :-
+  write_arrow(E, Clauses),
+  write(',\n'),
+  write_edges(Tail, Clauses).
 
+write_arrow(edge(From, N, To), Clauses) :-
+   write_assignment(From),
+   write(' --'),
+  (Clauses = [] ->
+    write(N) ;
+    nth1(N, Clauses, C), write(N), write('.'), write(C)    
+  ),
+  write('--> '),
+  write_assignment(To).
 
 %  write_dot/1
 %    Write the implication graph to a file in dot format for GraphViz
