@@ -59,7 +59,7 @@ show_counters :-
   unit_counter(N3), 
   choice_counter(N4),
   conflict_counter(N5),
-  write('Clauses='),
+  write('Statistics: clauses='),
   write(N1),
   write(', variables='),
   write(N2),

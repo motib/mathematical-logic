@@ -1,9 +1,20 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
+%  Examples from published papers
+%  LearnSAT makes decision assignments lexicographically
+%    so literals have been renamed to force the order in those papers
+
 :- use_module(dpll).
 
+run :-
+  set_mode(ncb),
+%  set_mode(dpll),
+  set_display(all),
+%  clear_display([graph, incremental, dot]),
+  clear_display(evaluate),
+  tell('mlm.txt'), mlm, told.
+
 %  Example from Marques-Silva, Lynce, Malik in the Handbook
-%  Figures 4.1, 4.2 with changes to ensure the order of assignments
 
 mlm :-
   dpll(
@@ -13,7 +24,6 @@ mlm :-
   ], _).
 
 %  Example from Malik-Zhang paper in CACM 52(8), 2009.
-%  To force choices, some atoms are renamed and complemented
 
 mz :-
   dpll(

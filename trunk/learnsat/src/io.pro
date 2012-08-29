@@ -6,10 +6,10 @@
 :- module(io, [
   write_assignment/1, write_assignments/1,
   write_clause/2, write_clauses/2,
-  write_dot/1, write_graph/1
+  write_dot/2, write_graph/1
   ]).
 
-:- use_module(counters).
+:- use_module([counters, modes]).
   
 %  write_clauses/2
 %    Clauses - write the set of clauses
@@ -60,7 +60,9 @@ write_assignments1([H|T]) :-
   write_assignments1(T).
 
 write_assignment(assign(V, N, Depth, _)) :-
-  write(V), write('='), write(N), write('@'), write(Depth).
+  write(V), write('='), write(N),
+  get_mode(Mode),
+  (Mode \= dpll -> write('@'), write(Depth) ; true).
 write_assignment(kappa) :-
   write(kappa).
 
@@ -101,28 +103,31 @@ write_edges([edge(From, N, To) | Tail]) :-
 %    Write the implication graph to a file in dot format for GraphViz
 %    Only the edges are needed as dot takes the nodes from them
 %    Call write_assignment to write each node (including "kappa")
-%    Label each edge with the clause
+%    Label each edge with its clauses or just its number if Clauses = []
 
-write_dot(graph(_, Edges)) :-
+write_dot(graph(_, Edges), Clauses) :-
   create_file_name(Name),
   tell(Name),
   write('digraph G {\n  rankdir=LR;\n'),
-  write_dot1(Edges),
+  write_dot1(Edges, Clauses),
   write('}'),
   told.
 
-write_dot1([]).
-write_dot1([edge(From, N, To) | Tail]) :-
+write_dot1([], _).
+write_dot1([edge(From, N, To) | Tail], Clauses) :-
   write('"'),
   write_assignment(From),
   write('"  ->  "'),
   write_assignment(To),
   write('"'),
   write('  [label="'),
-  write(N),
+  (Clauses = [] ->
+    write(N) ;
+    nth1(N, Clauses, C), write(N), write('. '), write(C)    
+  ),
   write('"];\n'),
   label_decision_node(From),
-  write_dot1(Tail).
+  write_dot1(Tail, Clauses).
 
 
 %  create_file_name/1
@@ -134,7 +139,8 @@ create_file_name(Name) :-
   current_prolog_flag(argv, [_, File | _]),
   remove_extension(File, File1),
   atom_concat(File1, '-graph-', F2),
-  atom_concat(F2, F1, F3),
+  (F1 < 10 -> atom_concat('0', F1, F1a); F1a = F1),
+  atom_concat(F2, F1a, F3),
   atom_concat(F3, '.dot', Name),
   increment(file).
 
