@@ -54,14 +54,12 @@ dpll(Clauses, Decisions) :-
   assert(learned([])),
   retractall(backtrack(_)),
   assert(backtrack(1)),
-
       % Create a set of variables from the list of clauses and
       % initialize counters with the numbers of clauses and variables
   flatten(Clauses, Literals_List),
   literals_to_variables(Literals_List, [], Variables_Set),
   init_counters(Clauses, Variables_Set),
   display(clauses, Clauses),
-
       % Call dpll1
       % Initially: Level 0, no assignments, empty graph
   dpll1(Clauses, Variables_Set, 0, [], graph([],[]), Decisions).
@@ -92,7 +90,6 @@ dpll1(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
       %   forced by the unit clause are returned
   add_learned_clauses(Clauses, Clauses1),
   find_unit(Clauses1, Level, SoFar, Unit, Assignment), !,
-
       % Increment the unit counter, convert the Assignment to a Literal
       %   and display the Literal and the clause that became a Unit
   increment(unit),
@@ -100,19 +97,17 @@ dpll1(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   display(unit, Literal, Unit, Clauses1),
   display(caused, SoFar),
   display(partial, [Assignment | SoFar]),
-
       % Evaluate the set of Clauses using the assignments SoFar
       %   together with the Assignment returned by find_unit
       % Return the Result (ok or conflict) and the Conflict clause
   evaluate(Clauses1, [Assignment | SoFar], Conflict, Result),
-
       % Get the new implication Graph1, adding the new Assignment
-      % The Number of the clause that became a Unit (or the clause
-      %   itself with option "labels") labels the new edges
+      % The Number of the antecedent that became a Unit
+      %   (or the antecedent itself with display option "labels")
+      %   labels the new edges
   nth1(Number, Clauses1, Unit),
   extend_graph(Unit, Number, Assignment, SoFar, Graph, Graph1),
   display(incremental, Graph1, Clauses),
-
       % Call ok_or_conflict with the Result of the evaluation,
       %   the Conflict clause, the new Graph1 and add the new Assignment
   ok_or_conflict(
@@ -126,22 +121,18 @@ dpll1(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   Level1 is Level + 1,
   retract(backtrack(_)),
   assert(backtrack(Level1)),
-
       % Choose a decision Assignment
   choose_assignment(Variables, Level1, Assignment),
-
       % Increment the choice counter and display the decision Assignment
   increment(choice),
   display(variables, Variables),
   display(decision, Assignment),
   display(partial, [Assignment | SoFar]),
-
       % Evaluate the set of Clauses using the assignments SoFar
       %   together with the Assignment that was chosen
       % Return the Result (ok or conflict) and the Conflict clause
   add_learned_clauses(Clauses, Clauses1),
   evaluate(Clauses1, [Assignment | SoFar], Conflict, Result),
-
       % Call ok_or_conflict with the Result of the evaluation,
       %   the Conflict clause, the new Graph1 and add the new Assignment
   ok_or_conflict(
@@ -166,19 +157,17 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
   increment(conflict),
   display(conflict, Conflict, Clauses),
   display(assignments, SoFar),
-
       % Add the "kappa" node for the conflict clause to the graph
   nth1(Number, Clauses, Conflict),
   extend_graph(Conflict, Number, kappa, SoFar, Graph, Graph1),
-
       % Display the graph and write the dot file
   display(graph, Graph1, Clauses),
-
       % Compute the learned clause and save in the database
       %   (but not if in dpll mode)
   get_mode(Mode),
-  (Mode \= dpll -> compute_learned_clause(Graph1, Clauses, Level)),
-
+  (Mode \= dpll -> 
+     compute_learned_clause(Graph1, Clauses, Level) ;
+     true),
       % Fail on conflict
   fail.
 
@@ -254,6 +243,7 @@ evaluate([_ | Tail], Assignments, Conflict, Result) :-
 %    If a single unassigned literal is found, this is a unit clause
 evaluate_clause([], Original, _, found, _, unit) :- !,
   display(evaluate, Original, ' is a unit clause', none).
+
 %    Otherwise, the clause is unsatisfied
 evaluate_clause([], Original, _, _, _, unsatisfied) :-
   display(evaluate, Original, ' is false', none).
@@ -280,7 +270,8 @@ evaluate_clause([Head | Tail], Original, Assignment, notfound, Head, Result) :-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  Choose an assignment, when backtracking, another one will be chosen
+%  Choose a decision assignment
+%  When backtracking, another one will be chosen
 %  The list of variables is sorted and the assignments are made in
 %    the order they appear in the list
 %  The predicate is complex because of NCB
@@ -296,13 +287,14 @@ choose_assignment(Variables, Level, Assignment) :-
       % Choose a variable from the list of unassigned variables
   member(V, Variables),
       % Choose a value (0 or 1)
-  choose_value(N),
+  (N = 0 ; N = 1),
       % Non-chronological backtracking (mode is ncb)
       %   if the current Level is greater than the backtrack level, fail
   get_mode(Mode),
   backtrack(L),
   (Mode = ncb, Level > L, Level > 1 ->
-    display(skipping, Assignment), !, fail ; true).
+    display(skipping, Assignment), !, fail ;
+    true).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -325,8 +317,8 @@ extend_graph([Head | Tail], Number, Assignment, SoFar, Graph, Graph1) :-
 %    which will become a new source node with an edge to Assignment
 extend_graph([Head | Tail], Number, Assignment, SoFar, 
           graph(Nodes, Edges), Graph1) :-
-  to_variable(Head, Head1),
-  Source = assign(Head1, _, _, _),
+  to_variable(Head, Variable),
+  Source = assign(Variable, _, _, _),
   member(Source, SoFar),
       % If found, add this assignment as a source node
       % and add the (Number of the) antecedent unit clause as a new edge
@@ -394,7 +386,7 @@ compute_learned_clause1(Graph, Clauses, Level, Clause, Learned) :-
   nth1(N, Clauses, Clause1),
       % Resolve and recurse
   resolve(Literal, Clause, Clause1, Clause2),
-  display(resolvent, Clause, Clause1, Clause2),
+  display(resolvent, Literal, Clause, Clause1, Clause2),
   compute_learned_clause1(Graph, Clauses, Level, Clause2, Learned).
 
 % If no more such clause pairs exist, return the learned clause
@@ -422,7 +414,7 @@ check_uip([Head | Tail], Nodes, Level, N) :-
   to_variable(Head, Variable),
   member(node(assign(Variable, _, Level, _)), Nodes), !,
     % If so, increment the number assigned and recurse
-  display(literal, Head),
+  display(literal, Head, Level),
   N1 is N+1,
   check_uip(Tail, Nodes, Level, N1).
 
@@ -455,8 +447,8 @@ add_learned_clauses(Clauses, Clauses1) :-
 
 %  compute_backtrack_level/4
 %    Compute the non-chronological backtrack level as the highest
-%      level of an assignment for the learned clause (except for
-%      the current level)
+%      level of an assignment for the learned clause
+%      (except for the current level)
 %        Learned  - learned clause
 %        Level    - current level
 %        Highest  - highest level so far

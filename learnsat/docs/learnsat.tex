@@ -23,7 +23,7 @@
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\url{http: //www.weizmann.ac.il/sci-tea/benari/}}
 \title{\bfseries \ls\\\mbox{}\\
 \bfseries\large User's Guide\\\mbox{}\\
-\bfseries\normalsize Version 1.0.7}
+\bfseries\normalsize Version 1.1.0}
 
 %\date{}
 \begin{document}
@@ -158,7 +158,7 @@ output will be a trace of the DPLL algorithm:
 
 \begin{verbatim}
 ?- hole2.
-LearnSAT v1.0.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Decision assignment: p11=0
 Propagate unit p12 derived from: 1. [p11,p12]
 Propagate unit ~p22 derived from: 7. [~p12,~p22]
@@ -169,7 +169,7 @@ Conflict clause: 8. [~p12,~p32]
 Decision assignment: p11=1
                 ...
 Unsatisfiable
-Clauses=9, variables=6, units propagated=56, choices=12, conflicts=12
+Clauses=9, variables=6, units=56, choices=12, conflicts=12
 
 true.
 \end{verbatim}
@@ -196,8 +196,7 @@ true.
 ?- hole2.
                 ...
 Unsatisfiable:
-Statistics: clauses=9, variables=6, units propagated=29, choices=12,
-  conflicts=12
+Statistics: clauses=9, variables=6, units=29, choices=12, conflicts=12
 \end{verbatim}
 
 \ls{} writes extensive trace output as it executes the algorithms. Each
@@ -427,12 +426,11 @@ the backtrack level. In the example, the highest level is 1 where
 \p{unit}, \p{unresolved}.
 \p{resolve} performs resolution on two clauses.
 
-\p{choose\_assignment} and \p{choose\_value} return an assignment.
-Backtracking is used to return subsequent choices.
-The only delicate part is the use of the predicate \emph{Condition}
-$\rightarrow$ \emph{Action} with an internal \p{!, fail} to implement
-non-chronological backtracing; see the comments and Section~4.7 of the
-\sw{} Reference Manual.
+\p{choose\_assignment} returns an assignment. Backtracking is used to
+return subsequent choices. The predicate \emph{Condition} $\rightarrow$
+\emph{Action} with an internal \p{!, fail} implements non-chronological
+backtracing. (See the comments and Section~4.7 of the \sw{} Reference
+Manual.)
 
 
 \subsection{Auxiliary predicates}\label{s.aux}
@@ -441,8 +439,6 @@ non-chronological backtracing; see the comments and Section~4.7 of the
 
 \item \p{is\_assigned} checks if a literal is assigned a value
 and if so returns that value (0 or 1).
-
-\item \p{choose\_value} selects 0 or 1. 
 
 \item \p{literals\_to\_variables} takes a list of literals and returns a
 sorted set of the variables corresponding to the literals.

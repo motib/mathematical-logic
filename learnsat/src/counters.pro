@@ -63,7 +63,7 @@ show_counters :-
   write(N1),
   write(', variables='),
   write(N2),
-  write(', units propagated='),
+  write(', units='),
   write(N3),
   write(', choices='),
   write(N4),

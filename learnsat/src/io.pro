@@ -4,7 +4,7 @@
 %    and for displaying implications graphs and writing to a dot file 
 
 :- module(io, [
-  write_assignment/1, write_assignments/1,
+  write_assignment/1, write_assignment/2, write_assignments/1,
   write_clause/2, write_clauses/2,
   write_dot/2, write_graph/2
   ]).
@@ -46,15 +46,18 @@ write_assignments([]) :- !,
 write_assignments(A) :-
   sort(A, A1),
   write('['),
-  write_assignments1(A1),
+  write_assignments1(A1, 0),
   write(']').
 
-write_assignments1([H]) :- !,
+write_assignments1([H], _) :- !,
   write_assignment(H).
-write_assignments1([H|T]) :-
+write_assignments1([H|T], N) :-
   write_assignment(H),
   write(','),
-  write_assignments1(T).
+  (N == 3 ->
+    nl, write(' '), N1 is 0 ;
+    N1 is N + 1),
+  write_assignments1(T, N1).
 
 %  write_assignment/1
 %    Write the assignment as Variable=Value@Depth/Antecedent

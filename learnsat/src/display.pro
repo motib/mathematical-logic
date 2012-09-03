@@ -2,12 +2,12 @@
 
 %  Display explanations
 
-:- module(display, [display/2, display/3, display/4]).
+:- module(display, [display/2, display/3, display/4, display/5]).
 
 :- use_module([config,counters,io,modes]).
 
 
-%  display/2,3,4
+%  display/2,3,4,5
 %    For each option there is a separate definition of display
 %    Check that the option is set before displaying
 
@@ -32,19 +32,13 @@ display(clauses, Clauses) :-
 display(decision, Assignment) :-
   check_option(decision), !,
   write('Decision assignment: '),
-  write_assignment(Assignment), nl.
+  write_assignment(Assignment, no), nl.
 
 display(learned, Learned) :-
   get_mode(Mode), Mode \= dpll,
   check_option(learned), !,
   write('Learned clause: '),
   write(Learned), nl.
-
-display(literal, Literal) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(literal), !,
-  write('Literal assigned at this level: '),
-  write(Literal), nl.
 
 display(partial, Assignments) :-
   check_option(partial), !,
@@ -54,8 +48,8 @@ display(partial, Assignments) :-
 display(skipping, Assignment) :-
   get_mode(Mode), Mode = ncb,
   check_option(skipping), !,
-  write('Skipping alternative to: '),
-  write_assignment(Assignment), nl.
+  write('Skip decision assignment: '),
+  write_assignment(Assignment, no), nl.
 
 display(variables, Variables) :-
   check_option(variables), !,
@@ -97,6 +91,14 @@ display(incremental, Graph, Clauses) :-
   write_graph(Graph, Clauses1), nl,
   display(dot, Graph, Clauses1).
 
+display(literal, Literal, Level) :-
+  get_mode(Mode), Mode \= dpll,
+  check_option(literal), !,
+  write('Literal: '),
+  write(Literal),
+  write(' assigned at level: '),
+  write(Level), nl.
+
 display(result, satisfiable, Assignments) :-
   check_option(result), !,
   write('Satisfying assignments:\n'),
@@ -111,12 +113,12 @@ display(result, unsatisfiable, _) :-
 display(uip, no, Level) :-
   get_mode(Mode), Mode \= dpll,
   check_option(uip), !,
-  write('Not a UIP because two literals are assigned at this level: '),
+  write('Not a UIP: two literals are assigned at level: '),
   write(Level), nl.
 
 display(uip, yes, Level) :-
   check_option(uip), !,
-  write('UIP because one literal is assigned at this level: '),
+  write('UIP: one literal is assigned at level: '),
   write(Level), nl.
 
 display(_, _, _).
@@ -134,16 +136,6 @@ display(evaluate, Clause, Reason, Literal) :-
   (Literal \= none -> write(Literal), write(' deleted') ; true),
   nl.
 
-display(resolvent, Clause, Clause1, Clause2) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(resolvent), !,
-  write('Resolvent of: '),
-  write(Clause),
-  write(' with: '),
-  write(Clause1),
-  write(' is: '),
-  write(Clause2), nl.
-
 display(unit, Literal, Unit, Clauses) :-
   check_option(unit), !,
   write('Propagate unit: '),
@@ -152,3 +144,20 @@ display(unit, Literal, Unit, Clauses) :-
   write_clause(Unit, Clauses), nl.
 
 display(_, _, _, _).
+
+%  Five arguments
+
+display(resolvent, Literal, Clause, Clause1, Clause2) :-
+  get_mode(Mode), Mode \= dpll,
+  check_option(resolvent), !,
+  write('Clause: '),
+  write(Clause),
+  write(' unsatisfied'), nl,
+  write('Complement of: '), write(Literal),
+  write(' assigned true in the unit clause: '),
+  write(Clause1), nl,
+  write('Resolvent of the two clauses: '),
+  write(Clause2),
+  write(' is also unsatisfiable'), nl.
+
+display(_, _, _, _, _).

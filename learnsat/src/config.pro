@@ -5,7 +5,7 @@
 
 :- module(config, [version/1, default_mode/1, default_display/1]).
 
-version('1.0.8').
+version('1.1.0').
 
 default_mode(dpll).
 

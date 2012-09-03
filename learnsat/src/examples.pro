@@ -9,9 +9,10 @@
 run :-
   set_mode(ncb),
   set_display(all),
-  clear_display([incremental, dot]),
-  clear_display(evaluate),
-  tell('mlm.txt'), mlm, told.
+  clear_display([evaluate,incremental,dot]),
+  tell('mlm.txt'),
+  mlm,
+  told.
 
 %  Example from Marques-Silva, Lynce, Malik in the Handbook
 

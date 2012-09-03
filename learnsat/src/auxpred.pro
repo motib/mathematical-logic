@@ -1,19 +1,13 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(auxpred,
-  [op(610, fy,  ~), choose_value/1, is_assigned/3,
-   literals_to_variables/3, to_variable/2, to_complement/2,
-   to_assignment/4, to_literal/2]).  
+  [op(610, fy,  ~),
+   is_assigned/3, literals_to_variables/3, to_variable/2,
+   to_complement/2, to_assignment/4, to_literal/2]).  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Auxiliary predicates concerned with assignments, variables, literals
-
-%  choose_value/1
-%    Value      - return a value
-
-choose_value(0).
-choose_value(1).
 
 %  is_assigned/3
 %    Check if a literal is assigned and if so return its value
