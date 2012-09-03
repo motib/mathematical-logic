@@ -387,8 +387,10 @@ compute_learned_clause1(Graph, Clauses, Level, Clause, Learned) :-
       %   and a clause that contains its complement which is
       %   assigned at the same Level and is not a decision node
   to_complement(Literal, Literal1),
-  to_assignment(Literal1, Level, no, Assignment),
-  member(edge(_, N, Assignment), Edges), !,
+  to_assignment(Literal1, Level, Decision, Assignment),
+  member(edge(_, N, Assignment), Edges),
+      %   Variable Decision unified with yes or antecedent clause
+  Decision \= yes, !,
   nth1(N, Clauses, Clause1),
       % Resolve and recurse
   resolve(Literal, Clause, Clause1, Clause2),

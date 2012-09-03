@@ -1,2 +1,2 @@
-7z u -r -tzip -x!all*.* c:\learnsat\learnsat-%1.zip *.pro *.tex *.pdf docs\*.txt gpl.txt *.html docs\*.png *.bib
+7z u -r -tzip c:\learnsat\learnsat-%1.zip src\*.pro docs\*.tex docs\*.bib docs\*.pdf docs\*.txt docs\*.html docs\*.png
 pause
