@@ -39,9 +39,6 @@ write_clause(C, Clauses) :-
 %    Assignments - a list of assignments
 %  write_assignments1/1
 %    Auxiliary predicate
-%  write_assignment/1
-%    Assignment - write the assignment as Variable=Value@Depth
-%    For an implication graph, the assignment can be "kappa"
 
 %  Sort and then write a list of assignments using write_assignment/1
 write_assignments([]) :- !,
@@ -59,13 +56,41 @@ write_assignments1([H|T]) :-
   write(','),
   write_assignments1(T).
 
-write_assignment(assign(V, N, Depth, _)) :-
+%  write_assignment/1
+%    Write the assignment as Variable=Value@Depth/Antecedent
+%    For an implication graph, the assignment can be 'kappa'
+%  write_assignment/2
+%    Write antecedent only if second argument is 'yes'
+%    Used when writing the dot graph
+%  write_level/1, write_antecedent/2
+%    Only write level and antecedent if not dpll mode
+%    Only write antecedent if display option set
+
+write_assignment(A) :-
+  write_assignment(A, yes).
+
+write_assignment(A, Antecedent) :-
+  A = assign(V, N, _, _), 
   write(V), write('='), write(N),
-  get_mode(Mode),
-  (Mode \= dpll -> write('@'), write(Depth) ; true).
-write_assignment(kappa) :-
+  write_level(A),
+  write_antecedent(A, Antecedent).
+write_assignment(kappa, _) :-
   write(kappa).
 
+write_level(assign(_, _, Depth, _)) :- 
+  get_mode(Mode), 
+  Mode \= dpll, !,
+  write('@'),
+  write(Depth).
+write_level(_).
+
+write_antecedent(assign(_, _, _, Unit), yes) :-
+  get_mode(Mode),
+  Mode \= dpll,
+  check_option(antecedents), !,
+  write('/'),
+  (Unit = yes -> write('nil') ; write(Unit)).
+write_antecedent(_, _).
 
 %  write_graph/2
 %    graph(Nodes, Edges) where Nodes and Edges are lists
@@ -82,9 +107,9 @@ write_graph(graph(Nodes, Edges), Clauses) :-
 
 write_nodes([]).
 write_nodes([node(N)]) :- !,
-  write_assignment(N).
+  write_assignment(N, no).
 write_nodes([node(N) | Tail]) :-
-  write_assignment(N),
+  write_assignment(N, no),
   write(',\n'),
   write_nodes(Tail).
 
@@ -99,14 +124,14 @@ write_edges([E | Tail], Clauses) :-
   write_edges(Tail, Clauses).
 
 write_arrow(edge(From, N, To), Clauses) :-
-   write_assignment(From),
+   write_assignment(From, no),
    write(' --'),
   (Clauses = [] ->
     write(N) ;
     nth1(N, Clauses, C), write(N), write('.'), write(C)    
   ),
   write('--> '),
-  write_assignment(To).
+  write_assignment(To, no).
 
 %  write_dot/1
 %    Write the implication graph to a file in dot format for GraphViz
@@ -125,9 +150,9 @@ write_dot(graph(_, Edges), Clauses) :-
 write_dot1([], _).
 write_dot1([edge(From, N, To) | Tail], Clauses) :-
   write('"'),
-  write_assignment(From),
+  write_assignment(From, no),
   write('"  ->  "'),
-  write_assignment(To),
+  write_assignment(To, no),
   write('"'),
   write('  [label="'),
   (Clauses = [] ->
@@ -174,7 +199,7 @@ remove_period([_ | Tail], Tail1)  :-
 label_decision_node(Node) :-
   Node = assign(_, _, _, yes), !,
   write('"'),
-  write_assignment(Node),
+  write_assignment(Node, no),
   write('"'),
   write(' [style="bold" color="red"];\n').
 label_decision_node(_).

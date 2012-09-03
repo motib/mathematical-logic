@@ -12,7 +12,7 @@
 %  Modules directly used by dpll
 %  The most frequently used predicate is "display" to display
 %    the trace of the execution
-:- use_module([counters,modes,display]).
+:- use_module([counters,modes,display,auxpred]).
 
 %  Make housekeeping predicates visible after consulting just dpll
 :- reexport(modes, 
@@ -21,7 +21,9 @@
 
 %  Data structures
 %    Assignments:
-%      assign(Variable, Value, Level, IsDecisionAssignment)
+%      assign(Variable, Value, Level, DecisionOrAntecedent)
+%        DecisionOrAntecedent is 'yes' for decision assignment
+%        and contains the antecedent assignment for implied assignments
 %    Implication graph:
 %      graph(list of Nodes, list of Edges)
 %    Learned clauses (dynamic):
@@ -209,7 +211,7 @@ find_unit([], _, _, _, _) :- !, fail.
 find_unit([Head | _], Level, SoFar, Head, Assignment) :-
   evaluate_clause(Head, [], SoFar, notfound, Unit, Result),
   Result = unit, !,
-  to_assignment(Unit, Level, no, Assignment).
+  to_assignment(Unit, Level, Head, Assignment).
 
 %  The clause was not a unit so recurse on the rest of the clauses
 find_unit([_ | Tail], Level, SoFar, Unit, Assignment) :-
@@ -301,14 +303,6 @@ choose_assignment(Variables, Level, Assignment) :-
   backtrack(L),
   (Mode = ncb, Level > L, Level > 1 ->
     display(skipping, Assignment), !, fail ; true).
-
-
-%  choose_value/1
-%    Value      - return a value
-
-choose_value(0).
-choose_value(1).
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -485,76 +479,3 @@ compute_backtrack_level([Head | Tail], Level, Highest, Nodes) :-
 %  Otherwise, recurse
 compute_backtrack_level([_ | Tail], Level, Highest, Nodes) :-
   compute_backtrack_level(Tail, Level, Highest, Nodes).
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  Auxiliary predicates concerned with assignments, variables, literals
-
-%  is_assigned/3
-%    Check if a literal is assigned and if so return its value
-%    Fail if not assigned
-%      Literal      - check if this literal is assigned
-%      Assignments  - the assignments to be checked
-%      Value        - return the value of the literal
-
-    % The literal is a negated assigned atom; return its complement
-is_assigned(~ Variable, Assignments, Value1) :- !,
-  member(assign(Variable, Value, _, _), Assignments),
-  Value1 is 1-Value.
-    % Otherwise, if assigned, return the value itself
-is_assigned(Variable, Assignments, Value) :-
-  member(assign(Variable, Value, _, _), Assignments).
-
-
-%  literals_to_variables/2
-%    Get the sorted set of variables of a list of literals
-%    The predicate sort removes duplicates
-%      Literals      - a list of literals
-%      SoFar         - the variables found so far
-%      Variables_Set - the set of variables of these literals
-
-literals_to_variables([], Variables_List, Variables_Set) :-
-  sort(Variables_List, Variables_Set).
-literals_to_variables([V | Tail], SoFar, Variables_Set) :-
-  to_variable(V, V1),
-  literals_to_variables(Tail, [V1 | SoFar], Variables_Set).
-
-
-%  to_variable/2
-%    Get the variable of a literal
-%      Literal  - a literal
-%      Variable - the variable of that literal
-
-to_variable(~ Variable, Variable) :- !.
-to_variable(Variable,   Variable).
-
-
-%  to_complement/2
-%    Get the complement of a literal
-%      Literal  - a literal
-%      Literal1 - the complement of Literal
-
-to_complement(~ Variable, Variable) :- !.
-to_complement(Variable,   ~ Variable).
-
-
-%  to_assignment/4
-%    Constructor for the term assign/4
-%      Literal    - a literal
-%      Level      - a decision level
-%      Decision   - is this a decision assignment or not
-%      Assignment - the literal expressed as an assignment
-
-to_assignment(~ Variable, Level, Decision,
-              assign(Variable, 0, Level, Decision)) :- !.
-to_assignment(Variable,   Level, Decision,
-              assign(Variable, 1, Level, Decision)).
-
-
-%  to_literal/2
-%    Assignment - an assignment
-%    Literal    - the assignment as a literal
-%  Example: assign(p1, 0, 3, no) becomes ~p1
-
-to_literal(assign(V, 0, _, _), ~V).
-to_literal(assign(V, 1, _, _), V).
