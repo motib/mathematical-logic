@@ -23,7 +23,7 @@
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\url{http: //www.weizmann.ac.il/sci-tea/benari/}}
 \title{\bfseries \ls\\\mbox{}\\
 \bfseries\large User's Guide\\\mbox{}\\
-\bfseries\normalsize Version 1.0.6}
+\bfseries\normalsize Version 1.0.7}
 
 %\date{}
 \begin{document}
@@ -204,7 +204,8 @@ Statistics: clauses=9, variables=6, units propagated=29, choices=12,
 line starts with a string followed by a colon to make it easy to
 postprocess the output. In \p{cdcl} and \p{ncb} modes, the assignments
 are written together with their levels in the format \p{p1=0@3} used in
-\cite{mlm}.
+\cite{mlm}. Optionally, the antecedent clause can be displayed with each
+assignment: \verb+p1@3/[~p1,p3]+.
 
 The content of the trace is controlled using \p{set\_display} and
 \p{clear\_display}. The argument to these predicates can be \p{all} or
@@ -306,7 +307,8 @@ conversion discussed above.}
 
 \begin{itemize}
 \item \p{dpll.pro} is the main module for the DPLL algorithms. It is
-described in more detail below.
+described in more detail below. Some auxiliary predicates
+(Section~\ref{s.aux}) are in the module \p{auxpred.pro}.
 
 \item \p{io.pro} is a module that writes: (a) assignments; (b) clauses
 together with their position numbers from the list of clauses input to
@@ -420,30 +422,27 @@ choosing an assignment to avoid choosing variables at a lower level than
 the backtrack level. In the example, the highest level is 1 where
 \p{x021} was assigned.
 
-
-\pagebreak[4]
-
-\subsection{Auxiliary predicates}
-
-\begin{itemize}
-
-\item \p{evaluate} a set of clauses; returns \p{ok} or \p{conflict}.
-
-\item \p{evaluate\_clause} returns one of \p{satisfied}, \p{unsatisfied},
+\p{evaluate} a set of clauses; returns \p{ok} or \p{conflict}.
+\p{evaluate\_clause} returns one of \p{satisfied}, \p{unsatisfied},
 \p{unit}, \p{unresolved}.
+\p{resolve} performs resolution on two clauses.
 
-\item \p{choose\_assignment} and \p{choose\_value} return an assignment.
+\p{choose\_assignment} and \p{choose\_value} return an assignment.
 Backtracking is used to return subsequent choices.
-
 The only delicate part is the use of the predicate \emph{Condition}
 $\rightarrow$ \emph{Action} with an internal \p{!, fail} to implement
 non-chronological backtracing; see the comments and Section~4.7 of the
 \sw{} Reference Manual.
 
+
+\subsection{Auxiliary predicates}\label{s.aux}
+
+\begin{itemize}
+
 \item \p{is\_assigned} checks if a literal is assigned a value
 and if so returns that value (0 or 1).
 
-\item \p{resolve} performs resolution on two clauses.
+\item \p{choose\_value} selects 0 or 1. 
 
 \item \p{literals\_to\_variables} takes a list of literals and returns a
 sorted set of the variables corresponding to the literals.
@@ -500,6 +499,7 @@ propagation.
 \p{all}       &  all of the options\\
 \p{default}   &  default options (indicated by *)\\
 \hline
+\p{antecedents}&  antecedents of each assigned atom\\
 \p{assignments}& assignments that caused a conflict         \\
 \p{backtrack}*&  level of non-chronological backtracking    \\
 \p{clauses}   &  clauses to be checked for satisfiability   \\

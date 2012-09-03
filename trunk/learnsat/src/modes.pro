@@ -65,8 +65,8 @@ get_mode(Mode) :-
 %  all_display/1, default_display/1 (in file config), init_display/0
 
 all_display([
-  assignments, backtrack, clauses, conflict, decision, dot, evaluate,
-  graph, incremental, labels, learned, literal, none, partial,
+  antecedents, assignments, backtrack, clauses, conflict, decision, dot,
+  evaluate, graph, incremental, labels, learned, literal, none, partial,
   resolvent, result, skipping, uip, unit, variables]).
 
 %  If there are already display options, don't change them
@@ -217,6 +217,7 @@ usage :-
   write('  set_display(D), clear_display(D),\n'),
   write('        where D is all, or default (* below),\n'),
   write('        or one of, or a list of one or more of:\n'),
+  write('    antecedents  antecedents of each assigned atom\n'),
   write('    assignments  assignments that caused a conflict\n'),
   write('    backtrack *  level of non-chronological backtracking\n'),
   write('    clauses      clauses to be checked for satisfiability\n'),
