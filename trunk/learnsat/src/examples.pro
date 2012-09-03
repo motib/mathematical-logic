@@ -8,9 +8,8 @@
 
 run :-
   set_mode(ncb),
-%  set_mode(dpll),
   set_display(all),
-%  clear_display([graph, incremental, dot]),
+  clear_display([incremental, dot]),
   clear_display(evaluate),
   tell('mlm.txt'), mlm, told.
 
