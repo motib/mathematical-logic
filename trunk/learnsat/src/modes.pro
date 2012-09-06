@@ -65,9 +65,10 @@ get_mode(Mode) :-
 %  all_display/1, default_display/1 (in file config), init_display/0
 
 all_display([
-  antecedents, assignments, backtrack, clauses, conflict, decision, dot,
-  evaluate, graph, incremental, labels, learned, literal, none, partial,
-  resolvent, result, skipping, uip, unit, variables]).
+  antecedents, assignments, backtrack, clauses, conflict, decision,
+  dominator, dot, evaluate, graph, incremental, labels, learned,
+  literal, none, partial, resolvent, result, skipping, uip, unit,
+  variables]).
 
 %  If there are already display options, don't change them
 init_display :-
@@ -223,6 +224,7 @@ usage :-
   write('    clauses      clauses to be checked for satisfiability\n'),
   write('    conflict *   conflict clause\n'),
   write('    decision *   decision assignments\n'),
+  write('    dominator    learned clause computed from dominator\n'),
   write('    dot          implication graph in dot format\n'),
   write('    evaluate     evaluation of clauses for an assignment\n'),
   write('    graph        implication graph\n'),

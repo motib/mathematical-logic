@@ -2,7 +2,8 @@
 
 %  Display explanations
 
-:- module(display, [display/2, display/3, display/4, display/5]).
+:- module(display,
+          [display/2, display/3, display/4, display/5, display/6]).
 
 :- use_module([config,counters,io,modes]).
 
@@ -161,3 +162,20 @@ display(resolvent, Literal, Clause, Clause1, Clause2) :-
   write(' is also unsatisfiable'), nl.
 
 display(_, _, _, _, _).
+
+%  Six arguments
+
+display(dominator, Path_List, Dominator, Decisions, Result, Learned) :-
+  check_option(dominator), !,
+  write('Paths from decision node at this level to kappa:\n'),
+  write_paths(Path_List),
+  write('A dominator is: '),
+  write_assignment(Dominator), nl, 
+  write('Decisions at a lower level: '),
+  write(Decisions), nl,
+  write('Decisions not dominated: '),
+  write(Result), nl,
+  write('Learned clause from dominator: '),
+  write(Learned), nl.
+
+display(_, _, _, _, _, _).

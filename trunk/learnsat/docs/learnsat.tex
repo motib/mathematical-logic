@@ -23,7 +23,7 @@
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\url{http: //www.weizmann.ac.il/sci-tea/benari/}}
 \title{\bfseries \ls\\\mbox{}\\
 \bfseries\large User's Guide\\\mbox{}\\
-\bfseries\normalsize Version 1.1.0}
+\bfseries\normalsize Version 1.1.2}
 
 %\date{}
 \begin{document}
@@ -260,6 +260,8 @@ will be as in the paper:
 \section{Test programs included in \ls{}}
 
 \begin{itemize}
+\item \p{examples.pro} contains examples from papers on SAT
+solvers \cite{mz,mlm,ms}.
 
 \item \p{queens.pro}: The four-queens problem as given in
 \cite[Section 6.4]{mlcs}.
@@ -271,8 +273,7 @@ are unsatisfiable, but for each one a satisfiable variant is given.
 \item \p{pigeon.pro} contains the pigeon-hole problem for
 two and three holes \cite[Exercise 6.4]{mlcs}.
 
-\item \p{examples.pro} contains examples from papers on SAT
-solvers \cite{mz,mlm,ms}.
+\item \p{pebbles.pro}: Grid pebbling for depth 2 and 3.
 \end{itemize}
 
 
@@ -397,14 +398,14 @@ created. When a conflict is encountered, the \p{kappa} node and its
 incoming edges are added and the graph is passed to
 \p{compute\_learned\_clause}.
 
-The predicate \p{compute\_learned\_clause} starts with the conflict
-clause (the antecedent clause of the \p{kappa} node) as the current
-clause and starts resolving. The second clause for each resolution step
-is one that clashes with the current clause on a literal that is
-assigned at the current level \emph{by unit propagation}. For example,
-given the conflict clause \p{[x5,x6]} from the figure, both \p{x5} and
-\p{x6} were assigned by unit propagation at this level, so we can
-successively resolve \p{[x5,x6]} with the antecedent clauses of the
+The predicate \p{compute\_learned\_clause\_by\_resolution} starts with
+the conflict clause (the antecedent clause of the \p{kappa} node) as the
+current clause and starts resolving. The second clause for each
+resolution step is one that clashes with the current clause on a literal
+that is assigned at the current level \emph{by unit propagation}. For
+example, given the conflict clause \p{[x5,x6]} from the figure, both
+\p{x5} and \p{x6} were assigned by unit propagation at this level, so we
+can successively resolve \p{[x5,x6]} with the antecedent clauses of the
 assignments, namely, \verb+[~x4,~x5]+ and then \verb+[x021,~x4,~x6]+ (or
 in the opposite order). The resolution terminates when a \emph{unique
 implication point (UIP)} is encountered; this is a clause where only one
@@ -412,6 +413,14 @@ literal is assigned at the current level. This clause is the
 \emph{learned clause} and is added to the list that is the argument of
 the single fact in the database \p{learned}. In the example, the learned
 clause is \verb+[x021,~x4]+.
+
+\p{compute\_learned\_clause\_by\_dominator} displays the computation of
+a learned clause by locating a dominator of the highest-level decision
+assignment node relative to the \p{kappa} node. The learned clause is
+the complement of that assignment together with the complements of all
+decision assignments not dominated by the dominator. The computation is
+performed only for display (display option \p{dominator}); the learned
+clause computed by resolution is the one that is used.
 
 When a learned clause has been obtained, the backtrack level for
 non-chronological backtracking is computed. This is the highest level of
@@ -452,6 +461,9 @@ Level, Decision)}, where \p{Level} is the level at which the assignment
 was made and \p{Decision} is \p{yes} if the assignment was
 made as a decision and \p{no} if the assignment was the result of unit
 propagation.
+
+\item \p{to\_clause} converts a list of assignments to a clause---a list
+of literals. It can optionally complement each literal.
 
 \end{itemize}
 
@@ -501,6 +513,7 @@ propagation.
 \p{clauses}   &  clauses to be checked for satisfiability   \\
 \p{conflict}* &  conflict clauses                           \\
 \p{decision}* &  decision assignments                       \\
+\p{dominator} &  learned clause computed from dominator     \\
 \p{evaluate}  &  evaluation of clauses for an assignment    \\
 \p{dot}       &  implication graphs in dot format           \\
 \p{graph}     &  implication graphs                         \\
