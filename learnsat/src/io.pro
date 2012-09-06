@@ -6,7 +6,7 @@
 :- module(io, [
   write_assignment/1, write_assignment/2, write_assignments/1,
   write_clause/2, write_clauses/2,
-  write_dot/2, write_graph/2
+  write_dot/2, write_paths/1, write_graph/2
   ]).
 
 :- use_module([counters, modes]).
@@ -109,9 +109,9 @@ write_graph(graph(Nodes, Edges), Clauses) :-
 %  write_nodes/1 - write the list of nodes as assignments
 
 write_nodes([]).
-write_nodes([node(N)]) :- !,
+write_nodes([N]) :- !,
   write_assignment(N, no).
-write_nodes([node(N) | Tail]) :-
+write_nodes([N | Tail]) :-
   write_assignment(N, no),
   write(',\n'),
   write_nodes(Tail).
@@ -135,6 +135,20 @@ write_arrow(edge(From, N, To), Clauses) :-
   ),
   write('--> '),
   write_assignment(To, no).
+
+%  write_paths/1
+  
+write_paths([]).
+write_paths([Head | Tail]) :-
+  write_one_path(Head),
+  write_paths(Tail).
+
+write_one_path([kappa]) :- !,
+  write('kappa\n').
+write_one_path([Assignment | Tail]) :-
+  write_assignment(Assignment),
+  write(' --> '),
+  write_one_path(Tail).
 
 %  write_dot/1
 %    Write the implication graph to a file in dot format for GraphViz

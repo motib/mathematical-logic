@@ -1,4 +1,4 @@
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x031,~x2],
@@ -142,6 +142,31 @@ x4=1@3 --5.[x021,~x4,~x6]--> x6=0@3,
 x5=0@3 --6.[x5,x6]--> kappa,
 x6=0@3 --6.[x5,x6]--> kappa
 ]
+Paths from decision node at this level to kappa:
+x1=0@3/nil --> x2=0@3/[x1,x031,~x2] --> x4=1@3/[x2,x3,x4] --> x5=0@3/[~x4,~x5] --> kappa
+x1=0@3/nil --> x2=0@3/[x1,x031,~x2] --> x4=1@3/[x2,x3,x4] --> x6=0@3/[x021,~x4,~x6] --> kappa
+x1=0@3/nil --> x3=0@3/[x1,~x3] --> x4=1@3/[x2,x3,x4] --> x5=0@3/[~x4,~x5] --> kappa
+x1=0@3/nil --> x3=0@3/[x1,~x3] --> x4=1@3/[x2,x3,x4] --> x6=0@3/[x021,~x4,~x6] --> kappa
+A dominator is: x4=1@3/[x2,x3,x4]
+Decisions at a lower level: [assign(x021,0,1,yes),assign(x031,0,2,yes)]
+Decisions not dominated: [assign(x021,0,1,yes)]
+Learned clause from dominator: [x021,~x4]
+Literal: x5 assigned at level: 3
+Literal: x6 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [x5,x6] unsatisfied
+Complement of: x5 assigned true in the unit clause: [~x4,~x5]
+Resolvent of the two clauses: [x6,~x4] is also unsatisfiable
+Literal: x6 assigned at level: 3
+Literal: ~x4 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [x6,~x4] unsatisfied
+Complement of: x6 assigned true in the unit clause: [x021,~x4,~x6]
+Resolvent of the two clauses: [x021,~x4] is also unsatisfiable
+Literal: ~x4 assigned at level: 3
+UIP: one literal is assigned at level: 3
+Learned clause: [x021,~x4]
+Non-chronological backtracking to level: 1
 Literal: x5 assigned at level: 3
 Literal: x6 assigned at level: 3
 Not a UIP: two literals are assigned at level: 3
@@ -268,7 +293,7 @@ Satisfying assignments:
 [x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=1@3/[x5,x6]]
 Statistics: clauses=6, variables=8, units=10, choices=6, conflicts=1
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [ax1,x4],
@@ -523,7 +548,7 @@ Satisfying assignments:
  x10=0@5/nil,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
  x8=1@5/[ax1,x8,x12],x9=0@6/nil]
 Statistics: clauses=8, variables=10, units=8, choices=9, conflicts=1
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x2],
@@ -693,6 +718,31 @@ x4=1@6 --5.[~x4,x6,cx11]--> x6=1@6,
 x5=1@6 --6.[~x5,~x6]--> kappa,
 x6=1@6 --6.[~x5,~x6]--> kappa
 ]
+Paths from decision node at this level to kappa:
+x1=0@6/nil --> x2=1@6/[x1,x2] --> x4=1@6/[~x2,~x3,x4] --> x5=1@6/[~x4,x5,bx10] --> kappa
+x1=0@6/nil --> x2=1@6/[x1,x2] --> x4=1@6/[~x2,~x3,x4] --> x6=1@6/[~x4,x6,cx11] --> kappa
+x1=0@6/nil --> x3=1@6/[x1,x3,ax9] --> x4=1@6/[~x2,~x3,x4] --> x5=1@6/[~x4,x5,bx10] --> kappa
+x1=0@6/nil --> x3=1@6/[x1,x3,ax9] --> x4=1@6/[~x2,~x3,x4] --> x6=1@6/[~x4,x6,cx11] --> kappa
+A dominator is: x4=1@6/[~x2,~x3,x4]
+Decisions at a lower level: [assign(ax9,0,1,yes),assign(bx10,0,2,yes),assign(cx11,0,3,yes)]
+Decisions not dominated: [assign(bx10,0,2,yes),assign(cx11,0,3,yes)]
+Learned clause from dominator: [bx10,cx11,~x4]
+Literal: ~x5 assigned at level: 6
+Literal: ~x6 assigned at level: 6
+Not a UIP: two literals are assigned at level: 6
+Clause: [~x5,~x6] unsatisfied
+Complement of: ~x5 assigned true in the unit clause: [~x4,x5,bx10]
+Resolvent of the two clauses: [~x6,~x4,bx10] is also unsatisfiable
+Literal: ~x6 assigned at level: 6
+Literal: ~x4 assigned at level: 6
+Not a UIP: two literals are assigned at level: 6
+Clause: [~x6,~x4,bx10] unsatisfied
+Complement of: ~x6 assigned true in the unit clause: [~x4,x6,cx11]
+Resolvent of the two clauses: [bx10,~x4,cx11] is also unsatisfiable
+Literal: ~x4 assigned at level: 6
+UIP: one literal is assigned at level: 6
+Learned clause: [bx10,~x4,cx11]
+Non-chronological backtracking to level: 3
 Literal: ~x5 assigned at level: 6
 Literal: ~x6 assigned at level: 6
 Not a UIP: two literals are assigned at level: 6
@@ -847,7 +897,7 @@ Satisfying assignments:
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6],x7=0@7/nil,
  x8=0@8/nil]
 Statistics: clauses=9, variables=13, units=10, choices=12, conflicts=1
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12],
@@ -964,6 +1014,53 @@ p22=0@1 --2.[p21,p22]--> p21=1@1,
 p31=0@1 --3.[p31,p32]--> p32=1@1,
 p32=1@1 --8.[~p12,~p32]--> kappa
 ]
+Paths from decision node at this level to kappa:
+p11=0@1/nil --> p12=1@1/[p11,p12] --> p22=0@1/[~p12,~p22] --> p21=1@1/[p21,p22] --> p31=0@1/[~p21,~p31] --> p32=1@1/[p31,p32] --> kappa
+p11=0@1/nil --> p12=1@1/[p11,p12] --> kappa
+A dominator is: p12=1@1/[p11,p12]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p12]
+Literal: ~p12 assigned at level: 1
+Literal: ~p32 assigned at level: 1
+Not a UIP: two literals are assigned at level: 1
+Clause: [~p12,~p32] unsatisfied
+Complement of: ~p12 assigned true in the unit clause: [p11,p12]
+Resolvent of the two clauses: [~p32,p11] is also unsatisfiable
+Literal: ~p32 assigned at level: 1
+Literal: p11 assigned at level: 1
+Not a UIP: two literals are assigned at level: 1
+Clause: [~p32,p11] unsatisfied
+Complement of: ~p32 assigned true in the unit clause: [p31,p32]
+Resolvent of the two clauses: [p11,p31] is also unsatisfiable
+Literal: p11 assigned at level: 1
+Literal: p31 assigned at level: 1
+Not a UIP: two literals are assigned at level: 1
+Clause: [p11,p31] unsatisfied
+Complement of: p31 assigned true in the unit clause: [~p21,~p31]
+Resolvent of the two clauses: [p11,~p21] is also unsatisfiable
+Literal: p11 assigned at level: 1
+Literal: ~p21 assigned at level: 1
+Not a UIP: two literals are assigned at level: 1
+Clause: [p11,~p21] unsatisfied
+Complement of: ~p21 assigned true in the unit clause: [p21,p22]
+Resolvent of the two clauses: [p11,p22] is also unsatisfiable
+Literal: p11 assigned at level: 1
+Literal: p22 assigned at level: 1
+Not a UIP: two literals are assigned at level: 1
+Clause: [p11,p22] unsatisfied
+Complement of: p22 assigned true in the unit clause: [~p12,~p22]
+Resolvent of the two clauses: [p11,~p12] is also unsatisfiable
+Literal: p11 assigned at level: 1
+Literal: ~p12 assigned at level: 1
+Not a UIP: two literals are assigned at level: 1
+Clause: [p11,~p12] unsatisfied
+Complement of: ~p12 assigned true in the unit clause: [p11,p12]
+Resolvent of the two clauses: [p11] is also unsatisfiable
+Literal: p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p11]
+Non-chronological backtracking to level: 0
 Literal: ~p12 assigned at level: 1
 Literal: ~p32 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
@@ -1142,6 +1239,16 @@ p12=0@1
 p11=1@1 --10.[~p11]--> kappa,
 p12=0@1 --1.[p11,p12]--> p11=1@1
 ]
+Paths from decision node at this level to kappa:
+p12=0@1/nil --> p11=1@1/[p11,p12] --> kappa
+A dominator is: p11=1@1/[p11,p12]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p11]
+Literal: ~p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [~p11]
+Non-chronological backtracking to level: 0
 Literal: ~p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p11]
@@ -1206,6 +1313,16 @@ p12=1@1 --7.[~p12,~p22]--> p22=0@1,
 p21=1@1 --4.[~p11,~p21]--> p11=0@1,
 p22=0@1 --2.[p21,p22]--> p21=1@1
 ]
+Paths from decision node at this level to kappa:
+p12=1@1/nil --> p22=0@1/[~p12,~p22] --> p21=1@1/[p21,p22] --> p11=0@1/[~p11,~p21] --> kappa
+A dominator is: p22=0@1/[~p12,~p22]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [p22]
+Literal: p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p11]
+Non-chronological backtracking to level: 0
 Literal: p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [p11]
@@ -1270,6 +1387,16 @@ p12=0@1 --1.[p11,p12]--> p11=1@1,
 p21=0@1 --2.[p21,p22]--> p22=1@1,
 p22=1@1 --7.[~p12,~p22]--> p12=0@1
 ]
+Paths from decision node at this level to kappa:
+p21=0@1/nil --> p22=1@1/[p21,p22] --> p12=0@1/[~p12,~p22] --> p11=1@1/[p11,p12] --> kappa
+A dominator is: p22=1@1/[p21,p22]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p22]
+Literal: ~p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [~p11]
+Non-chronological backtracking to level: 0
 Literal: ~p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p11]
@@ -1302,6 +1429,16 @@ p21=1@1
 p11=0@1 --11.[p11]--> kappa,
 p21=1@1 --4.[~p11,~p21]--> p11=0@1
 ]
+Paths from decision node at this level to kappa:
+p21=1@1/nil --> p11=0@1/[~p11,~p21] --> kappa
+A dominator is: p11=0@1/[~p11,~p21]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [p11]
+Literal: p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p11]
+Non-chronological backtracking to level: 0
 Literal: p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [p11]
@@ -1349,6 +1486,16 @@ p11=0@1 --11.[p11]--> kappa,
 p21=1@1 --4.[~p11,~p21]--> p11=0@1,
 p22=0@1 --2.[p21,p22]--> p21=1@1
 ]
+Paths from decision node at this level to kappa:
+p22=0@1/nil --> p21=1@1/[p21,p22] --> p11=0@1/[~p11,~p21] --> kappa
+A dominator is: p21=1@1/[p21,p22]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p21]
+Literal: p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p11]
+Non-chronological backtracking to level: 0
 Literal: p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [p11]
@@ -1396,6 +1543,16 @@ p11=1@1 --10.[~p11]--> kappa,
 p12=0@1 --1.[p11,p12]--> p11=1@1,
 p22=1@1 --7.[~p12,~p22]--> p12=0@1
 ]
+Paths from decision node at this level to kappa:
+p22=1@1/nil --> p12=0@1/[~p12,~p22] --> p11=1@1/[p11,p12] --> kappa
+A dominator is: p12=0@1/[~p12,~p22]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [p12]
+Literal: ~p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [~p11]
+Non-chronological backtracking to level: 0
 Literal: ~p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p11]
@@ -1460,6 +1617,16 @@ p12=0@1 --1.[p11,p12]--> p11=1@1,
 p31=0@1 --3.[p31,p32]--> p32=1@1,
 p32=1@1 --8.[~p12,~p32]--> p12=0@1
 ]
+Paths from decision node at this level to kappa:
+p31=0@1/nil --> p32=1@1/[p31,p32] --> p12=0@1/[~p12,~p32] --> p11=1@1/[p11,p12] --> kappa
+A dominator is: p32=1@1/[p31,p32]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p32]
+Literal: ~p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [~p11]
+Non-chronological backtracking to level: 0
 Literal: ~p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p11]
@@ -1492,6 +1659,16 @@ p31=1@1
 p11=0@1 --11.[p11]--> kappa,
 p31=1@1 --5.[~p11,~p31]--> p11=0@1
 ]
+Paths from decision node at this level to kappa:
+p31=1@1/nil --> p11=0@1/[~p11,~p31] --> kappa
+A dominator is: p11=0@1/[~p11,~p31]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [p11]
+Literal: p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p11]
+Non-chronological backtracking to level: 0
 Literal: p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [p11]
@@ -1539,6 +1716,16 @@ p11=0@1 --11.[p11]--> kappa,
 p31=1@1 --5.[~p11,~p31]--> p11=0@1,
 p32=0@1 --3.[p31,p32]--> p31=1@1
 ]
+Paths from decision node at this level to kappa:
+p32=0@1/nil --> p31=1@1/[p31,p32] --> p11=0@1/[~p11,~p31] --> kappa
+A dominator is: p31=1@1/[p31,p32]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p31]
+Literal: p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p11]
+Non-chronological backtracking to level: 0
 Literal: p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [p11]
@@ -1586,13 +1773,23 @@ p11=1@1 --10.[~p11]--> kappa,
 p12=0@1 --1.[p11,p12]--> p11=1@1,
 p32=1@1 --8.[~p12,~p32]--> p12=0@1
 ]
+Paths from decision node at this level to kappa:
+p32=1@1/nil --> p12=0@1/[~p12,~p32] --> p11=1@1/[p11,p12] --> kappa
+A dominator is: p12=0@1/[~p12,~p32]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [p12]
+Literal: ~p11 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [~p11]
+Non-chronological backtracking to level: 0
 Literal: ~p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p11]
 Non-chronological backtracking to level: 0
 Unsatisfiable:
 Statistics: clauses=9, variables=6, units=29, choices=12, conflicts=12
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12,p13,p14],
@@ -2101,6 +2298,53 @@ p42=0@4 --4.[p41,p42,p43,p44]--> p43=1@4,
 p43=1@4 --46.[~p33,~p43]--> p33=0@4,
 p44=0@3 --4.[p41,p42,p43,p44]--> p43=1@4
 ]
+Paths from decision node at this level to kappa:
+p21=0@4/nil --> p22=1@4/[p21,p22,p23,p24] --> p42=0@4/[~p22,~p42] --> p43=1@4/[p41,p42,p43,p44] --> p33=0@4/[~p33,~p43] --> p31=1@4/[p31,p32,p33,p34] --> kappa
+p21=0@4/nil --> p22=1@4/[p21,p22,p23,p24] --> kappa
+A dominator is: p22=1@4/[p21,p22,p23,p24]
+Decisions at a lower level: [assign(p11,0,1,yes),assign(p12,0,2,yes),assign(p13,0,3,yes)]
+Decisions not dominated: []
+Learned clause from dominator: [~p22]
+Literal: ~p22 assigned at level: 4
+Literal: ~p31 assigned at level: 4
+Not a UIP: two literals are assigned at level: 4
+Clause: [~p22,~p31] unsatisfied
+Complement of: ~p22 assigned true in the unit clause: [p21,p22,p23,p24]
+Resolvent of the two clauses: [~p31,p21,p23,p24] is also unsatisfiable
+Literal: ~p31 assigned at level: 4
+Literal: p21 assigned at level: 4
+Not a UIP: two literals are assigned at level: 4
+Clause: [~p31,p21,p23,p24] unsatisfied
+Complement of: ~p31 assigned true in the unit clause: [p31,p32,p33,p34]
+Resolvent of the two clauses: [p21,p23,p24,p32,p33,p34] is also unsatisfiable
+Literal: p21 assigned at level: 4
+Literal: p33 assigned at level: 4
+Not a UIP: two literals are assigned at level: 4
+Clause: [p21,p23,p24,p32,p33,p34] unsatisfied
+Complement of: p33 assigned true in the unit clause: [~p33,~p43]
+Resolvent of the two clauses: [p21,p23,p24,p32,p34,~p43] is also unsatisfiable
+Literal: p21 assigned at level: 4
+Literal: ~p43 assigned at level: 4
+Not a UIP: two literals are assigned at level: 4
+Clause: [p21,p23,p24,p32,p34,~p43] unsatisfied
+Complement of: ~p43 assigned true in the unit clause: [p41,p42,p43,p44]
+Resolvent of the two clauses: [p21,p23,p24,p32,p34,p41,p42,p44] is also unsatisfiable
+Literal: p21 assigned at level: 4
+Literal: p42 assigned at level: 4
+Not a UIP: two literals are assigned at level: 4
+Clause: [p21,p23,p24,p32,p34,p41,p42,p44] unsatisfied
+Complement of: p42 assigned true in the unit clause: [~p22,~p42]
+Resolvent of the two clauses: [p21,p23,p24,p32,p34,p41,p44,~p22] is also unsatisfiable
+Literal: p21 assigned at level: 4
+Literal: ~p22 assigned at level: 4
+Not a UIP: two literals are assigned at level: 4
+Clause: [p21,p23,p24,p32,p34,p41,p44,~p22] unsatisfied
+Complement of: ~p22 assigned true in the unit clause: [p21,p22,p23,p24]
+Resolvent of the two clauses: [p32,p34,p41,p44,p21,p23,p24] is also unsatisfiable
+Literal: p21 assigned at level: 4
+UIP: one literal is assigned at level: 4
+Learned clause: [p32,p34,p41,p44,p21,p23,p24]
+Non-chronological backtracking to level: 3
 Literal: ~p22 assigned at level: 4
 Literal: ~p31 assigned at level: 4
 Not a UIP: two literals are assigned at level: 4
@@ -2495,7 +2739,7 @@ Satisfying assignments:
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p42=1@3/[p41,p42,p43,p44],p43=0@3/[~p13,~p43],p44=0@3/[~p34,~p44]]
 Statistics: clauses=80, variables=16, units=25, choices=5, conflicts=1
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -3205,7 +3449,7 @@ Learned clause: [q]
 Non-chronological backtracking to level: 0
 Unsatisfiable:
 Statistics: clauses=12, variables=5, units=24, choices=12, conflicts=10
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -3609,7 +3853,7 @@ Satisfying assignments:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
  t=1@1/[~s,t]]
 Statistics: clauses=12, variables=5, units=14, choices=6, conflicts=3
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -3815,6 +4059,16 @@ p1=0@1
 p0=1@1 --9.[~p0]--> kappa,
 p1=0@1 --2.[p0,p1]--> p0=1@1
 ]
+Paths from decision node at this level to kappa:
+p1=0@1/nil --> p0=1@1/[p0,p1] --> kappa
+A dominator is: p0=1@1/[p0,p1]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p0]
+Literal: ~p0 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [~p0]
+Non-chronological backtracking to level: 0
 Literal: ~p0 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p0]
@@ -3847,6 +4101,16 @@ p1=1@1
 p0=0@1 --10.[p0]--> kappa,
 p1=1@1 --1.[~p0,~p1]--> p0=0@1
 ]
+Paths from decision node at this level to kappa:
+p1=1@1/nil --> p0=0@1/[~p0,~p1] --> kappa
+A dominator is: p0=0@1/[~p0,~p1]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [p0]
+Literal: p0 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p0]
+Non-chronological backtracking to level: 0
 Literal: p0 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [p0]
@@ -3879,6 +4143,16 @@ p2=0@1
 p0=0@1 --10.[p0]--> kappa,
 p2=0@1 --4.[~p0,p2]--> p0=0@1
 ]
+Paths from decision node at this level to kappa:
+p2=0@1/nil --> p0=0@1/[~p0,p2] --> kappa
+A dominator is: p0=0@1/[~p0,p2]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [p0]
+Literal: p0 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p0]
+Non-chronological backtracking to level: 0
 Literal: p0 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [p0]
@@ -3911,6 +4185,16 @@ p2=1@1
 p0=1@1 --9.[~p0]--> kappa,
 p2=1@1 --3.[p0,~p2]--> p0=1@1
 ]
+Paths from decision node at this level to kappa:
+p2=1@1/nil --> p0=1@1/[p0,~p2] --> kappa
+A dominator is: p0=1@1/[p0,~p2]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p0]
+Literal: ~p0 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [~p0]
+Non-chronological backtracking to level: 0
 Literal: ~p0 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p0]
@@ -3958,6 +4242,16 @@ p0=1@1 --9.[~p0]--> kappa,
 p1=0@1 --2.[p0,p1]--> p0=1@1,
 p3=0@1 --6.[~p1,p3]--> p1=0@1
 ]
+Paths from decision node at this level to kappa:
+p3=0@1/nil --> p1=0@1/[~p1,p3] --> p0=1@1/[p0,p1] --> kappa
+A dominator is: p1=0@1/[~p1,p3]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [p1]
+Literal: ~p0 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [~p0]
+Non-chronological backtracking to level: 0
 Literal: ~p0 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p0]
@@ -4005,13 +4299,23 @@ p0=0@1 --10.[p0]--> kappa,
 p1=1@1 --1.[~p0,~p1]--> p0=0@1,
 p3=1@1 --5.[p1,~p3]--> p1=1@1
 ]
+Paths from decision node at this level to kappa:
+p3=1@1/nil --> p1=1@1/[p1,~p3] --> p0=0@1/[~p0,~p1] --> kappa
+A dominator is: p1=1@1/[p1,~p3]
+Decisions at a lower level: []
+Decisions not dominated: []
+Learned clause from dominator: [~p1]
+Literal: p0 assigned at level: 1
+UIP: one literal is assigned at level: 1
+Learned clause: [p0]
+Non-chronological backtracking to level: 0
 Literal: p0 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [p0]
 Non-chronological backtracking to level: 0
 Unsatisfiable:
 Statistics: clauses=8, variables=4, units=14, choices=8, conflicts=8
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -4152,7 +4456,7 @@ p1=0@1 --5.[p1,~p3]--> p3=0@1
 Satisfying assignments:
 [p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
 Statistics: clauses=8, variables=4, units=6, choices=2, conflicts=1
-LearnSAT v1.1.0. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1,p2],
@@ -5176,6 +5480,68 @@ p5=1@3 --7.[p3,p4,~p5]--> p4=1@3,
 p6=0@3 --14.[p0,~p3,p6]--> p3=0@3,
 p7=1@3 --27.[~p2,~p4,~p7,p0,p3]--> kappa
 ]
+Paths from decision node at this level to kappa:
+p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> p4=1@3/[p3,p4,~p5] --> p7=1@3/[p1,~p4,p7] --> kappa
+p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> p4=1@3/[p3,p4,~p5] --> kappa
+p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> p5=1@3/[~p2,p1,p0,p3,p5] --> p4=1@3/[p3,p4,~p5] --> p7=1@3/[p1,~p4,p7] --> kappa
+p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> p5=1@3/[~p2,p1,p0,p3,p5] --> p4=1@3/[p3,p4,~p5] --> kappa
+p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> kappa
+A dominator is: p3=0@3/[p0,~p3,p6]
+Decisions at a lower level: [assign(p0,0,1,yes),assign(p1,0,2,yes)]
+Decisions not dominated: [assign(p1,0,2,yes)]
+Learned clause from dominator: [p1,p3]
+Literal: ~p4 assigned at level: 3
+Literal: ~p7 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [~p2,~p4,~p7,p0,p3] unsatisfied
+Complement of: ~p4 assigned true in the unit clause: [p3,p4,~p5]
+Resolvent of the two clauses: [~p2,~p7,p0,p3,~p5] is also unsatisfiable
+Literal: ~p7 assigned at level: 3
+Literal: p3 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [~p2,~p7,p0,p3,~p5] unsatisfied
+Complement of: ~p7 assigned true in the unit clause: [p1,~p4,p7]
+Resolvent of the two clauses: [~p2,p0,p3,~p5,p1,~p4] is also unsatisfiable
+Literal: p3 assigned at level: 3
+Literal: ~p5 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [~p2,p0,p3,~p5,p1,~p4] unsatisfied
+Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
+Resolvent of the two clauses: [~p2,~p5,p1,~p4,p0,p6] is also unsatisfiable
+Literal: ~p5 assigned at level: 3
+Literal: ~p4 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [~p2,~p5,p1,~p4,p0,p6] unsatisfied
+Complement of: ~p5 assigned true in the unit clause: [~p2,p1,p0,p3,p5]
+Resolvent of the two clauses: [~p4,p6,~p2,p1,p0,p3] is also unsatisfiable
+Literal: ~p4 assigned at level: 3
+Literal: p6 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [~p4,p6,~p2,p1,p0,p3] unsatisfied
+Complement of: ~p4 assigned true in the unit clause: [p3,p4,~p5]
+Resolvent of the two clauses: [p6,~p2,p1,p0,p3,~p5] is also unsatisfiable
+Literal: p6 assigned at level: 3
+Literal: p3 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [p6,~p2,p1,p0,p3,~p5] unsatisfied
+Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
+Resolvent of the two clauses: [~p2,p1,~p5,p0,p6] is also unsatisfiable
+Literal: ~p5 assigned at level: 3
+Literal: p6 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [~p2,p1,~p5,p0,p6] unsatisfied
+Complement of: ~p5 assigned true in the unit clause: [~p2,p1,p0,p3,p5]
+Resolvent of the two clauses: [p6,~p2,p1,p0,p3] is also unsatisfiable
+Literal: p6 assigned at level: 3
+Literal: p3 assigned at level: 3
+Not a UIP: two literals are assigned at level: 3
+Clause: [p6,~p2,p1,p0,p3] unsatisfied
+Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
+Resolvent of the two clauses: [~p2,p1,p0,p6] is also unsatisfiable
+Literal: p6 assigned at level: 3
+UIP: one literal is assigned at level: 3
+Learned clause: [~p2,p1,p0,p6]
+Non-chronological backtracking to level: 2
 Literal: ~p4 assigned at level: 3
 Literal: ~p7 assigned at level: 3
 Not a UIP: two literals are assigned at level: 3

@@ -12,7 +12,7 @@
 %  Modules directly used by dpll
 %  The most frequently used predicate is "display" to display
 %    the trace of the execution
-:- use_module([counters,modes,display,auxpred]).
+:- use_module([counters,modes,display,auxpred,io]).
 
 %  Make housekeeping predicates visible after consulting just dpll
 :- reexport(modes, 
@@ -164,9 +164,15 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
   display(graph, Graph1, Clauses),
       % Compute the learned clause and save in the database
       %   (but not if in dpll mode)
+      % The learned clause is computed by resolving backwards
+      %   from the conflict clause
+      % Computing by locating a dominator can be performed for display
+      %   but the result is not used
   get_mode(Mode),
   (Mode \= dpll -> 
-     compute_learned_clause(Graph1, Clauses, Level) ;
+     compute_learned_clause_by_dominator(Graph1, Level),
+     compute_learned_clause_by_resolution(Graph1, Clauses, Level)
+     ;
      true),
       % Fail on conflict
   fail.
@@ -324,26 +330,27 @@ extend_graph([Head | Tail], Number, Assignment, SoFar,
       % and add the (Number of the) antecedent unit clause as a new edge
   extend_graph(Tail, Number, Assignment, SoFar,
     graph(
-      [node(Source) | Nodes],
+      [Source | Nodes],
       [edge(Source, Number, Assignment) | Edges]), Graph1).
 
 %  End of the clause, add Assignment as a target node
 %  Sort the nodes and edges (this removes duplicates, if any)
 extend_graph([], _, Assignment, _, 
           graph(Nodes, Edges), graph(Nodes1, Edges1)) :-
-  sort([node(Assignment) | Nodes], Nodes1),
+  sort([Assignment | Nodes], Nodes1),
   sort(Edges, Edges1).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%  compute_learned_clause/3
+%  compute_learned_clause_by_resolution/3
 %    Compute a learned clause from an implication graph
+%        by resolving backwards from the conflict clause
 %      Graph   - an implication graph
 %      Clauses - the set of clauses
 %      Level   - the current (highest) level
 
-compute_learned_clause(Graph, Clauses, Level) :-
+compute_learned_clause_by_resolution(Graph, Clauses, Level) :-
   Graph = graph(Nodes, Edges),
       % Search for the antecedent of the kappa node
   member(edge(_, N, kappa), Edges), !,
@@ -359,7 +366,7 @@ compute_learned_clause(Graph, Clauses, Level) :-
   assert(learned(List1)).
 
 
-%  compute_learned_clause1/5
+%  compute_learned_clause/5
 %    Construct the learned clause from the antecedents
 %      Graph   - the implication graph
 %      Clauses - the set of clauses
@@ -412,7 +419,7 @@ check_uip([], _, Level, 1) :-
 % For a literal, check if its variable is assigned at this level
 check_uip([Head | Tail], Nodes, Level, N) :-
   to_variable(Head, Variable),
-  member(node(assign(Variable, _, Level, _)), Nodes), !,
+  member(assign(Variable, _, Level, _), Nodes), !,
     % If so, increment the number assigned and recurse
   display(literal, Head, Level),
   N1 is N+1,
@@ -465,7 +472,7 @@ compute_backtrack_level([Head | Tail], Level, Highest, Nodes) :-
       % Search for an assignment to the complement of a literal
   to_complement(Head, Head1),
   to_assignment(Head1, L, _, Assignment),
-  member(node(Assignment), Nodes),
+  member(Assignment, Nodes),
       % Save if higher than seen so far (but not the current level)
   L =\= Level, L > Highest, !,
   compute_backtrack_level(Tail, Level, L, Nodes).
@@ -473,3 +480,94 @@ compute_backtrack_level([Head | Tail], Level, Highest, Nodes) :-
 %  Otherwise, recurse
 compute_backtrack_level([_ | Tail], Level, Highest, Nodes) :-
   compute_backtrack_level(Tail, Level, Highest, Nodes).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Compute a learned clause by locating a dominator
+%  This is used only for display (if option dominator is selected)
+%  The result is ignored
+
+%  compute_learned_clause_by_dominator/2
+%    Graph - the implication graph
+%    Level - the highest level in the graph
+
+compute_learned_clause_by_dominator(graph(Nodes, Edges), Level) :-
+  check_option(dominator),
+      % From the decision assignment at the highest level
+  N = assign(_, _, Level, yes),
+  member(N, Nodes),
+      % Find all paths to the node kappa
+  findall(Path, get_path(Edges, N, kappa, [N], Path), Path_List),
+      % Get a dominator in these paths
+  get_dominator(Path_List, N, Dominator),
+      % Find all decision assignments of lower level in the graph
+  findall(D, lower_decision_assignment(D, Nodes, Level), Decisions),
+      % Of them, select those with no path to the dominator
+  findall(D1, no_path(D1, Decisions, Edges, Dominator), Result),
+      % Include them in the learned clause together with the dominator
+  union(Result, [Dominator], Learned),
+      % Convert to clause form and complement each literal
+  to_clause(Learned, Clause, yes),
+  display(dominator, Path_List, Dominator, Decisions, Result, Clause).
+compute_learned_clause_by_dominator(_, _).
+
+%  get_path/5
+%    Get a path in the graph from a source to a target node
+%        in the implication graph
+%    Since the graph is a dag, a simple transitive computation suffices
+%      Edges  - the edges of the graph
+%      Source - the source node
+%      Target - the target node
+%      So_Far - the path so far
+%      Path   - the path that is retured
+
+    % When the Source equals the target the path has been found
+    % Reverse the list so that the source comes first
+get_path(_, Target, Target, So_Far, Path) :-
+  reverse(So_Far, Path).
+get_path(Edges, Source, Target, So_Far, Path) :-
+  member(edge(Source, _, Next), Edges),
+  get_path(Edges, Next, Target, [Next | So_Far], Path).
+
+%  get_dominator/3, get_dominator1/3
+%    Get the dominators in the graph
+%    They are nodes which appear in all paths
+%    Compute by taking the intersection of all the path lists
+%      Path_List  - the list of paths
+%      Source     - the source node
+%      Dominators - the list of dominators that is returned
+
+get_dominator([Head | Tail], Source, Dominators) :-
+  get_dominator1(Tail, Head, Result),
+      % It is not the source decision assignment or the kappa target
+  subtract(Result, [Source, kappa], [Dominators | _]).
+
+get_dominator1([Head | Tail], So_Far, Result) :-
+  intersection(Head, So_Far, So_Far1),
+  get_dominator1(Tail, So_Far1, Result).
+get_dominator1([], So_Far, So_Far).
+
+
+%  lower_decision_assignment/3
+%    Find and return a decision assignment of lower level than Level
+%    Nondeterministic for findall
+%      A     - decision assignment returned
+%      Nodes - nodes of the graph
+%      Level - highest level of assignment in the graph
+
+lower_decision_assignment(A, Nodes, Level) :-
+  member(A, Nodes),
+  A = assign(_, _, L, yes),
+  L < Level.
+
+
+%  no_path/4
+%    Succeed if there is no path from a node to the dominator
+%      A         - a decision assignment returned
+%      Decisions - the set of decision assignments 
+%      Edges     - the edges of the graph
+%      Dominator - the dominator
+
+no_path(A, Decisions, Edges, Dominator) :-
+  member(A, Decisions),
+  \+ get_path(Edges, A, Dominator, [], _).

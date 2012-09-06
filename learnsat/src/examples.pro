@@ -35,7 +35,7 @@ mz :-
 
 %  Example from Marques-Silva and Sakallah GRASP paper
 
-ms :-
+mss :-
   dpll(
   [
   [x1, x2], [x1, x3, ax9], [~x2, ~x3, x4], [~x4, x5, bx10],
