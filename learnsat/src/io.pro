@@ -90,7 +90,7 @@ write_level(_).
 write_antecedent(assign(_, _, _, Unit), yes) :-
   get_mode(Mode),
   Mode \= dpll,
-  check_option(antecedents), !,
+  check_option(antecedent), !,
   write('/'),
   (Unit = yes -> write('nil') ; write(Unit)).
 write_antecedent(_, _).

@@ -14,8 +14,8 @@
 
 %  Two arguments
 
-display(assignments, Assignments) :-
-  check_option(assignments), !,
+display(assignment, Assignments) :-
+  check_option(assignment), !,
   write('Conflict caused by assignments:\n'),
   write_assignments(Assignments), nl.
 
@@ -25,8 +25,8 @@ display(backtrack, Highest) :-
   write('Non-chronological backtracking to level: '),
   write(Highest), nl.
 
-display(clauses, Clauses) :-
-  check_option(clauses), !,
+display(clause, Clauses) :-
+  check_option(clause), !,
   write('Clauses to be checked for satisfiability:\n'),
   write_clauses(Clauses, Clauses), nl.
 
@@ -52,8 +52,8 @@ display(skipping, Assignment) :-
   write('Skip decision assignment: '),
   write_assignment(Assignment, no), nl.
 
-display(variables, Variables) :-
-  check_option(variables), !,
+display(variable, Variables) :-
+  check_option(variable), !,
   write('Variables: '),
   write(Variables), nl.
 
@@ -72,25 +72,33 @@ display(dot, Graph, Clauses) :-
   get_mode(Mode), Mode \= dpll,
   check_option(dot), !,
   get_file_counter(N),
-  write('Writing dot graph: '),
+  write('Writing dot graph (final): '),
   write(N), nl,
-  write_dot(Graph, Clauses).
+  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_dot(Graph, Clauses1).
+
+display(dot_inc, Graph, Clauses) :-
+  get_mode(Mode), Mode \= dpll,
+  check_option(dot_inc), !,
+  get_file_counter(N),
+  write('Writing dot graph (incremental): '),
+  write(N), nl,
+  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_dot(Graph, Clauses1).
 
 display(graph, Graph, Clauses) :-
   get_mode(Mode), Mode \= dpll,
   check_option(graph), !,
   write('Implication graph (final):\n'),
-  (check_option(labels) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_graph(Graph, Clauses1), nl,
-  display(dot, Graph, Clauses1).
+  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_graph(Graph, Clauses1), nl.
 
 display(incremental, Graph, Clauses) :-
   get_mode(Mode), Mode \= dpll,
   check_option(incremental), !,
   write('Implication graph (incremental):\n'),
-  (check_option(labels) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_graph(Graph, Clauses1), nl,
-  display(dot, Graph, Clauses1).
+  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_graph(Graph, Clauses1), nl.
 
 display(literal, Literal, Level) :-
   get_mode(Mode), Mode \= dpll,

@@ -10,7 +10,7 @@
 all :-
   set_mode(ncb),
   set_display(all),
-  clear_display([evaluate,dot]),
+  clear_display([evaluate,dot,dot_inc]),
   tell('all.txt'),
   mlm,
   mz,

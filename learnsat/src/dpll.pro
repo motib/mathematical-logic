@@ -59,7 +59,7 @@ dpll(Clauses, Decisions) :-
   flatten(Clauses, Literals_List),
   literals_to_variables(Literals_List, [], Variables_Set),
   init_counters(Clauses, Variables_Set),
-  display(clauses, Clauses),
+  display(clause, Clauses),
       % Call dpll1
       % Initially: Level 0, no assignments, empty graph
   dpll1(Clauses, Variables_Set, 0, [], graph([],[]), Decisions).
@@ -103,11 +103,12 @@ dpll1(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   evaluate(Clauses1, [Assignment | SoFar], Conflict, Result),
       % Get the new implication Graph1, adding the new Assignment
       % The Number of the antecedent that became a Unit
-      %   (or the antecedent itself with display option "labels")
+      %   (or the antecedent itself with display option "label")
       %   labels the new edges
   nth1(Number, Clauses1, Unit),
   extend_graph(Unit, Number, Assignment, SoFar, Graph, Graph1),
   display(incremental, Graph1, Clauses),
+  display(dot_inc, Graph1, Clauses),
       % Call ok_or_conflict with the Result of the evaluation,
       %   the Conflict clause, the new Graph1 and add the new Assignment
   ok_or_conflict(
@@ -125,7 +126,7 @@ dpll1(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   choose_assignment(Variables, Level1, Assignment),
       % Increment the choice counter and display the decision Assignment
   increment(choice),
-  display(variables, Variables),
+  display(variable, Variables),
   display(decision, Assignment),
   display(partial, [Assignment | SoFar]),
       % Evaluate the set of Clauses using the assignments SoFar
@@ -156,12 +157,13 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
       % Increment the conflict counter and display the Conflict clause
   increment(conflict),
   display(conflict, Conflict, Clauses),
-  display(assignments, SoFar),
+  display(assignment, SoFar),
       % Add the "kappa" node for the conflict clause to the graph
   nth1(Number, Clauses, Conflict),
   extend_graph(Conflict, Number, kappa, SoFar, Graph, Graph1),
       % Display the graph and write the dot file
   display(graph, Graph1, Clauses),
+  display(dot, Graph1, Clauses),
       % Compute the learned clause and save in the database
       %   (but not if in dpll mode)
       % The learned clause is computed by resolving backwards
