@@ -1,26 +1,19 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(counters,
-  [show_counters/0, increment/1, init_counters/2, get_file_counter/1]).
+  [show_counters/2, increment/1, init_counters/0, get_file_counter/1]).
+
+%  Counters for:
+%    units propagated, choices made, conflicts encountered,
+%    generating file names for implication graphs
 
 :- dynamic
-     unit_counter/1,   choice_counter/1,   conflict_counter/1,
-     clause_counter/1, variable_counter/1, file_counter/1.
+     unit_counter/1,  choice_counter/1, conflict_counter/1,
+     file_counter/1.
 
-%  Counters for units propagated, choices made, conflicts encountered
-%  Counter to generate file names for implication graphs
-%  Counter for number of clauses and variables
+%  init_counters - set counters to 0
 
-%  init_counters/2    - set clause and variable counters and
-%                       reset the other counters to 0
-
-init_counters(Clauses, Variables) :-
-  retractall(clause_counter(_)),
-  length(Clauses, C),
-  assert(clause_counter(C)),
-  retractall(variable_counter(_)),
-  length(Variables, V),
-  assert(variable_counter(V)),
+init_counters :-
   retractall(unit_counter(_)),
   assert(unit_counter(0)),
   retractall(choice_counter(_)),
@@ -51,27 +44,25 @@ increment(file) :-
   assert(file_counter(N1)).
 
 
-  %  show_counters/0    - write the counters
+%  show_counters/2    - write the counters
   
-show_counters :-
-  clause_counter(N1),
-  variable_counter(N2),
-  unit_counter(N3), 
-  choice_counter(N4),
-  conflict_counter(N5),
+show_counters(Clause_Count, Variable_Count) :-
   write('Statistics: clauses='),
-  write(N1),
+  write(Clause_Count),
   write(', variables='),
-  write(N2),
+  write(Variable_Count),
+  unit_counter(Unit_Count), 
   write(', units='),
-  write(N3),
+  write(Unit_Count),
+  choice_counter(Choice_Count),
   write(', choices='),
-  write(N4),
+  write(Choice_Count),
+  conflict_counter(Conflict_Count),
   write(', conflicts='),
-  write(N5), nl.
+  write(Conflict_Count), nl.
 
 
-  %  get_file_counter/1 - return the file counter
+%  get_file_counter/1 - return the file counter
 
 get_file_counter(N) :-
   file_counter(N).

@@ -6,8 +6,9 @@
    to_complement/2, to_assignment/4, to_literal/2, to_clause/3]).  
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Auxiliary predicates concerned with assignments, variables, literals
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %  is_assigned/3
 %    Check if a literal is assigned and if so return its value
@@ -77,6 +78,7 @@ to_assignment(Variable,   Level, Decision,
 
 to_literal(assign(V, 0, _, _), ~V).
 to_literal(assign(V, 1, _, _), V).
+
 
 %  to_clause/3
 %    List of assignments to a list of literals

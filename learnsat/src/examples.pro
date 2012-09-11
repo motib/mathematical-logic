@@ -6,13 +6,6 @@
 
 :- use_module(dpll).
 
-run :-
-  set_mode(ncb),
-  set_display(all),
-  clear_display([evaluate,incremental,dot]),
-  tell('mlm.txt'),
-  mlm,
-  told.
 
 %  Example from Marques-Silva, Lynce, Malik in the Handbook
 
@@ -22,6 +15,7 @@ mlm :-
   [x1, x031, ~x2], [x1, ~x3], [x2, x3, x4],
   [~x4, ~x5], [x021, ~x4, ~x6], [x5, x6]
   ], _).
+
 
 %  Example from Malik-Zhang paper in CACM 52(8), 2009.
 
@@ -33,9 +27,10 @@ mz :-
   [dx7, x10, ~x12]
   ], _).
 
+
 %  Example from Marques-Silva and Sakallah GRASP paper
 
-mss :-
+ms :-
   dpll(
   [
   [x1, x2], [x1, x3, ax9], [~x2, ~x3, x4], [~x4, x5, bx10],

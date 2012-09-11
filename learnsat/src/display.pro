@@ -1,7 +1,5 @@
 % Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
-%  Display explanations
-
 :- module(display,
           [display/2, display/3, display/4, display/5, display/6]).
 
@@ -11,6 +9,8 @@
 %  display/2,3,4,5
 %    For each option there is a separate definition of display
 %    Check that the option is set before displaying
+%    These predicates will not fail; at worst they do nothing
+
 
 %  Two arguments
 
@@ -36,8 +36,7 @@ display(decision, Assignment) :-
   write_assignment(Assignment, no), nl.
 
 display(learned, Learned) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(learned), !,
+  check_option_not_dpll(learned), !,
   write('Learned clause: '),
   write(Learned), nl.
 
@@ -57,8 +56,7 @@ display(variable, Variables) :-
   write('Variables: '),
   write(Variables), nl.
 
-%  Don't fail if the option is not set or not relevant
-  display(_, _).
+display(_, _).
 
 
 %  Three arguments
@@ -69,64 +67,35 @@ display(conflict, Conflict, Clauses) :-
   write_clause(Conflict, Clauses), nl.
 
 display(dot, Graph, Clauses) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(dot), !,
-  get_file_counter(N),
-  write('Writing dot graph (final): '),
-  write(N), nl,
-  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_dot(Graph, Clauses1).
+  check_option_not_dpll(dot), !,
+  display_dot(Graph, Clauses).
 
 display(dot_inc, Graph, Clauses) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(dot_inc), !,
-  get_file_counter(N),
-  write('Writing dot graph (incremental): '),
-  write(N), nl,
-  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_dot(Graph, Clauses1).
+  check_option_not_dpll(dot_inc), !,
+  display_dot(Graph, Clauses).
 
 display(graph, Graph, Clauses) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(graph), !,
-  write('Implication graph (final):\n'),
-  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_graph(Graph, Clauses1), nl.
+  check_option_not_dpll(graph), !,
+  display_graph(Graph, Clauses).
 
 display(incremental, Graph, Clauses) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(incremental), !,
-  write('Implication graph (incremental):\n'),
-  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_graph(Graph, Clauses1), nl.
+  check_option_not_dpll(incremental), !,
+  display_graph(Graph, Clauses).
 
 display(literal, Literal, Level) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(literal), !,
+  check_option_not_dpll(literal), !,
   write('Literal: '),
   write(Literal),
   write(' assigned at level: '),
   write(Level), nl.
 
-display(result, satisfiable, Assignments) :-
-  check_option(result), !,
-  write('Satisfying assignments:\n'),
-  write_assignments(Assignments), nl,
-  show_counters.
-
-display(result, unsatisfiable, _) :-
-  check_option(result), !,
-  write('Unsatisfiable:\n'),
-  show_counters.
-
 display(uip, no, Level) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(uip), !,
+  check_option_not_dpll(uip), !,
   write('Not a UIP: two literals are assigned at level: '),
   write(Level), nl.
 
 display(uip, yes, Level) :-
-  check_option(uip), !,
+  check_option_not_dpll(uip), !,
   write('UIP: one literal is assigned at level: '),
   write(Level), nl.
 
@@ -135,7 +104,7 @@ display(_, _, _).
 
 %  Four arguments
 
-%  Empty clause is a flag to prevent duplicate evaluation from find_unit
+%  Empty clause is a flag to prevent duplicate display from find_unit
 display(evaluate, [], _, _) :- !.
 display(evaluate, Clause, Reason, Literal) :-
   check_option(evaluate), !,
@@ -144,6 +113,17 @@ display(evaluate, Clause, Reason, Literal) :-
   write(Reason),
   (Literal \= none -> write(Literal), write(' deleted') ; true),
   nl.
+
+display(result, [], Clauses, Variables) :-
+  check_option(result), !,
+  write('Unsatisfiable:\n'),
+  show_counters(Clauses, Variables).
+
+display(result, Assignments, Clauses, Variables) :-
+  check_option(result), !,
+  write('Satisfying assignments:\n'),
+  write_assignments(Assignments), nl,
+  show_counters(Clauses, Variables).
 
 display(unit, Literal, Unit, Clauses) :-
   check_option(unit), !,
@@ -157,8 +137,7 @@ display(_, _, _, _).
 %  Five arguments
 
 display(resolvent, Literal, Clause, Clause1, Clause2) :-
-  get_mode(Mode), Mode \= dpll,
-  check_option(resolvent), !,
+  check_option_not_dpll(resolvent), !,
   write('Clause: '),
   write(Clause),
   write(' unsatisfied'), nl,
@@ -174,7 +153,7 @@ display(_, _, _, _, _).
 %  Six arguments
 
 display(dominator, Path_List, Dominator, Decisions, Result, Learned) :-
-  check_option(dominator), !,
+  check_option_not_dpll(dominator), !,
   write('Paths from decision node at this level to kappa:\n'),
   write_paths(Path_List),
   write('A dominator is: '),
@@ -187,3 +166,32 @@ display(dominator, Path_List, Dominator, Decisions, Result, Learned) :-
   write(Learned), nl.
 
 display(_, _, _, _, _, _).
+
+
+%  check_option_not_dpll/1
+%    Check option and also that the mode is not dpll
+
+check_option_not_dpll(Option) :-
+  get_mode(Mode),
+  Mode \= dpll,
+  check_option(Option).
+
+% display_dot/2
+%   Common processing for display dot and dot_inc
+%   When label option is set, pass the list of clauses to write_dot
+
+display_dot(Graph, Clauses) :-
+  get_file_counter(N),
+  write('Writing dot graph: '),
+  write(N), nl,
+  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_dot(Graph, Clauses1).
+
+% display_graph/2
+%   Common processing for display graph and incremental
+%   When label option is set, pass the list of clauses to write_graph
+
+display_graph(Graph, Clauses) :-
+  write('Implication graph:\n'),
+  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
+  write_graph(Graph, Clauses1), nl.

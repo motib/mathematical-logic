@@ -14,7 +14,7 @@ all :-
   tell('all.txt'),
   mlm,
   mz,
-  mss,
+  ms,
   hole2,
 % hole3,
   queens4,
