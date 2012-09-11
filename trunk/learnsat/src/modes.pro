@@ -6,7 +6,7 @@
 
 :- module(modes, [
   set_display/1, clear_display/1, init_display/0, check_option/1,
-  set_mode/1, get_mode/1, init_mode/1,
+  set_mode/1, get_mode/1, init_mode/0,
   usage/0, display_copyright_notice/0,
   show_config/0]).
 
@@ -23,15 +23,15 @@
 
 :- dynamic mode/1.
 
-%  init_mode/01 set_mode/1, get_mode/1
+%  init_mode/0, set_mode/1, get_mode/1
 %    Mode - dpll (default) or cdcl or ncb
 
-%  If there is already a mode, don't change it and return it
-%    Otherwise, set the default mode
+%  If there is already a mode, don't change it, 
+%  Otherwise, set the default mode
 
-init_mode(Mode) :-
-  mode(Mode), !.
-init_mode(Mode) :-
+init_mode :-
+  mode(_), !.
+init_mode :-
   default_mode(Mode),
   assert(mode(Mode)).
 
@@ -230,7 +230,7 @@ usage :-
   write('set_mode(Mode)\n'),
   write('  dpll: DPLL algorithm (default)\n'),
   write('  cdcl: DPLL with conflict-directed clause learning\n'),
-  write('  ncb:  CDCL with non-chronological backtracking\n\n'),
+  write('  ncb:  DPLL with CDCL and non-chronological backtracking\n\n'),
   write('set_display(D), clear_display(D), where D can be a list\n'),
   write('  all          all the display options\n'),
   write('  default      default display options (marked *)\n\n'),
@@ -242,7 +242,7 @@ usage :-
   write('  decision *   decision assignments\n'),
   write('  dominator    learned clause computed from dominator\n'),
   write('  dot          implication graph in dot format\n'),
-  write('  dot_incr     implication graph (incremental) in dot format\n'),
+  write('  dot_inc      implication graph (incremental) in dot format\n'),
   write('  evaluate     evaluation of clauses for an assignment\n'),
   write('  graph        implication graph (final)\n'),
   write('  incremental  implication graph (incremental)\n'),

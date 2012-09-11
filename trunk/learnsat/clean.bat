@@ -1,5 +1,5 @@
 del/s *.*~
-del src\*.dot
+del/s src\*.dot
 del docs\*.aux
 del docs\*.log
 del docs\*.dvi

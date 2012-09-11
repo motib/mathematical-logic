@@ -1,4 +1,4 @@
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x031,~x2],
@@ -23,7 +23,7 @@ Assignments so far:
 Propagate unit: ~x2 derived from: 1. [x1,x031,~x2]
 Assignments so far:
 [x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -37,7 +37,7 @@ Propagate unit: ~x3 derived from: 2. [x1,~x3]
 Assignments so far:
 [x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -53,7 +53,7 @@ Propagate unit: x4 derived from: 3. [x2,x3,x4]
 Assignments so far:
 [x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -72,7 +72,7 @@ Propagate unit: ~x5 derived from: 4. [~x4,~x5]
 Assignments so far:
 [x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -93,7 +93,7 @@ Propagate unit: ~x6 derived from: 5. [x021,~x4,~x6]
 Assignments so far:
 [x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=0@3/[x021,~x4,~x6]]
-Implication graph (incremental):
+Implication graph:
 [
 x021=0@1,
 x031=0@2,
@@ -118,7 +118,7 @@ Conflict clause: 6. [x5,x6]
 Conflict caused by assignments:
 [x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=0@3/[x021,~x4,~x6]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 x021=0@1,
@@ -200,7 +200,7 @@ Assignments so far:
 Propagate unit: ~x2 derived from: 1. [x1,x031,~x2]
 Assignments so far:
 [x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -214,7 +214,7 @@ Propagate unit: ~x3 derived from: 2. [x1,~x3]
 Assignments so far:
 [x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -230,7 +230,7 @@ Propagate unit: x4 derived from: 3. [x2,x3,x4]
 Assignments so far:
 [x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -249,7 +249,7 @@ Propagate unit: ~x5 derived from: 4. [~x4,~x5]
 Assignments so far:
 [x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -270,7 +270,7 @@ Propagate unit: x6 derived from: 6. [x5,x6]
 Assignments so far:
 [x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=1@3/[x5,x6]]
-Implication graph (incremental):
+Implication graph:
 [
 x031=0@2,
 x1=0@3,
@@ -293,7 +293,7 @@ Satisfying assignments:
 [x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=1@3/[x5,x6]]
 Statistics: clauses=6, variables=8, units=10, choices=6, conflicts=1
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [ax1,x4],
@@ -312,7 +312,7 @@ Assignments so far:
 Propagate unit: x4 derived from: 1. [ax1,x4]
 Assignments so far:
 [ax1=0@1/nil,x4=1@1/[ax1,x4]]
-Implication graph (incremental):
+Implication graph:
 [
 ax1=0@1,
 x4=1@1
@@ -327,7 +327,7 @@ Assignments so far:
 Propagate unit: ~x8 derived from: 2. [ax1,bx3,~x8]
 Assignments so far:
 [ax1=0@1/nil,bx3=0@2/nil,x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8]]
-Implication graph (incremental):
+Implication graph:
 [
 ax1=0@1,
 bx3=0@2,
@@ -343,7 +343,7 @@ Propagate unit: x12 derived from: 3. [ax1,x8,x12]
 Assignments so far:
 [ax1=0@1/nil,bx3=0@2/nil,x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],
  x8=0@2/[ax1,bx3,~x8]]
-Implication graph (incremental):
+Implication graph:
 [
 ax1=0@1,
 bx3=0@2,
@@ -367,7 +367,7 @@ Propagate unit: x11 derived from: 4. [cx2,x11]
 Assignments so far:
 [ax1=0@1/nil,bx3=0@2/nil,cx2=0@3/nil,x11=1@3/[cx2,x11],
  x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8]]
-Implication graph (incremental):
+Implication graph:
 [
 ax1=0@1,
 bx3=0@2,
@@ -395,7 +395,7 @@ Assignments so far:
 [ax1=0@1/nil,bx3=0@2/nil,cx2=0@3/nil,dx7=0@4/nil,
  x11=1@3/[cx2,x11],x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8],
  x9=1@4/[dx7,bx3,x9]]
-Implication graph (incremental):
+Implication graph:
 [
 ax1=0@1,
 bx3=0@2,
@@ -422,7 +422,7 @@ Conflict caused by assignments:
 [ax1=0@1/nil,bx3=0@2/nil,cx2=0@3/nil,dx7=0@4/nil,
  x11=1@3/[cx2,x11],x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8],
  x9=1@4/[dx7,bx3,x9]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 ax1=0@1,
@@ -472,7 +472,7 @@ Propagate unit: x11 derived from: 4. [cx2,x11]
 Assignments so far:
 [ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,x11=1@3/[cx2,x11],
  x4=1@1/[ax1,x4]]
-Implication graph (incremental):
+Implication graph:
 [
 ax1=0@1,
 cx2=0@3,
@@ -497,7 +497,7 @@ Propagate unit: ~x12 derived from: 8. [dx7,x10,~x12]
 Assignments so far:
 [ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,dx7=0@4/nil,
  x10=0@5/nil,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4]]
-Implication graph (incremental):
+Implication graph:
 [
 ax1=0@1,
 cx2=0@3,
@@ -518,7 +518,7 @@ Assignments so far:
 [ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,dx7=0@4/nil,
  x10=0@5/nil,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
  x8=1@5/[ax1,x8,x12]]
-Implication graph (incremental):
+Implication graph:
 [
 ax1=0@1,
 cx2=0@3,
@@ -548,7 +548,7 @@ Satisfying assignments:
  x10=0@5/nil,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
  x8=1@5/[ax1,x8,x12],x9=0@6/nil]
 Statistics: clauses=8, variables=10, units=8, choices=9, conflicts=1
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x2],
@@ -591,7 +591,7 @@ Propagate unit: x2 derived from: 1. [x1,x2]
 Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2]]
-Implication graph (incremental):
+Implication graph:
 [
 x1=0@6,
 x2=1@6
@@ -603,7 +603,7 @@ Propagate unit: x3 derived from: 2. [x1,x3,ax9]
 Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9]]
-Implication graph (incremental):
+Implication graph:
 [
 ax9=0@1,
 x1=0@6,
@@ -620,7 +620,7 @@ Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4]]
-Implication graph (incremental):
+Implication graph:
 [
 ax9=0@1,
 x1=0@6,
@@ -640,7 +640,7 @@ Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10]]
-Implication graph (incremental):
+Implication graph:
 [
 ax9=0@1,
 bx10=0@2,
@@ -664,7 +664,7 @@ Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=1@6/[~x4,x6,cx11]]
-Implication graph (incremental):
+Implication graph:
 [
 ax9=0@1,
 bx10=0@2,
@@ -692,7 +692,7 @@ Conflict caused by assignments:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=1@6/[~x4,x6,cx11]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 ax9=0@1,
@@ -784,7 +784,7 @@ Propagate unit: x2 derived from: 1. [x1,x2]
 Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2]]
-Implication graph (incremental):
+Implication graph:
 [
 x1=0@6,
 x2=1@6
@@ -796,7 +796,7 @@ Propagate unit: x3 derived from: 2. [x1,x3,ax9]
 Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9]]
-Implication graph (incremental):
+Implication graph:
 [
 ax9=0@1,
 x1=0@6,
@@ -813,7 +813,7 @@ Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4]]
-Implication graph (incremental):
+Implication graph:
 [
 ax9=0@1,
 x1=0@6,
@@ -833,7 +833,7 @@ Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10]]
-Implication graph (incremental):
+Implication graph:
 [
 ax9=0@1,
 bx10=0@2,
@@ -857,7 +857,7 @@ Assignments so far:
 [ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
  dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6]]
-Implication graph (incremental):
+Implication graph:
 [
 ax9=0@1,
 bx10=0@2,
@@ -897,7 +897,7 @@ Satisfying assignments:
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6],x7=0@7/nil,
  x8=0@8/nil]
 Statistics: clauses=9, variables=13, units=10, choices=12, conflicts=1
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12],
@@ -917,7 +917,7 @@ Assignments so far:
 Propagate unit: p12 derived from: 1. [p11,p12]
 Assignments so far:
 [p11=0@1/nil,p12=1@1/[p11,p12]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=1@1
@@ -928,7 +928,7 @@ p11=0@1 --1.[p11,p12]--> p12=1@1
 Propagate unit: ~p22 derived from: 7. [~p12,~p22]
 Assignments so far:
 [p11=0@1/nil,p12=1@1/[p11,p12],p22=0@1/[~p12,~p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=1@1,
@@ -941,7 +941,7 @@ p12=1@1 --7.[~p12,~p22]--> p22=0@1
 Propagate unit: p21 derived from: 2. [p21,p22]
 Assignments so far:
 [p11=0@1/nil,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=1@1,
@@ -957,7 +957,7 @@ Propagate unit: ~p31 derived from: 6. [~p21,~p31]
 Assignments so far:
 [p11=0@1/nil,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
  p31=0@1/[~p21,~p31]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=1@1,
@@ -975,7 +975,7 @@ Propagate unit: p32 derived from: 3. [p31,p32]
 Assignments so far:
 [p11=0@1/nil,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
  p31=0@1/[~p21,~p31],p32=1@1/[p31,p32]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=1@1,
@@ -995,7 +995,7 @@ Conflict clause: 8. [~p12,~p32]
 Conflict caused by assignments:
 [p11=0@1/nil,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
  p31=0@1/[~p21,~p31],p32=1@1/[p31,p32]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=0@1,
@@ -1108,7 +1108,7 @@ Assignments so far:
 Propagate unit: ~p21 derived from: 4. [~p11,~p21]
 Assignments so far:
 [p11=1@1/nil,p21=0@1/[~p11,~p21]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p21=0@1
@@ -1119,7 +1119,7 @@ p11=1@1 --4.[~p11,~p21]--> p21=0@1
 Propagate unit: p22 derived from: 2. [p21,p22]
 Assignments so far:
 [p11=1@1/nil,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p21=0@1,
@@ -1132,7 +1132,7 @@ p21=0@1 --2.[p21,p22]--> p22=1@1
 Propagate unit: ~p31 derived from: 5. [~p11,~p31]
 Assignments so far:
 [p11=1@1/nil,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p21=0@1,
@@ -1148,7 +1148,7 @@ Propagate unit: p32 derived from: 3. [p31,p32]
 Assignments so far:
 [p11=1@1/nil,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31],
  p32=1@1/[p31,p32]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p21=0@1,
@@ -1166,7 +1166,7 @@ Conflict clause: 9. [~p22,~p32]
 Conflict caused by assignments:
 [p11=1@1/nil,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31],
  p32=1@1/[p31,p32]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=1@1,
@@ -1218,7 +1218,7 @@ Assignments so far:
 Propagate unit: p11 derived from: 1. [p11,p12]
 Assignments so far:
 [p11=1@1/[p11,p12],p12=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p12=0@1
@@ -1229,7 +1229,7 @@ p12=0@1 --1.[p11,p12]--> p11=1@1
 Conflict clause: 10. [~p11]
 Conflict caused by assignments:
 [p11=1@1/[p11,p12],p12=0@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=1@1,
@@ -1260,7 +1260,7 @@ Assignments so far:
 Propagate unit: ~p22 derived from: 7. [~p12,~p22]
 Assignments so far:
 [p12=1@1/nil,p22=0@1/[~p12,~p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p12=1@1,
 p22=0@1
@@ -1271,7 +1271,7 @@ p12=1@1 --7.[~p12,~p22]--> p22=0@1
 Propagate unit: p21 derived from: 2. [p21,p22]
 Assignments so far:
 [p12=1@1/nil,p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p12=1@1,
 p21=1@1,
@@ -1284,7 +1284,7 @@ p22=0@1 --2.[p21,p22]--> p21=1@1
 Propagate unit: ~p11 derived from: 4. [~p11,~p21]
 Assignments so far:
 [p11=0@1/[~p11,~p21],p12=1@1/nil,p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=1@1,
@@ -1299,7 +1299,7 @@ p22=0@1 --2.[p21,p22]--> p21=1@1
 Conflict clause: 11. [p11]
 Conflict caused by assignments:
 [p11=0@1/[~p11,~p21],p12=1@1/nil,p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=0@1,
@@ -1334,7 +1334,7 @@ Assignments so far:
 Propagate unit: p22 derived from: 2. [p21,p22]
 Assignments so far:
 [p21=0@1/nil,p22=1@1/[p21,p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p21=0@1,
 p22=1@1
@@ -1345,7 +1345,7 @@ p21=0@1 --2.[p21,p22]--> p22=1@1
 Propagate unit: ~p12 derived from: 7. [~p12,~p22]
 Assignments so far:
 [p12=0@1/[~p12,~p22],p21=0@1/nil,p22=1@1/[p21,p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p12=0@1,
 p21=0@1,
@@ -1358,7 +1358,7 @@ p22=1@1 --7.[~p12,~p22]--> p12=0@1
 Propagate unit: p11 derived from: 1. [p11,p12]
 Assignments so far:
 [p11=1@1/[p11,p12],p12=0@1/[~p12,~p22],p21=0@1/nil,p22=1@1/[p21,p22]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p12=0@1,
@@ -1373,7 +1373,7 @@ p22=1@1 --7.[~p12,~p22]--> p12=0@1
 Conflict clause: 10. [~p11]
 Conflict caused by assignments:
 [p11=1@1/[p11,p12],p12=0@1/[~p12,~p22],p21=0@1/nil,p22=1@1/[p21,p22]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=1@1,
@@ -1408,7 +1408,7 @@ Assignments so far:
 Propagate unit: ~p11 derived from: 4. [~p11,~p21]
 Assignments so far:
 [p11=0@1/[~p11,~p21],p21=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p21=1@1
@@ -1419,7 +1419,7 @@ p21=1@1 --4.[~p11,~p21]--> p11=0@1
 Conflict clause: 11. [p11]
 Conflict caused by assignments:
 [p11=0@1/[~p11,~p21],p21=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=0@1,
@@ -1450,7 +1450,7 @@ Assignments so far:
 Propagate unit: p21 derived from: 2. [p21,p22]
 Assignments so far:
 [p21=1@1/[p21,p22],p22=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p21=1@1,
 p22=0@1
@@ -1461,7 +1461,7 @@ p22=0@1 --2.[p21,p22]--> p21=1@1
 Propagate unit: ~p11 derived from: 4. [~p11,~p21]
 Assignments so far:
 [p11=0@1/[~p11,~p21],p21=1@1/[p21,p22],p22=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p21=1@1,
@@ -1474,7 +1474,7 @@ p22=0@1 --2.[p21,p22]--> p21=1@1
 Conflict clause: 11. [p11]
 Conflict caused by assignments:
 [p11=0@1/[~p11,~p21],p21=1@1/[p21,p22],p22=0@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=0@1,
@@ -1507,7 +1507,7 @@ Assignments so far:
 Propagate unit: ~p12 derived from: 7. [~p12,~p22]
 Assignments so far:
 [p12=0@1/[~p12,~p22],p22=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p12=0@1,
 p22=1@1
@@ -1518,7 +1518,7 @@ p22=1@1 --7.[~p12,~p22]--> p12=0@1
 Propagate unit: p11 derived from: 1. [p11,p12]
 Assignments so far:
 [p11=1@1/[p11,p12],p12=0@1/[~p12,~p22],p22=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p12=0@1,
@@ -1531,7 +1531,7 @@ p22=1@1 --7.[~p12,~p22]--> p12=0@1
 Conflict clause: 10. [~p11]
 Conflict caused by assignments:
 [p11=1@1/[p11,p12],p12=0@1/[~p12,~p22],p22=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=1@1,
@@ -1564,7 +1564,7 @@ Assignments so far:
 Propagate unit: p32 derived from: 3. [p31,p32]
 Assignments so far:
 [p31=0@1/nil,p32=1@1/[p31,p32]]
-Implication graph (incremental):
+Implication graph:
 [
 p31=0@1,
 p32=1@1
@@ -1575,7 +1575,7 @@ p31=0@1 --3.[p31,p32]--> p32=1@1
 Propagate unit: ~p12 derived from: 8. [~p12,~p32]
 Assignments so far:
 [p12=0@1/[~p12,~p32],p31=0@1/nil,p32=1@1/[p31,p32]]
-Implication graph (incremental):
+Implication graph:
 [
 p12=0@1,
 p31=0@1,
@@ -1588,7 +1588,7 @@ p32=1@1 --8.[~p12,~p32]--> p12=0@1
 Propagate unit: p11 derived from: 1. [p11,p12]
 Assignments so far:
 [p11=1@1/[p11,p12],p12=0@1/[~p12,~p32],p31=0@1/nil,p32=1@1/[p31,p32]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p12=0@1,
@@ -1603,7 +1603,7 @@ p32=1@1 --8.[~p12,~p32]--> p12=0@1
 Conflict clause: 10. [~p11]
 Conflict caused by assignments:
 [p11=1@1/[p11,p12],p12=0@1/[~p12,~p32],p31=0@1/nil,p32=1@1/[p31,p32]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=1@1,
@@ -1638,7 +1638,7 @@ Assignments so far:
 Propagate unit: ~p11 derived from: 5. [~p11,~p31]
 Assignments so far:
 [p11=0@1/[~p11,~p31],p31=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p31=1@1
@@ -1649,7 +1649,7 @@ p31=1@1 --5.[~p11,~p31]--> p11=0@1
 Conflict clause: 11. [p11]
 Conflict caused by assignments:
 [p11=0@1/[~p11,~p31],p31=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=0@1,
@@ -1680,7 +1680,7 @@ Assignments so far:
 Propagate unit: p31 derived from: 3. [p31,p32]
 Assignments so far:
 [p31=1@1/[p31,p32],p32=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p31=1@1,
 p32=0@1
@@ -1691,7 +1691,7 @@ p32=0@1 --3.[p31,p32]--> p31=1@1
 Propagate unit: ~p11 derived from: 5. [~p11,~p31]
 Assignments so far:
 [p11=0@1/[~p11,~p31],p31=1@1/[p31,p32],p32=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p31=1@1,
@@ -1704,7 +1704,7 @@ p32=0@1 --3.[p31,p32]--> p31=1@1
 Conflict clause: 11. [p11]
 Conflict caused by assignments:
 [p11=0@1/[~p11,~p31],p31=1@1/[p31,p32],p32=0@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=0@1,
@@ -1737,7 +1737,7 @@ Assignments so far:
 Propagate unit: ~p12 derived from: 8. [~p12,~p32]
 Assignments so far:
 [p12=0@1/[~p12,~p32],p32=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p12=0@1,
 p32=1@1
@@ -1748,7 +1748,7 @@ p32=1@1 --8.[~p12,~p32]--> p12=0@1
 Propagate unit: p11 derived from: 1. [p11,p12]
 Assignments so far:
 [p11=1@1/[p11,p12],p12=0@1/[~p12,~p32],p32=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p11=1@1,
 p12=0@1,
@@ -1761,7 +1761,7 @@ p32=1@1 --8.[~p12,~p32]--> p12=0@1
 Conflict clause: 10. [~p11]
 Conflict caused by assignments:
 [p11=1@1/[p11,p12],p12=0@1/[~p12,~p32],p32=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=1@1,
@@ -1789,7 +1789,7 @@ Learned clause: [~p11]
 Non-chronological backtracking to level: 0
 Unsatisfiable:
 Statistics: clauses=9, variables=6, units=29, choices=12, conflicts=12
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12,p13,p14],
@@ -1888,7 +1888,7 @@ Assignments so far:
 Propagate unit: p14 derived from: 1. [p11,p12,p13,p14]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -1904,7 +1904,7 @@ Propagate unit: ~p24 derived from: 47. [~p14,~p24]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
  p24=0@3/[~p14,~p24]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -1922,7 +1922,7 @@ Propagate unit: ~p34 derived from: 48. [~p14,~p34]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
  p24=0@3/[~p14,~p24],p34=0@3/[~p14,~p34]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -1942,7 +1942,7 @@ Propagate unit: ~p44 derived from: 49. [~p14,~p44]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
  p24=0@3/[~p14,~p24],p34=0@3/[~p14,~p34],p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -1964,7 +1964,7 @@ Propagate unit: ~p23 derived from: 62. [~p14,~p23]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
  p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],p34=0@3/[~p14,~p34],p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -1989,7 +1989,7 @@ Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
  p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],
  p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -2016,7 +2016,7 @@ Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
  p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],
  p41=0@3/[~p14,~p41],p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -2051,7 +2051,7 @@ Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
  p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -2086,7 +2086,7 @@ Assignments so far:
  p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],p42=0@4/[~p22,~p42],
  p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -2123,7 +2123,7 @@ Assignments so far:
  p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],p42=0@4/[~p22,~p42],
  p43=1@4/[p41,p42,p43,p44],p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -2164,7 +2164,7 @@ Assignments so far:
  p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p32=0@3/[~p14,~p32],p33=0@4/[~p33,~p43],p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],
  p42=0@4/[~p22,~p42],p43=1@4/[p41,p42,p43,p44],p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -2207,7 +2207,7 @@ Assignments so far:
  p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p31=1@4/[p31,p32,p33,p34],p32=0@3/[~p14,~p32],p33=0@4/[~p33,~p43],p34=0@3/[~p14,~p34],
  p41=0@3/[~p14,~p41],p42=0@4/[~p22,~p42],p43=1@4/[p41,p42,p43,p44],p44=0@3/[~p14,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p11=0@1,
 p12=0@2,
@@ -2254,7 +2254,7 @@ Conflict caused by assignments:
  p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p31=1@4/[p31,p32,p33,p34],p32=0@3/[~p14,~p32],p33=0@4/[~p33,~p43],p34=0@3/[~p14,~p34],
  p41=0@3/[~p14,~p41],p42=0@4/[~p22,~p42],p43=1@4/[p41,p42,p43,p44],p44=0@3/[~p14,~p44]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p11=0@1,
@@ -2393,7 +2393,7 @@ Assignments so far:
 Propagate unit: ~p14 derived from: 10. [~p13,~p14]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3
@@ -2405,7 +2405,7 @@ Propagate unit: ~p23 derived from: 41. [~p13,~p23]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
  p23=0@3/[~p13,~p23]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2419,7 +2419,7 @@ Propagate unit: ~p33 derived from: 42. [~p13,~p33]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
  p23=0@3/[~p13,~p23],p33=0@3/[~p13,~p33]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2435,7 +2435,7 @@ Propagate unit: ~p43 derived from: 43. [~p13,~p43]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
  p23=0@3/[~p13,~p23],p33=0@3/[~p13,~p33],p43=0@3/[~p13,~p43]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2453,7 +2453,7 @@ Propagate unit: ~p22 derived from: 59. [~p13,~p22]
 Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
  p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p33=0@3/[~p13,~p33],p43=0@3/[~p13,~p43]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2474,7 +2474,7 @@ Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
  p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p31=0@3/[~p13,~p31],p33=0@3/[~p13,~p33],
  p43=0@3/[~p13,~p43]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2497,7 +2497,7 @@ Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
  p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],p31=0@3/[~p13,~p31],
  p33=0@3/[~p13,~p33],p43=0@3/[~p13,~p43]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2522,7 +2522,7 @@ Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p33=0@3/[~p13,~p33],p43=0@3/[~p13,~p43]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2551,7 +2551,7 @@ Assignments so far:
 [p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p33=0@3/[~p13,~p33],p41=0@3/[~p21,~p41],p43=0@3/[~p13,~p43]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2583,7 +2583,7 @@ Assignments so far:
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p41=0@3/[~p21,~p41],
  p43=0@3/[~p13,~p43]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2617,7 +2617,7 @@ Assignments so far:
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p43=0@3/[~p13,~p43]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2655,7 +2655,7 @@ Assignments so far:
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p43=0@3/[~p13,~p43],p44=0@3/[~p34,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2695,7 +2695,7 @@ Assignments so far:
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p42=1@3/[p41,p42,p43,p44],p43=0@3/[~p13,~p43],p44=0@3/[~p34,~p44]]
-Implication graph (incremental):
+Implication graph:
 [
 p13=1@3,
 p14=0@3,
@@ -2739,7 +2739,7 @@ Satisfying assignments:
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p42=1@3/[p41,p42,p43,p44],p43=0@3/[~p13,~p43],p44=0@3/[~p34,~p44]]
 Statistics: clauses=80, variables=16, units=25, choices=5, conflicts=1
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -2762,7 +2762,7 @@ Assignments so far:
 Propagate unit: ~q derived from: 2. [p,~q]
 Assignments so far:
 [p=0@1/nil,q=0@1/[p,~q]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1
@@ -2777,7 +2777,7 @@ Assignments so far:
 Propagate unit: s derived from: 3. [p,r,s]
 Assignments so far:
 [p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -2793,7 +2793,7 @@ Propagate unit: t derived from: 7. [~s,t]
 Assignments so far:
 [p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s],
  t=1@2/[~s,t]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -2811,7 +2811,7 @@ Conflict clause: 11. [q,r,~t]
 Conflict caused by assignments:
 [p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s],
  t=1@2/[~s,t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p=0@1,
@@ -2853,7 +2853,7 @@ Assignments so far:
 Propagate unit: q derived from: 1. [~p,q]
 Assignments so far:
 [p=1@1/nil,q=1@1/[~p,q]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1
@@ -2868,7 +2868,7 @@ Assignments so far:
 Propagate unit: ~s derived from: 5. [~p,r,~s]
 Assignments so far:
 [p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -2884,7 +2884,7 @@ Propagate unit: ~t derived from: 8. [s,~t]
 Assignments so far:
 [p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s],
  t=0@2/[s,~t]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -2902,7 +2902,7 @@ Conflict clause: 9. [~q,r,t]
 Conflict caused by assignments:
 [p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s],
  t=0@2/[s,~t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p=1@1,
@@ -2944,7 +2944,7 @@ Assignments so far:
 Propagate unit: ~p derived from: 1. [~p,q]
 Assignments so far:
 [p=0@1/[~p,q],q=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1
@@ -2955,7 +2955,7 @@ q=0@1 --1.[~p,q]--> p=0@1
 Propagate unit: r derived from: 14. [q,p,r]
 Assignments so far:
 [p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -2969,7 +2969,7 @@ q=0@1 --14.[q,p,r]--> r=1@1
 Propagate unit: ~s derived from: 6. [p,~r,~s]
 Assignments so far:
 [p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -2987,7 +2987,7 @@ Propagate unit: ~t derived from: 8. [s,~t]
 Assignments so far:
 [p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s],
  t=0@1/[s,~t]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -3007,7 +3007,7 @@ Conflict clause: 10. [q,~r,t]
 Conflict caused by assignments:
 [p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s],
  t=0@1/[s,~t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p=0@1,
@@ -3080,7 +3080,7 @@ Assignments so far:
 Propagate unit: p derived from: 2. [p,~q]
 Assignments so far:
 [p=1@1/[p,~q],q=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1
@@ -3091,7 +3091,7 @@ q=1@1 --2.[p,~q]--> p=1@1
 Propagate unit: r derived from: 14. [~q,~p,r]
 Assignments so far:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -3105,7 +3105,7 @@ q=1@1 --14.[~q,~p,r]--> r=1@1
 Propagate unit: s derived from: 4. [~p,~r,s]
 Assignments so far:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -3123,7 +3123,7 @@ Propagate unit: t derived from: 7. [~s,t]
 Assignments so far:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
  t=1@1/[~s,t]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -3143,7 +3143,7 @@ Conflict clause: 12. [~q,~r,~t]
 Conflict caused by assignments:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
  t=1@1/[~s,t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p=1@1,
@@ -3216,7 +3216,7 @@ Assignments so far:
 Propagate unit: ~q derived from: 13. [~q]
 Assignments so far:
 [q=0@1/[~q],r=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 q=0@1
 ]
@@ -3226,7 +3226,7 @@ q=0@1
 Conflict clause: 14. [q]
 Conflict caused by assignments:
 [q=0@1/[~q],r=0@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 q=0@1
@@ -3245,7 +3245,7 @@ Assignments so far:
 Propagate unit: ~q derived from: 13. [~q]
 Assignments so far:
 [q=0@1/[~q],r=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 q=0@1
 ]
@@ -3255,7 +3255,7 @@ q=0@1
 Conflict clause: 14. [q]
 Conflict caused by assignments:
 [q=0@1/[~q],r=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 q=0@1
@@ -3274,7 +3274,7 @@ Assignments so far:
 Propagate unit: ~t derived from: 8. [s,~t]
 Assignments so far:
 [s=0@1/nil,t=0@1/[s,~t]]
-Implication graph (incremental):
+Implication graph:
 [
 s=0@1,
 t=0@1
@@ -3285,7 +3285,7 @@ s=0@1 --8.[s,~t]--> t=0@1
 Propagate unit: ~q derived from: 13. [~q]
 Assignments so far:
 [q=0@1/[~q],s=0@1/nil,t=0@1/[s,~t]]
-Implication graph (incremental):
+Implication graph:
 [
 q=0@1,
 s=0@1,
@@ -3297,7 +3297,7 @@ s=0@1 --8.[s,~t]--> t=0@1
 Conflict clause: 14. [q]
 Conflict caused by assignments:
 [q=0@1/[~q],s=0@1/nil,t=0@1/[s,~t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 q=0@1,
@@ -3319,7 +3319,7 @@ Assignments so far:
 Propagate unit: t derived from: 7. [~s,t]
 Assignments so far:
 [s=1@1/nil,t=1@1/[~s,t]]
-Implication graph (incremental):
+Implication graph:
 [
 s=1@1,
 t=1@1
@@ -3330,7 +3330,7 @@ s=1@1 --7.[~s,t]--> t=1@1
 Propagate unit: ~q derived from: 13. [~q]
 Assignments so far:
 [q=0@1/[~q],s=1@1/nil,t=1@1/[~s,t]]
-Implication graph (incremental):
+Implication graph:
 [
 q=0@1,
 s=1@1,
@@ -3342,7 +3342,7 @@ s=1@1 --7.[~s,t]--> t=1@1
 Conflict clause: 14. [q]
 Conflict caused by assignments:
 [q=0@1/[~q],s=1@1/nil,t=1@1/[~s,t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 q=0@1,
@@ -3364,7 +3364,7 @@ Assignments so far:
 Propagate unit: ~s derived from: 7. [~s,t]
 Assignments so far:
 [s=0@1/[~s,t],t=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 s=0@1,
 t=0@1
@@ -3375,7 +3375,7 @@ t=0@1 --7.[~s,t]--> s=0@1
 Propagate unit: ~q derived from: 13. [~q]
 Assignments so far:
 [q=0@1/[~q],s=0@1/[~s,t],t=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 q=0@1,
 s=0@1,
@@ -3387,7 +3387,7 @@ t=0@1 --7.[~s,t]--> s=0@1
 Conflict clause: 14. [q]
 Conflict caused by assignments:
 [q=0@1/[~q],s=0@1/[~s,t],t=0@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 q=0@1,
@@ -3409,7 +3409,7 @@ Assignments so far:
 Propagate unit: s derived from: 8. [s,~t]
 Assignments so far:
 [s=1@1/[s,~t],t=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 s=1@1,
 t=1@1
@@ -3420,7 +3420,7 @@ t=1@1 --8.[s,~t]--> s=1@1
 Propagate unit: ~q derived from: 13. [~q]
 Assignments so far:
 [q=0@1/[~q],s=1@1/[s,~t],t=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 q=0@1,
 s=1@1,
@@ -3432,7 +3432,7 @@ t=1@1 --8.[s,~t]--> s=1@1
 Conflict clause: 14. [q]
 Conflict caused by assignments:
 [q=0@1/[~q],s=1@1/[s,~t],t=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 q=0@1,
@@ -3449,7 +3449,7 @@ Learned clause: [q]
 Non-chronological backtracking to level: 0
 Unsatisfiable:
 Statistics: clauses=12, variables=5, units=24, choices=12, conflicts=10
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -3472,7 +3472,7 @@ Assignments so far:
 Propagate unit: ~q derived from: 2. [p,~q]
 Assignments so far:
 [p=0@1/nil,q=0@1/[p,~q]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1
@@ -3487,7 +3487,7 @@ Assignments so far:
 Propagate unit: s derived from: 3. [p,r,s]
 Assignments so far:
 [p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -3503,7 +3503,7 @@ Propagate unit: t derived from: 7. [~s,t]
 Assignments so far:
 [p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s],
  t=1@2/[~s,t]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -3521,7 +3521,7 @@ Conflict clause: 11. [q,r,~t]
 Conflict caused by assignments:
 [p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s],
  t=1@2/[~s,t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p=0@1,
@@ -3563,7 +3563,7 @@ Assignments so far:
 Propagate unit: q derived from: 1. [~p,q]
 Assignments so far:
 [p=1@1/nil,q=1@1/[~p,q]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1
@@ -3578,7 +3578,7 @@ Assignments so far:
 Propagate unit: ~s derived from: 5. [~p,r,~s]
 Assignments so far:
 [p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -3594,7 +3594,7 @@ Propagate unit: ~t derived from: 8. [s,~t]
 Assignments so far:
 [p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s],
  t=0@2/[s,~t]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -3612,7 +3612,7 @@ Conflict clause: 9. [~q,r,t]
 Conflict caused by assignments:
 [p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s],
  t=0@2/[s,~t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p=1@1,
@@ -3654,7 +3654,7 @@ Assignments so far:
 Propagate unit: ~p derived from: 1. [~p,q]
 Assignments so far:
 [p=0@1/[~p,q],q=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1
@@ -3665,7 +3665,7 @@ q=0@1 --1.[~p,q]--> p=0@1
 Propagate unit: r derived from: 14. [q,p,r]
 Assignments so far:
 [p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -3679,7 +3679,7 @@ q=0@1 --14.[q,p,r]--> r=1@1
 Propagate unit: ~s derived from: 6. [p,~r,~s]
 Assignments so far:
 [p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -3697,7 +3697,7 @@ Propagate unit: ~t derived from: 8. [s,~t]
 Assignments so far:
 [p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s],
  t=0@1/[s,~t]]
-Implication graph (incremental):
+Implication graph:
 [
 p=0@1,
 q=0@1,
@@ -3717,7 +3717,7 @@ Conflict clause: 10. [q,~r,t]
 Conflict caused by assignments:
 [p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s],
  t=0@1/[s,~t]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p=0@1,
@@ -3790,7 +3790,7 @@ Assignments so far:
 Propagate unit: p derived from: 2. [p,~q]
 Assignments so far:
 [p=1@1/[p,~q],q=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1
@@ -3801,7 +3801,7 @@ q=1@1 --2.[p,~q]--> p=1@1
 Propagate unit: r derived from: 14. [~q,~p,r]
 Assignments so far:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -3815,7 +3815,7 @@ q=1@1 --14.[~q,~p,r]--> r=1@1
 Propagate unit: s derived from: 4. [~p,~r,s]
 Assignments so far:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -3833,7 +3833,7 @@ Propagate unit: t derived from: 7. [~s,t]
 Assignments so far:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
  t=1@1/[~s,t]]
-Implication graph (incremental):
+Implication graph:
 [
 p=1@1,
 q=1@1,
@@ -3853,7 +3853,7 @@ Satisfying assignments:
 [p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
  t=1@1/[~s,t]]
 Statistics: clauses=12, variables=5, units=14, choices=6, conflicts=3
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -3872,7 +3872,7 @@ Assignments so far:
 Propagate unit: p1 derived from: 2. [p0,p1]
 Assignments so far:
 [p0=0@1/nil,p1=1@1/[p0,p1]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@1
@@ -3883,7 +3883,7 @@ p0=0@1 --2.[p0,p1]--> p1=1@1
 Propagate unit: ~p2 derived from: 3. [p0,~p2]
 Assignments so far:
 [p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@1,
@@ -3896,7 +3896,7 @@ p0=0@1 --3.[p0,~p2]--> p2=0@1
 Propagate unit: p3 derived from: 6. [~p1,p3]
 Assignments so far:
 [p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@1,
@@ -3911,7 +3911,7 @@ p1=1@1 --6.[~p1,p3]--> p3=1@1
 Conflict clause: 7. [p2,~p3]
 Conflict caused by assignments:
 [p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -3955,7 +3955,7 @@ Assignments so far:
 Propagate unit: ~p1 derived from: 1. [~p0,~p1]
 Assignments so far:
 [p0=1@1/nil,p1=0@1/[~p0,~p1]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p1=0@1
@@ -3966,7 +3966,7 @@ p0=1@1 --1.[~p0,~p1]--> p1=0@1
 Propagate unit: p2 derived from: 4. [~p0,p2]
 Assignments so far:
 [p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p1=0@1,
@@ -3979,7 +3979,7 @@ p0=1@1 --4.[~p0,p2]--> p2=1@1
 Propagate unit: ~p3 derived from: 5. [p1,~p3]
 Assignments so far:
 [p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p1=0@1,
@@ -3994,7 +3994,7 @@ p1=0@1 --5.[p1,~p3]--> p3=0@1
 Conflict clause: 8. [~p2,p3]
 Conflict caused by assignments:
 [p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=1@1,
@@ -4038,7 +4038,7 @@ Assignments so far:
 Propagate unit: p0 derived from: 2. [p0,p1]
 Assignments so far:
 [p0=1@1/[p0,p1],p1=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p1=0@1
@@ -4049,7 +4049,7 @@ p1=0@1 --2.[p0,p1]--> p0=1@1
 Conflict clause: 9. [~p0]
 Conflict caused by assignments:
 [p0=1@1/[p0,p1],p1=0@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=1@1,
@@ -4080,7 +4080,7 @@ Assignments so far:
 Propagate unit: ~p0 derived from: 1. [~p0,~p1]
 Assignments so far:
 [p0=0@1/[~p0,~p1],p1=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@1
@@ -4091,7 +4091,7 @@ p1=1@1 --1.[~p0,~p1]--> p0=0@1
 Conflict clause: 10. [p0]
 Conflict caused by assignments:
 [p0=0@1/[~p0,~p1],p1=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -4122,7 +4122,7 @@ Assignments so far:
 Propagate unit: ~p0 derived from: 4. [~p0,p2]
 Assignments so far:
 [p0=0@1/[~p0,p2],p2=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p2=0@1
@@ -4133,7 +4133,7 @@ p2=0@1 --4.[~p0,p2]--> p0=0@1
 Conflict clause: 10. [p0]
 Conflict caused by assignments:
 [p0=0@1/[~p0,p2],p2=0@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -4164,7 +4164,7 @@ Assignments so far:
 Propagate unit: p0 derived from: 3. [p0,~p2]
 Assignments so far:
 [p0=1@1/[p0,~p2],p2=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p2=1@1
@@ -4175,7 +4175,7 @@ p2=1@1 --3.[p0,~p2]--> p0=1@1
 Conflict clause: 9. [~p0]
 Conflict caused by assignments:
 [p0=1@1/[p0,~p2],p2=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=1@1,
@@ -4206,7 +4206,7 @@ Assignments so far:
 Propagate unit: ~p1 derived from: 6. [~p1,p3]
 Assignments so far:
 [p1=0@1/[~p1,p3],p3=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p1=0@1,
 p3=0@1
@@ -4217,7 +4217,7 @@ p3=0@1 --6.[~p1,p3]--> p1=0@1
 Propagate unit: p0 derived from: 2. [p0,p1]
 Assignments so far:
 [p0=1@1/[p0,p1],p1=0@1/[~p1,p3],p3=0@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p1=0@1,
@@ -4230,7 +4230,7 @@ p3=0@1 --6.[~p1,p3]--> p1=0@1
 Conflict clause: 9. [~p0]
 Conflict caused by assignments:
 [p0=1@1/[p0,p1],p1=0@1/[~p1,p3],p3=0@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=1@1,
@@ -4263,7 +4263,7 @@ Assignments so far:
 Propagate unit: p1 derived from: 5. [p1,~p3]
 Assignments so far:
 [p1=1@1/[p1,~p3],p3=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p1=1@1,
 p3=1@1
@@ -4274,7 +4274,7 @@ p3=1@1 --5.[p1,~p3]--> p1=1@1
 Propagate unit: ~p0 derived from: 1. [~p0,~p1]
 Assignments so far:
 [p0=0@1/[~p0,~p1],p1=1@1/[p1,~p3],p3=1@1/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@1,
@@ -4287,7 +4287,7 @@ p3=1@1 --5.[p1,~p3]--> p1=1@1
 Conflict clause: 10. [p0]
 Conflict caused by assignments:
 [p0=0@1/[~p0,~p1],p1=1@1/[p1,~p3],p3=1@1/nil]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -4315,7 +4315,7 @@ Learned clause: [p0]
 Non-chronological backtracking to level: 0
 Unsatisfiable:
 Statistics: clauses=8, variables=4, units=14, choices=8, conflicts=8
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -4334,7 +4334,7 @@ Assignments so far:
 Propagate unit: p1 derived from: 2. [p0,p1]
 Assignments so far:
 [p0=0@1/nil,p1=1@1/[p0,p1]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@1
@@ -4345,7 +4345,7 @@ p0=0@1 --2.[p0,p1]--> p1=1@1
 Propagate unit: ~p2 derived from: 3. [p0,~p2]
 Assignments so far:
 [p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@1,
@@ -4358,7 +4358,7 @@ p0=0@1 --3.[p0,~p2]--> p2=0@1
 Propagate unit: p3 derived from: 6. [~p1,p3]
 Assignments so far:
 [p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@1,
@@ -4373,7 +4373,7 @@ p1=1@1 --6.[~p1,p3]--> p3=1@1
 Conflict clause: 7. [p2,~p3]
 Conflict caused by assignments:
 [p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -4417,7 +4417,7 @@ Assignments so far:
 Propagate unit: ~p1 derived from: 1. [~p0,~p1]
 Assignments so far:
 [p0=1@1/nil,p1=0@1/[~p0,~p1]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p1=0@1
@@ -4428,7 +4428,7 @@ p0=1@1 --1.[~p0,~p1]--> p1=0@1
 Propagate unit: p2 derived from: 4. [~p0,p2]
 Assignments so far:
 [p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p1=0@1,
@@ -4441,7 +4441,7 @@ p0=1@1 --4.[~p0,p2]--> p2=1@1
 Propagate unit: ~p3 derived from: 5. [p1,~p3]
 Assignments so far:
 [p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=1@1,
 p1=0@1,
@@ -4456,7 +4456,7 @@ p1=0@1 --5.[p1,~p3]--> p3=0@1
 Satisfying assignments:
 [p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
 Statistics: clauses=8, variables=4, units=6, choices=2, conflicts=1
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.1.6. Copyright 2012 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1,p2],
@@ -4495,7 +4495,7 @@ Assignments so far:
 Propagate unit: p2 derived from: 4. [p0,p1,p2]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4513,7 +4513,7 @@ Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
  p6=0@3/[p0,p3,~p6]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4536,7 +4536,7 @@ Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
  p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4558,7 +4558,7 @@ Propagate unit: ~p7 derived from: 19. [p1,p4,~p7]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
  p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4584,7 +4584,7 @@ Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
  p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7],
  p8=0@4/[p6,p7,~p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4613,7 +4613,7 @@ Conflict caused by assignments:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
  p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7],
  p8=0@4/[p6,p7,~p8]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -4672,7 +4672,7 @@ Propagate unit: p6 derived from: 14. [p0,~p3,p6]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
  p6=1@3/[p0,~p3,p6]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4695,7 +4695,7 @@ Propagate unit: p5 derived from: 5. [~p3,p4,p5]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
  p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4717,7 +4717,7 @@ Propagate unit: ~p7 derived from: 19. [p1,p4,~p7]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
  p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4743,7 +4743,7 @@ Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
  p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7],
  p8=1@4/[~p6,p7,p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4772,7 +4772,7 @@ Conflict caused by assignments:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
  p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7],
  p8=1@4/[~p6,p7,p8]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -4831,7 +4831,7 @@ Propagate unit: ~p7 derived from: 19. [p1,p4,~p7]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p4=0@3/nil,
  p7=0@3/[p1,p4,~p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4854,7 +4854,7 @@ Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=0@3/nil,p5=0@4/[p3,p4,~p5],p7=0@3/[p1,p4,~p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4876,7 +4876,7 @@ Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=0@3/nil,p5=0@4/[p3,p4,~p5],p6=0@4/[p0,p3,~p6],p7=0@3/[p1,p4,~p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4901,7 +4901,7 @@ Conflict clause: 26. [~p2,p3,p6,p1,p4]
 Conflict caused by assignments:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=0@3/nil,p5=0@4/[p3,p4,~p5],p6=0@4/[p0,p3,~p6],p7=0@3/[p1,p4,~p7]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -4947,7 +4947,7 @@ Propagate unit: p7 derived from: 18. [p1,~p4,p7]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p4=1@3/nil,
  p7=1@3/[p1,~p4,p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4970,7 +4970,7 @@ Propagate unit: p5 derived from: 6. [p3,~p4,p5]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=1@3/nil,p5=1@4/[p3,~p4,p5],p7=1@3/[p1,~p4,p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -4992,7 +4992,7 @@ Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=1@3/nil,p5=1@4/[p3,~p4,p5],p6=0@4/[p0,p3,~p6],p7=1@3/[p1,~p4,p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5018,7 +5018,7 @@ Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=1@3/nil,p5=1@4/[p3,~p4,p5],p6=0@4/[p0,p3,~p6],p7=1@3/[p1,~p4,p7],
  p8=1@4/[p6,~p7,p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5047,7 +5047,7 @@ Conflict caused by assignments:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=1@3/nil,p5=1@4/[p3,~p4,p5],p6=0@4/[p0,p3,~p6],p7=1@3/[p1,~p4,p7],
  p8=1@4/[p6,~p7,p8]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -5106,7 +5106,7 @@ Propagate unit: p8 derived from: 21. [~p2,p5,p8]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p5=0@3/nil,
  p8=1@3/[~p2,p5,p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5129,7 +5129,7 @@ Propagate unit: ~p4 derived from: 6. [p3,~p4,p5]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=0@4/[p3,~p4,p5],p5=0@3/nil,p8=1@3/[~p2,p5,p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5151,7 +5151,7 @@ Conflict clause: 26. [~p2,p1,p4,p0,p3]
 Conflict caused by assignments:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=0@4/[p3,~p4,p5],p5=0@3/nil,p8=1@3/[~p2,p5,p8]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -5194,7 +5194,7 @@ Propagate unit: ~p8 derived from: 24. [~p2,~p5,~p8]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p5=1@3/nil,
  p8=0@3/[~p2,~p5,~p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5217,7 +5217,7 @@ Propagate unit: p4 derived from: 7. [p3,p4,~p5]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=1@4/[p3,p4,~p5],p5=1@3/nil,p8=0@3/[~p2,~p5,~p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5239,7 +5239,7 @@ Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=1@4/[p3,p4,~p5],p5=1@3/nil,p6=0@4/[p0,p3,~p6],p8=0@3/[~p2,~p5,~p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5265,7 +5265,7 @@ Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=1@4/[p3,p4,~p5],p5=1@3/nil,p6=0@4/[p0,p3,~p6],p7=0@4/[p6,~p7,p8],
  p8=0@3/[~p2,~p5,~p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5294,7 +5294,7 @@ Conflict caused by assignments:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
  p4=1@4/[p3,p4,~p5],p5=1@3/nil,p6=0@4/[p0,p3,~p6],p7=0@4/[p6,~p7,p8],
  p8=0@3/[~p2,~p5,~p8]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -5353,7 +5353,7 @@ Propagate unit: ~p3 derived from: 14. [p0,~p3,p6]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
  p6=0@3/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5371,7 +5371,7 @@ Propagate unit: p5 derived from: 26. [~p2,p1,p0,p3,p5]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
  p5=1@3/[~p2,p1,p0,p3,p5],p6=0@3/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5394,7 +5394,7 @@ Propagate unit: p4 derived from: 7. [p3,p4,~p5]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
  p4=1@3/[p3,p4,~p5],p5=1@3/[~p2,p1,p0,p3,p5],p6=0@3/nil]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5420,7 +5420,7 @@ Propagate unit: p7 derived from: 18. [p1,~p4,p7]
 Assignments so far:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
  p4=1@3/[p3,p4,~p5],p5=1@3/[~p2,p1,p0,p3,p5],p6=0@3/nil,p7=1@3/[p1,~p4,p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=0@2,
@@ -5449,7 +5449,7 @@ Conflict clause: 27. [~p2,~p4,~p7,p0,p3]
 Conflict caused by assignments:
 [p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
  p4=1@3/[p3,p4,~p5],p5=1@3/[~p2,p1,p0,p3,p5],p6=0@3/nil,p7=1@3/[p1,~p4,p7]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -5602,7 +5602,7 @@ Assignments so far:
 Propagate unit: ~p2 derived from: 3. [p0,~p1,~p2]
 Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
@@ -5620,7 +5620,7 @@ Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
 Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
  p6=0@3/[p0,p3,~p6]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
@@ -5643,7 +5643,7 @@ Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
 Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
  p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
@@ -5665,7 +5665,7 @@ Propagate unit: p7 derived from: 17. [~p1,p4,p7]
 Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
  p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
@@ -5691,7 +5691,7 @@ Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
  p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7],
  p8=1@4/[p6,~p7,p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
@@ -5720,7 +5720,7 @@ Conflict caused by assignments:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
  p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7],
  p8=1@4/[p6,~p7,p8]]
-Implication graph (final):
+Implication graph:
 [
 kappa,
 p0=0@1,
@@ -5779,7 +5779,7 @@ Propagate unit: p6 derived from: 14. [p0,~p3,p6]
 Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
  p6=1@3/[p0,~p3,p6]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
@@ -5802,7 +5802,7 @@ Propagate unit: p5 derived from: 5. [~p3,p4,p5]
 Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
  p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
@@ -5824,7 +5824,7 @@ Propagate unit: p7 derived from: 17. [~p1,p4,p7]
 Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
  p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=1@4/[~p1,p4,p7]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
@@ -5850,7 +5850,7 @@ Assignments so far:
 [p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
  p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=1@4/[~p1,p4,p7],
  p8=0@4/[~p6,~p7,~p8]]
-Implication graph (incremental):
+Implication graph:
 [
 p0=0@1,
 p1=1@2,
