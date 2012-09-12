@@ -45,9 +45,9 @@ display(partial, Assignments) :-
   write('Assignments so far:\n'),
   write_assignments(Assignments), nl.
 
-display(skipping, Assignment) :-
+display(skipped, Assignment) :-
   get_mode(Mode), Mode = ncb,
-  check_option(skipping), !,
+  check_option(skipped), !,
   write('Skip decision assignment: '),
   write_assignment(Assignment, no), nl.
 

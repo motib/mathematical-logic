@@ -317,7 +317,7 @@ choose_assignment(Variables, Level, Assignment) :-
   get_mode(Mode),
   backtrack(L),
   (Mode = ncb, Level > L, Level > 1 ->
-    display(skipping, Assignment), !, fail ;
+    display(skipped, Assignment), !, fail ;
     true).
 
 
