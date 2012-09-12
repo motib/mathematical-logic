@@ -2,7 +2,9 @@
 
 :- use_module(dpll).
 
-%  Four-queens problem
+%  Four-queens problem as given in MLCS, Section 6.4.
+%  M. Ben-Ari. Mathematical Logic for Computer Science (Third Edition).
+%  Springer, 2012.
 
 queens4 :-
   dpll(

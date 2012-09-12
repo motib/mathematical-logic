@@ -154,7 +154,7 @@ display(_, _, _, _, _).
 
 display(dominator, Path_List, Dominator, Decisions, Result, Learned) :-
   check_option_not_dpll(dominator), !,
-  write('Paths from decision node at this level to kappa:\n'),
+  write('Paths from the decision node at this level to kappa:\n'),
   write_paths(Path_List),
   write('A dominator is: '),
   write_assignment(Dominator), nl, 

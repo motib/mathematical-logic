@@ -8,7 +8,7 @@
   [version/1, years/1, default_mode/1, default_display/1,
    dot_prologue/1, dot_decorate/1]).
 
-version('1.1.6').
+version('1.2.0').
 
 years('2012').
 
