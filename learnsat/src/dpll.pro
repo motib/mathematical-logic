@@ -135,8 +135,8 @@ dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   assert(backtrack(Level1)),
       % Choose a decision Assignment
   choose_assignment(Variables, Level1, Assignment),
-      % Increment the choice counter and display the decision Assignment
-  increment(choice),
+      % Increment the decision counter and display the decision Assignment
+  increment(decision),
   display(variable, Variables),
   display(decision, Assignment),
   display(partial, [Assignment | SoFar]),

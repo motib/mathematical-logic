@@ -20,9 +20,9 @@ grid2 :-
   ], _).
 
 %  In dpll mode, this takes forever!
-%  dpll: units=1135104, choices=477344, conflicts=425024
-%  cdcl: units=117, choices=80, conflicts=76
-%  ncb:  units=53, choices=29, conflicts=22
+%  dpll: units=1135104, decisions=477344, conflicts=425024
+%  cdcl: units=117, decisions=80, conflicts=76
+%  ncb:  units=53, decisions=29, conflicts=22
 
 grid3 :-
   dpll(

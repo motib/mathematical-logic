@@ -2,7 +2,9 @@
 
 :- use_module(dpll).
 
-%  Tseitin clauses for example in Section 4.5 of MLCS
+%  Tseitin clauses for example in Section 4.5 of MLCS:
+%  M. Ben-Ari. Mathematical Logic for Computer Science (Third Edition).
+%  Springer, 2012.
 
 ex :-
   dpll(
@@ -13,7 +15,7 @@ ex :-
   [~q, r, t], [q, ~r, t], [q, r, ~t], [~q, ~r, ~t]
 	], _).
   
-%  Satisfiable Tseitin clauses for example in Section 4.5 of MLCS
+%  Satisfiable variant of the above formula
 
 exs :-
   dpll(
@@ -36,7 +38,7 @@ k22 :-
   [p2, ~p3], [~p2,  p3]
 	], _).
 
-%  Satisfiable Tseitin clauses for K_{2,2}
+%  Satisfiable variant of the above formula
 
 k22s :-
   dpll(
@@ -47,32 +49,32 @@ k22s :-
   [p2, ~p3], [~p2,  ~p3]
 	], _).
   
-%  Satisfiable Tseitin clauses for K_{3,3}
+%  Tseitin clauses for K_{3,3}
 
 k33 :-
   dpll(
   [
-  [~p0, ~p1,  p2],    [~p0,  p1, ~p2],    [p0, ~p1, ~p2],
-	[p0,  p1,  p2],           [~p3,  p4,  p5],       [p3, ~p4,  p5],
-	[p3,  p4, ~p5],        [~p3, ~p4, ~p5], [~p6,  p7,  p8],
-	[p6, ~p7,  p8],        [p6,  p7, ~p8],        [~p6, ~p7, ~p8],
-	[~p0,  p3,  p6],       [p0, ~p3,  p6],        [p0,  p3, ~p6],
-	[~p0, ~p3, ~p6], [~p1,  p4,  p7],       [p1, ~p4,  p7],
-	[p1,  p4, ~p7],        [~p1, ~p4, ~p7], [~p2,  p5,  p8],
-	[p2, ~p5,  p8],        [p2,  p5, ~p8],        [~p2, ~p5, ~p8]
+  [~p0, ~p1,  p2], [~p0,  p1, ~p2], [p0, ~p1, ~p2],
+	[p0,  p1,  p2],  [~p3,  p4,  p5], [p3, ~p4,  p5],
+	[p3,  p4, ~p5],  [~p3, ~p4, ~p5], [~p6,  p7,  p8],
+	[p6, ~p7,  p8],  [p6,  p7, ~p8],  [~p6, ~p7, ~p8],
+	[~p0,  p3,  p6], [p0, ~p3,  p6],  [p0,  p3, ~p6],
+	[~p0, ~p3, ~p6], [~p1,  p4,  p7], [p1, ~p4,  p7],
+	[p1,  p4, ~p7],  [~p1, ~p4, ~p7], [~p2,  p5,  p8],
+	[p2, ~p5,  p8],  [p2,  p5, ~p8],  [~p2, ~p5, ~p8]
 	], _).
 
-%  Satisfiable Tseitin clauses for K_{3,3}
+%  Satisfiable variant of the above formula
 
 k33s :-
   dpll(
   [
-  [~p0, ~p1,  p2],    [~p0,  p1, ~p2],    [p0, ~p1, ~p2],
-	[p0,  p1,  p2],           [~p3,  p4,  p5],       [p3, ~p4,  p5],
-	[p3,  p4, ~p5],        [~p3, ~p4, ~p5], [~p6,  p7,  p8],
-	[p6, ~p7,  p8],        [p6,  p7, ~p8],        [~p6, ~p7, ~p8],
-	[~p0,  p3,  p6],       [p0, ~p3,  p6],        [p0,  p3, ~p6],
-	[~p0, ~p3, ~p6], [~p1,  p4,  p7],       [p1, ~p4,  p7],
-	[p1,  p4, ~p7],        [~p1, ~p4, ~p7], [~p2,  p5,  p8],
-	[p2, ~p5,  ~p8],        [p2,  p5, ~p8],        [~p2, ~p5, ~p8]
+  [~p0, ~p1,  p2], [~p0,  p1, ~p2], [p0, ~p1, ~p2],
+	[p0,  p1,  p2],  [~p3,  p4,  p5], [p3, ~p4,  p5],
+	[p3,  p4, ~p5],  [~p3, ~p4, ~p5], [~p6,  p7,  p8],
+	[p6, ~p7,  p8],  [p6,  p7, ~p8],  [~p6, ~p7, ~p8],
+	[~p0,  p3,  p6], [p0, ~p3,  p6],  [p0,  p3, ~p6],
+	[~p0, ~p3, ~p6], [~p1,  p4,  p7], [p1, ~p4,  p7],
+	[p1,  p4, ~p7],  [~p1, ~p4, ~p7], [~p2,  p5,  p8],
+	[p2, ~p5,  ~p8], [p2,  p5, ~p8],  [~p2, ~p5, ~p8]
 	], _).
