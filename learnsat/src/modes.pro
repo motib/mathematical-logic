@@ -250,9 +250,9 @@ usage :-
   write('  learned *    learned clauses\n'),
   write('  literal      literals found assigned during CDCL\n'),
   write('  partial      partial assignment so far\n'),
-  write('  resolvent    resolvents created during CDCL\n'),
+  write('  resolvent *  resolvents created during CDCL\n'),
   write('  result *     result of the algorithm with statistics\n'),
-  write('  skipped      assignments skipped when backtracking\n'),
-  write('  uip          unique implication points\n'),
+  write('  skipped *    assignments skipped when backtracking\n'),
+  write('  uip *        unique implication points\n'),
   write('  unit *       unit clauses\n'),
   write('  variable     variables that are not assigned so far\n').
