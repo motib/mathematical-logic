@@ -82,20 +82,25 @@ display(incremental, Graph, Clauses) :-
   check_option_not_dpll(incremental), !,
   display_graph(Graph, Clauses).
 
+%  Display literal assignment levels only if resolvent is also chosen
 display(literal, Literal, Level) :-
-  check_option_not_dpll(literal), !,
+  check_option_not_dpll(literal),
+  check_option(resolvent), !,
   write('Literal: '),
   write(Literal),
   write(' assigned at level: '),
   write(Level), nl.
 
+%  Display uip only if resolvent is also chosen
 display(uip, no, Level) :-
-  check_option_not_dpll(uip), !,
+  check_option_not_dpll(uip),
+  check_option(resolvent), !,
   write('Not a UIP: two literals are assigned at level: '),
   write(Level), nl.
 
 display(uip, yes, Level) :-
-  check_option_not_dpll(uip), !,
+  check_option_not_dpll(uip),
+  check_option(resolvent), !,
   write('UIP: one literal is assigned at level: '),
   write(Level), nl.
 

@@ -14,7 +14,9 @@ years('2012').
 
 default_mode(dpll).
 
-default_display([backtrack, conflict, decision, learned, result, unit]).
+default_display(
+  [backtrack, conflict, decision, learned, resolvent, result,
+   skipped, uip, unit]).
 
 dot_prologue('digraph G {\n  rankdir=LR;\n').
 
