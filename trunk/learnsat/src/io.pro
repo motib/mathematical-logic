@@ -1,4 +1,4 @@
-% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
+% Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(io, [
   write_assignment/1, write_assignment/2, write_assignments/1,
@@ -64,12 +64,13 @@ write_assignments1([H|T], N) :-
 %    Write the assignment as Variable=Value@Depth/Antecedent
 %    For an implication graph, the assignment can be 'kappa'
 %  write_assignment/2
-%    Write the antecedent only if second argument is 'yes'
-%    Used when writing the dot graph
+%    Called by write_assignment/1 (second argument is yes),
+%      or directly with second argument no
+%    Yes or no: write the antecedent or not
 %  write_level/1
-%    Only write level and antecedent if not dpll mode
+%    Write level and antecedent only if not dpll mode
 %  write_antecedent/2
-%    Only write antecedent if display option set
+%    Write antecedent only if display option set
 
 write_assignment(A) :-
   write_assignment(A, yes).
@@ -93,8 +94,7 @@ write_antecedent(assign(_, _, _, Unit), yes) :-
   get_mode(Mode),
   Mode \= dpll,
   check_option(antecedent), !,
-  write('/'),
-  (Unit = yes -> write('nil') ; write(Unit)).
+  (Unit = yes -> true ; write('/'), write(Unit)).
 write_antecedent(_, _).
 
 

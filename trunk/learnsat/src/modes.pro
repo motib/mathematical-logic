@@ -1,4 +1,4 @@
-% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
+% Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 %  Set/clear display options and algorithm mode
 %  Show the configuration
@@ -6,7 +6,7 @@
 
 :- module(modes, [
   set_display/1, clear_display/1, init_display/0, check_option/1,
-  set_mode/1, get_mode/1, init_mode/0,
+  set_mode/1, get_mode/1,
   usage/0, display_copyright_notice/0,
   show_config/0]).
 
@@ -23,15 +23,13 @@
 
 :- dynamic mode/1.
 
-%  init_mode/0, set_mode/1, get_mode/1
+
+%  get_mode/1 - Get the mode, or set and return default. 
 %    Mode - dpll (default) or cdcl or ncb
 
-%  If there is already a mode, don't change it, 
-%  Otherwise, set the default mode
-
-init_mode :-
-  mode(_), !.
-init_mode :-
+get_mode(Mode) :-
+  mode(Mode), !.
+get_mode(Mode) :-
   default_mode(Mode),
   assert(mode(Mode)).
 
@@ -49,13 +47,6 @@ check_mode(X) :-
   write('Mode "'), write(X), write('" not recognized\n'),
   write('Run "usage" for a list of modes\n').
 
-%  get_mode/1 - Get the mode, or return default. 
-
-get_mode(Mode) :-
-  mode(Mode), !.
-get_mode(Mode) :-
-  default_mode(Mode).
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Display options
@@ -63,7 +54,6 @@ get_mode(Mode) :-
 %  Database of display options
 %    "none" is a dummy option to distinguish initialization (no options)
 %    from the empty set of options
-%
 
 :- dynamic display_option/1.
 
@@ -100,9 +90,11 @@ check_option(Option) :-
 %  set_display/1, clear_display/1
 %    Set or clear display options
 %    The argument can be "all", "default", a single options or
-%      or a list of options
+%      a list of options
 %    For "all", "default" or a single option, recurse with a list
 %    For each option call set_display1/1, clear_display1/1
+%  set_display1/1, clear_display1
+%    Set or clear an individual option
 
 set_display(all) :- !,
   all_display(List),
@@ -117,13 +109,27 @@ set_display([Head | Tail]) :- !,
   set_display1(Head),
   set_display(Tail).
 
-set_display([]).
+set_display([]) :- !.
 
 set_display(Option) :-
   set_display([Option]), !.
 
 set_display(X) :-
   not_recognized(X).
+
+%  Already set, don't do anything
+set_display1(Option) :-
+  display_option(Option), !.
+
+%  Otherwise, assert it after checking that it exists in all_display
+set_display1(Option) :-
+  all_display(List),
+  member(Option, List), !,
+  assert(display_option(Option)).
+
+%  Otherwise, report that the option not recognized
+set_display1(Option) :-
+  not_recognized(Option).
 
 
 clear_display(all) :- !,
@@ -146,24 +152,6 @@ clear_display(Option) :-
 
 clear_display(X) :-
   not_recognized(X).
-
-
-%  set_display1/1, clear_display1
-%    Set or clear an individual option
-
-%  Already set, don't do anything
-set_display1(Option) :-
-  display_option(Option), !.
-
-%  Otherwise, assert it after checking that it exists in all_display
-set_display1(Option) :-
-  all_display(List),
-  member(Option, List), !,
-  assert(display_option(Option)).
-
-%  Otherwise, report that the option not recognized
-set_display1(Option) :-
-  not_recognized(Option).
 
 
 %  If retract succeeds, the option is cleared
@@ -202,13 +190,15 @@ show_config :-
   write(M1), nl,
   default_display(D1),
   write('Default display options:\n'),
-  write(D1), nl,
+  sort(D1, D2),
+  write(D2), nl,
   get_mode(M2),
   write('Current mode: '),
   write(M2), nl,
   findall(D, display_option(D), List),
   write('Current display options:\n'),
-  write(List), nl.
+  sort(List, List1),
+  write(List1), nl.
 show_config.
 
 

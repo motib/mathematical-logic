@@ -1,10 +1,12 @@
-% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
+% Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(auxpred,
   [op(610, fy,  ~),
-   is_assigned/3, literals_to_variables/3, to_variable/2,
-   to_complement/2, to_assignment/4, to_literal/2, to_clause/3]).  
+   is_assigned/3, literals_to_variables/3, get_variables_of_clauses/2,
+   to_variable/2, to_complement/2, to_assignment/4,
+   to_literal/2, to_clause/3]).  
 
+:- use_module([counters]).
 
 %  Auxiliary predicates concerned with assignments, variables, literals
 
@@ -21,23 +23,34 @@
 is_assigned(~ Variable, Assignments, Value1) :- !,
   member(assign(Variable, Value, _, _), Assignments),
   Value1 is 1-Value.
-    % Otherwise, if assigned, return the value itself
+    % The literal is an assigned atom; return the value
 is_assigned(Variable, Assignments, Value) :-
   member(assign(Variable, Value, _, _), Assignments).
 
 
-%  literals_to_variables/3
-%    Get the sorted set of variables of a list of literals
+%  get_variables_of_clauses/2
+%    Get a sorted list of variables from a set of clauses
 %    The predicate sort removes duplicates
+
+get_variables_of_clauses(Clauses, Variables) :-
+  flatten(Clauses, Literals_List),
+  literals_to_variables(Literals_List, [], Variables_List),
+  sort(Variables_List, Variables),
+  length(Clauses, Number_of_Clauses),
+  length(Variables, Number_of_Variables),
+  init_input_counters(Number_of_Clauses, Number_of_Variables).
+
+
+%  literals_to_variables/3
+%    Get the set of variables of a list of literals
 %      Literals      - a list of literals
 %      SoFar         - the variables found so far
 %      Variables_Set - the set of variables of these literals
 
-literals_to_variables([], Variables_List, Variables_Set) :-
-  sort(Variables_List, Variables_Set).
-literals_to_variables([V | Tail], SoFar, Variables_Set) :-
+literals_to_variables([], Variables_List, Variables_List).
+literals_to_variables([V | Tail], SoFar, Variables_List) :-
   to_variable(V, V1),
-  literals_to_variables(Tail, [V1 | SoFar], Variables_Set).
+  literals_to_variables(Tail, [V1 | SoFar], Variables_List).
 
 
 %  to_variable/2
@@ -62,7 +75,8 @@ to_complement(Variable,   ~ Variable).
 %    Constructor for the term assign/4
 %      Literal    - a literal
 %      Level      - a decision level
-%      Decision   - is this a decision assignment or not
+%      Decision   - is this a decision assignment?
+%                   yes or antecedent clause
 %      Assignment - the literal expressed as an assignment
 
 to_assignment(~ Variable, Level, Decision,

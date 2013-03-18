@@ -1,30 +1,35 @@
-% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
+% Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(counters,
-  [show_counters/2, increment/1, init_counters/0, get_file_counter/1]).
+  [show_counters/0, increment/1, init_counters/0,
+   init_input_counters/2, get_file_counter/1]).
 
 %  Counters for:
-%    units propagated, decisions made, conflicts encountered,
+%    clauses, variables, units propagated,
+%    decisions made, conflicts encountered,
 %    generating file names for implication graphs
 
 :- dynamic
-     unit_counter/1,  decision_counter/1, conflict_counter/1,
+     clause_counter/1, variable_counter/1, unit_counter/1, 
+     decision_counter/1, conflict_counter/1,
      file_counter/1.
 
-%  init_counters - set counters to 0
+%  Initialization - set counters to 0
+%  Initialization - number of Clauses and Variables
 
 init_counters :-
-  retractall(unit_counter(_)),
-  assert(unit_counter(0)),
-  retractall(decision_counter(_)),
-  assert(decision_counter(0)),
-  retractall(conflict_counter(_)),
-  assert(conflict_counter(0)),
-  retractall(file_counter(_)),
-  assert(file_counter(0)).
+  retractall(unit_counter(_)),      assert(unit_counter(0)),
+  retractall(decision_counter(_)),  assert(decision_counter(0)),
+  retractall(conflict_counter(_)),  assert(conflict_counter(0)),
+  retractall(file_counter(_)),      assert(file_counter(0)).
 
+init_input_counters(Number_of_Clauses, Number_of_Variables) :-
+  retractall(clause_counter(_)),
+  assert(clause_counter(Number_of_Clauses)),
+  retractall(variable_counter(_)), 
+  assert(variable_counter(Number_of_Variables)).
 
-%  increment/1 - a counter
+%  increment/1   - increment a counter
 
 increment(unit) :-
   retract(unit_counter(N)),
@@ -46,10 +51,12 @@ increment(file) :-
 
 %  show_counters/2    - write the counters
   
-show_counters(Clause_Count, Variable_Count) :-
+show_counters :-
   write('Statistics: clauses='),
+  clause_counter(Clause_Count),
   write(Clause_Count),
   write(', variables='),
+  variable_counter(Variable_Count),
   write(Variable_Count),
   unit_counter(Unit_Count), 
   write(', units='),

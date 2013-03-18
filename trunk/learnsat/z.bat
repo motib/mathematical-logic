@@ -1,3 +1,4 @@
+call clean
 set back=learnsat
 7z u -r -tzip c:\%back%\%back%.zip src\*.pro src\all1.txt docs\*.tex docs\*.bib docs\copyright.txt readme.txt docs\*.html docs\*.png
 copy %back%.zip \zip

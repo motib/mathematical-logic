@@ -1,4 +1,4 @@
-% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
+% Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- use_module(dpll).
 
@@ -25,7 +25,7 @@ exs :-
   [~s, t], [s, ~t],
   [~q, r, t], [q, ~r, t], [q, r, ~t], [~q, ~r, t]
 	], _).
-  
+
 
 %  Tseitin clauses for K_{2,2}  
 

@@ -1,4 +1,4 @@
-% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
+% Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 %  Examples from published papers
 %  LearnSAT makes decision assignments lexicographically

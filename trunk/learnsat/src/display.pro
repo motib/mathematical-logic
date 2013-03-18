@@ -1,4 +1,4 @@
-% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
+% Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(display,
           [display/2, display/3, display/4, display/5, display/6]).
@@ -20,7 +20,8 @@ display(assignment, Assignments) :-
   write_assignments(Assignments), nl.
 
 display(backtrack, Highest) :-
-  get_mode(Mode), Mode = ncb,
+  get_mode(Mode),
+  Mode = ncb,
   check_option(backtrack), !,
   write('Non-chronological backtracking to level: '),
   write(Highest), nl.
@@ -44,6 +45,17 @@ display(partial, Assignments) :-
   check_option(partial), !,
   write('Assignments so far:\n'),
   write_assignments(Assignments), nl.
+
+display(result, []) :-
+  check_option(result), !,
+  write('Unsatisfiable:\n'),
+  show_counters.
+
+display(result, Assignments) :-
+  check_option(result), !,
+  write('Satisfying assignments:\n'),
+  write_assignments(Assignments), nl,
+  show_counters.
 
 display(skipped, Assignment) :-
   get_mode(Mode), Mode = ncb,
@@ -118,17 +130,6 @@ display(evaluate, Clause, Reason, Literal) :-
   write(Reason),
   (Literal \= none -> write(Literal), write(' deleted') ; true),
   nl.
-
-display(result, [], Clauses, Variables) :-
-  check_option(result), !,
-  write('Unsatisfiable:\n'),
-  show_counters(Clauses, Variables).
-
-display(result, Assignments, Clauses, Variables) :-
-  check_option(result), !,
-  write('Satisfying assignments:\n'),
-  write_assignments(Assignments), nl,
-  show_counters(Clauses, Variables).
 
 display(unit, Literal, Unit, Clauses) :-
   check_option(unit), !,
