@@ -1,25 +1,27 @@
-% Copyright 2012 by M. Ben-Ari. GNU GPL. See copyright.txt.
-
-%    LearnSat
+%
+%                        LearnSat
+%
+%    Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 %  Davis-Putnam-Logemann-Loveland (DPLL) algorithm with
 %    conflict-driven clause learning (CDCL) and
 %    non-chronological backtracking (NCB)
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %  Export main predicate dpll/2 and the negation operator
 :- module(dpll, [op(610, fy,  ~), dpll/2]).
 
-
 %  Modules directly used by dpll
-:- use_module([counters,modes,display,auxpred,io]).
-
+:- use_module([counters,modes,display,auxpred,io,dominator]).
 
 %  Make housekeeping predicates visible after consulting dpll
 :- reexport(modes, 
   [show_config/0, usage/0, set_display/1, clear_display/1, set_mode/1]).
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Data structures
 %
 %    Assignments:
@@ -44,11 +46,11 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Main predicate dpll/2
-%  It performs initialization and calls auxiliary predicate dpll/6
-%    which either finds a unit (find_unit) and propagates it
-%    or makes a decision assignment (choose_assignment) and evaluates
-%  The predicate ok_or_conflict is called with the result and
-%    decides whether to recurse or fail
+%    Performs initialization and calls auxiliary predicate dpll/6,
+%      which either finds a unit (find_unit) and propagates it
+%      or makes a decision assignment (choose_assignment) and evaluates
+%    The predicate ok_or_conflict is called with the result and
+%      decides whether to recurse or fail
 
 %  dpll/2
 %      Clauses   - set of clauses to be checked for satisfiability
@@ -57,7 +59,7 @@
 
 dpll(Clauses, Decisions) :-
       % Initialization
-  init_mode,
+  get_mode(_),
   init_display,
   init_counters,
   retractall(learned(_)),
@@ -65,22 +67,19 @@ dpll(Clauses, Decisions) :-
   retractall(backtrack(_)),
   assert(backtrack(1)),
 
-      % Create a set of variables from the list of clauses and
-  flatten(Clauses, Literals_List),
-  literals_to_variables(Literals_List, [], Variables_Set),
-      % Get numbers of clauses and variables for printing statistics
-  length(Clauses, Clause_Count),
-  length(Variables_Set, Variable_Count),
-      % Display the set of clauses
+      % Create a set of variables from the list of clauses
+  get_variables_of_clauses(Clauses, Variables_Set),
   display(clause, Clauses),
 
       % Call dpll/6, initially with Level 0, no assignments, empty graph
-      % If it succeeds, it returns the set of Decision assignments
-      % If it fails, dpll/2 will return the empty set of assignments
-  (dpll(Clauses, Variables_Set, 0, [], graph([],[]), Decisions) ->
-     display(result, Decisions, Clause_Count, Variable_Count) ;
-     display(result, [],        Clause_Count, Variable_Count)).
-           
+   dpll(Clauses, Variables_Set, 0, [], graph([],[]), Decisions),
+   display(result, Decisions).
+
+%  dpll/6 failed so return unsatisfiable: empty list of assignments
+dpll(_, []) :-
+  display(result, []).
+
+
 %  dpll/6
 %      Clauses    - set of clauses
 %      Variables  - list of unassigned variables
@@ -92,16 +91,14 @@ dpll(Clauses, Decisions) :-
 %  No more variables need to be assigned so the set is satisfiable
 dpll(_, [], _, Decisions, _, Decisions) :- !.
 
-
 %  Attempt unit propagation
 dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
       % Check for unit clauses, including the learned clauses
-      % The clause that became a Unit and the Assignment
-      %   forced by the unit clause are returned
+      % find_unit returns the clause that became a Unit and
+      %   the Assignment forced by the unit clause
   add_learned_clauses(Clauses, Clauses1),
   find_unit(Clauses1, Level, SoFar, Unit, Assignment), !,
       % Increment the unit counter, convert the Assignment to a Literal
-      %   and display the Literal and the clause that became a Unit
   increment(unit),
   to_literal(Assignment, Literal),
   display(unit, Literal, Unit, Clauses1),
@@ -113,9 +110,9 @@ dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
       %   and the Conflict clause if the result is a conflict
   evaluate(Clauses1, [Assignment | SoFar], Conflict, Result),
       % Get the new implication Graph1, adding the new Assignment
-      % The Number of the antecedent that became a Unit
-      %   (or the antecedent itself with display option "label")
-      %   labels the new edges
+      %   that was forced by the unit clause
+      % The antecedent or the Number of the antecedent
+      %   that became a Unit labels the new edges
   nth1(Number, Clauses1, Unit),
   extend_graph(Unit, Number, Assignment, SoFar, Graph, Graph1),
   display(incremental, Graph1, Clauses),
@@ -126,22 +123,20 @@ dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
     Result, Variables, Clauses1,
     [Assignment | SoFar], Level, Graph1, Conflict, Decisions).
 
-
 %  Choose a decision assignment
 dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
       % Increment the assignment Level and set the backtrack level to it
   Level1 is Level + 1,
   retract(backtrack(_)),
   assert(backtrack(Level1)),
-      % Choose a decision Assignment
+      % Choose a decision Assignment and increment the decision counter
   choose_assignment(Variables, Level1, Assignment),
-      % Increment the decision counter and display the decision Assignment
   increment(decision),
   display(variable, Variables),
   display(decision, Assignment),
   display(partial, [Assignment | SoFar]),
-      % Evaluate the set of Clauses using the assignments SoFar
-      %   together with the Assignment that was chosen
+      % Evaluate the set of Clauses including the learned clauses
+      %   using the assignments SoFar and the chosen Assignment
       % Return the Result (ok or conflict),
       %   and the Conflict clause if the result is a conflict
   add_learned_clauses(Clauses, Clauses1),
@@ -166,7 +161,7 @@ dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
 
 %  Conflict: learn a clause and fail
 ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
-      % Increment the conflict counter and display the Conflict clause
+      % Increment the conflict counter
   increment(conflict),
   display(conflict, Conflict, Clauses),
   display(assignment, SoFar),
@@ -177,23 +172,12 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
   display(graph, Graph1, Clauses),
   display(dot, Graph1, Clauses),
       % Compute the learned clause and save in the database
-      %   (but not if in dpll mode)
-      % The learned clause is computed by resolving backwards
-      %   from the conflict clause
-      % Computing by locating a dominator can be performed for display
-      %   but the result is not used
-  get_mode(Mode),
-  (Mode \= dpll -> 
-     compute_learned_clause_by_dominator(Graph1, Level),
-     compute_learned_clause_by_resolution(Graph1, Clauses, Level)
-     ;
-     true),
+  compute_learned_clause(Graph1, Clauses, Level),
       % Fail on conflict
   fail.
 
-
 %  OK: delete the assigned variable from the unassigned Variables
-%      and recurse by calling dpll/6
+%      and recurse on dpll/6
 ok_or_conflict(ok, Variables, Clauses, SoFar, Level, Graph, _, Decisions) :-
   SoFar = [assign(V, _, _, _) | _], 
   delete(Variables, V, Variables1),
@@ -201,9 +185,8 @@ ok_or_conflict(ok, Variables, Clauses, SoFar, Level, Graph, _, Decisions) :-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  Finding a unit and evaluating a clause are implemented by
-%    traversing the list of clauses
-
+%  Finding a unit and evaluating a clause
+%
 %  find_unit/5
 %    Find a unit clause
 %      Clauses    - set of clauses
@@ -216,11 +199,12 @@ ok_or_conflict(ok, Variables, Clauses, SoFar, Level, Graph, _, Decisions) :-
 find_unit([], _, _, _, _) :- !, fail.
 
 %  Evaluating the head of the list returns a unit
-%  Create an assignment (not a decision) from the literal
+%  Create an assignment from the literal
 find_unit([Head | _], Level, SoFar, Head, Assignment) :-
-    %  Empty clause for Original argument prevents duplicate display
+    %  [] for second argument prevents duplicate display of the clause
   evaluate_clause(Head, [], SoFar, notfound, Unit, Result),
   Result = unit, !,
+    % Create non-decision assignment; Head is the antecedent clause
   to_assignment(Unit, Level, Head, Assignment).
 
 %  The clause was not a unit so recurse on the rest of the clauses
@@ -231,7 +215,7 @@ find_unit([_ | Tail], Level, SoFar, Unit, Assignment) :-
 %  evaluate/4
 %    Evaluate a set of clauses   
 %      Clauses     - the set of clauses
-%      Assignments - the assignments with which to evaluate the clauses
+%      Assignments - the assignments used to evaluate the clauses
 %      Conflict    - return a conflict clause
 %      Result      - return a result ok or conflict
 
@@ -252,12 +236,13 @@ evaluate([_ | Tail], Assignments, Conflict, Result) :-
 %    Evaluate a single clause
 %      Clause      - the clause
 %      Original    - original clause for displaying
-%      Assignments - the assignments with which to evaluate the clause
+%      Assignments - the assignments used to evaluate the clause
 %      Found       - a flag that an unassigned literal has been "found"
-%                  - set to "notfound" in the initial cal
+%                  - set to "notfound" in the initial call
 %                  - if another unassigned literal is found when the
 %                      flag is "found", the clause is not a unit
-%      Unit        - if the result is unit, return the unit
+%      Unit        - if the result is unit, return the literal that
+%                      forms the unit clause
 %      Result      - return satisfied, unsatisfied, unit, unresolved
 
 
@@ -303,12 +288,12 @@ evaluate_clause([Head | Tail], Original, Assignment, _, Head, Result) :-
 %      Assignment - return the decision assignment
 
 choose_assignment(Variables, Level, Assignment) :-
-      % Build the Assignment term
+      % Build the Assignment term as a Decision assignment (yes)
   Assignment = assign(V, N, Level, yes),
       % Choose a variable from the list of unassigned variables
       %   "member" will choose again upon backtracking
   member(V, Variables),
-      % Choose a value, first 0 and then 1 upon backtracking
+      % Choose a value for the assignment, first 0 and then 1
   (N = 0 ; N = 1),
       % Non-chronological backtracking when mode is "ncb"
       %   if the current Level is greater than the backtrack level, fail
@@ -328,8 +313,8 @@ choose_assignment(Variables, Level, Assignment) :-
 %    The assignment implied by the unit clause will be a new target node
 %    Add edges from each assignment to the other literals in the clause
 %    The edges are labeled with the number of this clause
-%        Clause     - unit clause
-%        Number     - number of this unit clause
+%        Clause     - a clause determined to be unit
+%        Number     - number of this clause
 %        Assignment - current assignment
 %        SoFar      - assignments so far
 %        Graph      - current implication graph
@@ -347,7 +332,7 @@ extend_graph([Head | Tail], Number, Assignment, SoFar,
           graph(Nodes, Edges), Graph1) :-
   to_variable(Head, Variable),
   Source = assign(Variable, _, _, _),
-  member(Source, SoFar),
+  member(Source, SoFar), !,
       % If found, add this assignment as a source node
       % and add the (Number of the) antecedent unit clause as a new edge
   extend_graph(Tail, Number, Assignment, SoFar,
@@ -363,6 +348,20 @@ extend_graph([], _, Assignment, _,
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  compute_learned_clause/3
+%    compute_learned_clause_by_dominator
+%      For display only (if display option dominator is set)
+%    compute_learned_clause_by_resolution
+%      Compute a learned clause by resolving backwards from the conflict
+
+compute_learned_clause(Graph1, Clauses, Level) :-
+  get_mode(Mode),
+  Mode \= dpll, !,
+  compute_learned_clause_by_dominator(Graph1, Level),
+  compute_learned_clause_by_resolution(Graph1, Clauses, Level).
+compute_learned_clause(_, _, _).
+
 
 %  compute_learned_clause_by_resolution/3
 %    Compute a learned clause from an implication graph
@@ -422,7 +421,6 @@ compute_learned_clause(_, _, _, Clause, Clause).
 
 
 %  check_uip/4
-%    Check if a clause is a unique implication point
 %    A UIP has exactly one literal assigned at the current level
 %      Clause  - the current clause
 %      Nodes   - the nodes of the implication graph
@@ -503,95 +501,3 @@ compute_backtrack_level([Head | Tail], Level, Highest, Nodes) :-
 %  Otherwise, recurse
 compute_backtrack_level([_ | Tail], Level, Highest, Nodes) :-
   compute_backtrack_level(Tail, Level, Highest, Nodes).
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  Compute a learned clause by locating a dominator
-%  This is used only for display and the result is ignored
-
-%  compute_learned_clause_by_dominator/2
-%    Graph - the implication graph
-%    Level - the highest level in the graph
-
-compute_learned_clause_by_dominator(graph(Nodes, Edges), Level) :-
-      % Run only if the display option dominator is set
-  check_option(dominator),
-      % From the decision assignment at the highest level
-  N = assign(_, _, Level, yes),
-  member(N, Nodes),
-      % Find all paths to the node kappa
-  findall(Path, get_path(Edges, N, kappa, [N], Path), Path_List),
-      % Find a dominator for the list of paths
-  get_dominator(Path_List, N, Dominator),
-      % Find all decision assignments of lower level in the graph
-  findall(D, lower_decision_assignment(D, Nodes, Level), Decisions),
-      % Of them, select those with no path to the dominator
-  findall(D1, no_path(D1, Decisions, Edges, Dominator), Result),
-      % The learned clause is built from these decision assignments
-      % together with the dominator
-  union(Result, [Dominator], Learned),
-      % Convert to clause form and complement each literal
-  to_clause(Learned, Clause, yes),
-  display(dominator, Path_List, Dominator, Decisions, Result, Clause).
-compute_learned_clause_by_dominator(_, _).
-
-
-%  get_path/5
-%    Get a path in the implication graph
-%    Since the graph is a dag, a transitive computation suffices
-%      Edges  - the edges of the graph
-%      Source - the source node
-%      Target - the target node
-%      So_Far - the path so far
-%      Path   - the path that is retured
-
-%  When the Source equals the target the path has been found
-%  Reverse the list so that the source comes first
-get_path(_, Target, Target, So_Far, Path) :-
-  reverse(So_Far, Path).
-get_path(Edges, Source, Target, So_Far, Path) :-
-  member(edge(Source, _, Next), Edges),
-  get_path(Edges, Next, Target, [Next | So_Far], Path).
-
-
-%  get_dominator/3, get_dominator1/3
-%    Dominators are nodes which appear in all paths
-%    But, a dominator is not the Source decision assignment
-%      or the kappa Target
-%    Take the intersection of all the path lists
-%      Path_List  - the list of paths
-%      Source     - the source node
-%      Dominator  - the dominator that is returned
-
-get_dominator([Head | Tail], Source, Dominator) :-
-  get_dominator1(Tail, Head, Result),
-  subtract(Result, [Source, kappa], [Dominator | _]).
-
-get_dominator1([Head | Tail], So_Far, Result) :-
-  intersection(Head, So_Far, So_Far1),
-  get_dominator1(Tail, So_Far1, Result).
-get_dominator1([], So_Far, So_Far).
-
-
-%  lower_decision_assignment/3
-%    Find and return a decision assignment of lower level than Level
-%      A     - decision assignment returned
-%      Nodes - nodes of the graph
-%      Level - highest level of assignment in the graph
-
-lower_decision_assignment(A, Nodes, Level) :-
-  member(A, Nodes),
-  A = assign(_, _, L, yes),
-  L < Level.
-
-
-%  no_path/4
-%    Succeed if there is no path from a node to the dominator
-%      A         - a decision assignment returned
-%      Decisions - the set of decision assignments 
-%      Edges     - the edges of the graph
-%      Dominator - the dominator
-
-no_path(A, Decisions, Edges, Dominator) :-
-  member(A, Decisions),
-  \+ get_path(Edges, A, Dominator, [], _).

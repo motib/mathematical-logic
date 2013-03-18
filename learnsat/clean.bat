@@ -4,5 +4,6 @@ del docs\*.aux
 del docs\*.log
 del docs\*.dvi
 del docs\*.blg
+del docs\*.toc
 del docs\*.synctex
 pause

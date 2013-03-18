@@ -21,7 +21,7 @@
 \parindent=0pt
 
 \title{\bfseries \ls\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.2.0}
+\bfseries\normalsize Version 1.3.0}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
@@ -36,7 +36,7 @@
 \vspace*{\fill}
 
 \begin{center}
-\copyright{} 2012 by Mordechai (Moti) Ben-Ari.
+\copyright{} 2012-13 by Mordechai (Moti) Ben-Ari.
 \end{center}
 This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
 License. To view a copy of this license, visit
@@ -50,7 +50,7 @@ California, 94105, USA.
 \begin{center}
 The following copyright notice applies to the programs described in this
 document:\mbox{}\\\mbox{}\\
-\copyright{} 2012 by Mordechai (Moti) Ben-Ari.
+\copyright{} 2012-13 by Mordechai (Moti) Ben-Ari.
 \end{center}
 
 This program is free software; you can redistribute it and/or
@@ -116,8 +116,7 @@ SAT solving with \ls{} and documentation of the software.
 
 \section{Installation}
 
-\ls{} can be downloaded from Google Code at:\footnote{This project also
-contains an archive of \pl{} programs for the algorithms in \cite{mlcs}.}
+\ls{} can be downloaded from Google Code at:
 \begin{center}
 \url{http://code.google.com/p/mlcs/}.
 \end{center}
@@ -126,11 +125,11 @@ Download and unzip the archive \p{learnsat-N.zip}. The \pl{} source code
 is in the directory \p{src} and the documentation is in the directory
 \p{docs}.
 
-Download and install \sw{}:\footnote{\ls{} was developed using
-Version 6.0.0.}
+Download and install \sw{}:
 \begin{center}
 \url{http://www.swi-prolog.org/}.
 \end{center}
+There are binary distributions of \sw{} for Windows and MacOSX.
 
 The source files use the extension \p{pro} instead of the more usual
 \p{pl} to avoid conflict with programs in Perl. During the installation
@@ -138,7 +137,8 @@ of \sw{}, if you associate the extension \p{pro} with \sw{}, a
 program can be launched by double-clicking on its name in a file list. 
 
 The main module is in the file \p{dpll.pro}. It exports the predicates
-shown in Table~\ref{tab.export}.
+shown in Table~\ref{tab.export}. These are the only predicates that you
+need to run \ls{}.
 
 \begin{table}
 \begin{center}
@@ -171,7 +171,7 @@ The file with the program must be in the \p{src} directory;
 alternatively, the \ls{} source files can be copied to the directory
 that contains that file.
 
-Here is a program for the pigeon-hole principle for two holes and three
+Here is a program for the pigeonhole principle for two holes and three
 pigeons, where \p{pij} means that pigeon \p{i} is in hole \p{j}:
 
 \begin{verbatim}
@@ -271,8 +271,9 @@ options.\footnote{The options \p{literal} and \p{uip} are relevant only
 if \p{resolvent} is also selected.}
 
 In \p{cdcl} and \p{ncb} modes, the assignments are written together with
-their levels in the format \p{p1=0@3} used in \cite{mlm}. Optionally,
-the antecedent clause can be displayed with each assignment:
+their levels in the format \p{p1=0@3} used in \cite{mlm}.
+By selecting \p{antecedent}, the antecedent clause can be displayed with
+assignment forced by unit propagation:
 \verb+p1@3/[~p1,p3]+.
 
 \pagebreak[3]
@@ -469,12 +470,11 @@ Statistics: clauses=6, variables=8, units=9, decisions=9, conflicts=2
 \section{Conflict-driven clause learning}
 
 Let us now run the same example with CDCL after first setting the mode
-and display options:\footnote{Select the display option \p{graph} to
-obtain a textual representation of the graph.}
+and display options:
 
 \begin{verbatim}
 ?- set_mode(cdcl).
-?- set_display([literal, dot]).
+?- set_display([literal, dot, graph]).
 ?- mlm.
 \end{verbatim}
 
@@ -493,8 +493,8 @@ assignments that were forced by unit propagation are represented by
 nodes labeled with the assignments. An edge of the graph is labeled with
 the number of the clause that is the \emph{antecedent} of the node; this
 is the unit clause that forced the assignment labeling that
-node.\footnote{The display option \p{antecedent} will display the clause
-itself in addition to its number.} There is an edge for each literal in
+node. The display option \p{antecedent} will display the clause
+itself in addition to its number. There is an edge for each literal in
 the unit clause (except the one whose assignment is forced) and the
 sources of these edges are the assignments to those literals. For
 example, the decision assignments \p{x1=0@3}, \p{x031=0@2}
@@ -539,9 +539,10 @@ Decisions not dominated: [assign(x021,0,1,yes)]
 Learned clause from dominator: [x021,~x4]
 \end{verbatim}
 
-This method of learning a clause is performed only for display purposes;
-the learned clause that is used is determined by a different method
-described in the next subsection.
+This method of learning a clause is performed \emph{only for display
+purposes} if the display option \p{dominator} is selected. The learned
+clause that is used is determined by a different method described in the
+next subsection.
 
 \subsection{Learning a clause by resolution}
 
@@ -553,10 +554,9 @@ is assigned at the current level \emph{by unit propagation}. For
 example, given the current (conflict) clause \p{[x5,x6]}, \p{x5} was
 assigned by unit propagation at this level, so we can resolve
 \p{[x5,x6]} with the antecedent clause \verb+[~x4,~x5]+ to obtain the
-resolvent \verb+[x6,~x4]+ which becomes the current clause. The next
+resolvent \verb+[~x4,x6]+ which becomes the current clause. The next
 step is to resolve this clause with \verb+[x021,~x4,~x6]+ to obtain
-\verb+[x021,~x4]+.\footnote{The resolutions could also be done in the
-opposite order with the same result.} The resolution now terminates
+\verb+[x021,~x4]+. The resolution now terminates
 because clause is a UIP, namely, a clause where only one literal is
 assigned at the current level. The \ls{} output is:
 
@@ -594,6 +594,7 @@ Satisfying assignments:
 Statistics: clauses=6, variables=8, units=8, decisions=6, conflicts=1
 \end{verbatim}
 
+\pagebreak[4]
 
 \section{Non-chronological backtracking}
 
@@ -617,7 +618,7 @@ Skip decision assignment: x031=1@2
 \end{verbatim}
 
 For this example, there is no difference between CDCL with and without
-NCB, but for the three-hole pigeon-hole principle, the difference is
+NCB, but for the three-hole pigeonhole principle, the difference is
 significant:
 \begin{verbatim}
 Statistics: clauses=22, variables=12, units=243, decisions=96, conflicts=91
@@ -641,6 +642,8 @@ The negation operator is defined as \verb+op(610, fy, ~)+ and exported.
 
 \item \p{auxpred.pro}: Auxiliary predicates for the DPLL algorithms. 
 
+\item \p{dominator.pro}: Computing dominators in the implication graph. 
+
 \item \p{io.pro}: Predicates for writing assignments, clauses and
 implication graphs.
 
@@ -653,19 +656,17 @@ the facts: \p{version}, \p{years}, \p{default\_mode},
 \p{default\_display}, \p{dot\_prologue}, \p{dot\_decorate}.
 
 \item \p{counters.pro}: Maintains and displays counters for units,
-decisions and conflicts, as well as a counter for adding a number to the
+decisions and conflicts. Stores the number of clauses and variables for
+printing the statistics. Defines a counter for adding a number to the
 file names for implication graphs.
 
-\item \p{modes.pro}: Sets, clears and checks the execution mode and the
-display options. It also implements \p{usage} and \p{show\_config}. The
-dummy display option \p{none} is used to distinguish between the initial
-state (no options, so set the default options) and a state where all
-options have been cleared.
+\item \p{modes.pro}: Sets, clears and checks the mode and the display
+options. It also implements \p{usage} and \p{show\_config}. The dummy
+display option \p{none} is used to distinguish between the initial state
+(no options, so set the default options) and a state where all options
+have been cleared.
 
 \end{itemize}
-
-The following sections document the module \p{dpll}, as the others are
-straightforward.
 
 \newpage
 
@@ -684,8 +685,8 @@ Two functors are used to create terms:
 \begin{itemize}
 
 \item \p{assign} represents an assignment and takes four arguments: a
-variable, its value and level and an indication that it is a decision
-variable or not. If not, its antecedent clause is the fourth argument.
+variable, its value and level and \p{yes} if this is a decision
+assignment or the antecedent clause of an implied assignment.
 
 \item \p{graph} is an implication graph. Its arguments are a list of
 nodes which are assignments and a list of edges which are terms with
@@ -708,7 +709,6 @@ assigned to is empty, the set of clauses is satisfiable. Otherwise,
 \p{dpll/6} tries to perform unit propagation by searching for a unit and
 then evaluating the set of clauses. When no more units remain, it
 chooses a decision assignment and evaluates the set of clauses.
-For an unsatisfiable set of clauses, the predicate will eventually fail.
 
 The predicate \p{ok\_or\_conflict} is called with the result of the
 evaluation of unit propagation or the choice of an assignment. If the
@@ -755,21 +755,19 @@ lower levels and then \p{findall} is called with \p{no\_path} to extract
 those nodes with no path to the dominator. The learned clause is the
 complement of the assignment at the dominator, together with the
 complements of decision assignments labeling nodes that are not
-dominated. The result of this computation is not used and is only
-done if the display option \p{dominator} is selected.
+dominated.
 
 The predicate \p{compute\_learned\_clause\_by\_resolution} starts with
 the conflict clause (the antecedent clause of the \p{kappa} node) as the
 current clause. In \p{compute\_learned\_clause}, a search is made for a
 clause that contains the complement of a literal in the current clause
-and which is assigned at the current level using unit propagation, that
-is, it is not a decision node. \p{resolve} computes the resolvent of the
-two clauses and \p{compute\_learned\_clause} is called with the
-resolvent as the new current clause. The resolution terminates when
-\p{check\_uip} identifies the current clauses as a UIP. This clause is
-the learned clause and the predicate
-\p{compute\_learned\_clause\_by\_resolution} adds it to the list that is
-the argument of the fact \p{learned}.
+and which is assigned at the current level by unit propagation, that is,
+it is not a decision node. \p{resolve} computes the resolvent of the two
+clauses and \p{compute\_learned\_clause} is called with the resolvent as
+the new current clause. The resolution terminates when \p{check\_uip}
+identifies the current clauses as a UIP. This clause is the learned
+clause and the predicate \p{compute\_learned\_clause\_by\_resolution}
+adds it to the list that is the argument of the fact \p{learned}.
 
 When a learned clause has been obtained, \p{compute\_backtrack\_level}
 returns the highest level of an assignment in the learned clause except
@@ -791,10 +789,7 @@ sorted set of the variables corresponding to the literals.
 
 \item \p{to\_assignment} and \p{to\_literal} convert to and from a
 literal and an assignment expressed as a term \p{assign(Variable, Value,
-Level, Decision)}, where \p{Level} is the level at which the assignment
-was made and \p{Decision} is \p{yes} if the assignment was made as a
-decision and the antecedent clause if the assignment was the result of
-unit propagation.
+Level, Decision)}.
 
 \item \p{to\_clause} converts a list of assignments to a clause, that
 is, a list of literals. It can optionally complement each literal.
