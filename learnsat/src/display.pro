@@ -3,7 +3,7 @@
 :- module(display,
           [display/2, display/3, display/4, display/5, display/6]).
 
-:- use_module([config,counters,io,modes]).
+:- use_module([config,counters,dot,io,modes]).
 
 
 %  display/2,3,4,5
@@ -82,12 +82,22 @@ display(dot, Graph, Clauses) :-
   check_option_not_dpll(dot), !,
   display_dot(Graph, Clauses).
 
+% Generate dot graph also if dot_inc is selected
+display(dot, Graph, Clauses) :-
+  check_option_not_dpll(dot_inc), !,
+  display_dot(Graph, Clauses).
+
 display(dot_inc, Graph, Clauses) :-
   check_option_not_dpll(dot_inc), !,
   display_dot(Graph, Clauses).
 
 display(graph, Graph, Clauses) :-
   check_option_not_dpll(graph), !,
+  display_graph(Graph, Clauses).
+
+% Display graph also if incremental is selected
+display(graph, Graph, Clauses) :-
+  check_option_not_dpll(incremental), !,
   display_graph(Graph, Clauses).
 
 display(incremental, Graph, Clauses) :-
@@ -102,6 +112,10 @@ display(literal, Literal, Level) :-
   write(Literal),
   write(' assigned at level: '),
   write(Level), nl.
+
+display(tree, Assignments, Conflict) :-
+  check_option(tree), !,
+  write_tree(Assignments, Conflict).
 
 %  Display uip only if resolvent is also chosen
 display(uip, no, Level) :-
@@ -128,8 +142,7 @@ display(evaluate, Clause, Reason, Literal) :-
   write('Evaluate: '),
   write(Clause),
   write(Reason),
-  (Literal \= none -> write(Literal), write(' deleted') ; true),
-  nl.
+  display_deleted_literal(Literal).
 
 display(unit, Literal, Unit, Clauses) :-
   check_option(unit), !,
@@ -139,6 +152,11 @@ display(unit, Literal, Unit, Clauses) :-
   write_clause(Unit, Clauses), nl.
 
 display(_, _, _, _).
+
+display_deleted_literal(none) :- nl, !.
+display_deleted_literal(Literal) :-
+  write(Literal),
+  write(' deleted\n').
 
 %  Five arguments
 
@@ -187,17 +205,27 @@ check_option_not_dpll(Option) :-
 %   When label option is set, pass the list of clauses to write_dot
 
 display_dot(Graph, Clauses) :-
-  get_file_counter(N),
+  check_option(label), !,
+  display_dot1(Graph, Clauses).
+display_dot(Graph, _) :-
+  display_dot1(Graph, []).
+
+display_dot1(Graph, Clauses) :-
+  get_file_counter(ig, N),
   write('Writing dot graph: '),
   write(N), nl,
-  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_dot(Graph, Clauses1).
+  write_dot(Graph, Clauses).
+
 
 % display_graph/2
 %   Common processing for display graph and incremental
 %   When label option is set, pass the list of clauses to write_graph
 
 display_graph(Graph, Clauses) :-
+  check_option(label), !,
   write('Implication graph:\n'),
-  (check_option(label) -> Clauses1 = Clauses ; Clauses1 = []),
-  write_graph(Graph, Clauses1), nl.
+  write_graph(Graph, Clauses), nl.
+
+display_graph(Graph, _) :-
+  write('Implication graph:\n'),
+  write_graph(Graph, []), nl.

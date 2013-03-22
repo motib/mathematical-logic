@@ -6,6 +6,8 @@
 %  M. Ben-Ari. Mathematical Logic for Computer Science (Third Edition).
 %  Springer, 2012.
 
+ts :- set_display([partial,tree]), k22.
+
 ex :-
   dpll(
   [

@@ -63,7 +63,7 @@ check_mode(X) :-
 all_display([
   antecedent, assignment, backtrack, clause, conflict, decision,
   dominator, dot, dot_inc, evaluate, graph, incremental, label,
-  learned, literal, none, partial, resolvent, result, skipped,
+  learned, literal, none, partial, resolvent, result, skipped, tree,
   uip, unit, variable]).
 
 
@@ -231,7 +231,7 @@ usage :-
   write('  conflict *   conflict clauses\n'),
   write('  decision *   decision assignments\n'),
   write('  dominator    learned clause computed from a dominator\n'),
-  write('  dot          implication graphs in dot format\n'),
+  write('  dot          implication graphs (final) in dot format\n'),
   write('  dot_inc      implication graphs (incremental) in dot format\n'),
   write('  evaluate     evaluation of clauses for an assignment\n'),
   write('  graph        implication graphs (final)\n'),
@@ -243,6 +243,7 @@ usage :-
   write('  resolvent *  resolvents created during CDCL\n'),
   write('  result *     result of the algorithm with statistics\n'),
   write('  skipped *    assignments skipped when backtracking\n'),
+  write('  tree         tree of assignments in dot format\n'),
   write('  uip *        unique implication points\n'),
   write('  unit *       unit clauses\n'),
   write('  variable     variables that are not assigned so far\n').

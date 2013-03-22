@@ -1,8 +1,8 @@
 
-*****************************************
-*            Example from MLM           *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*            Example from MLM            *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x031,~x2],
@@ -15,18 +15,18 @@ Clauses to be checked for satisfiability:
 Variables: [x021,x031,x1,x2,x3,x4,x5,x6]
 Decision assignment: x021=0@1
 Assignments so far:
-[x021=0@1/nil]
+[x021=0@1]
 Variables: [x031,x1,x2,x3,x4,x5,x6]
 Decision assignment: x031=0@2
 Assignments so far:
-[x021=0@1/nil,x031=0@2/nil]
+[x021=0@1,x031=0@2]
 Variables: [x1,x2,x3,x4,x5,x6]
 Decision assignment: x1=0@3
 Assignments so far:
-[x021=0@1/nil,x031=0@2/nil,x1=0@3/nil]
+[x021=0@1,x031=0@2,x1=0@3]
 Propagate unit: ~x2 derived from: 1. [x1,x031,~x2]
 Assignments so far:
-[x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2]]
+[x021=0@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2]]
 Implication graph:
 [
 x031=0@2,
@@ -39,7 +39,7 @@ x1=0@3 --1.[x1,x031,~x2]--> x2=0@3
 ]
 Propagate unit: ~x3 derived from: 2. [x1,~x3]
 Assignments so far:
-[x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=0@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3]]
 Implication graph:
 [
@@ -55,7 +55,7 @@ x1=0@3 --2.[x1,~x3]--> x3=0@3
 ]
 Propagate unit: x4 derived from: 3. [x2,x3,x4]
 Assignments so far:
-[x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=0@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4]]
 Implication graph:
 [
@@ -74,7 +74,7 @@ x3=0@3 --3.[x2,x3,x4]--> x4=1@3
 ]
 Propagate unit: ~x5 derived from: 4. [~x4,~x5]
 Assignments so far:
-[x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=0@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5]]
 Implication graph:
 [
@@ -95,7 +95,7 @@ x4=1@3 --4.[~x4,~x5]--> x5=0@3
 ]
 Propagate unit: ~x6 derived from: 5. [x021,~x4,~x6]
 Assignments so far:
-[x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=0@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=0@3/[x021,~x4,~x6]]
 Implication graph:
 [
@@ -120,7 +120,7 @@ x4=1@3 --5.[x021,~x4,~x6]--> x6=0@3
 ]
 Conflict clause: 6. [x5,x6]
 Conflict caused by assignments:
-[x021=0@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=0@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=0@3/[x021,~x4,~x6]]
 Implication graph:
 [
@@ -147,10 +147,10 @@ x5=0@3 --6.[x5,x6]--> kappa,
 x6=0@3 --6.[x5,x6]--> kappa
 ]
 Paths from the decision node at this level to kappa:
-x1=0@3/nil --> x2=0@3/[x1,x031,~x2] --> x4=1@3/[x2,x3,x4] --> x5=0@3/[~x4,~x5] --> kappa
-x1=0@3/nil --> x2=0@3/[x1,x031,~x2] --> x4=1@3/[x2,x3,x4] --> x6=0@3/[x021,~x4,~x6] --> kappa
-x1=0@3/nil --> x3=0@3/[x1,~x3] --> x4=1@3/[x2,x3,x4] --> x5=0@3/[~x4,~x5] --> kappa
-x1=0@3/nil --> x3=0@3/[x1,~x3] --> x4=1@3/[x2,x3,x4] --> x6=0@3/[x021,~x4,~x6] --> kappa
+x1=0@3 --> x2=0@3/[x1,x031,~x2] --> x4=1@3/[x2,x3,x4] --> x5=0@3/[~x4,~x5] --> kappa
+x1=0@3 --> x2=0@3/[x1,x031,~x2] --> x4=1@3/[x2,x3,x4] --> x6=0@3/[x021,~x4,~x6] --> kappa
+x1=0@3 --> x3=0@3/[x1,~x3] --> x4=1@3/[x2,x3,x4] --> x5=0@3/[~x4,~x5] --> kappa
+x1=0@3 --> x3=0@3/[x1,~x3] --> x4=1@3/[x2,x3,x4] --> x6=0@3/[x021,~x4,~x6] --> kappa
 A dominator is: x4=1@3/[x2,x3,x4]
 Decisions at a lower level: [assign(x021,0,1,yes),assign(x031,0,2,yes)]
 Decisions not dominated: [assign(x021,0,1,yes)]
@@ -192,18 +192,18 @@ Skip decision assignment: x031=1@2
 Variables: [x021,x031,x1,x2,x3,x4,x5,x6]
 Decision assignment: x021=1@1
 Assignments so far:
-[x021=1@1/nil]
+[x021=1@1]
 Variables: [x031,x1,x2,x3,x4,x5,x6]
 Decision assignment: x031=0@2
 Assignments so far:
-[x021=1@1/nil,x031=0@2/nil]
+[x021=1@1,x031=0@2]
 Variables: [x1,x2,x3,x4,x5,x6]
 Decision assignment: x1=0@3
 Assignments so far:
-[x021=1@1/nil,x031=0@2/nil,x1=0@3/nil]
+[x021=1@1,x031=0@2,x1=0@3]
 Propagate unit: ~x2 derived from: 1. [x1,x031,~x2]
 Assignments so far:
-[x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2]]
+[x021=1@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2]]
 Implication graph:
 [
 x031=0@2,
@@ -216,7 +216,7 @@ x1=0@3 --1.[x1,x031,~x2]--> x2=0@3
 ]
 Propagate unit: ~x3 derived from: 2. [x1,~x3]
 Assignments so far:
-[x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=1@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3]]
 Implication graph:
 [
@@ -232,7 +232,7 @@ x1=0@3 --2.[x1,~x3]--> x3=0@3
 ]
 Propagate unit: x4 derived from: 3. [x2,x3,x4]
 Assignments so far:
-[x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=1@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4]]
 Implication graph:
 [
@@ -251,7 +251,7 @@ x3=0@3 --3.[x2,x3,x4]--> x4=1@3
 ]
 Propagate unit: ~x5 derived from: 4. [~x4,~x5]
 Assignments so far:
-[x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=1@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5]]
 Implication graph:
 [
@@ -272,7 +272,7 @@ x4=1@3 --4.[~x4,~x5]--> x5=0@3
 ]
 Propagate unit: x6 derived from: 6. [x5,x6]
 Assignments so far:
-[x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=1@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=1@3/[x5,x6]]
 Implication graph:
 [
@@ -294,14 +294,14 @@ x4=1@3 --4.[~x4,~x5]--> x5=0@3,
 x5=0@3 --6.[x5,x6]--> x6=1@3
 ]
 Satisfying assignments:
-[x021=1@1/nil,x031=0@2/nil,x1=0@3/nil,x2=0@3/[x1,x031,~x2],
+[x021=1@1,x031=0@2,x1=0@3,x2=0@3/[x1,x031,~x2],
  x3=0@3/[x1,~x3],x4=1@3/[x2,x3,x4],x5=0@3/[~x4,~x5],x6=1@3/[x5,x6]]
 Statistics: clauses=6, variables=8, units=10, decisions=6, conflicts=1
 
-*****************************************
-*           Example from MZ             *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*            Example from MZ             *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [ax1,x4],
@@ -316,10 +316,10 @@ Clauses to be checked for satisfiability:
 Variables: [ax1,bx3,cx2,dx7,x10,x11,x12,x4,x8,x9]
 Decision assignment: ax1=0@1
 Assignments so far:
-[ax1=0@1/nil]
+[ax1=0@1]
 Propagate unit: x4 derived from: 1. [ax1,x4]
 Assignments so far:
-[ax1=0@1/nil,x4=1@1/[ax1,x4]]
+[ax1=0@1,x4=1@1/[ax1,x4]]
 Implication graph:
 [
 ax1=0@1,
@@ -331,10 +331,10 @@ ax1=0@1 --1.[ax1,x4]--> x4=1@1
 Variables: [bx3,cx2,dx7,x10,x11,x12,x8,x9]
 Decision assignment: bx3=0@2
 Assignments so far:
-[ax1=0@1/nil,bx3=0@2/nil,x4=1@1/[ax1,x4]]
+[ax1=0@1,bx3=0@2,x4=1@1/[ax1,x4]]
 Propagate unit: ~x8 derived from: 2. [ax1,bx3,~x8]
 Assignments so far:
-[ax1=0@1/nil,bx3=0@2/nil,x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8]]
+[ax1=0@1,bx3=0@2,x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8]]
 Implication graph:
 [
 ax1=0@1,
@@ -349,7 +349,7 @@ bx3=0@2 --2.[ax1,bx3,~x8]--> x8=0@2
 ]
 Propagate unit: x12 derived from: 3. [ax1,x8,x12]
 Assignments so far:
-[ax1=0@1/nil,bx3=0@2/nil,x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],
+[ax1=0@1,bx3=0@2,x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],
  x8=0@2/[ax1,bx3,~x8]]
 Implication graph:
 [
@@ -369,11 +369,11 @@ x8=0@2 --3.[ax1,x8,x12]--> x12=1@2
 Variables: [cx2,dx7,x10,x11,x9]
 Decision assignment: cx2=0@3
 Assignments so far:
-[ax1=0@1/nil,bx3=0@2/nil,cx2=0@3/nil,x12=1@2/[ax1,x8,x12],
+[ax1=0@1,bx3=0@2,cx2=0@3,x12=1@2/[ax1,x8,x12],
  x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8]]
 Propagate unit: x11 derived from: 4. [cx2,x11]
 Assignments so far:
-[ax1=0@1/nil,bx3=0@2/nil,cx2=0@3/nil,x11=1@3/[cx2,x11],
+[ax1=0@1,bx3=0@2,cx2=0@3,x11=1@3/[cx2,x11],
  x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8]]
 Implication graph:
 [
@@ -396,11 +396,11 @@ x8=0@2 --3.[ax1,x8,x12]--> x12=1@2
 Variables: [dx7,x10,x9]
 Decision assignment: dx7=0@4
 Assignments so far:
-[ax1=0@1/nil,bx3=0@2/nil,cx2=0@3/nil,dx7=0@4/nil,
+[ax1=0@1,bx3=0@2,cx2=0@3,dx7=0@4,
  x11=1@3/[cx2,x11],x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8]]
 Propagate unit: x9 derived from: 5. [dx7,bx3,x9]
 Assignments so far:
-[ax1=0@1/nil,bx3=0@2/nil,cx2=0@3/nil,dx7=0@4/nil,
+[ax1=0@1,bx3=0@2,cx2=0@3,dx7=0@4,
  x11=1@3/[cx2,x11],x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8],
  x9=1@4/[dx7,bx3,x9]]
 Implication graph:
@@ -427,7 +427,7 @@ x8=0@2 --3.[ax1,x8,x12]--> x12=1@2
 ]
 Conflict clause: 6. [dx7,x8,~x9]
 Conflict caused by assignments:
-[ax1=0@1/nil,bx3=0@2/nil,cx2=0@3/nil,dx7=0@4/nil,
+[ax1=0@1,bx3=0@2,cx2=0@3,dx7=0@4,
  x11=1@3/[cx2,x11],x12=1@2/[ax1,x8,x12],x4=1@1/[ax1,x4],x8=0@2/[ax1,bx3,~x8],
  x9=1@4/[dx7,bx3,x9]]
 Implication graph:
@@ -471,14 +471,14 @@ Skip decision assignment: cx2=1@3
 Variables: [bx3,cx2,dx7,x10,x11,x12,x8,x9]
 Decision assignment: bx3=1@2
 Assignments so far:
-[ax1=0@1/nil,bx3=1@2/nil,x4=1@1/[ax1,x4]]
+[ax1=0@1,bx3=1@2,x4=1@1/[ax1,x4]]
 Variables: [cx2,dx7,x10,x11,x12,x8,x9]
 Decision assignment: cx2=0@3
 Assignments so far:
-[ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,x4=1@1/[ax1,x4]]
+[ax1=0@1,bx3=1@2,cx2=0@3,x4=1@1/[ax1,x4]]
 Propagate unit: x11 derived from: 4. [cx2,x11]
 Assignments so far:
-[ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,x11=1@3/[cx2,x11],
+[ax1=0@1,bx3=1@2,cx2=0@3,x11=1@3/[cx2,x11],
  x4=1@1/[ax1,x4]]
 Implication graph:
 [
@@ -494,17 +494,17 @@ cx2=0@3 --4.[cx2,x11]--> x11=1@3
 Variables: [dx7,x10,x12,x8,x9]
 Decision assignment: dx7=0@4
 Assignments so far:
-[ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,dx7=0@4/nil,
+[ax1=0@1,bx3=1@2,cx2=0@3,dx7=0@4,
  x11=1@3/[cx2,x11],x4=1@1/[ax1,x4]]
 Variables: [x10,x12,x8,x9]
 Decision assignment: x10=0@5
 Assignments so far:
-[ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,dx7=0@4/nil,
- x10=0@5/nil,x11=1@3/[cx2,x11],x4=1@1/[ax1,x4]]
+[ax1=0@1,bx3=1@2,cx2=0@3,dx7=0@4,
+ x10=0@5,x11=1@3/[cx2,x11],x4=1@1/[ax1,x4]]
 Propagate unit: ~x12 derived from: 8. [dx7,x10,~x12]
 Assignments so far:
-[ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,dx7=0@4/nil,
- x10=0@5/nil,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4]]
+[ax1=0@1,bx3=1@2,cx2=0@3,dx7=0@4,
+ x10=0@5,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4]]
 Implication graph:
 [
 ax1=0@1,
@@ -523,8 +523,8 @@ x10=0@5 --8.[dx7,x10,~x12]--> x12=0@5
 ]
 Propagate unit: x8 derived from: 3. [ax1,x8,x12]
 Assignments so far:
-[ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,dx7=0@4/nil,
- x10=0@5/nil,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
+[ax1=0@1,bx3=1@2,cx2=0@3,dx7=0@4,
+ x10=0@5,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
  x8=1@5/[ax1,x8,x12]]
 Implication graph:
 [
@@ -548,19 +548,19 @@ x12=0@5 --3.[ax1,x8,x12]--> x8=1@5
 Variables: [x9]
 Decision assignment: x9=0@6
 Assignments so far:
-[ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,dx7=0@4/nil,
- x10=0@5/nil,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
- x8=1@5/[ax1,x8,x12],x9=0@6/nil]
+[ax1=0@1,bx3=1@2,cx2=0@3,dx7=0@4,
+ x10=0@5,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
+ x8=1@5/[ax1,x8,x12],x9=0@6]
 Satisfying assignments:
-[ax1=0@1/nil,bx3=1@2/nil,cx2=0@3/nil,dx7=0@4/nil,
- x10=0@5/nil,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
- x8=1@5/[ax1,x8,x12],x9=0@6/nil]
+[ax1=0@1,bx3=1@2,cx2=0@3,dx7=0@4,
+ x10=0@5,x11=1@3/[cx2,x11],x12=0@5/[dx7,x10,~x12],x4=1@1/[ax1,x4],
+ x8=1@5/[ax1,x8,x12],x9=0@6]
 Statistics: clauses=8, variables=10, units=8, decisions=9, conflicts=1
 
-*****************************************
-*           Example from MS             *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*            Example from MS             *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x2],
@@ -576,33 +576,33 @@ Clauses to be checked for satisfiability:
 Variables: [ax9,bx10,cx11,dx12,dx13,x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: ax9=0@1
 Assignments so far:
-[ax9=0@1/nil]
+[ax9=0@1]
 Variables: [bx10,cx11,dx12,dx13,x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: bx10=0@2
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil]
+[ax9=0@1,bx10=0@2]
 Variables: [cx11,dx12,dx13,x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: cx11=0@3
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil]
+[ax9=0@1,bx10=0@2,cx11=0@3]
 Variables: [dx12,dx13,x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: dx12=0@4
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil]
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4]
 Variables: [dx13,x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: dx13=0@5
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
- dx13=0@5/nil]
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4,
+ dx13=0@5]
 Variables: [x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: x1=0@6
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil]
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4,
+ dx13=0@5,x1=0@6]
 Propagate unit: x2 derived from: 1. [x1,x2]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2]]
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2]]
 Implication graph:
 [
 x1=0@6,
@@ -613,8 +613,8 @@ x1=0@6 --1.[x1,x2]--> x2=1@6
 ]
 Propagate unit: x3 derived from: 2. [x1,x3,ax9]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9]]
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9]]
 Implication graph:
 [
 ax9=0@1,
@@ -629,8 +629,8 @@ x1=0@6 --2.[x1,x3,ax9]--> x3=1@6
 ]
 Propagate unit: x4 derived from: 3. [~x2,~x3,x4]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4]]
 Implication graph:
 [
@@ -649,8 +649,8 @@ x3=1@6 --3.[~x2,~x3,x4]--> x4=1@6
 ]
 Propagate unit: x5 derived from: 4. [~x4,x5,bx10]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10]]
 Implication graph:
 [
@@ -673,8 +673,8 @@ x4=1@6 --4.[~x4,x5,bx10]--> x5=1@6
 ]
 Propagate unit: x6 derived from: 5. [~x4,x6,cx11]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=1@6/[~x4,x6,cx11]]
 Implication graph:
 [
@@ -701,8 +701,8 @@ x4=1@6 --5.[~x4,x6,cx11]--> x6=1@6
 ]
 Conflict clause: 6. [~x5,~x6]
 Conflict caused by assignments:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=0@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+[ax9=0@1,bx10=0@2,cx11=0@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=1@6/[~x4,x6,cx11]]
 Implication graph:
 [
@@ -731,10 +731,10 @@ x5=1@6 --6.[~x5,~x6]--> kappa,
 x6=1@6 --6.[~x5,~x6]--> kappa
 ]
 Paths from the decision node at this level to kappa:
-x1=0@6/nil --> x2=1@6/[x1,x2] --> x4=1@6/[~x2,~x3,x4] --> x5=1@6/[~x4,x5,bx10] --> kappa
-x1=0@6/nil --> x2=1@6/[x1,x2] --> x4=1@6/[~x2,~x3,x4] --> x6=1@6/[~x4,x6,cx11] --> kappa
-x1=0@6/nil --> x3=1@6/[x1,x3,ax9] --> x4=1@6/[~x2,~x3,x4] --> x5=1@6/[~x4,x5,bx10] --> kappa
-x1=0@6/nil --> x3=1@6/[x1,x3,ax9] --> x4=1@6/[~x2,~x3,x4] --> x6=1@6/[~x4,x6,cx11] --> kappa
+x1=0@6 --> x2=1@6/[x1,x2] --> x4=1@6/[~x2,~x3,x4] --> x5=1@6/[~x4,x5,bx10] --> kappa
+x1=0@6 --> x2=1@6/[x1,x2] --> x4=1@6/[~x2,~x3,x4] --> x6=1@6/[~x4,x6,cx11] --> kappa
+x1=0@6 --> x3=1@6/[x1,x3,ax9] --> x4=1@6/[~x2,~x3,x4] --> x5=1@6/[~x4,x5,bx10] --> kappa
+x1=0@6 --> x3=1@6/[x1,x3,ax9] --> x4=1@6/[~x2,~x3,x4] --> x6=1@6/[~x4,x6,cx11] --> kappa
 A dominator is: x4=1@6/[~x2,~x3,x4]
 Decisions at a lower level: [assign(ax9,0,1,yes),assign(bx10,0,2,yes),assign(cx11,0,3,yes)]
 Decisions not dominated: [assign(bx10,0,2,yes),assign(cx11,0,3,yes)]
@@ -777,25 +777,25 @@ Skip decision assignment: dx12=1@4
 Variables: [cx11,dx12,dx13,x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: cx11=1@3
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil]
+[ax9=0@1,bx10=0@2,cx11=1@3]
 Variables: [dx12,dx13,x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: dx12=0@4
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil]
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4]
 Variables: [dx13,x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: dx13=0@5
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil]
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5]
 Variables: [x1,x2,x3,x4,x5,x6,x7,x8]
 Decision assignment: x1=0@6
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil]
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6]
 Propagate unit: x2 derived from: 1. [x1,x2]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2]]
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2]]
 Implication graph:
 [
 x1=0@6,
@@ -806,8 +806,8 @@ x1=0@6 --1.[x1,x2]--> x2=1@6
 ]
 Propagate unit: x3 derived from: 2. [x1,x3,ax9]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9]]
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9]]
 Implication graph:
 [
 ax9=0@1,
@@ -822,8 +822,8 @@ x1=0@6 --2.[x1,x3,ax9]--> x3=1@6
 ]
 Propagate unit: x4 derived from: 3. [~x2,~x3,x4]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4]]
 Implication graph:
 [
@@ -842,8 +842,8 @@ x3=1@6 --3.[~x2,~x3,x4]--> x4=1@6
 ]
 Propagate unit: x5 derived from: 4. [~x4,x5,bx10]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10]]
 Implication graph:
 [
@@ -866,8 +866,8 @@ x4=1@6 --4.[~x4,x5,bx10]--> x5=1@6
 ]
 Propagate unit: ~x6 derived from: 6. [~x5,~x6]
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
  x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6]]
 Implication graph:
 [
@@ -893,27 +893,27 @@ x5=1@6 --6.[~x5,~x6]--> x6=0@6
 Variables: [x7,x8]
 Decision assignment: x7=0@7
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
- x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6],x7=0@7/nil]
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+ x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6],x7=0@7]
 Variables: [x8]
 Decision assignment: x8=0@8
 Assignments so far:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
- x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6],x7=0@7/nil,
- x8=0@8/nil]
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+ x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6],x7=0@7,
+ x8=0@8]
 Satisfying assignments:
-[ax9=0@1/nil,bx10=0@2/nil,cx11=1@3/nil,dx12=0@4/nil,
- dx13=0@5/nil,x1=0@6/nil,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
- x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6],x7=0@7/nil,
- x8=0@8/nil]
+[ax9=0@1,bx10=0@2,cx11=1@3,dx12=0@4,
+ dx13=0@5,x1=0@6,x2=1@6/[x1,x2],x3=1@6/[x1,x3,ax9],
+ x4=1@6/[~x2,~x3,x4],x5=1@6/[~x4,x5,bx10],x6=0@6/[~x5,~x6],x7=0@7,
+ x8=0@8]
 Statistics: clauses=9, variables=13, units=10, decisions=12, conflicts=1
 
-*****************************************
-*              Pigeonhole 2             *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*              Pigeonhole 2              *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12],
@@ -929,10 +929,10 @@ Clauses to be checked for satisfiability:
 Variables: [p11,p12,p21,p22,p31,p32]
 Decision assignment: p11=0@1
 Assignments so far:
-[p11=0@1/nil]
+[p11=0@1]
 Propagate unit: p12 derived from: 1. [p11,p12]
 Assignments so far:
-[p11=0@1/nil,p12=1@1/[p11,p12]]
+[p11=0@1,p12=1@1/[p11,p12]]
 Implication graph:
 [
 p11=0@1,
@@ -943,7 +943,7 @@ p11=0@1 --1.[p11,p12]--> p12=1@1
 ]
 Propagate unit: ~p22 derived from: 7. [~p12,~p22]
 Assignments so far:
-[p11=0@1/nil,p12=1@1/[p11,p12],p22=0@1/[~p12,~p22]]
+[p11=0@1,p12=1@1/[p11,p12],p22=0@1/[~p12,~p22]]
 Implication graph:
 [
 p11=0@1,
@@ -956,7 +956,7 @@ p12=1@1 --7.[~p12,~p22]--> p22=0@1
 ]
 Propagate unit: p21 derived from: 2. [p21,p22]
 Assignments so far:
-[p11=0@1/nil,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
+[p11=0@1,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
 Implication graph:
 [
 p11=0@1,
@@ -971,7 +971,7 @@ p22=0@1 --2.[p21,p22]--> p21=1@1
 ]
 Propagate unit: ~p31 derived from: 6. [~p21,~p31]
 Assignments so far:
-[p11=0@1/nil,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
+[p11=0@1,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
  p31=0@1/[~p21,~p31]]
 Implication graph:
 [
@@ -989,7 +989,7 @@ p22=0@1 --2.[p21,p22]--> p21=1@1
 ]
 Propagate unit: p32 derived from: 3. [p31,p32]
 Assignments so far:
-[p11=0@1/nil,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
+[p11=0@1,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
  p31=0@1/[~p21,~p31],p32=1@1/[p31,p32]]
 Implication graph:
 [
@@ -1009,7 +1009,7 @@ p31=0@1 --3.[p31,p32]--> p32=1@1
 ]
 Conflict clause: 8. [~p12,~p32]
 Conflict caused by assignments:
-[p11=0@1/nil,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
+[p11=0@1,p12=1@1/[p11,p12],p21=1@1/[p21,p22],p22=0@1/[~p12,~p22],
  p31=0@1/[~p21,~p31],p32=1@1/[p31,p32]]
 Implication graph:
 [
@@ -1031,8 +1031,8 @@ p31=0@1 --3.[p31,p32]--> p32=1@1,
 p32=1@1 --8.[~p12,~p32]--> kappa
 ]
 Paths from the decision node at this level to kappa:
-p11=0@1/nil --> p12=1@1/[p11,p12] --> p22=0@1/[~p12,~p22] --> p21=1@1/[p21,p22] --> p31=0@1/[~p21,~p31] --> p32=1@1/[p31,p32] --> kappa
-p11=0@1/nil --> p12=1@1/[p11,p12] --> kappa
+p11=0@1 --> p12=1@1/[p11,p12] --> p22=0@1/[~p12,~p22] --> p21=1@1/[p21,p22] --> p31=0@1/[~p21,~p31] --> p32=1@1/[p31,p32] --> kappa
+p11=0@1 --> p12=1@1/[p11,p12] --> kappa
 A dominator is: p12=1@1/[p11,p12]
 Decisions at a lower level: []
 Decisions not dominated: []
@@ -1120,10 +1120,10 @@ Non-chronological backtracking to level: 0
 Variables: [p11,p12,p21,p22,p31,p32]
 Decision assignment: p11=1@1
 Assignments so far:
-[p11=1@1/nil]
+[p11=1@1]
 Propagate unit: ~p21 derived from: 4. [~p11,~p21]
 Assignments so far:
-[p11=1@1/nil,p21=0@1/[~p11,~p21]]
+[p11=1@1,p21=0@1/[~p11,~p21]]
 Implication graph:
 [
 p11=1@1,
@@ -1134,7 +1134,7 @@ p11=1@1 --4.[~p11,~p21]--> p21=0@1
 ]
 Propagate unit: p22 derived from: 2. [p21,p22]
 Assignments so far:
-[p11=1@1/nil,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22]]
+[p11=1@1,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22]]
 Implication graph:
 [
 p11=1@1,
@@ -1147,7 +1147,7 @@ p21=0@1 --2.[p21,p22]--> p22=1@1
 ]
 Propagate unit: ~p31 derived from: 5. [~p11,~p31]
 Assignments so far:
-[p11=1@1/nil,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31]]
+[p11=1@1,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31]]
 Implication graph:
 [
 p11=1@1,
@@ -1162,7 +1162,7 @@ p21=0@1 --2.[p21,p22]--> p22=1@1
 ]
 Propagate unit: p32 derived from: 3. [p31,p32]
 Assignments so far:
-[p11=1@1/nil,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31],
+[p11=1@1,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31],
  p32=1@1/[p31,p32]]
 Implication graph:
 [
@@ -1180,7 +1180,7 @@ p31=0@1 --3.[p31,p32]--> p32=1@1
 ]
 Conflict clause: 9. [~p22,~p32]
 Conflict caused by assignments:
-[p11=1@1/nil,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31],
+[p11=1@1,p21=0@1/[~p11,~p21],p22=1@1/[p21,p22],p31=0@1/[~p11,~p31],
  p32=1@1/[p31,p32]]
 Implication graph:
 [
@@ -1227,589 +1227,13 @@ Literal: ~p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p11]
 Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p12=0@1
-Assignments so far:
-[p12=0@1/nil]
-Propagate unit: p11 derived from: 1. [p11,p12]
-Assignments so far:
-[p11=1@1/[p11,p12],p12=0@1/nil]
-Implication graph:
-[
-p11=1@1,
-p12=0@1
-]
-[
-p12=0@1 --1.[p11,p12]--> p11=1@1
-]
-Conflict clause: 10. [~p11]
-Conflict caused by assignments:
-[p11=1@1/[p11,p12],p12=0@1/nil]
-Implication graph:
-[
-kappa,
-p11=1@1,
-p12=0@1
-]
-[
-p11=1@1 --10.[~p11]--> kappa,
-p12=0@1 --1.[p11,p12]--> p11=1@1
-]
-Paths from the decision node at this level to kappa:
-p12=0@1/nil --> p11=1@1/[p11,p12] --> kappa
-A dominator is: p11=1@1/[p11,p12]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~p11]
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p12=1@1
-Assignments so far:
-[p12=1@1/nil]
-Propagate unit: ~p22 derived from: 7. [~p12,~p22]
-Assignments so far:
-[p12=1@1/nil,p22=0@1/[~p12,~p22]]
-Implication graph:
-[
-p12=1@1,
-p22=0@1
-]
-[
-p12=1@1 --7.[~p12,~p22]--> p22=0@1
-]
-Propagate unit: p21 derived from: 2. [p21,p22]
-Assignments so far:
-[p12=1@1/nil,p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
-Implication graph:
-[
-p12=1@1,
-p21=1@1,
-p22=0@1
-]
-[
-p12=1@1 --7.[~p12,~p22]--> p22=0@1,
-p22=0@1 --2.[p21,p22]--> p21=1@1
-]
-Propagate unit: ~p11 derived from: 4. [~p11,~p21]
-Assignments so far:
-[p11=0@1/[~p11,~p21],p12=1@1/nil,p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
-Implication graph:
-[
-p11=0@1,
-p12=1@1,
-p21=1@1,
-p22=0@1
-]
-[
-p12=1@1 --7.[~p12,~p22]--> p22=0@1,
-p21=1@1 --4.[~p11,~p21]--> p11=0@1,
-p22=0@1 --2.[p21,p22]--> p21=1@1
-]
-Conflict clause: 11. [p11]
-Conflict caused by assignments:
-[p11=0@1/[~p11,~p21],p12=1@1/nil,p21=1@1/[p21,p22],p22=0@1/[~p12,~p22]]
-Implication graph:
-[
-kappa,
-p11=0@1,
-p12=1@1,
-p21=1@1,
-p22=0@1
-]
-[
-p11=0@1 --11.[p11]--> kappa,
-p12=1@1 --7.[~p12,~p22]--> p22=0@1,
-p21=1@1 --4.[~p11,~p21]--> p11=0@1,
-p22=0@1 --2.[p21,p22]--> p21=1@1
-]
-Paths from the decision node at this level to kappa:
-p12=1@1/nil --> p22=0@1/[~p12,~p22] --> p21=1@1/[p21,p22] --> p11=0@1/[~p11,~p21] --> kappa
-A dominator is: p22=0@1/[~p12,~p22]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [p22]
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p21=0@1
-Assignments so far:
-[p21=0@1/nil]
-Propagate unit: p22 derived from: 2. [p21,p22]
-Assignments so far:
-[p21=0@1/nil,p22=1@1/[p21,p22]]
-Implication graph:
-[
-p21=0@1,
-p22=1@1
-]
-[
-p21=0@1 --2.[p21,p22]--> p22=1@1
-]
-Propagate unit: ~p12 derived from: 7. [~p12,~p22]
-Assignments so far:
-[p12=0@1/[~p12,~p22],p21=0@1/nil,p22=1@1/[p21,p22]]
-Implication graph:
-[
-p12=0@1,
-p21=0@1,
-p22=1@1
-]
-[
-p21=0@1 --2.[p21,p22]--> p22=1@1,
-p22=1@1 --7.[~p12,~p22]--> p12=0@1
-]
-Propagate unit: p11 derived from: 1. [p11,p12]
-Assignments so far:
-[p11=1@1/[p11,p12],p12=0@1/[~p12,~p22],p21=0@1/nil,p22=1@1/[p21,p22]]
-Implication graph:
-[
-p11=1@1,
-p12=0@1,
-p21=0@1,
-p22=1@1
-]
-[
-p12=0@1 --1.[p11,p12]--> p11=1@1,
-p21=0@1 --2.[p21,p22]--> p22=1@1,
-p22=1@1 --7.[~p12,~p22]--> p12=0@1
-]
-Conflict clause: 10. [~p11]
-Conflict caused by assignments:
-[p11=1@1/[p11,p12],p12=0@1/[~p12,~p22],p21=0@1/nil,p22=1@1/[p21,p22]]
-Implication graph:
-[
-kappa,
-p11=1@1,
-p12=0@1,
-p21=0@1,
-p22=1@1
-]
-[
-p11=1@1 --10.[~p11]--> kappa,
-p12=0@1 --1.[p11,p12]--> p11=1@1,
-p21=0@1 --2.[p21,p22]--> p22=1@1,
-p22=1@1 --7.[~p12,~p22]--> p12=0@1
-]
-Paths from the decision node at this level to kappa:
-p21=0@1/nil --> p22=1@1/[p21,p22] --> p12=0@1/[~p12,~p22] --> p11=1@1/[p11,p12] --> kappa
-A dominator is: p22=1@1/[p21,p22]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~p22]
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p21=1@1
-Assignments so far:
-[p21=1@1/nil]
-Propagate unit: ~p11 derived from: 4. [~p11,~p21]
-Assignments so far:
-[p11=0@1/[~p11,~p21],p21=1@1/nil]
-Implication graph:
-[
-p11=0@1,
-p21=1@1
-]
-[
-p21=1@1 --4.[~p11,~p21]--> p11=0@1
-]
-Conflict clause: 11. [p11]
-Conflict caused by assignments:
-[p11=0@1/[~p11,~p21],p21=1@1/nil]
-Implication graph:
-[
-kappa,
-p11=0@1,
-p21=1@1
-]
-[
-p11=0@1 --11.[p11]--> kappa,
-p21=1@1 --4.[~p11,~p21]--> p11=0@1
-]
-Paths from the decision node at this level to kappa:
-p21=1@1/nil --> p11=0@1/[~p11,~p21] --> kappa
-A dominator is: p11=0@1/[~p11,~p21]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [p11]
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p22=0@1
-Assignments so far:
-[p22=0@1/nil]
-Propagate unit: p21 derived from: 2. [p21,p22]
-Assignments so far:
-[p21=1@1/[p21,p22],p22=0@1/nil]
-Implication graph:
-[
-p21=1@1,
-p22=0@1
-]
-[
-p22=0@1 --2.[p21,p22]--> p21=1@1
-]
-Propagate unit: ~p11 derived from: 4. [~p11,~p21]
-Assignments so far:
-[p11=0@1/[~p11,~p21],p21=1@1/[p21,p22],p22=0@1/nil]
-Implication graph:
-[
-p11=0@1,
-p21=1@1,
-p22=0@1
-]
-[
-p21=1@1 --4.[~p11,~p21]--> p11=0@1,
-p22=0@1 --2.[p21,p22]--> p21=1@1
-]
-Conflict clause: 11. [p11]
-Conflict caused by assignments:
-[p11=0@1/[~p11,~p21],p21=1@1/[p21,p22],p22=0@1/nil]
-Implication graph:
-[
-kappa,
-p11=0@1,
-p21=1@1,
-p22=0@1
-]
-[
-p11=0@1 --11.[p11]--> kappa,
-p21=1@1 --4.[~p11,~p21]--> p11=0@1,
-p22=0@1 --2.[p21,p22]--> p21=1@1
-]
-Paths from the decision node at this level to kappa:
-p22=0@1/nil --> p21=1@1/[p21,p22] --> p11=0@1/[~p11,~p21] --> kappa
-A dominator is: p21=1@1/[p21,p22]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~p21]
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p22=1@1
-Assignments so far:
-[p22=1@1/nil]
-Propagate unit: ~p12 derived from: 7. [~p12,~p22]
-Assignments so far:
-[p12=0@1/[~p12,~p22],p22=1@1/nil]
-Implication graph:
-[
-p12=0@1,
-p22=1@1
-]
-[
-p22=1@1 --7.[~p12,~p22]--> p12=0@1
-]
-Propagate unit: p11 derived from: 1. [p11,p12]
-Assignments so far:
-[p11=1@1/[p11,p12],p12=0@1/[~p12,~p22],p22=1@1/nil]
-Implication graph:
-[
-p11=1@1,
-p12=0@1,
-p22=1@1
-]
-[
-p12=0@1 --1.[p11,p12]--> p11=1@1,
-p22=1@1 --7.[~p12,~p22]--> p12=0@1
-]
-Conflict clause: 10. [~p11]
-Conflict caused by assignments:
-[p11=1@1/[p11,p12],p12=0@1/[~p12,~p22],p22=1@1/nil]
-Implication graph:
-[
-kappa,
-p11=1@1,
-p12=0@1,
-p22=1@1
-]
-[
-p11=1@1 --10.[~p11]--> kappa,
-p12=0@1 --1.[p11,p12]--> p11=1@1,
-p22=1@1 --7.[~p12,~p22]--> p12=0@1
-]
-Paths from the decision node at this level to kappa:
-p22=1@1/nil --> p12=0@1/[~p12,~p22] --> p11=1@1/[p11,p12] --> kappa
-A dominator is: p12=0@1/[~p12,~p22]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [p12]
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p31=0@1
-Assignments so far:
-[p31=0@1/nil]
-Propagate unit: p32 derived from: 3. [p31,p32]
-Assignments so far:
-[p31=0@1/nil,p32=1@1/[p31,p32]]
-Implication graph:
-[
-p31=0@1,
-p32=1@1
-]
-[
-p31=0@1 --3.[p31,p32]--> p32=1@1
-]
-Propagate unit: ~p12 derived from: 8. [~p12,~p32]
-Assignments so far:
-[p12=0@1/[~p12,~p32],p31=0@1/nil,p32=1@1/[p31,p32]]
-Implication graph:
-[
-p12=0@1,
-p31=0@1,
-p32=1@1
-]
-[
-p31=0@1 --3.[p31,p32]--> p32=1@1,
-p32=1@1 --8.[~p12,~p32]--> p12=0@1
-]
-Propagate unit: p11 derived from: 1. [p11,p12]
-Assignments so far:
-[p11=1@1/[p11,p12],p12=0@1/[~p12,~p32],p31=0@1/nil,p32=1@1/[p31,p32]]
-Implication graph:
-[
-p11=1@1,
-p12=0@1,
-p31=0@1,
-p32=1@1
-]
-[
-p12=0@1 --1.[p11,p12]--> p11=1@1,
-p31=0@1 --3.[p31,p32]--> p32=1@1,
-p32=1@1 --8.[~p12,~p32]--> p12=0@1
-]
-Conflict clause: 10. [~p11]
-Conflict caused by assignments:
-[p11=1@1/[p11,p12],p12=0@1/[~p12,~p32],p31=0@1/nil,p32=1@1/[p31,p32]]
-Implication graph:
-[
-kappa,
-p11=1@1,
-p12=0@1,
-p31=0@1,
-p32=1@1
-]
-[
-p11=1@1 --10.[~p11]--> kappa,
-p12=0@1 --1.[p11,p12]--> p11=1@1,
-p31=0@1 --3.[p31,p32]--> p32=1@1,
-p32=1@1 --8.[~p12,~p32]--> p12=0@1
-]
-Paths from the decision node at this level to kappa:
-p31=0@1/nil --> p32=1@1/[p31,p32] --> p12=0@1/[~p12,~p32] --> p11=1@1/[p11,p12] --> kappa
-A dominator is: p32=1@1/[p31,p32]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~p32]
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p31=1@1
-Assignments so far:
-[p31=1@1/nil]
-Propagate unit: ~p11 derived from: 5. [~p11,~p31]
-Assignments so far:
-[p11=0@1/[~p11,~p31],p31=1@1/nil]
-Implication graph:
-[
-p11=0@1,
-p31=1@1
-]
-[
-p31=1@1 --5.[~p11,~p31]--> p11=0@1
-]
-Conflict clause: 11. [p11]
-Conflict caused by assignments:
-[p11=0@1/[~p11,~p31],p31=1@1/nil]
-Implication graph:
-[
-kappa,
-p11=0@1,
-p31=1@1
-]
-[
-p11=0@1 --11.[p11]--> kappa,
-p31=1@1 --5.[~p11,~p31]--> p11=0@1
-]
-Paths from the decision node at this level to kappa:
-p31=1@1/nil --> p11=0@1/[~p11,~p31] --> kappa
-A dominator is: p11=0@1/[~p11,~p31]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [p11]
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p32=0@1
-Assignments so far:
-[p32=0@1/nil]
-Propagate unit: p31 derived from: 3. [p31,p32]
-Assignments so far:
-[p31=1@1/[p31,p32],p32=0@1/nil]
-Implication graph:
-[
-p31=1@1,
-p32=0@1
-]
-[
-p32=0@1 --3.[p31,p32]--> p31=1@1
-]
-Propagate unit: ~p11 derived from: 5. [~p11,~p31]
-Assignments so far:
-[p11=0@1/[~p11,~p31],p31=1@1/[p31,p32],p32=0@1/nil]
-Implication graph:
-[
-p11=0@1,
-p31=1@1,
-p32=0@1
-]
-[
-p31=1@1 --5.[~p11,~p31]--> p11=0@1,
-p32=0@1 --3.[p31,p32]--> p31=1@1
-]
-Conflict clause: 11. [p11]
-Conflict caused by assignments:
-[p11=0@1/[~p11,~p31],p31=1@1/[p31,p32],p32=0@1/nil]
-Implication graph:
-[
-kappa,
-p11=0@1,
-p31=1@1,
-p32=0@1
-]
-[
-p11=0@1 --11.[p11]--> kappa,
-p31=1@1 --5.[~p11,~p31]--> p11=0@1,
-p32=0@1 --3.[p31,p32]--> p31=1@1
-]
-Paths from the decision node at this level to kappa:
-p32=0@1/nil --> p31=1@1/[p31,p32] --> p11=0@1/[~p11,~p31] --> kappa
-A dominator is: p31=1@1/[p31,p32]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~p31]
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Literal: p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p11]
-Non-chronological backtracking to level: 0
-Variables: [p11,p12,p21,p22,p31,p32]
-Decision assignment: p32=1@1
-Assignments so far:
-[p32=1@1/nil]
-Propagate unit: ~p12 derived from: 8. [~p12,~p32]
-Assignments so far:
-[p12=0@1/[~p12,~p32],p32=1@1/nil]
-Implication graph:
-[
-p12=0@1,
-p32=1@1
-]
-[
-p32=1@1 --8.[~p12,~p32]--> p12=0@1
-]
-Propagate unit: p11 derived from: 1. [p11,p12]
-Assignments so far:
-[p11=1@1/[p11,p12],p12=0@1/[~p12,~p32],p32=1@1/nil]
-Implication graph:
-[
-p11=1@1,
-p12=0@1,
-p32=1@1
-]
-[
-p12=0@1 --1.[p11,p12]--> p11=1@1,
-p32=1@1 --8.[~p12,~p32]--> p12=0@1
-]
-Conflict clause: 10. [~p11]
-Conflict caused by assignments:
-[p11=1@1/[p11,p12],p12=0@1/[~p12,~p32],p32=1@1/nil]
-Implication graph:
-[
-kappa,
-p11=1@1,
-p12=0@1,
-p32=1@1
-]
-[
-p11=1@1 --10.[~p11]--> kappa,
-p12=0@1 --1.[p11,p12]--> p11=1@1,
-p32=1@1 --8.[~p12,~p32]--> p12=0@1
-]
-Paths from the decision node at this level to kappa:
-p32=1@1/nil --> p12=0@1/[~p12,~p32] --> p11=1@1/[p11,p12] --> kappa
-A dominator is: p12=0@1/[~p12,~p32]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [p12]
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
-Literal: ~p11 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p11]
-Non-chronological backtracking to level: 0
 Unsatisfiable:
-Statistics: clauses=9, variables=6, units=29, decisions=12, conflicts=12
+Statistics: clauses=9, variables=6, units=9, decisions=2, conflicts=2
 
-*****************************************
-*                Queens 4               *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*                Queens 4                *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12,p13,p14],
@@ -1896,18 +1320,18 @@ Clauses to be checked for satisfiability:
 Variables: [p11,p12,p13,p14,p21,p22,p23,p24,p31,p32,p33,p34,p41,p42,p43,p44]
 Decision assignment: p11=0@1
 Assignments so far:
-[p11=0@1/nil]
+[p11=0@1]
 Variables: [p12,p13,p14,p21,p22,p23,p24,p31,p32,p33,p34,p41,p42,p43,p44]
 Decision assignment: p12=0@2
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil]
+[p11=0@1,p12=0@2]
 Variables: [p13,p14,p21,p22,p23,p24,p31,p32,p33,p34,p41,p42,p43,p44]
 Decision assignment: p13=0@3
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil]
+[p11=0@1,p12=0@2,p13=0@3]
 Propagate unit: p14 derived from: 1. [p11,p12,p13,p14]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14]]
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14]]
 Implication graph:
 [
 p11=0@1,
@@ -1922,7 +1346,7 @@ p13=0@3 --1.[p11,p12,p13,p14]--> p14=1@3
 ]
 Propagate unit: ~p24 derived from: 47. [~p14,~p24]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
  p24=0@3/[~p14,~p24]]
 Implication graph:
 [
@@ -1940,7 +1364,7 @@ p14=1@3 --47.[~p14,~p24]--> p24=0@3
 ]
 Propagate unit: ~p34 derived from: 48. [~p14,~p34]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
  p24=0@3/[~p14,~p24],p34=0@3/[~p14,~p34]]
 Implication graph:
 [
@@ -1960,7 +1384,7 @@ p14=1@3 --48.[~p14,~p34]--> p34=0@3
 ]
 Propagate unit: ~p44 derived from: 49. [~p14,~p44]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
  p24=0@3/[~p14,~p24],p34=0@3/[~p14,~p34],p44=0@3/[~p14,~p44]]
 Implication graph:
 [
@@ -1982,7 +1406,7 @@ p14=1@3 --49.[~p14,~p44]--> p44=0@3
 ]
 Propagate unit: ~p23 derived from: 62. [~p14,~p23]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
  p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],p34=0@3/[~p14,~p34],p44=0@3/[~p14,~p44]]
 Implication graph:
 [
@@ -2006,7 +1430,7 @@ p14=1@3 --62.[~p14,~p23]--> p23=0@3
 ]
 Propagate unit: ~p32 derived from: 63. [~p14,~p32]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
  p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],
  p44=0@3/[~p14,~p44]]
 Implication graph:
@@ -2033,7 +1457,7 @@ p14=1@3 --63.[~p14,~p32]--> p32=0@3
 ]
 Propagate unit: ~p41 derived from: 64. [~p14,~p41]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
  p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],
  p41=0@3/[~p14,~p41],p44=0@3/[~p14,~p44]]
 Implication graph:
@@ -2063,13 +1487,13 @@ p14=1@3 --64.[~p14,~p41]--> p41=0@3
 Variables: [p21,p22,p31,p33,p42,p43]
 Decision assignment: p21=0@4
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
- p21=0@4/nil,p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],p32=0@3/[~p14,~p32],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
+ p21=0@4,p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],p32=0@3/[~p14,~p32],
  p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],p44=0@3/[~p14,~p44]]
 Propagate unit: p22 derived from: 2. [p21,p22,p23,p24]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
- p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
+ p21=0@4,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],p44=0@3/[~p14,~p44]]
 Implication graph:
 [
@@ -2102,8 +1526,8 @@ p24=0@3 --2.[p21,p22,p23,p24]--> p22=1@4
 ]
 Propagate unit: ~p42 derived from: 39. [~p22,~p42]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
- p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
+ p21=0@4,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],p42=0@4/[~p22,~p42],
  p44=0@3/[~p14,~p44]]
 Implication graph:
@@ -2139,8 +1563,8 @@ p24=0@3 --2.[p21,p22,p23,p24]--> p22=1@4
 ]
 Propagate unit: p43 derived from: 4. [p41,p42,p43,p44]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
- p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
+ p21=0@4,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p32=0@3/[~p14,~p32],p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],p42=0@4/[~p22,~p42],
  p43=1@4/[p41,p42,p43,p44],p44=0@3/[~p14,~p44]]
 Implication graph:
@@ -2180,8 +1604,8 @@ p44=0@3 --4.[p41,p42,p43,p44]--> p43=1@4
 ]
 Propagate unit: ~p33 derived from: 46. [~p33,~p43]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
- p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
+ p21=0@4,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p32=0@3/[~p14,~p32],p33=0@4/[~p33,~p43],p34=0@3/[~p14,~p34],p41=0@3/[~p14,~p41],
  p42=0@4/[~p22,~p42],p43=1@4/[p41,p42,p43,p44],p44=0@3/[~p14,~p44]]
 Implication graph:
@@ -2223,8 +1647,8 @@ p44=0@3 --4.[p41,p42,p43,p44]--> p43=1@4
 ]
 Propagate unit: p31 derived from: 3. [p31,p32,p33,p34]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
- p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
+ p21=0@4,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p31=1@4/[p31,p32,p33,p34],p32=0@3/[~p14,~p32],p33=0@4/[~p33,~p43],p34=0@3/[~p14,~p34],
  p41=0@3/[~p14,~p41],p42=0@4/[~p22,~p42],p43=1@4/[p41,p42,p43,p44],p44=0@3/[~p14,~p44]]
 Implication graph:
@@ -2270,8 +1694,8 @@ p44=0@3 --4.[p41,p42,p43,p44]--> p43=1@4
 ]
 Conflict clause: 67. [~p22,~p31]
 Conflict caused by assignments:
-[p11=0@1/nil,p12=0@2/nil,p13=0@3/nil,p14=1@3/[p11,p12,p13,p14],
- p21=0@4/nil,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
+[p11=0@1,p12=0@2,p13=0@3,p14=1@3/[p11,p12,p13,p14],
+ p21=0@4,p22=1@4/[p21,p22,p23,p24],p23=0@3/[~p14,~p23],p24=0@3/[~p14,~p24],
  p31=1@4/[p31,p32,p33,p34],p32=0@3/[~p14,~p32],p33=0@4/[~p33,~p43],p34=0@3/[~p14,~p34],
  p41=0@3/[~p14,~p41],p42=0@4/[~p22,~p42],p43=1@4/[p41,p42,p43,p44],p44=0@3/[~p14,~p44]]
 Implication graph:
@@ -2319,8 +1743,8 @@ p43=1@4 --46.[~p33,~p43]--> p33=0@4,
 p44=0@3 --4.[p41,p42,p43,p44]--> p43=1@4
 ]
 Paths from the decision node at this level to kappa:
-p21=0@4/nil --> p22=1@4/[p21,p22,p23,p24] --> p42=0@4/[~p22,~p42] --> p43=1@4/[p41,p42,p43,p44] --> p33=0@4/[~p33,~p43] --> p31=1@4/[p31,p32,p33,p34] --> kappa
-p21=0@4/nil --> p22=1@4/[p21,p22,p23,p24] --> kappa
+p21=0@4 --> p22=1@4/[p21,p22,p23,p24] --> p42=0@4/[~p22,~p42] --> p43=1@4/[p41,p42,p43,p44] --> p33=0@4/[~p33,~p43] --> p31=1@4/[p31,p32,p33,p34] --> kappa
+p21=0@4 --> p22=1@4/[p21,p22,p23,p24] --> kappa
 A dominator is: p22=1@4/[p21,p22,p23,p24]
 Decisions at a lower level: [assign(p11,0,1,yes),assign(p12,0,2,yes),assign(p13,0,3,yes)]
 Decisions not dominated: []
@@ -2409,10 +1833,10 @@ Skip decision assignment: p21=1@4
 Variables: [p13,p14,p21,p22,p23,p24,p31,p32,p33,p34,p41,p42,p43,p44]
 Decision assignment: p13=1@3
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil]
+[p11=0@1,p12=0@2,p13=1@3]
 Propagate unit: ~p14 derived from: 10. [~p13,~p14]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14]]
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14]]
 Implication graph:
 [
 p13=1@3,
@@ -2423,7 +1847,7 @@ p13=1@3 --10.[~p13,~p14]--> p14=0@3
 ]
 Propagate unit: ~p23 derived from: 41. [~p13,~p23]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p23=0@3/[~p13,~p23]]
 Implication graph:
 [
@@ -2437,7 +1861,7 @@ p13=1@3 --41.[~p13,~p23]--> p23=0@3
 ]
 Propagate unit: ~p33 derived from: 42. [~p13,~p33]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p23=0@3/[~p13,~p23],p33=0@3/[~p13,~p33]]
 Implication graph:
 [
@@ -2453,7 +1877,7 @@ p13=1@3 --42.[~p13,~p33]--> p33=0@3
 ]
 Propagate unit: ~p43 derived from: 43. [~p13,~p43]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p23=0@3/[~p13,~p23],p33=0@3/[~p13,~p33],p43=0@3/[~p13,~p43]]
 Implication graph:
 [
@@ -2471,7 +1895,7 @@ p13=1@3 --43.[~p13,~p43]--> p43=0@3
 ]
 Propagate unit: ~p22 derived from: 59. [~p13,~p22]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p33=0@3/[~p13,~p33],p43=0@3/[~p13,~p43]]
 Implication graph:
 [
@@ -2491,7 +1915,7 @@ p13=1@3 --59.[~p13,~p22]--> p22=0@3
 ]
 Propagate unit: ~p31 derived from: 60. [~p13,~p31]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p31=0@3/[~p13,~p31],p33=0@3/[~p13,~p33],
  p43=0@3/[~p13,~p43]]
 Implication graph:
@@ -2514,7 +1938,7 @@ p13=1@3 --60.[~p13,~p31]--> p31=0@3
 ]
 Propagate unit: ~p24 derived from: 61. [~p13,~p24]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],p31=0@3/[~p13,~p31],
  p33=0@3/[~p13,~p33],p43=0@3/[~p13,~p43]]
 Implication graph:
@@ -2539,7 +1963,7 @@ p13=1@3 --61.[~p13,~p24]--> p24=0@3
 ]
 Propagate unit: p21 derived from: 2. [p21,p22,p23,p24]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p33=0@3/[~p13,~p33],p43=0@3/[~p13,~p43]]
 Implication graph:
@@ -2568,7 +1992,7 @@ p24=0@3 --2.[p21,p22,p23,p24]--> p21=1@3
 ]
 Propagate unit: ~p41 derived from: 33. [~p21,~p41]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p33=0@3/[~p13,~p33],p41=0@3/[~p21,~p41],p43=0@3/[~p13,~p43]]
 Implication graph:
@@ -2599,7 +2023,7 @@ p24=0@3 --2.[p21,p22,p23,p24]--> p21=1@3
 ]
 Propagate unit: ~p32 derived from: 65. [~p21,~p32]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p41=0@3/[~p21,~p41],
  p43=0@3/[~p13,~p43]]
@@ -2633,7 +2057,7 @@ p24=0@3 --2.[p21,p22,p23,p24]--> p21=1@3
 ]
 Propagate unit: p34 derived from: 3. [p31,p32,p33,p34]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p43=0@3/[~p13,~p43]]
@@ -2671,7 +2095,7 @@ p33=0@3 --3.[p31,p32,p33,p34]--> p34=1@3
 ]
 Propagate unit: ~p44 derived from: 52. [~p34,~p44]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p43=0@3/[~p13,~p43],p44=0@3/[~p34,~p44]]
@@ -2711,7 +2135,7 @@ p34=1@3 --52.[~p34,~p44]--> p44=0@3
 ]
 Propagate unit: p42 derived from: 4. [p41,p42,p43,p44]
 Assignments so far:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p42=1@3/[p41,p42,p43,p44],p43=0@3/[~p13,~p43],p44=0@3/[~p34,~p44]]
@@ -2754,16 +2178,16 @@ p43=0@3 --4.[p41,p42,p43,p44]--> p42=1@3,
 p44=0@3 --4.[p41,p42,p43,p44]--> p42=1@3
 ]
 Satisfying assignments:
-[p11=0@1/nil,p12=0@2/nil,p13=1@3/nil,p14=0@3/[~p13,~p14],
+[p11=0@1,p12=0@2,p13=1@3,p14=0@3/[~p13,~p14],
  p21=1@3/[p21,p22,p23,p24],p22=0@3/[~p13,~p22],p23=0@3/[~p13,~p23],p24=0@3/[~p13,~p24],
  p31=0@3/[~p13,~p31],p32=0@3/[~p21,~p32],p33=0@3/[~p13,~p33],p34=1@3/[p31,p32,p33,p34],
  p41=0@3/[~p21,~p41],p42=1@3/[p41,p42,p43,p44],p43=0@3/[~p13,~p43],p44=0@3/[~p34,~p44]]
 Statistics: clauses=80, variables=16, units=25, decisions=5, conflicts=1
 
-*****************************************
-*      Tseitin example from MLCS        *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*       Tseitin example from MLCS        *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -2782,10 +2206,10 @@ Clauses to be checked for satisfiability:
 Variables: [p,q,r,s,t]
 Decision assignment: p=0@1
 Assignments so far:
-[p=0@1/nil]
+[p=0@1]
 Propagate unit: ~q derived from: 2. [p,~q]
 Assignments so far:
-[p=0@1/nil,q=0@1/[p,~q]]
+[p=0@1,q=0@1/[p,~q]]
 Implication graph:
 [
 p=0@1,
@@ -2797,10 +2221,10 @@ p=0@1 --2.[p,~q]--> q=0@1
 Variables: [r,s,t]
 Decision assignment: r=0@2
 Assignments so far:
-[p=0@1/nil,q=0@1/[p,~q],r=0@2/nil]
+[p=0@1,q=0@1/[p,~q],r=0@2]
 Propagate unit: s derived from: 3. [p,r,s]
 Assignments so far:
-[p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s]]
+[p=0@1,q=0@1/[p,~q],r=0@2,s=1@2/[p,r,s]]
 Implication graph:
 [
 p=0@1,
@@ -2815,7 +2239,7 @@ r=0@2 --3.[p,r,s]--> s=1@2
 ]
 Propagate unit: t derived from: 7. [~s,t]
 Assignments so far:
-[p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s],
+[p=0@1,q=0@1/[p,~q],r=0@2,s=1@2/[p,r,s],
  t=1@2/[~s,t]]
 Implication graph:
 [
@@ -2833,7 +2257,7 @@ s=1@2 --7.[~s,t]--> t=1@2
 ]
 Conflict clause: 11. [q,r,~t]
 Conflict caused by assignments:
-[p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s],
+[p=0@1,q=0@1/[p,~q],r=0@2,s=1@2/[p,r,s],
  t=1@2/[~s,t]]
 Implication graph:
 [
@@ -2873,10 +2297,10 @@ Skip decision assignment: r=1@2
 Variables: [p,q,r,s,t]
 Decision assignment: p=1@1
 Assignments so far:
-[p=1@1/nil]
+[p=1@1]
 Propagate unit: q derived from: 1. [~p,q]
 Assignments so far:
-[p=1@1/nil,q=1@1/[~p,q]]
+[p=1@1,q=1@1/[~p,q]]
 Implication graph:
 [
 p=1@1,
@@ -2888,10 +2312,10 @@ p=1@1 --1.[~p,q]--> q=1@1
 Variables: [r,s,t]
 Decision assignment: r=0@2
 Assignments so far:
-[p=1@1/nil,q=1@1/[~p,q],r=0@2/nil]
+[p=1@1,q=1@1/[~p,q],r=0@2]
 Propagate unit: ~s derived from: 5. [~p,r,~s]
 Assignments so far:
-[p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s]]
+[p=1@1,q=1@1/[~p,q],r=0@2,s=0@2/[~p,r,~s]]
 Implication graph:
 [
 p=1@1,
@@ -2906,7 +2330,7 @@ r=0@2 --5.[~p,r,~s]--> s=0@2
 ]
 Propagate unit: ~t derived from: 8. [s,~t]
 Assignments so far:
-[p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s],
+[p=1@1,q=1@1/[~p,q],r=0@2,s=0@2/[~p,r,~s],
  t=0@2/[s,~t]]
 Implication graph:
 [
@@ -2924,7 +2348,7 @@ s=0@2 --8.[s,~t]--> t=0@2
 ]
 Conflict clause: 9. [~q,r,t]
 Conflict caused by assignments:
-[p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s],
+[p=1@1,q=1@1/[~p,q],r=0@2,s=0@2/[~p,r,~s],
  t=0@2/[s,~t]]
 Implication graph:
 [
@@ -2961,523 +2385,13 @@ UIP: one literal is assigned at level: 2
 Learned clause: [~q,~p,r]
 Non-chronological backtracking to level: 1
 Skip decision assignment: r=1@2
-Variables: [p,q,r,s,t]
-Decision assignment: q=0@1
-Assignments so far:
-[q=0@1/nil]
-Propagate unit: ~p derived from: 1. [~p,q]
-Assignments so far:
-[p=0@1/[~p,q],q=0@1/nil]
-Implication graph:
-[
-p=0@1,
-q=0@1
-]
-[
-q=0@1 --1.[~p,q]--> p=0@1
-]
-Propagate unit: r derived from: 14. [q,p,r]
-Assignments so far:
-[p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r]]
-Implication graph:
-[
-p=0@1,
-q=0@1,
-r=1@1
-]
-[
-p=0@1 --14.[q,p,r]--> r=1@1,
-q=0@1 --1.[~p,q]--> p=0@1,
-q=0@1 --14.[q,p,r]--> r=1@1
-]
-Propagate unit: ~s derived from: 6. [p,~r,~s]
-Assignments so far:
-[p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s]]
-Implication graph:
-[
-p=0@1,
-q=0@1,
-r=1@1,
-s=0@1
-]
-[
-p=0@1 --6.[p,~r,~s]--> s=0@1,
-p=0@1 --14.[q,p,r]--> r=1@1,
-q=0@1 --1.[~p,q]--> p=0@1,
-q=0@1 --14.[q,p,r]--> r=1@1,
-r=1@1 --6.[p,~r,~s]--> s=0@1
-]
-Propagate unit: ~t derived from: 8. [s,~t]
-Assignments so far:
-[p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s],
- t=0@1/[s,~t]]
-Implication graph:
-[
-p=0@1,
-q=0@1,
-r=1@1,
-s=0@1,
-t=0@1
-]
-[
-p=0@1 --6.[p,~r,~s]--> s=0@1,
-p=0@1 --14.[q,p,r]--> r=1@1,
-q=0@1 --1.[~p,q]--> p=0@1,
-q=0@1 --14.[q,p,r]--> r=1@1,
-r=1@1 --6.[p,~r,~s]--> s=0@1,
-s=0@1 --8.[s,~t]--> t=0@1
-]
-Conflict clause: 10. [q,~r,t]
-Conflict caused by assignments:
-[p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s],
- t=0@1/[s,~t]]
-Implication graph:
-[
-kappa,
-p=0@1,
-q=0@1,
-r=1@1,
-s=0@1,
-t=0@1
-]
-[
-p=0@1 --6.[p,~r,~s]--> s=0@1,
-p=0@1 --14.[q,p,r]--> r=1@1,
-q=0@1 --1.[~p,q]--> p=0@1,
-q=0@1 --10.[q,~r,t]--> kappa,
-q=0@1 --14.[q,p,r]--> r=1@1,
-r=1@1 --6.[p,~r,~s]--> s=0@1,
-r=1@1 --10.[q,~r,t]--> kappa,
-s=0@1 --8.[s,~t]--> t=0@1,
-t=0@1 --10.[q,~r,t]--> kappa
-]
-Literal: q assigned at level: 1
-Literal: ~r assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q,~r,t] unsatisfied
-Complement of: ~r assigned true in the unit clause: [q,p,r]
-Resolvent of the two clauses: [t,q,p] is also unsatisfiable
-Literal: t assigned at level: 1
-Literal: q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [t,q,p] unsatisfied
-Complement of: t assigned true in the unit clause: [s,~t]
-Resolvent of the two clauses: [q,p,s] is also unsatisfiable
-Literal: q assigned at level: 1
-Literal: p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q,p,s] unsatisfied
-Complement of: p assigned true in the unit clause: [~p,q]
-Resolvent of the two clauses: [s,q] is also unsatisfiable
-Literal: s assigned at level: 1
-Literal: q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [s,q] unsatisfied
-Complement of: s assigned true in the unit clause: [p,~r,~s]
-Resolvent of the two clauses: [q,p,~r] is also unsatisfiable
-Literal: q assigned at level: 1
-Literal: p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q,p,~r] unsatisfied
-Complement of: p assigned true in the unit clause: [~p,q]
-Resolvent of the two clauses: [~r,q] is also unsatisfiable
-Literal: ~r assigned at level: 1
-Literal: q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~r,q] unsatisfied
-Complement of: ~r assigned true in the unit clause: [q,p,r]
-Resolvent of the two clauses: [q,p] is also unsatisfiable
-Literal: q assigned at level: 1
-Literal: p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q,p] unsatisfied
-Complement of: p assigned true in the unit clause: [~p,q]
-Resolvent of the two clauses: [q] is also unsatisfiable
-Literal: q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [q]
-Non-chronological backtracking to level: 0
-Variables: [p,q,r,s,t]
-Decision assignment: q=1@1
-Assignments so far:
-[q=1@1/nil]
-Propagate unit: p derived from: 2. [p,~q]
-Assignments so far:
-[p=1@1/[p,~q],q=1@1/nil]
-Implication graph:
-[
-p=1@1,
-q=1@1
-]
-[
-q=1@1 --2.[p,~q]--> p=1@1
-]
-Propagate unit: r derived from: 14. [~q,~p,r]
-Assignments so far:
-[p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r]]
-Implication graph:
-[
-p=1@1,
-q=1@1,
-r=1@1
-]
-[
-p=1@1 --14.[~q,~p,r]--> r=1@1,
-q=1@1 --2.[p,~q]--> p=1@1,
-q=1@1 --14.[~q,~p,r]--> r=1@1
-]
-Propagate unit: s derived from: 4. [~p,~r,s]
-Assignments so far:
-[p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s]]
-Implication graph:
-[
-p=1@1,
-q=1@1,
-r=1@1,
-s=1@1
-]
-[
-p=1@1 --4.[~p,~r,s]--> s=1@1,
-p=1@1 --14.[~q,~p,r]--> r=1@1,
-q=1@1 --2.[p,~q]--> p=1@1,
-q=1@1 --14.[~q,~p,r]--> r=1@1,
-r=1@1 --4.[~p,~r,s]--> s=1@1
-]
-Propagate unit: t derived from: 7. [~s,t]
-Assignments so far:
-[p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
- t=1@1/[~s,t]]
-Implication graph:
-[
-p=1@1,
-q=1@1,
-r=1@1,
-s=1@1,
-t=1@1
-]
-[
-p=1@1 --4.[~p,~r,s]--> s=1@1,
-p=1@1 --14.[~q,~p,r]--> r=1@1,
-q=1@1 --2.[p,~q]--> p=1@1,
-q=1@1 --14.[~q,~p,r]--> r=1@1,
-r=1@1 --4.[~p,~r,s]--> s=1@1,
-s=1@1 --7.[~s,t]--> t=1@1
-]
-Conflict clause: 12. [~q,~r,~t]
-Conflict caused by assignments:
-[p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
- t=1@1/[~s,t]]
-Implication graph:
-[
-kappa,
-p=1@1,
-q=1@1,
-r=1@1,
-s=1@1,
-t=1@1
-]
-[
-p=1@1 --4.[~p,~r,s]--> s=1@1,
-p=1@1 --14.[~q,~p,r]--> r=1@1,
-q=1@1 --2.[p,~q]--> p=1@1,
-q=1@1 --12.[~q,~r,~t]--> kappa,
-q=1@1 --14.[~q,~p,r]--> r=1@1,
-r=1@1 --4.[~p,~r,s]--> s=1@1,
-r=1@1 --12.[~q,~r,~t]--> kappa,
-s=1@1 --7.[~s,t]--> t=1@1,
-t=1@1 --12.[~q,~r,~t]--> kappa
-]
-Literal: ~q assigned at level: 1
-Literal: ~r assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~q,~r,~t] unsatisfied
-Complement of: ~r assigned true in the unit clause: [~q,~p,r]
-Resolvent of the two clauses: [~t,~q,~p] is also unsatisfiable
-Literal: ~t assigned at level: 1
-Literal: ~q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~t,~q,~p] unsatisfied
-Complement of: ~t assigned true in the unit clause: [~s,t]
-Resolvent of the two clauses: [~q,~p,~s] is also unsatisfiable
-Literal: ~q assigned at level: 1
-Literal: ~p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~q,~p,~s] unsatisfied
-Complement of: ~p assigned true in the unit clause: [p,~q]
-Resolvent of the two clauses: [~s,~q] is also unsatisfiable
-Literal: ~s assigned at level: 1
-Literal: ~q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~s,~q] unsatisfied
-Complement of: ~s assigned true in the unit clause: [~p,~r,s]
-Resolvent of the two clauses: [~q,~p,~r] is also unsatisfiable
-Literal: ~q assigned at level: 1
-Literal: ~p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~q,~p,~r] unsatisfied
-Complement of: ~p assigned true in the unit clause: [p,~q]
-Resolvent of the two clauses: [~r,~q] is also unsatisfiable
-Literal: ~r assigned at level: 1
-Literal: ~q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~r,~q] unsatisfied
-Complement of: ~r assigned true in the unit clause: [~q,~p,r]
-Resolvent of the two clauses: [~q,~p] is also unsatisfiable
-Literal: ~q assigned at level: 1
-Literal: ~p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~q,~p] unsatisfied
-Complement of: ~p assigned true in the unit clause: [p,~q]
-Resolvent of the two clauses: [~q] is also unsatisfiable
-Literal: ~q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~q]
-Non-chronological backtracking to level: 0
-Variables: [p,q,r,s,t]
-Decision assignment: r=0@1
-Assignments so far:
-[r=0@1/nil]
-Propagate unit: ~q derived from: 13. [~q]
-Assignments so far:
-[q=0@1/[~q],r=0@1/nil]
-Implication graph:
-[
-q=0@1
-]
-[
-
-]
-Conflict clause: 14. [q]
-Conflict caused by assignments:
-[q=0@1/[~q],r=0@1/nil]
-Implication graph:
-[
-kappa,
-q=0@1
-]
-[
-q=0@1 --14.[q]--> kappa
-]
-Literal: q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [q]
-Non-chronological backtracking to level: 0
-Variables: [p,q,r,s,t]
-Decision assignment: r=1@1
-Assignments so far:
-[r=1@1/nil]
-Propagate unit: ~q derived from: 13. [~q]
-Assignments so far:
-[q=0@1/[~q],r=1@1/nil]
-Implication graph:
-[
-q=0@1
-]
-[
-
-]
-Conflict clause: 14. [q]
-Conflict caused by assignments:
-[q=0@1/[~q],r=1@1/nil]
-Implication graph:
-[
-kappa,
-q=0@1
-]
-[
-q=0@1 --14.[q]--> kappa
-]
-Literal: q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [q]
-Non-chronological backtracking to level: 0
-Variables: [p,q,r,s,t]
-Decision assignment: s=0@1
-Assignments so far:
-[s=0@1/nil]
-Propagate unit: ~t derived from: 8. [s,~t]
-Assignments so far:
-[s=0@1/nil,t=0@1/[s,~t]]
-Implication graph:
-[
-s=0@1,
-t=0@1
-]
-[
-s=0@1 --8.[s,~t]--> t=0@1
-]
-Propagate unit: ~q derived from: 13. [~q]
-Assignments so far:
-[q=0@1/[~q],s=0@1/nil,t=0@1/[s,~t]]
-Implication graph:
-[
-q=0@1,
-s=0@1,
-t=0@1
-]
-[
-s=0@1 --8.[s,~t]--> t=0@1
-]
-Conflict clause: 14. [q]
-Conflict caused by assignments:
-[q=0@1/[~q],s=0@1/nil,t=0@1/[s,~t]]
-Implication graph:
-[
-kappa,
-q=0@1,
-s=0@1,
-t=0@1
-]
-[
-q=0@1 --14.[q]--> kappa,
-s=0@1 --8.[s,~t]--> t=0@1
-]
-Literal: q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [q]
-Non-chronological backtracking to level: 0
-Variables: [p,q,r,s,t]
-Decision assignment: s=1@1
-Assignments so far:
-[s=1@1/nil]
-Propagate unit: t derived from: 7. [~s,t]
-Assignments so far:
-[s=1@1/nil,t=1@1/[~s,t]]
-Implication graph:
-[
-s=1@1,
-t=1@1
-]
-[
-s=1@1 --7.[~s,t]--> t=1@1
-]
-Propagate unit: ~q derived from: 13. [~q]
-Assignments so far:
-[q=0@1/[~q],s=1@1/nil,t=1@1/[~s,t]]
-Implication graph:
-[
-q=0@1,
-s=1@1,
-t=1@1
-]
-[
-s=1@1 --7.[~s,t]--> t=1@1
-]
-Conflict clause: 14. [q]
-Conflict caused by assignments:
-[q=0@1/[~q],s=1@1/nil,t=1@1/[~s,t]]
-Implication graph:
-[
-kappa,
-q=0@1,
-s=1@1,
-t=1@1
-]
-[
-q=0@1 --14.[q]--> kappa,
-s=1@1 --7.[~s,t]--> t=1@1
-]
-Literal: q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [q]
-Non-chronological backtracking to level: 0
-Variables: [p,q,r,s,t]
-Decision assignment: t=0@1
-Assignments so far:
-[t=0@1/nil]
-Propagate unit: ~s derived from: 7. [~s,t]
-Assignments so far:
-[s=0@1/[~s,t],t=0@1/nil]
-Implication graph:
-[
-s=0@1,
-t=0@1
-]
-[
-t=0@1 --7.[~s,t]--> s=0@1
-]
-Propagate unit: ~q derived from: 13. [~q]
-Assignments so far:
-[q=0@1/[~q],s=0@1/[~s,t],t=0@1/nil]
-Implication graph:
-[
-q=0@1,
-s=0@1,
-t=0@1
-]
-[
-t=0@1 --7.[~s,t]--> s=0@1
-]
-Conflict clause: 14. [q]
-Conflict caused by assignments:
-[q=0@1/[~q],s=0@1/[~s,t],t=0@1/nil]
-Implication graph:
-[
-kappa,
-q=0@1,
-s=0@1,
-t=0@1
-]
-[
-q=0@1 --14.[q]--> kappa,
-t=0@1 --7.[~s,t]--> s=0@1
-]
-Literal: q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [q]
-Non-chronological backtracking to level: 0
-Variables: [p,q,r,s,t]
-Decision assignment: t=1@1
-Assignments so far:
-[t=1@1/nil]
-Propagate unit: s derived from: 8. [s,~t]
-Assignments so far:
-[s=1@1/[s,~t],t=1@1/nil]
-Implication graph:
-[
-s=1@1,
-t=1@1
-]
-[
-t=1@1 --8.[s,~t]--> s=1@1
-]
-Propagate unit: ~q derived from: 13. [~q]
-Assignments so far:
-[q=0@1/[~q],s=1@1/[s,~t],t=1@1/nil]
-Implication graph:
-[
-q=0@1,
-s=1@1,
-t=1@1
-]
-[
-t=1@1 --8.[s,~t]--> s=1@1
-]
-Conflict clause: 14. [q]
-Conflict caused by assignments:
-[q=0@1/[~q],s=1@1/[s,~t],t=1@1/nil]
-Implication graph:
-[
-kappa,
-q=0@1,
-s=1@1,
-t=1@1
-]
-[
-q=0@1 --14.[q]--> kappa,
-t=1@1 --8.[s,~t]--> s=1@1
-]
-Literal: q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [q]
-Non-chronological backtracking to level: 0
 Unsatisfiable:
-Statistics: clauses=12, variables=5, units=24, decisions=12, conflicts=10
+Statistics: clauses=12, variables=5, units=6, decisions=4, conflicts=2
 
-*****************************************
-*Tseitin example from MLCS (satisfiable)  *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*    Tseitin example from MLCS (sat)     *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -3496,10 +2410,10 @@ Clauses to be checked for satisfiability:
 Variables: [p,q,r,s,t]
 Decision assignment: p=0@1
 Assignments so far:
-[p=0@1/nil]
+[p=0@1]
 Propagate unit: ~q derived from: 2. [p,~q]
 Assignments so far:
-[p=0@1/nil,q=0@1/[p,~q]]
+[p=0@1,q=0@1/[p,~q]]
 Implication graph:
 [
 p=0@1,
@@ -3511,10 +2425,10 @@ p=0@1 --2.[p,~q]--> q=0@1
 Variables: [r,s,t]
 Decision assignment: r=0@2
 Assignments so far:
-[p=0@1/nil,q=0@1/[p,~q],r=0@2/nil]
+[p=0@1,q=0@1/[p,~q],r=0@2]
 Propagate unit: s derived from: 3. [p,r,s]
 Assignments so far:
-[p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s]]
+[p=0@1,q=0@1/[p,~q],r=0@2,s=1@2/[p,r,s]]
 Implication graph:
 [
 p=0@1,
@@ -3529,7 +2443,7 @@ r=0@2 --3.[p,r,s]--> s=1@2
 ]
 Propagate unit: t derived from: 7. [~s,t]
 Assignments so far:
-[p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s],
+[p=0@1,q=0@1/[p,~q],r=0@2,s=1@2/[p,r,s],
  t=1@2/[~s,t]]
 Implication graph:
 [
@@ -3547,7 +2461,7 @@ s=1@2 --7.[~s,t]--> t=1@2
 ]
 Conflict clause: 11. [q,r,~t]
 Conflict caused by assignments:
-[p=0@1/nil,q=0@1/[p,~q],r=0@2/nil,s=1@2/[p,r,s],
+[p=0@1,q=0@1/[p,~q],r=0@2,s=1@2/[p,r,s],
  t=1@2/[~s,t]]
 Implication graph:
 [
@@ -3587,10 +2501,10 @@ Skip decision assignment: r=1@2
 Variables: [p,q,r,s,t]
 Decision assignment: p=1@1
 Assignments so far:
-[p=1@1/nil]
+[p=1@1]
 Propagate unit: q derived from: 1. [~p,q]
 Assignments so far:
-[p=1@1/nil,q=1@1/[~p,q]]
+[p=1@1,q=1@1/[~p,q]]
 Implication graph:
 [
 p=1@1,
@@ -3602,10 +2516,10 @@ p=1@1 --1.[~p,q]--> q=1@1
 Variables: [r,s,t]
 Decision assignment: r=0@2
 Assignments so far:
-[p=1@1/nil,q=1@1/[~p,q],r=0@2/nil]
+[p=1@1,q=1@1/[~p,q],r=0@2]
 Propagate unit: ~s derived from: 5. [~p,r,~s]
 Assignments so far:
-[p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s]]
+[p=1@1,q=1@1/[~p,q],r=0@2,s=0@2/[~p,r,~s]]
 Implication graph:
 [
 p=1@1,
@@ -3620,7 +2534,7 @@ r=0@2 --5.[~p,r,~s]--> s=0@2
 ]
 Propagate unit: ~t derived from: 8. [s,~t]
 Assignments so far:
-[p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s],
+[p=1@1,q=1@1/[~p,q],r=0@2,s=0@2/[~p,r,~s],
  t=0@2/[s,~t]]
 Implication graph:
 [
@@ -3638,7 +2552,7 @@ s=0@2 --8.[s,~t]--> t=0@2
 ]
 Conflict clause: 9. [~q,r,t]
 Conflict caused by assignments:
-[p=1@1/nil,q=1@1/[~p,q],r=0@2/nil,s=0@2/[~p,r,~s],
+[p=1@1,q=1@1/[~p,q],r=0@2,s=0@2/[~p,r,~s],
  t=0@2/[s,~t]]
 Implication graph:
 [
@@ -3675,217 +2589,13 @@ UIP: one literal is assigned at level: 2
 Learned clause: [~q,~p,r]
 Non-chronological backtracking to level: 1
 Skip decision assignment: r=1@2
-Variables: [p,q,r,s,t]
-Decision assignment: q=0@1
-Assignments so far:
-[q=0@1/nil]
-Propagate unit: ~p derived from: 1. [~p,q]
-Assignments so far:
-[p=0@1/[~p,q],q=0@1/nil]
-Implication graph:
-[
-p=0@1,
-q=0@1
-]
-[
-q=0@1 --1.[~p,q]--> p=0@1
-]
-Propagate unit: r derived from: 14. [q,p,r]
-Assignments so far:
-[p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r]]
-Implication graph:
-[
-p=0@1,
-q=0@1,
-r=1@1
-]
-[
-p=0@1 --14.[q,p,r]--> r=1@1,
-q=0@1 --1.[~p,q]--> p=0@1,
-q=0@1 --14.[q,p,r]--> r=1@1
-]
-Propagate unit: ~s derived from: 6. [p,~r,~s]
-Assignments so far:
-[p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s]]
-Implication graph:
-[
-p=0@1,
-q=0@1,
-r=1@1,
-s=0@1
-]
-[
-p=0@1 --6.[p,~r,~s]--> s=0@1,
-p=0@1 --14.[q,p,r]--> r=1@1,
-q=0@1 --1.[~p,q]--> p=0@1,
-q=0@1 --14.[q,p,r]--> r=1@1,
-r=1@1 --6.[p,~r,~s]--> s=0@1
-]
-Propagate unit: ~t derived from: 8. [s,~t]
-Assignments so far:
-[p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s],
- t=0@1/[s,~t]]
-Implication graph:
-[
-p=0@1,
-q=0@1,
-r=1@1,
-s=0@1,
-t=0@1
-]
-[
-p=0@1 --6.[p,~r,~s]--> s=0@1,
-p=0@1 --14.[q,p,r]--> r=1@1,
-q=0@1 --1.[~p,q]--> p=0@1,
-q=0@1 --14.[q,p,r]--> r=1@1,
-r=1@1 --6.[p,~r,~s]--> s=0@1,
-s=0@1 --8.[s,~t]--> t=0@1
-]
-Conflict clause: 10. [q,~r,t]
-Conflict caused by assignments:
-[p=0@1/[~p,q],q=0@1/nil,r=1@1/[q,p,r],s=0@1/[p,~r,~s],
- t=0@1/[s,~t]]
-Implication graph:
-[
-kappa,
-p=0@1,
-q=0@1,
-r=1@1,
-s=0@1,
-t=0@1
-]
-[
-p=0@1 --6.[p,~r,~s]--> s=0@1,
-p=0@1 --14.[q,p,r]--> r=1@1,
-q=0@1 --1.[~p,q]--> p=0@1,
-q=0@1 --10.[q,~r,t]--> kappa,
-q=0@1 --14.[q,p,r]--> r=1@1,
-r=1@1 --6.[p,~r,~s]--> s=0@1,
-r=1@1 --10.[q,~r,t]--> kappa,
-s=0@1 --8.[s,~t]--> t=0@1,
-t=0@1 --10.[q,~r,t]--> kappa
-]
-Literal: q assigned at level: 1
-Literal: ~r assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q,~r,t] unsatisfied
-Complement of: ~r assigned true in the unit clause: [q,p,r]
-Resolvent of the two clauses: [t,q,p] is also unsatisfiable
-Literal: t assigned at level: 1
-Literal: q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [t,q,p] unsatisfied
-Complement of: t assigned true in the unit clause: [s,~t]
-Resolvent of the two clauses: [q,p,s] is also unsatisfiable
-Literal: q assigned at level: 1
-Literal: p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q,p,s] unsatisfied
-Complement of: p assigned true in the unit clause: [~p,q]
-Resolvent of the two clauses: [s,q] is also unsatisfiable
-Literal: s assigned at level: 1
-Literal: q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [s,q] unsatisfied
-Complement of: s assigned true in the unit clause: [p,~r,~s]
-Resolvent of the two clauses: [q,p,~r] is also unsatisfiable
-Literal: q assigned at level: 1
-Literal: p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q,p,~r] unsatisfied
-Complement of: p assigned true in the unit clause: [~p,q]
-Resolvent of the two clauses: [~r,q] is also unsatisfiable
-Literal: ~r assigned at level: 1
-Literal: q assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [~r,q] unsatisfied
-Complement of: ~r assigned true in the unit clause: [q,p,r]
-Resolvent of the two clauses: [q,p] is also unsatisfiable
-Literal: q assigned at level: 1
-Literal: p assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q,p] unsatisfied
-Complement of: p assigned true in the unit clause: [~p,q]
-Resolvent of the two clauses: [q] is also unsatisfiable
-Literal: q assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [q]
-Non-chronological backtracking to level: 0
-Variables: [p,q,r,s,t]
-Decision assignment: q=1@1
-Assignments so far:
-[q=1@1/nil]
-Propagate unit: p derived from: 2. [p,~q]
-Assignments so far:
-[p=1@1/[p,~q],q=1@1/nil]
-Implication graph:
-[
-p=1@1,
-q=1@1
-]
-[
-q=1@1 --2.[p,~q]--> p=1@1
-]
-Propagate unit: r derived from: 14. [~q,~p,r]
-Assignments so far:
-[p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r]]
-Implication graph:
-[
-p=1@1,
-q=1@1,
-r=1@1
-]
-[
-p=1@1 --14.[~q,~p,r]--> r=1@1,
-q=1@1 --2.[p,~q]--> p=1@1,
-q=1@1 --14.[~q,~p,r]--> r=1@1
-]
-Propagate unit: s derived from: 4. [~p,~r,s]
-Assignments so far:
-[p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s]]
-Implication graph:
-[
-p=1@1,
-q=1@1,
-r=1@1,
-s=1@1
-]
-[
-p=1@1 --4.[~p,~r,s]--> s=1@1,
-p=1@1 --14.[~q,~p,r]--> r=1@1,
-q=1@1 --2.[p,~q]--> p=1@1,
-q=1@1 --14.[~q,~p,r]--> r=1@1,
-r=1@1 --4.[~p,~r,s]--> s=1@1
-]
-Propagate unit: t derived from: 7. [~s,t]
-Assignments so far:
-[p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
- t=1@1/[~s,t]]
-Implication graph:
-[
-p=1@1,
-q=1@1,
-r=1@1,
-s=1@1,
-t=1@1
-]
-[
-p=1@1 --4.[~p,~r,s]--> s=1@1,
-p=1@1 --14.[~q,~p,r]--> r=1@1,
-q=1@1 --2.[p,~q]--> p=1@1,
-q=1@1 --14.[~q,~p,r]--> r=1@1,
-r=1@1 --4.[~p,~r,s]--> s=1@1,
-s=1@1 --7.[~s,t]--> t=1@1
-]
-Satisfying assignments:
-[p=1@1/[p,~q],q=1@1/nil,r=1@1/[~q,~p,r],s=1@1/[~p,~r,s],
- t=1@1/[~s,t]]
-Statistics: clauses=12, variables=5, units=14, decisions=6, conflicts=3
+Unsatisfiable:
+Statistics: clauses=12, variables=5, units=6, decisions=4, conflicts=2
 
-*****************************************
-*              Tseitin K2,2             *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*              Tseitin K2,2              *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -3900,10 +2610,10 @@ Clauses to be checked for satisfiability:
 Variables: [p0,p1,p2,p3]
 Decision assignment: p0=0@1
 Assignments so far:
-[p0=0@1/nil]
+[p0=0@1]
 Propagate unit: p1 derived from: 2. [p0,p1]
 Assignments so far:
-[p0=0@1/nil,p1=1@1/[p0,p1]]
+[p0=0@1,p1=1@1/[p0,p1]]
 Implication graph:
 [
 p0=0@1,
@@ -3914,7 +2624,7 @@ p0=0@1 --2.[p0,p1]--> p1=1@1
 ]
 Propagate unit: ~p2 derived from: 3. [p0,~p2]
 Assignments so far:
-[p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2]]
+[p0=0@1,p1=1@1/[p0,p1],p2=0@1/[p0,~p2]]
 Implication graph:
 [
 p0=0@1,
@@ -3927,7 +2637,7 @@ p0=0@1 --3.[p0,~p2]--> p2=0@1
 ]
 Propagate unit: p3 derived from: 6. [~p1,p3]
 Assignments so far:
-[p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
+[p0=0@1,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
 Implication graph:
 [
 p0=0@1,
@@ -3942,7 +2652,7 @@ p1=1@1 --6.[~p1,p3]--> p3=1@1
 ]
 Conflict clause: 7. [p2,~p3]
 Conflict caused by assignments:
-[p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
+[p0=0@1,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
 Implication graph:
 [
 kappa,
@@ -3983,10 +2693,10 @@ Non-chronological backtracking to level: 0
 Variables: [p0,p1,p2,p3]
 Decision assignment: p0=1@1
 Assignments so far:
-[p0=1@1/nil]
+[p0=1@1]
 Propagate unit: ~p1 derived from: 1. [~p0,~p1]
 Assignments so far:
-[p0=1@1/nil,p1=0@1/[~p0,~p1]]
+[p0=1@1,p1=0@1/[~p0,~p1]]
 Implication graph:
 [
 p0=1@1,
@@ -3997,7 +2707,7 @@ p0=1@1 --1.[~p0,~p1]--> p1=0@1
 ]
 Propagate unit: p2 derived from: 4. [~p0,p2]
 Assignments so far:
-[p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2]]
+[p0=1@1,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2]]
 Implication graph:
 [
 p0=1@1,
@@ -4010,7 +2720,7 @@ p0=1@1 --4.[~p0,p2]--> p2=1@1
 ]
 Propagate unit: ~p3 derived from: 5. [p1,~p3]
 Assignments so far:
-[p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
+[p0=1@1,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
 Implication graph:
 [
 p0=1@1,
@@ -4025,7 +2735,7 @@ p1=0@1 --5.[p1,~p3]--> p3=0@1
 ]
 Conflict clause: 8. [~p2,p3]
 Conflict caused by assignments:
-[p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
+[p0=1@1,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
 Implication graph:
 [
 kappa,
@@ -4063,295 +2773,13 @@ Literal: ~p0 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~p0]
 Non-chronological backtracking to level: 0
-Variables: [p0,p1,p2,p3]
-Decision assignment: p1=0@1
-Assignments so far:
-[p1=0@1/nil]
-Propagate unit: p0 derived from: 2. [p0,p1]
-Assignments so far:
-[p0=1@1/[p0,p1],p1=0@1/nil]
-Implication graph:
-[
-p0=1@1,
-p1=0@1
-]
-[
-p1=0@1 --2.[p0,p1]--> p0=1@1
-]
-Conflict clause: 9. [~p0]
-Conflict caused by assignments:
-[p0=1@1/[p0,p1],p1=0@1/nil]
-Implication graph:
-[
-kappa,
-p0=1@1,
-p1=0@1
-]
-[
-p0=1@1 --9.[~p0]--> kappa,
-p1=0@1 --2.[p0,p1]--> p0=1@1
-]
-Paths from the decision node at this level to kappa:
-p1=0@1/nil --> p0=1@1/[p0,p1] --> kappa
-A dominator is: p0=1@1/[p0,p1]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~p0]
-Literal: ~p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p0]
-Non-chronological backtracking to level: 0
-Literal: ~p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p0]
-Non-chronological backtracking to level: 0
-Variables: [p0,p1,p2,p3]
-Decision assignment: p1=1@1
-Assignments so far:
-[p1=1@1/nil]
-Propagate unit: ~p0 derived from: 1. [~p0,~p1]
-Assignments so far:
-[p0=0@1/[~p0,~p1],p1=1@1/nil]
-Implication graph:
-[
-p0=0@1,
-p1=1@1
-]
-[
-p1=1@1 --1.[~p0,~p1]--> p0=0@1
-]
-Conflict clause: 10. [p0]
-Conflict caused by assignments:
-[p0=0@1/[~p0,~p1],p1=1@1/nil]
-Implication graph:
-[
-kappa,
-p0=0@1,
-p1=1@1
-]
-[
-p0=0@1 --10.[p0]--> kappa,
-p1=1@1 --1.[~p0,~p1]--> p0=0@1
-]
-Paths from the decision node at this level to kappa:
-p1=1@1/nil --> p0=0@1/[~p0,~p1] --> kappa
-A dominator is: p0=0@1/[~p0,~p1]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [p0]
-Literal: p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p0]
-Non-chronological backtracking to level: 0
-Literal: p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p0]
-Non-chronological backtracking to level: 0
-Variables: [p0,p1,p2,p3]
-Decision assignment: p2=0@1
-Assignments so far:
-[p2=0@1/nil]
-Propagate unit: ~p0 derived from: 4. [~p0,p2]
-Assignments so far:
-[p0=0@1/[~p0,p2],p2=0@1/nil]
-Implication graph:
-[
-p0=0@1,
-p2=0@1
-]
-[
-p2=0@1 --4.[~p0,p2]--> p0=0@1
-]
-Conflict clause: 10. [p0]
-Conflict caused by assignments:
-[p0=0@1/[~p0,p2],p2=0@1/nil]
-Implication graph:
-[
-kappa,
-p0=0@1,
-p2=0@1
-]
-[
-p0=0@1 --10.[p0]--> kappa,
-p2=0@1 --4.[~p0,p2]--> p0=0@1
-]
-Paths from the decision node at this level to kappa:
-p2=0@1/nil --> p0=0@1/[~p0,p2] --> kappa
-A dominator is: p0=0@1/[~p0,p2]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [p0]
-Literal: p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p0]
-Non-chronological backtracking to level: 0
-Literal: p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p0]
-Non-chronological backtracking to level: 0
-Variables: [p0,p1,p2,p3]
-Decision assignment: p2=1@1
-Assignments so far:
-[p2=1@1/nil]
-Propagate unit: p0 derived from: 3. [p0,~p2]
-Assignments so far:
-[p0=1@1/[p0,~p2],p2=1@1/nil]
-Implication graph:
-[
-p0=1@1,
-p2=1@1
-]
-[
-p2=1@1 --3.[p0,~p2]--> p0=1@1
-]
-Conflict clause: 9. [~p0]
-Conflict caused by assignments:
-[p0=1@1/[p0,~p2],p2=1@1/nil]
-Implication graph:
-[
-kappa,
-p0=1@1,
-p2=1@1
-]
-[
-p0=1@1 --9.[~p0]--> kappa,
-p2=1@1 --3.[p0,~p2]--> p0=1@1
-]
-Paths from the decision node at this level to kappa:
-p2=1@1/nil --> p0=1@1/[p0,~p2] --> kappa
-A dominator is: p0=1@1/[p0,~p2]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~p0]
-Literal: ~p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p0]
-Non-chronological backtracking to level: 0
-Literal: ~p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p0]
-Non-chronological backtracking to level: 0
-Variables: [p0,p1,p2,p3]
-Decision assignment: p3=0@1
-Assignments so far:
-[p3=0@1/nil]
-Propagate unit: ~p1 derived from: 6. [~p1,p3]
-Assignments so far:
-[p1=0@1/[~p1,p3],p3=0@1/nil]
-Implication graph:
-[
-p1=0@1,
-p3=0@1
-]
-[
-p3=0@1 --6.[~p1,p3]--> p1=0@1
-]
-Propagate unit: p0 derived from: 2. [p0,p1]
-Assignments so far:
-[p0=1@1/[p0,p1],p1=0@1/[~p1,p3],p3=0@1/nil]
-Implication graph:
-[
-p0=1@1,
-p1=0@1,
-p3=0@1
-]
-[
-p1=0@1 --2.[p0,p1]--> p0=1@1,
-p3=0@1 --6.[~p1,p3]--> p1=0@1
-]
-Conflict clause: 9. [~p0]
-Conflict caused by assignments:
-[p0=1@1/[p0,p1],p1=0@1/[~p1,p3],p3=0@1/nil]
-Implication graph:
-[
-kappa,
-p0=1@1,
-p1=0@1,
-p3=0@1
-]
-[
-p0=1@1 --9.[~p0]--> kappa,
-p1=0@1 --2.[p0,p1]--> p0=1@1,
-p3=0@1 --6.[~p1,p3]--> p1=0@1
-]
-Paths from the decision node at this level to kappa:
-p3=0@1/nil --> p1=0@1/[~p1,p3] --> p0=1@1/[p0,p1] --> kappa
-A dominator is: p1=0@1/[~p1,p3]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [p1]
-Literal: ~p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p0]
-Non-chronological backtracking to level: 0
-Literal: ~p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~p0]
-Non-chronological backtracking to level: 0
-Variables: [p0,p1,p2,p3]
-Decision assignment: p3=1@1
-Assignments so far:
-[p3=1@1/nil]
-Propagate unit: p1 derived from: 5. [p1,~p3]
-Assignments so far:
-[p1=1@1/[p1,~p3],p3=1@1/nil]
-Implication graph:
-[
-p1=1@1,
-p3=1@1
-]
-[
-p3=1@1 --5.[p1,~p3]--> p1=1@1
-]
-Propagate unit: ~p0 derived from: 1. [~p0,~p1]
-Assignments so far:
-[p0=0@1/[~p0,~p1],p1=1@1/[p1,~p3],p3=1@1/nil]
-Implication graph:
-[
-p0=0@1,
-p1=1@1,
-p3=1@1
-]
-[
-p1=1@1 --1.[~p0,~p1]--> p0=0@1,
-p3=1@1 --5.[p1,~p3]--> p1=1@1
-]
-Conflict clause: 10. [p0]
-Conflict caused by assignments:
-[p0=0@1/[~p0,~p1],p1=1@1/[p1,~p3],p3=1@1/nil]
-Implication graph:
-[
-kappa,
-p0=0@1,
-p1=1@1,
-p3=1@1
-]
-[
-p0=0@1 --10.[p0]--> kappa,
-p1=1@1 --1.[~p0,~p1]--> p0=0@1,
-p3=1@1 --5.[p1,~p3]--> p1=1@1
-]
-Paths from the decision node at this level to kappa:
-p3=1@1/nil --> p1=1@1/[p1,~p3] --> p0=0@1/[~p0,~p1] --> kappa
-A dominator is: p1=1@1/[p1,~p3]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~p1]
-Literal: p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p0]
-Non-chronological backtracking to level: 0
-Literal: p0 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [p0]
-Non-chronological backtracking to level: 0
 Unsatisfiable:
-Statistics: clauses=8, variables=4, units=14, decisions=8, conflicts=8
+Statistics: clauses=8, variables=4, units=6, decisions=2, conflicts=2
 
-*****************************************
-*       Tseitin K2,2 (satisfiable)      *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*           Tseitin K2,2 (sat)           *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -4366,10 +2794,10 @@ Clauses to be checked for satisfiability:
 Variables: [p0,p1,p2,p3]
 Decision assignment: p0=0@1
 Assignments so far:
-[p0=0@1/nil]
+[p0=0@1]
 Propagate unit: p1 derived from: 2. [p0,p1]
 Assignments so far:
-[p0=0@1/nil,p1=1@1/[p0,p1]]
+[p0=0@1,p1=1@1/[p0,p1]]
 Implication graph:
 [
 p0=0@1,
@@ -4380,7 +2808,7 @@ p0=0@1 --2.[p0,p1]--> p1=1@1
 ]
 Propagate unit: ~p2 derived from: 3. [p0,~p2]
 Assignments so far:
-[p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2]]
+[p0=0@1,p1=1@1/[p0,p1],p2=0@1/[p0,~p2]]
 Implication graph:
 [
 p0=0@1,
@@ -4393,7 +2821,7 @@ p0=0@1 --3.[p0,~p2]--> p2=0@1
 ]
 Propagate unit: p3 derived from: 6. [~p1,p3]
 Assignments so far:
-[p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
+[p0=0@1,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
 Implication graph:
 [
 p0=0@1,
@@ -4408,7 +2836,7 @@ p1=1@1 --6.[~p1,p3]--> p3=1@1
 ]
 Conflict clause: 7. [p2,~p3]
 Conflict caused by assignments:
-[p0=0@1/nil,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
+[p0=0@1,p1=1@1/[p0,p1],p2=0@1/[p0,~p2],p3=1@1/[~p1,p3]]
 Implication graph:
 [
 kappa,
@@ -4449,10 +2877,10 @@ Non-chronological backtracking to level: 0
 Variables: [p0,p1,p2,p3]
 Decision assignment: p0=1@1
 Assignments so far:
-[p0=1@1/nil]
+[p0=1@1]
 Propagate unit: ~p1 derived from: 1. [~p0,~p1]
 Assignments so far:
-[p0=1@1/nil,p1=0@1/[~p0,~p1]]
+[p0=1@1,p1=0@1/[~p0,~p1]]
 Implication graph:
 [
 p0=1@1,
@@ -4463,7 +2891,7 @@ p0=1@1 --1.[~p0,~p1]--> p1=0@1
 ]
 Propagate unit: p2 derived from: 4. [~p0,p2]
 Assignments so far:
-[p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2]]
+[p0=1@1,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2]]
 Implication graph:
 [
 p0=1@1,
@@ -4476,7 +2904,7 @@ p0=1@1 --4.[~p0,p2]--> p2=1@1
 ]
 Propagate unit: ~p3 derived from: 5. [p1,~p3]
 Assignments so far:
-[p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
+[p0=1@1,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
 Implication graph:
 [
 p0=1@1,
@@ -4490,13 +2918,13 @@ p0=1@1 --4.[~p0,p2]--> p2=1@1,
 p1=0@1 --5.[p1,~p3]--> p3=0@1
 ]
 Satisfying assignments:
-[p0=1@1/nil,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
+[p0=1@1,p1=0@1/[~p0,~p1],p2=1@1/[~p0,p2],p3=0@1/[p1,~p3]]
 Statistics: clauses=8, variables=4, units=6, decisions=2, conflicts=1
 
-*****************************************
-*       Tseitin K3,3 (satisfiable)      *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*           Tseitin K3,3 (sat)           *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1,p2],
@@ -4527,14 +2955,14 @@ Clauses to be checked for satisfiability:
 Variables: [p0,p1,p2,p3,p4,p5,p6,p7,p8]
 Decision assignment: p0=0@1
 Assignments so far:
-[p0=0@1/nil]
+[p0=0@1]
 Variables: [p1,p2,p3,p4,p5,p6,p7,p8]
 Decision assignment: p1=0@2
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil]
+[p0=0@1,p1=0@2]
 Propagate unit: p2 derived from: 4. [p0,p1,p2]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2]]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2]]
 Implication graph:
 [
 p0=0@1,
@@ -4548,10 +2976,10 @@ p1=0@2 --4.[p0,p1,p2]--> p2=1@2
 Variables: [p3,p4,p5,p6,p7,p8]
 Decision assignment: p3=0@3
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=0@3]
 Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=0@3,
  p6=0@3/[p0,p3,~p6]]
 Implication graph:
 [
@@ -4570,12 +2998,12 @@ p3=0@3 --15.[p0,p3,~p6]--> p6=0@3
 Variables: [p4,p5,p7,p8]
 Decision assignment: p4=0@4
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
- p4=0@4/nil,p6=0@3/[p0,p3,~p6]]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=0@3,
+ p4=0@4,p6=0@3/[p0,p3,~p6]]
 Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
- p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6]]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=0@3,
+ p4=0@4,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6]]
 Implication graph:
 [
 p0=0@1,
@@ -4596,8 +3024,8 @@ p4=0@4 --7.[p3,p4,~p5]--> p5=0@4
 ]
 Propagate unit: ~p7 derived from: 19. [p1,p4,~p7]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
- p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7]]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=0@3,
+ p4=0@4,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7]]
 Implication graph:
 [
 p0=0@1,
@@ -4621,8 +3049,8 @@ p4=0@4 --19.[p1,p4,~p7]--> p7=0@4
 ]
 Propagate unit: ~p8 derived from: 11. [p6,p7,~p8]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
- p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7],
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=0@3,
+ p4=0@4,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7],
  p8=0@4/[p6,p7,~p8]]
 Implication graph:
 [
@@ -4650,8 +3078,8 @@ p7=0@4 --11.[p6,p7,~p8]--> p8=0@4
 ]
 Conflict clause: 21. [~p2,p5,p8]
 Conflict caused by assignments:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/nil,
- p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7],
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=0@3,
+ p4=0@4,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=0@4/[p1,p4,~p7],
  p8=0@4/[p6,p7,~p8]]
 Implication graph:
 [
@@ -4707,10 +3135,10 @@ Skip decision assignment: p4=1@4
 Variables: [p3,p4,p5,p6,p7,p8]
 Decision assignment: p3=1@3
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=1@3]
 Propagate unit: p6 derived from: 14. [p0,~p3,p6]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=1@3,
  p6=1@3/[p0,~p3,p6]]
 Implication graph:
 [
@@ -4729,12 +3157,12 @@ p3=1@3 --14.[p0,~p3,p6]--> p6=1@3
 Variables: [p4,p5,p7,p8]
 Decision assignment: p4=0@4
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
- p4=0@4/nil,p6=1@3/[p0,~p3,p6]]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=1@3,
+ p4=0@4,p6=1@3/[p0,~p3,p6]]
 Propagate unit: p5 derived from: 5. [~p3,p4,p5]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
- p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6]]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=1@3,
+ p4=0@4,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6]]
 Implication graph:
 [
 p0=0@1,
@@ -4755,8 +3183,8 @@ p4=0@4 --5.[~p3,p4,p5]--> p5=1@4
 ]
 Propagate unit: ~p7 derived from: 19. [p1,p4,~p7]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
- p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7]]
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=1@3,
+ p4=0@4,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7]]
 Implication graph:
 [
 p0=0@1,
@@ -4780,8 +3208,8 @@ p4=0@4 --19.[p1,p4,~p7]--> p7=0@4
 ]
 Propagate unit: p8 derived from: 9. [~p6,p7,p8]
 Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
- p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7],
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=1@3,
+ p4=0@4,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7],
  p8=1@4/[~p6,p7,p8]]
 Implication graph:
 [
@@ -4809,8 +3237,8 @@ p7=0@4 --9.[~p6,p7,p8]--> p8=1@4
 ]
 Conflict clause: 24. [~p2,~p5,~p8]
 Conflict caused by assignments:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=1@3/nil,
- p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7],
+[p0=0@1,p1=0@2,p2=1@2/[p0,p1,p2],p3=1@3,
+ p4=0@4,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=0@4/[p1,p4,~p7],
  p8=1@4/[~p6,p7,p8]]
 Implication graph:
 [
@@ -4863,785 +3291,13 @@ UIP: one literal is assigned at level: 4
 Learned clause: [~p2,~p3,~p6,p1,p4]
 Non-chronological backtracking to level: 3
 Skip decision assignment: p4=1@4
-Variables: [p3,p4,p5,p6,p7,p8]
-Decision assignment: p4=0@3
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p4=0@3/nil]
-Propagate unit: ~p7 derived from: 19. [p1,p4,~p7]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p4=0@3/nil,
- p7=0@3/[p1,p4,~p7]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p4=0@3,
-p7=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --19.[p1,p4,~p7]--> p7=0@3,
-p4=0@3 --19.[p1,p4,~p7]--> p7=0@3
-]
-Variables: [p3,p5,p6,p8]
-Decision assignment: p3=0@4
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=0@3/nil,p7=0@3/[p1,p4,~p7]]
-Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=0@3/nil,p5=0@4/[p3,p4,~p5],p7=0@3/[p1,p4,~p7]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=0@3,
-p5=0@4,
-p7=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --19.[p1,p4,~p7]--> p7=0@3,
-p3=0@4 --7.[p3,p4,~p5]--> p5=0@4,
-p4=0@3 --7.[p3,p4,~p5]--> p5=0@4,
-p4=0@3 --19.[p1,p4,~p7]--> p7=0@3
-]
-Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=0@3/nil,p5=0@4/[p3,p4,~p5],p6=0@4/[p0,p3,~p6],p7=0@3/[p1,p4,~p7]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=0@3,
-p5=0@4,
-p6=0@4,
-p7=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --15.[p0,p3,~p6]--> p6=0@4,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --19.[p1,p4,~p7]--> p7=0@3,
-p3=0@4 --7.[p3,p4,~p5]--> p5=0@4,
-p3=0@4 --15.[p0,p3,~p6]--> p6=0@4,
-p4=0@3 --7.[p3,p4,~p5]--> p5=0@4,
-p4=0@3 --19.[p1,p4,~p7]--> p7=0@3
-]
-Conflict clause: 26. [~p2,p3,p6,p1,p4]
-Conflict caused by assignments:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=0@3/nil,p5=0@4/[p3,p4,~p5],p6=0@4/[p0,p3,~p6],p7=0@3/[p1,p4,~p7]]
-Implication graph:
-[
-kappa,
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=0@3,
-p5=0@4,
-p6=0@4,
-p7=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --15.[p0,p3,~p6]--> p6=0@4,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --19.[p1,p4,~p7]--> p7=0@3,
-p1=0@2 --26.[~p2,p3,p6,p1,p4]--> kappa,
-p2=1@2 --26.[~p2,p3,p6,p1,p4]--> kappa,
-p3=0@4 --7.[p3,p4,~p5]--> p5=0@4,
-p3=0@4 --15.[p0,p3,~p6]--> p6=0@4,
-p3=0@4 --26.[~p2,p3,p6,p1,p4]--> kappa,
-p4=0@3 --7.[p3,p4,~p5]--> p5=0@4,
-p4=0@3 --19.[p1,p4,~p7]--> p7=0@3,
-p4=0@3 --26.[~p2,p3,p6,p1,p4]--> kappa,
-p6=0@4 --26.[~p2,p3,p6,p1,p4]--> kappa
-]
-Literal: p3 assigned at level: 4
-Literal: p6 assigned at level: 4
-Not a UIP: two literals are assigned at level: 4
-Clause: [~p2,p3,p6,p1,p4] unsatisfied
-Complement of: p6 assigned true in the unit clause: [p0,p3,~p6]
-Resolvent of the two clauses: [~p2,p1,p4,p0,p3] is also unsatisfiable
-Literal: p3 assigned at level: 4
-UIP: one literal is assigned at level: 4
-Learned clause: [~p2,p1,p4,p0,p3]
-Non-chronological backtracking to level: 3
-Skip decision assignment: p3=1@4
-Variables: [p3,p4,p5,p6,p7,p8]
-Decision assignment: p4=1@3
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p4=1@3/nil]
-Propagate unit: p7 derived from: 18. [p1,~p4,p7]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p4=1@3/nil,
- p7=1@3/[p1,~p4,p7]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p4=1@3,
-p7=1@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --18.[p1,~p4,p7]--> p7=1@3,
-p4=1@3 --18.[p1,~p4,p7]--> p7=1@3
-]
-Variables: [p3,p5,p6,p8]
-Decision assignment: p3=0@4
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@3/nil,p7=1@3/[p1,~p4,p7]]
-Propagate unit: p5 derived from: 6. [p3,~p4,p5]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@3/nil,p5=1@4/[p3,~p4,p5],p7=1@3/[p1,~p4,p7]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=1@3,
-p5=1@4,
-p7=1@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --18.[p1,~p4,p7]--> p7=1@3,
-p3=0@4 --6.[p3,~p4,p5]--> p5=1@4,
-p4=1@3 --6.[p3,~p4,p5]--> p5=1@4,
-p4=1@3 --18.[p1,~p4,p7]--> p7=1@3
-]
-Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@3/nil,p5=1@4/[p3,~p4,p5],p6=0@4/[p0,p3,~p6],p7=1@3/[p1,~p4,p7]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=1@3,
-p5=1@4,
-p6=0@4,
-p7=1@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --15.[p0,p3,~p6]--> p6=0@4,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --18.[p1,~p4,p7]--> p7=1@3,
-p3=0@4 --6.[p3,~p4,p5]--> p5=1@4,
-p3=0@4 --15.[p0,p3,~p6]--> p6=0@4,
-p4=1@3 --6.[p3,~p4,p5]--> p5=1@4,
-p4=1@3 --18.[p1,~p4,p7]--> p7=1@3
-]
-Propagate unit: p8 derived from: 10. [p6,~p7,p8]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@3/nil,p5=1@4/[p3,~p4,p5],p6=0@4/[p0,p3,~p6],p7=1@3/[p1,~p4,p7],
- p8=1@4/[p6,~p7,p8]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=1@3,
-p5=1@4,
-p6=0@4,
-p7=1@3,
-p8=1@4
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --15.[p0,p3,~p6]--> p6=0@4,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --18.[p1,~p4,p7]--> p7=1@3,
-p3=0@4 --6.[p3,~p4,p5]--> p5=1@4,
-p3=0@4 --15.[p0,p3,~p6]--> p6=0@4,
-p4=1@3 --6.[p3,~p4,p5]--> p5=1@4,
-p4=1@3 --18.[p1,~p4,p7]--> p7=1@3,
-p6=0@4 --10.[p6,~p7,p8]--> p8=1@4,
-p7=1@3 --10.[p6,~p7,p8]--> p8=1@4
-]
-Conflict clause: 24. [~p2,~p5,~p8]
-Conflict caused by assignments:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@3/nil,p5=1@4/[p3,~p4,p5],p6=0@4/[p0,p3,~p6],p7=1@3/[p1,~p4,p7],
- p8=1@4/[p6,~p7,p8]]
-Implication graph:
-[
-kappa,
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=1@3,
-p5=1@4,
-p6=0@4,
-p7=1@3,
-p8=1@4
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --15.[p0,p3,~p6]--> p6=0@4,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --18.[p1,~p4,p7]--> p7=1@3,
-p2=1@2 --24.[~p2,~p5,~p8]--> kappa,
-p3=0@4 --6.[p3,~p4,p5]--> p5=1@4,
-p3=0@4 --15.[p0,p3,~p6]--> p6=0@4,
-p4=1@3 --6.[p3,~p4,p5]--> p5=1@4,
-p4=1@3 --18.[p1,~p4,p7]--> p7=1@3,
-p5=1@4 --24.[~p2,~p5,~p8]--> kappa,
-p6=0@4 --10.[p6,~p7,p8]--> p8=1@4,
-p7=1@3 --10.[p6,~p7,p8]--> p8=1@4,
-p8=1@4 --24.[~p2,~p5,~p8]--> kappa
-]
-Literal: ~p5 assigned at level: 4
-Literal: ~p8 assigned at level: 4
-Not a UIP: two literals are assigned at level: 4
-Clause: [~p2,~p5,~p8] unsatisfied
-Complement of: ~p5 assigned true in the unit clause: [p3,~p4,p5]
-Resolvent of the two clauses: [~p2,~p8,p3,~p4] is also unsatisfiable
-Literal: ~p8 assigned at level: 4
-Literal: p3 assigned at level: 4
-Not a UIP: two literals are assigned at level: 4
-Clause: [~p2,~p8,p3,~p4] unsatisfied
-Complement of: ~p8 assigned true in the unit clause: [p6,~p7,p8]
-Resolvent of the two clauses: [~p2,p3,~p4,p6,~p7] is also unsatisfiable
-Literal: p3 assigned at level: 4
-Literal: p6 assigned at level: 4
-Not a UIP: two literals are assigned at level: 4
-Clause: [~p2,p3,~p4,p6,~p7] unsatisfied
-Complement of: p6 assigned true in the unit clause: [p0,p3,~p6]
-Resolvent of the two clauses: [~p2,~p4,~p7,p0,p3] is also unsatisfiable
-Literal: p3 assigned at level: 4
-UIP: one literal is assigned at level: 4
-Learned clause: [~p2,~p4,~p7,p0,p3]
-Non-chronological backtracking to level: 3
-Skip decision assignment: p3=1@4
-Variables: [p3,p4,p5,p6,p7,p8]
-Decision assignment: p5=0@3
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p5=0@3/nil]
-Propagate unit: p8 derived from: 21. [~p2,p5,p8]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p5=0@3/nil,
- p8=1@3/[~p2,p5,p8]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p5=0@3,
-p8=1@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p2=1@2 --21.[~p2,p5,p8]--> p8=1@3,
-p5=0@3 --21.[~p2,p5,p8]--> p8=1@3
-]
-Variables: [p3,p4,p6,p7]
-Decision assignment: p3=0@4
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p5=0@3/nil,p8=1@3/[~p2,p5,p8]]
-Propagate unit: ~p4 derived from: 6. [p3,~p4,p5]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=0@4/[p3,~p4,p5],p5=0@3/nil,p8=1@3/[~p2,p5,p8]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=0@4,
-p5=0@3,
-p8=1@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p2=1@2 --21.[~p2,p5,p8]--> p8=1@3,
-p3=0@4 --6.[p3,~p4,p5]--> p4=0@4,
-p5=0@3 --6.[p3,~p4,p5]--> p4=0@4,
-p5=0@3 --21.[~p2,p5,p8]--> p8=1@3
-]
-Conflict clause: 26. [~p2,p1,p4,p0,p3]
-Conflict caused by assignments:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=0@4/[p3,~p4,p5],p5=0@3/nil,p8=1@3/[~p2,p5,p8]]
-Implication graph:
-[
-kappa,
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=0@4,
-p5=0@3,
-p8=1@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --26.[~p2,p1,p4,p0,p3]--> kappa,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --26.[~p2,p1,p4,p0,p3]--> kappa,
-p2=1@2 --21.[~p2,p5,p8]--> p8=1@3,
-p2=1@2 --26.[~p2,p1,p4,p0,p3]--> kappa,
-p3=0@4 --6.[p3,~p4,p5]--> p4=0@4,
-p3=0@4 --26.[~p2,p1,p4,p0,p3]--> kappa,
-p4=0@4 --26.[~p2,p1,p4,p0,p3]--> kappa,
-p5=0@3 --6.[p3,~p4,p5]--> p4=0@4,
-p5=0@3 --21.[~p2,p5,p8]--> p8=1@3
-]
-Literal: p4 assigned at level: 4
-Literal: p3 assigned at level: 4
-Not a UIP: two literals are assigned at level: 4
-Clause: [~p2,p1,p4,p0,p3] unsatisfied
-Complement of: p4 assigned true in the unit clause: [p3,~p4,p5]
-Resolvent of the two clauses: [~p2,p1,p0,p3,p5] is also unsatisfiable
-Literal: p3 assigned at level: 4
-UIP: one literal is assigned at level: 4
-Learned clause: [~p2,p1,p0,p3,p5]
-Non-chronological backtracking to level: 3
-Skip decision assignment: p3=1@4
-Variables: [p3,p4,p5,p6,p7,p8]
-Decision assignment: p5=1@3
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p5=1@3/nil]
-Propagate unit: ~p8 derived from: 24. [~p2,~p5,~p8]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p5=1@3/nil,
- p8=0@3/[~p2,~p5,~p8]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p5=1@3,
-p8=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p2=1@2 --24.[~p2,~p5,~p8]--> p8=0@3,
-p5=1@3 --24.[~p2,~p5,~p8]--> p8=0@3
-]
-Variables: [p3,p4,p6,p7]
-Decision assignment: p3=0@4
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p5=1@3/nil,p8=0@3/[~p2,~p5,~p8]]
-Propagate unit: p4 derived from: 7. [p3,p4,~p5]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@4/[p3,p4,~p5],p5=1@3/nil,p8=0@3/[~p2,~p5,~p8]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=1@4,
-p5=1@3,
-p8=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p2=1@2 --24.[~p2,~p5,~p8]--> p8=0@3,
-p3=0@4 --7.[p3,p4,~p5]--> p4=1@4,
-p5=1@3 --7.[p3,p4,~p5]--> p4=1@4,
-p5=1@3 --24.[~p2,~p5,~p8]--> p8=0@3
-]
-Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@4/[p3,p4,~p5],p5=1@3/nil,p6=0@4/[p0,p3,~p6],p8=0@3/[~p2,~p5,~p8]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=1@4,
-p5=1@3,
-p6=0@4,
-p8=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --15.[p0,p3,~p6]--> p6=0@4,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p2=1@2 --24.[~p2,~p5,~p8]--> p8=0@3,
-p3=0@4 --7.[p3,p4,~p5]--> p4=1@4,
-p3=0@4 --15.[p0,p3,~p6]--> p6=0@4,
-p5=1@3 --7.[p3,p4,~p5]--> p4=1@4,
-p5=1@3 --24.[~p2,~p5,~p8]--> p8=0@3
-]
-Propagate unit: ~p7 derived from: 10. [p6,~p7,p8]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@4/[p3,p4,~p5],p5=1@3/nil,p6=0@4/[p0,p3,~p6],p7=0@4/[p6,~p7,p8],
- p8=0@3/[~p2,~p5,~p8]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=1@4,
-p5=1@3,
-p6=0@4,
-p7=0@4,
-p8=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --15.[p0,p3,~p6]--> p6=0@4,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p2=1@2 --24.[~p2,~p5,~p8]--> p8=0@3,
-p3=0@4 --7.[p3,p4,~p5]--> p4=1@4,
-p3=0@4 --15.[p0,p3,~p6]--> p6=0@4,
-p5=1@3 --7.[p3,p4,~p5]--> p4=1@4,
-p5=1@3 --24.[~p2,~p5,~p8]--> p8=0@3,
-p6=0@4 --10.[p6,~p7,p8]--> p7=0@4,
-p8=0@3 --10.[p6,~p7,p8]--> p7=0@4
-]
-Conflict clause: 18. [p1,~p4,p7]
-Conflict caused by assignments:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@4/nil,
- p4=1@4/[p3,p4,~p5],p5=1@3/nil,p6=0@4/[p0,p3,~p6],p7=0@4/[p6,~p7,p8],
- p8=0@3/[~p2,~p5,~p8]]
-Implication graph:
-[
-kappa,
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@4,
-p4=1@4,
-p5=1@3,
-p6=0@4,
-p7=0@4,
-p8=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --15.[p0,p3,~p6]--> p6=0@4,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --18.[p1,~p4,p7]--> kappa,
-p2=1@2 --24.[~p2,~p5,~p8]--> p8=0@3,
-p3=0@4 --7.[p3,p4,~p5]--> p4=1@4,
-p3=0@4 --15.[p0,p3,~p6]--> p6=0@4,
-p4=1@4 --18.[p1,~p4,p7]--> kappa,
-p5=1@3 --7.[p3,p4,~p5]--> p4=1@4,
-p5=1@3 --24.[~p2,~p5,~p8]--> p8=0@3,
-p6=0@4 --10.[p6,~p7,p8]--> p7=0@4,
-p7=0@4 --18.[p1,~p4,p7]--> kappa,
-p8=0@3 --10.[p6,~p7,p8]--> p7=0@4
-]
-Literal: ~p4 assigned at level: 4
-Literal: p7 assigned at level: 4
-Not a UIP: two literals are assigned at level: 4
-Clause: [p1,~p4,p7] unsatisfied
-Complement of: ~p4 assigned true in the unit clause: [p3,p4,~p5]
-Resolvent of the two clauses: [p1,p7,p3,~p5] is also unsatisfiable
-Literal: p7 assigned at level: 4
-Literal: p3 assigned at level: 4
-Not a UIP: two literals are assigned at level: 4
-Clause: [p1,p7,p3,~p5] unsatisfied
-Complement of: p7 assigned true in the unit clause: [p6,~p7,p8]
-Resolvent of the two clauses: [p1,p3,~p5,p6,p8] is also unsatisfiable
-Literal: p3 assigned at level: 4
-Literal: p6 assigned at level: 4
-Not a UIP: two literals are assigned at level: 4
-Clause: [p1,p3,~p5,p6,p8] unsatisfied
-Complement of: p6 assigned true in the unit clause: [p0,p3,~p6]
-Resolvent of the two clauses: [p1,~p5,p8,p0,p3] is also unsatisfiable
-Literal: p3 assigned at level: 4
-UIP: one literal is assigned at level: 4
-Learned clause: [p1,~p5,p8,p0,p3]
-Non-chronological backtracking to level: 3
-Skip decision assignment: p3=1@4
-Variables: [p3,p4,p5,p6,p7,p8]
-Decision assignment: p6=0@3
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p6=0@3/nil]
-Propagate unit: ~p3 derived from: 14. [p0,~p3,p6]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
- p6=0@3/nil]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@3,
-p6=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --14.[p0,~p3,p6]--> p3=0@3,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p6=0@3 --14.[p0,~p3,p6]--> p3=0@3
-]
-Propagate unit: p5 derived from: 26. [~p2,p1,p0,p3,p5]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
- p5=1@3/[~p2,p1,p0,p3,p5],p6=0@3/nil]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@3,
-p5=1@3,
-p6=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --14.[p0,~p3,p6]--> p3=0@3,
-p0=0@1 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p2=1@2 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p3=0@3 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p6=0@3 --14.[p0,~p3,p6]--> p3=0@3
-]
-Propagate unit: p4 derived from: 7. [p3,p4,~p5]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
- p4=1@3/[p3,p4,~p5],p5=1@3/[~p2,p1,p0,p3,p5],p6=0@3/nil]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@3,
-p4=1@3,
-p5=1@3,
-p6=0@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --14.[p0,~p3,p6]--> p3=0@3,
-p0=0@1 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p2=1@2 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p3=0@3 --7.[p3,p4,~p5]--> p4=1@3,
-p3=0@3 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p5=1@3 --7.[p3,p4,~p5]--> p4=1@3,
-p6=0@3 --14.[p0,~p3,p6]--> p3=0@3
-]
-Propagate unit: p7 derived from: 18. [p1,~p4,p7]
-Assignments so far:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
- p4=1@3/[p3,p4,~p5],p5=1@3/[~p2,p1,p0,p3,p5],p6=0@3/nil,p7=1@3/[p1,~p4,p7]]
-Implication graph:
-[
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@3,
-p4=1@3,
-p5=1@3,
-p6=0@3,
-p7=1@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --14.[p0,~p3,p6]--> p3=0@3,
-p0=0@1 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --18.[p1,~p4,p7]--> p7=1@3,
-p1=0@2 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p2=1@2 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p3=0@3 --7.[p3,p4,~p5]--> p4=1@3,
-p3=0@3 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p4=1@3 --18.[p1,~p4,p7]--> p7=1@3,
-p5=1@3 --7.[p3,p4,~p5]--> p4=1@3,
-p6=0@3 --14.[p0,~p3,p6]--> p3=0@3
-]
-Conflict clause: 27. [~p2,~p4,~p7,p0,p3]
-Conflict caused by assignments:
-[p0=0@1/nil,p1=0@2/nil,p2=1@2/[p0,p1,p2],p3=0@3/[p0,~p3,p6],
- p4=1@3/[p3,p4,~p5],p5=1@3/[~p2,p1,p0,p3,p5],p6=0@3/nil,p7=1@3/[p1,~p4,p7]]
-Implication graph:
-[
-kappa,
-p0=0@1,
-p1=0@2,
-p2=1@2,
-p3=0@3,
-p4=1@3,
-p5=1@3,
-p6=0@3,
-p7=1@3
-]
-[
-p0=0@1 --4.[p0,p1,p2]--> p2=1@2,
-p0=0@1 --14.[p0,~p3,p6]--> p3=0@3,
-p0=0@1 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p0=0@1 --27.[~p2,~p4,~p7,p0,p3]--> kappa,
-p1=0@2 --4.[p0,p1,p2]--> p2=1@2,
-p1=0@2 --18.[p1,~p4,p7]--> p7=1@3,
-p1=0@2 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p2=1@2 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p2=1@2 --27.[~p2,~p4,~p7,p0,p3]--> kappa,
-p3=0@3 --7.[p3,p4,~p5]--> p4=1@3,
-p3=0@3 --26.[~p2,p1,p0,p3,p5]--> p5=1@3,
-p3=0@3 --27.[~p2,~p4,~p7,p0,p3]--> kappa,
-p4=1@3 --18.[p1,~p4,p7]--> p7=1@3,
-p4=1@3 --27.[~p2,~p4,~p7,p0,p3]--> kappa,
-p5=1@3 --7.[p3,p4,~p5]--> p4=1@3,
-p6=0@3 --14.[p0,~p3,p6]--> p3=0@3,
-p7=1@3 --27.[~p2,~p4,~p7,p0,p3]--> kappa
-]
-Paths from the decision node at this level to kappa:
-p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> p4=1@3/[p3,p4,~p5] --> p7=1@3/[p1,~p4,p7] --> kappa
-p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> p4=1@3/[p3,p4,~p5] --> kappa
-p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> p5=1@3/[~p2,p1,p0,p3,p5] --> p4=1@3/[p3,p4,~p5] --> p7=1@3/[p1,~p4,p7] --> kappa
-p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> p5=1@3/[~p2,p1,p0,p3,p5] --> p4=1@3/[p3,p4,~p5] --> kappa
-p6=0@3/nil --> p3=0@3/[p0,~p3,p6] --> kappa
-A dominator is: p3=0@3/[p0,~p3,p6]
-Decisions at a lower level: [assign(p0,0,1,yes),assign(p1,0,2,yes)]
-Decisions not dominated: [assign(p1,0,2,yes)]
-Learned clause from dominator: [p1,p3]
-Literal: ~p4 assigned at level: 3
-Literal: ~p7 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,~p4,~p7,p0,p3] unsatisfied
-Complement of: ~p4 assigned true in the unit clause: [p3,p4,~p5]
-Resolvent of the two clauses: [~p2,~p7,p0,p3,~p5] is also unsatisfiable
-Literal: ~p7 assigned at level: 3
-Literal: p3 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,~p7,p0,p3,~p5] unsatisfied
-Complement of: ~p7 assigned true in the unit clause: [p1,~p4,p7]
-Resolvent of the two clauses: [~p2,p0,p3,~p5,p1,~p4] is also unsatisfiable
-Literal: p3 assigned at level: 3
-Literal: ~p5 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,p0,p3,~p5,p1,~p4] unsatisfied
-Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
-Resolvent of the two clauses: [~p2,~p5,p1,~p4,p0,p6] is also unsatisfiable
-Literal: ~p5 assigned at level: 3
-Literal: ~p4 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,~p5,p1,~p4,p0,p6] unsatisfied
-Complement of: ~p5 assigned true in the unit clause: [~p2,p1,p0,p3,p5]
-Resolvent of the two clauses: [~p4,p6,~p2,p1,p0,p3] is also unsatisfiable
-Literal: ~p4 assigned at level: 3
-Literal: p6 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p4,p6,~p2,p1,p0,p3] unsatisfied
-Complement of: ~p4 assigned true in the unit clause: [p3,p4,~p5]
-Resolvent of the two clauses: [p6,~p2,p1,p0,p3,~p5] is also unsatisfiable
-Literal: p6 assigned at level: 3
-Literal: p3 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [p6,~p2,p1,p0,p3,~p5] unsatisfied
-Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
-Resolvent of the two clauses: [~p2,p1,~p5,p0,p6] is also unsatisfiable
-Literal: ~p5 assigned at level: 3
-Literal: p6 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,p1,~p5,p0,p6] unsatisfied
-Complement of: ~p5 assigned true in the unit clause: [~p2,p1,p0,p3,p5]
-Resolvent of the two clauses: [p6,~p2,p1,p0,p3] is also unsatisfiable
-Literal: p6 assigned at level: 3
-Literal: p3 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [p6,~p2,p1,p0,p3] unsatisfied
-Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
-Resolvent of the two clauses: [~p2,p1,p0,p6] is also unsatisfiable
-Literal: p6 assigned at level: 3
-UIP: one literal is assigned at level: 3
-Learned clause: [~p2,p1,p0,p6]
-Non-chronological backtracking to level: 2
-Literal: ~p4 assigned at level: 3
-Literal: ~p7 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,~p4,~p7,p0,p3] unsatisfied
-Complement of: ~p4 assigned true in the unit clause: [p3,p4,~p5]
-Resolvent of the two clauses: [~p2,~p7,p0,p3,~p5] is also unsatisfiable
-Literal: ~p7 assigned at level: 3
-Literal: p3 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,~p7,p0,p3,~p5] unsatisfied
-Complement of: ~p7 assigned true in the unit clause: [p1,~p4,p7]
-Resolvent of the two clauses: [~p2,p0,p3,~p5,p1,~p4] is also unsatisfiable
-Literal: p3 assigned at level: 3
-Literal: ~p5 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,p0,p3,~p5,p1,~p4] unsatisfied
-Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
-Resolvent of the two clauses: [~p2,~p5,p1,~p4,p0,p6] is also unsatisfiable
-Literal: ~p5 assigned at level: 3
-Literal: ~p4 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,~p5,p1,~p4,p0,p6] unsatisfied
-Complement of: ~p5 assigned true in the unit clause: [~p2,p1,p0,p3,p5]
-Resolvent of the two clauses: [~p4,p6,~p2,p1,p0,p3] is also unsatisfiable
-Literal: ~p4 assigned at level: 3
-Literal: p6 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p4,p6,~p2,p1,p0,p3] unsatisfied
-Complement of: ~p4 assigned true in the unit clause: [p3,p4,~p5]
-Resolvent of the two clauses: [p6,~p2,p1,p0,p3,~p5] is also unsatisfiable
-Literal: p6 assigned at level: 3
-Literal: p3 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [p6,~p2,p1,p0,p3,~p5] unsatisfied
-Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
-Resolvent of the two clauses: [~p2,p1,~p5,p0,p6] is also unsatisfiable
-Literal: ~p5 assigned at level: 3
-Literal: p6 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [~p2,p1,~p5,p0,p6] unsatisfied
-Complement of: ~p5 assigned true in the unit clause: [~p2,p1,p0,p3,p5]
-Resolvent of the two clauses: [p6,~p2,p1,p0,p3] is also unsatisfiable
-Literal: p6 assigned at level: 3
-Literal: p3 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [p6,~p2,p1,p0,p3] unsatisfied
-Complement of: p3 assigned true in the unit clause: [p0,~p3,p6]
-Resolvent of the two clauses: [~p2,p1,p0,p6] is also unsatisfiable
-Literal: p6 assigned at level: 3
-UIP: one literal is assigned at level: 3
-Learned clause: [~p2,p1,p0,p6]
-Non-chronological backtracking to level: 2
-Skip decision assignment: p6=1@3
 Variables: [p1,p2,p3,p4,p5,p6,p7,p8]
 Decision assignment: p1=1@2
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil]
+[p0=0@1,p1=1@2]
 Propagate unit: ~p2 derived from: 3. [p0,~p1,~p2]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2]]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2]]
 Implication graph:
 [
 p0=0@1,
@@ -5655,10 +3311,10 @@ p1=1@2 --3.[p0,~p1,~p2]--> p2=0@2
 Variables: [p3,p4,p5,p6,p7,p8]
 Decision assignment: p3=0@3
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=0@3]
 Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=0@3,
  p6=0@3/[p0,p3,~p6]]
 Implication graph:
 [
@@ -5677,12 +3333,12 @@ p3=0@3 --15.[p0,p3,~p6]--> p6=0@3
 Variables: [p4,p5,p7,p8]
 Decision assignment: p4=0@4
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
- p4=0@4/nil,p6=0@3/[p0,p3,~p6]]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=0@3,
+ p4=0@4,p6=0@3/[p0,p3,~p6]]
 Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
- p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6]]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=0@3,
+ p4=0@4,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6]]
 Implication graph:
 [
 p0=0@1,
@@ -5703,8 +3359,8 @@ p4=0@4 --7.[p3,p4,~p5]--> p5=0@4
 ]
 Propagate unit: p7 derived from: 17. [~p1,p4,p7]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
- p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7]]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=0@3,
+ p4=0@4,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7]]
 Implication graph:
 [
 p0=0@1,
@@ -5728,8 +3384,8 @@ p4=0@4 --17.[~p1,p4,p7]--> p7=1@4
 ]
 Propagate unit: p8 derived from: 10. [p6,~p7,p8]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
- p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7],
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=0@3,
+ p4=0@4,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7],
  p8=1@4/[p6,~p7,p8]]
 Implication graph:
 [
@@ -5757,8 +3413,8 @@ p7=1@4 --10.[p6,~p7,p8]--> p8=1@4
 ]
 Conflict clause: 23. [p2,p5,~p8]
 Conflict caused by assignments:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=0@3/nil,
- p4=0@4/nil,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7],
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=0@3,
+ p4=0@4,p5=0@4/[p3,p4,~p5],p6=0@3/[p0,p3,~p6],p7=1@4/[~p1,p4,p7],
  p8=1@4/[p6,~p7,p8]]
 Implication graph:
 [
@@ -5814,10 +3470,10 @@ Skip decision assignment: p4=1@4
 Variables: [p3,p4,p5,p6,p7,p8]
 Decision assignment: p3=1@3
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=1@3]
 Propagate unit: p6 derived from: 14. [p0,~p3,p6]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=1@3,
  p6=1@3/[p0,~p3,p6]]
 Implication graph:
 [
@@ -5836,12 +3492,12 @@ p3=1@3 --14.[p0,~p3,p6]--> p6=1@3
 Variables: [p4,p5,p7,p8]
 Decision assignment: p4=0@4
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
- p4=0@4/nil,p6=1@3/[p0,~p3,p6]]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=1@3,
+ p4=0@4,p6=1@3/[p0,~p3,p6]]
 Propagate unit: p5 derived from: 5. [~p3,p4,p5]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
- p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6]]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=1@3,
+ p4=0@4,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6]]
 Implication graph:
 [
 p0=0@1,
@@ -5862,8 +3518,8 @@ p4=0@4 --5.[~p3,p4,p5]--> p5=1@4
 ]
 Propagate unit: p7 derived from: 17. [~p1,p4,p7]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
- p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=1@4/[~p1,p4,p7]]
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=1@3,
+ p4=0@4,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=1@4/[~p1,p4,p7]]
 Implication graph:
 [
 p0=0@1,
@@ -5887,8 +3543,8 @@ p4=0@4 --17.[~p1,p4,p7]--> p7=1@4
 ]
 Propagate unit: ~p8 derived from: 12. [~p6,~p7,~p8]
 Assignments so far:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
- p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=1@4/[~p1,p4,p7],
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=1@3,
+ p4=0@4,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=1@4/[~p1,p4,p7],
  p8=0@4/[~p6,~p7,~p8]]
 Implication graph:
 [
@@ -5915,15 +3571,15 @@ p6=1@3 --12.[~p6,~p7,~p8]--> p8=0@4,
 p7=1@4 --12.[~p6,~p7,~p8]--> p8=0@4
 ]
 Satisfying assignments:
-[p0=0@1/nil,p1=1@2/nil,p2=0@2/[p0,~p1,~p2],p3=1@3/nil,
- p4=0@4/nil,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=1@4/[~p1,p4,p7],
+[p0=0@1,p1=1@2,p2=0@2/[p0,~p1,~p2],p3=1@3,
+ p4=0@4,p5=1@4/[~p3,p4,p5],p6=1@3/[p0,~p3,p6],p7=1@4/[~p1,p4,p7],
  p8=0@4/[~p6,~p7,~p8]]
-Statistics: clauses=24, variables=9, units=35, decisions=20, conflicts=8
+Statistics: clauses=24, variables=9, units=18, decisions=11, conflicts=3
 
-*****************************************
-*           Grid pebbling 2             *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*            Grid pebbling 2             *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p1],
@@ -5959,10 +3615,10 @@ p2=0@0
 Variables: [q1,q2,r1,r2]
 Decision assignment: q1=0@1
 Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/nil]
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1]
 Propagate unit: q2 derived from: 7. [q1,q2]
 Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/nil,q2=1@1/[q1,q2]]
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1,q2=1@1/[q1,q2]]
 Implication graph:
 [
 p1=0@0,
@@ -5975,7 +3631,7 @@ q1=0@1 --7.[q1,q2]--> q2=1@1
 ]
 Propagate unit: ~r1 derived from: 5. [~q2,~r1,p1,p2]
 Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/nil,q2=1@1/[q1,q2],
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1,q2=1@1/[q1,q2],
  r1=0@1/[~q2,~r1,p1,p2]]
 Implication graph:
 [
@@ -5993,7 +3649,7 @@ q2=1@1 --5.[~q2,~r1,p1,p2]--> r1=0@1
 ]
 Propagate unit: ~r2 derived from: 6. [~q2,~r2,p1,p2]
 Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/nil,q2=1@1/[q1,q2],
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1,q2=1@1/[q1,q2],
  r1=0@1/[~q2,~r1,p1,p2],r2=0@1/[~q2,~r2,p1,p2]]
 Implication graph:
 [
@@ -6015,7 +3671,7 @@ q2=1@1 --6.[~q2,~r2,p1,p2]--> r2=0@1
 ]
 Conflict clause: 8. [r1,r2]
 Conflict caused by assignments:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/nil,q2=1@1/[q1,q2],
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1,q2=1@1/[q1,q2],
  r1=0@1/[~q2,~r1,p1,p2],r2=0@1/[~q2,~r2,p1,p2]]
 Implication graph:
 [
@@ -6039,8 +3695,8 @@ r1=0@1 --8.[r1,r2]--> kappa,
 r2=0@1 --8.[r1,r2]--> kappa
 ]
 Paths from the decision node at this level to kappa:
-q1=0@1/nil --> q2=1@1/[q1,q2] --> r1=0@1/[~q2,~r1,p1,p2] --> kappa
-q1=0@1/nil --> q2=1@1/[q1,q2] --> r2=0@1/[~q2,~r2,p1,p2] --> kappa
+q1=0@1 --> q2=1@1/[q1,q2] --> r1=0@1/[~q2,~r1,p1,p2] --> kappa
+q1=0@1 --> q2=1@1/[q1,q2] --> r2=0@1/[~q2,~r2,p1,p2] --> kappa
 A dominator is: q2=1@1/[q1,q2]
 Decisions at a lower level: []
 Decisions not dominated: []
@@ -6080,10 +3736,10 @@ Non-chronological backtracking to level: 0
 Variables: [q1,q2,r1,r2]
 Decision assignment: q1=1@1
 Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1/nil]
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1]
 Propagate unit: ~r1 derived from: 3. [~q1,~r1,p1,p2]
 Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1/nil,r1=0@1/[~q1,~r1,p1,p2]]
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1,r1=0@1/[~q1,~r1,p1,p2]]
 Implication graph:
 [
 p1=0@0,
@@ -6098,7 +3754,7 @@ q1=1@1 --3.[~q1,~r1,p1,p2]--> r1=0@1
 ]
 Propagate unit: ~r2 derived from: 4. [~q1,~r2,p1,p2]
 Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1/nil,r1=0@1/[~q1,~r1,p1,p2],
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1,r1=0@1/[~q1,~r1,p1,p2],
  r2=0@1/[~q1,~r2,p1,p2]]
 Implication graph:
 [
@@ -6118,7 +3774,7 @@ q1=1@1 --4.[~q1,~r2,p1,p2]--> r2=0@1
 ]
 Conflict clause: 8. [r1,r2]
 Conflict caused by assignments:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1/nil,r1=0@1/[~q1,~r1,p1,p2],
+[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1,r1=0@1/[~q1,~r1,p1,p2],
  r2=0@1/[~q1,~r2,p1,p2]]
 Implication graph:
 [
@@ -6155,367 +3811,26 @@ Literal: ~q1 assigned at level: 1
 UIP: one literal is assigned at level: 1
 Learned clause: [~q1,p1,p2]
 Non-chronological backtracking to level: 0
-Variables: [q1,q2,r1,r2]
-Decision assignment: q2=0@1
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q2=0@1/nil]
-Propagate unit: q1 derived from: 7. [q1,q2]
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1/[q1,q2],q2=0@1/nil]
-Implication graph:
-[
-p1=0@0,
-p2=0@0,
-q1=1@1,
-q2=0@1
-]
-[
-q2=0@1 --7.[q1,q2]--> q1=1@1
-]
-Conflict clause: 9. [~q1,p1,p2]
-Conflict caused by assignments:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=1@1/[q1,q2],q2=0@1/nil]
-Implication graph:
-[
-kappa,
-p1=0@0,
-p2=0@0,
-q1=1@1,
-q2=0@1
-]
-[
-p1=0@0 --9.[~q1,p1,p2]--> kappa,
-p2=0@0 --9.[~q1,p1,p2]--> kappa,
-q1=1@1 --9.[~q1,p1,p2]--> kappa,
-q2=0@1 --7.[q1,q2]--> q1=1@1
-]
-Paths from the decision node at this level to kappa:
-q2=0@1/nil --> q1=1@1/[q1,q2] --> kappa
-A dominator is: q1=1@1/[q1,q2]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~q1]
-Literal: ~q1 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~q1,p1,p2]
-Non-chronological backtracking to level: 0
-Literal: ~q1 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~q1,p1,p2]
-Non-chronological backtracking to level: 0
-Variables: [q1,q2,r1,r2]
-Decision assignment: q2=1@1
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q2=1@1/nil]
-Conflict clause: 10. [~q2,p1,p2]
-Conflict caused by assignments:
-[p1=0@0/[~p1],p2=0@0/[~p2],q2=1@1/nil]
-Implication graph:
-[
-kappa,
-p1=0@0,
-p2=0@0,
-q2=1@1
-]
-[
-p1=0@0 --10.[~q2,p1,p2]--> kappa,
-p2=0@0 --10.[~q2,p1,p2]--> kappa,
-q2=1@1 --10.[~q2,p1,p2]--> kappa
-]
-Literal: ~q2 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~q2,p1,p2]
-Non-chronological backtracking to level: 0
-Variables: [q1,q2,r1,r2]
-Decision assignment: r1=0@1
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],r1=0@1/nil]
-Propagate unit: r2 derived from: 8. [r1,r2]
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],r1=0@1/nil,r2=1@1/[r1,r2]]
-Implication graph:
-[
-p1=0@0,
-p2=0@0,
-r1=0@1,
-r2=1@1
-]
-[
-r1=0@1 --8.[r1,r2]--> r2=1@1
-]
-Propagate unit: ~q1 derived from: 4. [~q1,~r2,p1,p2]
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/[~q1,~r2,p1,p2],r1=0@1/nil,
- r2=1@1/[r1,r2]]
-Implication graph:
-[
-p1=0@0,
-p2=0@0,
-q1=0@1,
-r1=0@1,
-r2=1@1
-]
-[
-p1=0@0 --4.[~q1,~r2,p1,p2]--> q1=0@1,
-p2=0@0 --4.[~q1,~r2,p1,p2]--> q1=0@1,
-r1=0@1 --8.[r1,r2]--> r2=1@1,
-r2=1@1 --4.[~q1,~r2,p1,p2]--> q1=0@1
-]
-Propagate unit: ~q2 derived from: 6. [~q2,~r2,p1,p2]
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/[~q1,~r2,p1,p2],q2=0@1/[~q2,~r2,p1,p2],
- r1=0@1/nil,r2=1@1/[r1,r2]]
-Implication graph:
-[
-p1=0@0,
-p2=0@0,
-q1=0@1,
-q2=0@1,
-r1=0@1,
-r2=1@1
-]
-[
-p1=0@0 --4.[~q1,~r2,p1,p2]--> q1=0@1,
-p1=0@0 --6.[~q2,~r2,p1,p2]--> q2=0@1,
-p2=0@0 --4.[~q1,~r2,p1,p2]--> q1=0@1,
-p2=0@0 --6.[~q2,~r2,p1,p2]--> q2=0@1,
-r1=0@1 --8.[r1,r2]--> r2=1@1,
-r2=1@1 --4.[~q1,~r2,p1,p2]--> q1=0@1,
-r2=1@1 --6.[~q2,~r2,p1,p2]--> q2=0@1
-]
-Conflict clause: 7. [q1,q2]
-Conflict caused by assignments:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/[~q1,~r2,p1,p2],q2=0@1/[~q2,~r2,p1,p2],
- r1=0@1/nil,r2=1@1/[r1,r2]]
-Implication graph:
-[
-kappa,
-p1=0@0,
-p2=0@0,
-q1=0@1,
-q2=0@1,
-r1=0@1,
-r2=1@1
-]
-[
-p1=0@0 --4.[~q1,~r2,p1,p2]--> q1=0@1,
-p1=0@0 --6.[~q2,~r2,p1,p2]--> q2=0@1,
-p2=0@0 --4.[~q1,~r2,p1,p2]--> q1=0@1,
-p2=0@0 --6.[~q2,~r2,p1,p2]--> q2=0@1,
-q1=0@1 --7.[q1,q2]--> kappa,
-q2=0@1 --7.[q1,q2]--> kappa,
-r1=0@1 --8.[r1,r2]--> r2=1@1,
-r2=1@1 --4.[~q1,~r2,p1,p2]--> q1=0@1,
-r2=1@1 --6.[~q2,~r2,p1,p2]--> q2=0@1
-]
-Paths from the decision node at this level to kappa:
-r1=0@1/nil --> r2=1@1/[r1,r2] --> q1=0@1/[~q1,~r2,p1,p2] --> kappa
-r1=0@1/nil --> r2=1@1/[r1,r2] --> q2=0@1/[~q2,~r2,p1,p2] --> kappa
-A dominator is: r2=1@1/[r1,r2]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~r2]
-Literal: q1 assigned at level: 1
-Literal: q2 assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q1,q2] unsatisfied
-Complement of: q1 assigned true in the unit clause: [~q1,~r2,p1,p2]
-Resolvent of the two clauses: [q2,~r2,p1,p2] is also unsatisfiable
-Literal: q2 assigned at level: 1
-Literal: ~r2 assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q2,~r2,p1,p2] unsatisfied
-Complement of: q2 assigned true in the unit clause: [~q2,~r2,p1,p2]
-Resolvent of the two clauses: [~r2,p1,p2] is also unsatisfiable
-Literal: ~r2 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~r2,p1,p2]
-Non-chronological backtracking to level: 0
-Literal: q1 assigned at level: 1
-Literal: q2 assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q1,q2] unsatisfied
-Complement of: q1 assigned true in the unit clause: [~q1,~r2,p1,p2]
-Resolvent of the two clauses: [q2,~r2,p1,p2] is also unsatisfiable
-Literal: q2 assigned at level: 1
-Literal: ~r2 assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q2,~r2,p1,p2] unsatisfied
-Complement of: q2 assigned true in the unit clause: [~q2,~r2,p1,p2]
-Resolvent of the two clauses: [~r2,p1,p2] is also unsatisfiable
-Literal: ~r2 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~r2,p1,p2]
-Non-chronological backtracking to level: 0
-Variables: [q1,q2,r1,r2]
-Decision assignment: r1=1@1
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],r1=1@1/nil]
-Propagate unit: ~q1 derived from: 3. [~q1,~r1,p1,p2]
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/[~q1,~r1,p1,p2],r1=1@1/nil]
-Implication graph:
-[
-p1=0@0,
-p2=0@0,
-q1=0@1,
-r1=1@1
-]
-[
-p1=0@0 --3.[~q1,~r1,p1,p2]--> q1=0@1,
-p2=0@0 --3.[~q1,~r1,p1,p2]--> q1=0@1,
-r1=1@1 --3.[~q1,~r1,p1,p2]--> q1=0@1
-]
-Propagate unit: ~q2 derived from: 5. [~q2,~r1,p1,p2]
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/[~q1,~r1,p1,p2],q2=0@1/[~q2,~r1,p1,p2],
- r1=1@1/nil]
-Implication graph:
-[
-p1=0@0,
-p2=0@0,
-q1=0@1,
-q2=0@1,
-r1=1@1
-]
-[
-p1=0@0 --3.[~q1,~r1,p1,p2]--> q1=0@1,
-p1=0@0 --5.[~q2,~r1,p1,p2]--> q2=0@1,
-p2=0@0 --3.[~q1,~r1,p1,p2]--> q1=0@1,
-p2=0@0 --5.[~q2,~r1,p1,p2]--> q2=0@1,
-r1=1@1 --3.[~q1,~r1,p1,p2]--> q1=0@1,
-r1=1@1 --5.[~q2,~r1,p1,p2]--> q2=0@1
-]
-Conflict clause: 7. [q1,q2]
-Conflict caused by assignments:
-[p1=0@0/[~p1],p2=0@0/[~p2],q1=0@1/[~q1,~r1,p1,p2],q2=0@1/[~q2,~r1,p1,p2],
- r1=1@1/nil]
-Implication graph:
-[
-kappa,
-p1=0@0,
-p2=0@0,
-q1=0@1,
-q2=0@1,
-r1=1@1
-]
-[
-p1=0@0 --3.[~q1,~r1,p1,p2]--> q1=0@1,
-p1=0@0 --5.[~q2,~r1,p1,p2]--> q2=0@1,
-p2=0@0 --3.[~q1,~r1,p1,p2]--> q1=0@1,
-p2=0@0 --5.[~q2,~r1,p1,p2]--> q2=0@1,
-q1=0@1 --7.[q1,q2]--> kappa,
-q2=0@1 --7.[q1,q2]--> kappa,
-r1=1@1 --3.[~q1,~r1,p1,p2]--> q1=0@1,
-r1=1@1 --5.[~q2,~r1,p1,p2]--> q2=0@1
-]
-Literal: q1 assigned at level: 1
-Literal: q2 assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q1,q2] unsatisfied
-Complement of: q1 assigned true in the unit clause: [~q1,~r1,p1,p2]
-Resolvent of the two clauses: [q2,~r1,p1,p2] is also unsatisfiable
-Literal: q2 assigned at level: 1
-Literal: ~r1 assigned at level: 1
-Not a UIP: two literals are assigned at level: 1
-Clause: [q2,~r1,p1,p2] unsatisfied
-Complement of: q2 assigned true in the unit clause: [~q2,~r1,p1,p2]
-Resolvent of the two clauses: [~r1,p1,p2] is also unsatisfiable
-Literal: ~r1 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~r1,p1,p2]
-Non-chronological backtracking to level: 0
-Variables: [q1,q2,r1,r2]
-Decision assignment: r2=0@1
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],r2=0@1/nil]
-Propagate unit: r1 derived from: 8. [r1,r2]
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],r1=1@1/[r1,r2],r2=0@1/nil]
-Implication graph:
-[
-p1=0@0,
-p2=0@0,
-r1=1@1,
-r2=0@1
-]
-[
-r2=0@1 --8.[r1,r2]--> r1=1@1
-]
-Conflict clause: 9. [~r1,p1,p2]
-Conflict caused by assignments:
-[p1=0@0/[~p1],p2=0@0/[~p2],r1=1@1/[r1,r2],r2=0@1/nil]
-Implication graph:
-[
-kappa,
-p1=0@0,
-p2=0@0,
-r1=1@1,
-r2=0@1
-]
-[
-p1=0@0 --9.[~r1,p1,p2]--> kappa,
-p2=0@0 --9.[~r1,p1,p2]--> kappa,
-r1=1@1 --9.[~r1,p1,p2]--> kappa,
-r2=0@1 --8.[r1,r2]--> r1=1@1
-]
-Paths from the decision node at this level to kappa:
-r2=0@1/nil --> r1=1@1/[r1,r2] --> kappa
-A dominator is: r1=1@1/[r1,r2]
-Decisions at a lower level: []
-Decisions not dominated: []
-Learned clause from dominator: [~r1]
-Literal: ~r1 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~r1,p1,p2]
-Non-chronological backtracking to level: 0
-Literal: ~r1 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~r1,p1,p2]
-Non-chronological backtracking to level: 0
-Variables: [q1,q2,r1,r2]
-Decision assignment: r2=1@1
-Assignments so far:
-[p1=0@0/[~p1],p2=0@0/[~p2],r2=1@1/nil]
-Conflict clause: 10. [~r2,p1,p2]
-Conflict caused by assignments:
-[p1=0@0/[~p1],p2=0@0/[~p2],r2=1@1/nil]
-Implication graph:
-[
-kappa,
-p1=0@0,
-p2=0@0,
-r2=1@1
-]
-[
-p1=0@0 --10.[~r2,p1,p2]--> kappa,
-p2=0@0 --10.[~r2,p1,p2]--> kappa,
-r2=1@1 --10.[~r2,p1,p2]--> kappa
-]
-Literal: ~r2 assigned at level: 1
-UIP: one literal is assigned at level: 1
-Learned clause: [~r2,p1,p2]
-Non-chronological backtracking to level: 0
 Unsatisfiable:
-Statistics: clauses=8, variables=6, units=14, decisions=8, conflicts=8
+Statistics: clauses=8, variables=6, units=7, decisions=2, conflicts=2
 
-*****************************************
-*              Pigeonhole 3             *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*              Pigeonhole 3              *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
-Statistics: clauses=22, variables=12, units=105, decisions=34, conflicts=26
+Statistics: clauses=22, variables=12, units=25, decisions=10, conflicts=3
 
-*****************************************
-*              Tseitin K3,3             *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*              Tseitin K3,3              *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
-Statistics: clauses=24, variables=9, units=151, decisions=79, conflicts=46
+Statistics: clauses=24, variables=9, units=36, decisions=22, conflicts=8
 
-*****************************************
-*           Grid pebbling 3             *
-*****************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+******************************************
+*            Grid pebbling 3             *
+******************************************
+LearnSAT v1.3.k. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
-Statistics: clauses=17, variables=12, units=53, decisions=29, conflicts=22
+Statistics: clauses=17, variables=12, units=17, decisions=9, conflicts=3

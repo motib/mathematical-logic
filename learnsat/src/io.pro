@@ -2,14 +2,14 @@
 
 :- module(io, [
   write_assignment/1, write_assignment/2, write_assignments/1,
-  write_clause/2, write_clauses/2,
-  write_dot/2, write_paths/1, write_graph/2
+  write_clause/2, write_clauses/2, write_arrow_label/2,
+  write_paths/1, write_graph/2
   ]).
 
 :- use_module([counters, modes, config]).
   
 %  IO predicates for displaying clauses and assignments
-%    and for displaying implications graphs and writing to a dot file 
+%    and for displaying implication and dominator graphs 
 
 %  write_clauses/2
 %    Each clause is written on a separate line with a number
@@ -54,11 +54,12 @@ write_assignments1([H], _) :- !,
 write_assignments1([H|T], N) :-
   write_assignment(H),
   write(','),
-  (N == 3 ->
-    nl, write(' '), N1 is 0 ;
-    N1 is N + 1),
+  break_line(N, N1),
   write_assignments1(T, N1).
 
+break_line(3, 0) :- !,
+  write('\n ').
+break_line(N, N1) :- N1 is N + 1.
 
 %  write_assignment/1
 %    Write the assignment as Variable=Value@Depth/Antecedent
@@ -94,9 +95,13 @@ write_antecedent(assign(_, _, _, Unit), yes) :-
   get_mode(Mode),
   Mode \= dpll,
   check_option(antecedent), !,
-  (Unit = yes -> true ; write('/'), write(Unit)).
+  write_antecedent1(Unit).
 write_antecedent(_, _).
 
+write_antecedent1(yes) :- !.
+write_antecedent1(Unit) :-
+  write('/'),
+  write(Unit).
 
 %  write_graph/2
 %    graph(Nodes, Edges) - where Nodes and Edges are lists
@@ -130,17 +135,22 @@ write_edges([E | Tail], Clauses) :-
   write(',\n'),
   write_edges(Tail, Clauses).
 
-%  write_arrow/2 - write the arrows with a number or the clause itself
+%  write_arrow/2 - write the arrows with a number and optionally
+%  write_arrow_label/2 - write the clause, not just the number
 
 write_arrow(edge(From, N, To), Clauses) :-
-   write_assignment(From, no),
-   write(' --'),
-  (Clauses = [] ->
-    write(N) ;
-    nth1(N, Clauses, C), write(N), write('.'), write(C)    
-  ),
+  write_assignment(From, no),
+  write(' --'),
+  write(N),
+  write_arrow_label(N, Clauses),
   write('--> '),
   write_assignment(To, no).
+
+write_arrow_label(_, []) :- !.
+write_arrow_label(N, Clauses) :-
+  nth1(N, Clauses, C),
+  write('.'),
+  write(C).    
 
 
 %  write_paths/1
@@ -162,80 +172,3 @@ write_one_path([Assignment | Tail]) :-
   write_assignment(Assignment),
   write(' --> '),
   write_one_path(Tail).
-
-
-%  write_dot/1
-%    Write the implication graph to a file in dot format for GraphViz
-%    Only the edges are needed as dot takes the nodes from them
-%    Call write_assignment to write each node (including "kappa")
-%    Label each edge with its clauses or just its number if Clauses = []
-%    The prologue for the dot file is taken from "config.pro"
-
-write_dot(graph(_, Edges), Clauses) :-
-  create_file_name(Name),
-  tell(Name),
-  dot_prologue(D),
-  write(D),
-  write_dot1(Edges, Clauses),
-  write('}'),
-  told.
-
-write_dot1([], _).
-write_dot1([edge(From, N, To) | Tail], Clauses) :-
-  write('"'),
-  write_assignment(From, no),
-  write('"  ->  "'),
-  write_assignment(To, no),
-  write('"'),
-  write('  [label="'),
-  (Clauses = [] ->
-    write(N) ;
-    nth1(N, Clauses, C), write(N), write('. '), write(C)    
-  ),
-  write('"];\n'),
-  decorate_decision_node(From),
-  write_dot1(Tail, Clauses).
-
-
-%  create_file_name/1
-%    The File name is taken from the file argument of the program
-%      remove the extension from the name and add "-NN.dot"
-
-create_file_name(Name) :-
-  get_file_counter(F1),
-  current_prolog_flag(argv, [_, File | _]),
-  remove_extension(File, F2),
-  (F1 < 10 -> atom_concat('-0', F1, F1a); atom_concat('-', F1, F1a)),
-  atom_concat(F2, F1a, F3),
-  atom_concat(F3, '.dot', Name),
-  increment(file).
-
-
-%  remove_extension/2, remove_period/2
-%    Remove the extension by search for the period from the end
-
-remove_extension(File, File1) :-
-  atom_chars(File, List),
-  reverse(List, List1),
-  remove_period(List1, List2), !,
-  reverse(List2, List3),
-  atom_chars(File1, List3).
-remove_extension(File, File).
-
-remove_period(['.' | Tail], Tail) :- !.
-remove_period([_ | Tail], Tail1)  :-
-  remove_period(Tail, Tail1).
-
-
-%  decorate_decision_node/1
-%    Decorate a decision node
-%    The decoration is defined in "config.pro"
-
-decorate_decision_node(Node) :-
-  Node = assign(_, _, _, yes), !,
-  write('"'),
-  write_assignment(Node, no),
-  write('"'),
-  dot_decorate(D),
-  write(D).
-decorate_decision_node(_).
