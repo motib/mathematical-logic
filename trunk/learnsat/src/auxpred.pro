@@ -1,12 +1,12 @@
 % Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(auxpred,
-  [op(610, fy,  ~),
-   is_assigned/3, literals_to_variables/3, get_variables_of_clauses/2,
-   to_variable/2, to_complement/2, to_assignment/4,
-   to_literal/2, to_clause/3]).  
+  [is_assigned/3, literals_to_variables/3, get_variables_of_clauses/2,
+   to_variable/2, to_complement/2, to_assignment/4, to_literal/2]).  
 
 :- use_module([counters]).
+
+:- op(610, fy,  ~).
 
 %  Auxiliary predicates concerned with assignments, variables, literals
 
@@ -92,17 +92,3 @@ to_assignment(Variable,   Level, Decision,
 
 to_literal(assign(V, 0, _, _), ~V).
 to_literal(assign(V, 1, _, _), V).
-
-
-%  to_clause/3
-%    List of assignments to a list of literals
-%    Optionally, complement each one
-%      Assignments - a list of assignments
-%      Clause      - the corresponding clause
-%      Complement  - yes or no
-
-to_clause([], [], _).
-to_clause([Head1 | Tail1], [Head2 | Tail2], Complement) :-
-  to_literal(Head1, Head3),
-  (Complement = yes -> to_complement(Head3, Head2) ; Head3 = Head2),
-  to_clause(Tail1, Tail2, Complement).

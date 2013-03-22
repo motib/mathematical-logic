@@ -6,6 +6,10 @@
 %  M. Ben-Ari. Mathematical Logic for Computer Science (Third Edition).
 %  Springer, 2012.
 
+% dpll: units=30, decisions=6, conflicts=2
+% cdcl: units=30, decisions=6, conflicts=2
+% ncb:  units=25, decisions=5, conflicts=1
+
 queens4 :-
   dpll(
   [

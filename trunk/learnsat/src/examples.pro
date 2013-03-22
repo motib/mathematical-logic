@@ -6,8 +6,11 @@
 
 :- use_module(dpll).
 
-
 %  Example from Marques-Silva, Lynce, Malik in the Handbook
+
+% dpll: units=9,  decisions=9, conflicts=2
+% cdcl: units=8,  decisions=6, conflicts=1
+% ncb:  units=10, decisions=6, conflicts=1
 
 mlm :-
   dpll(

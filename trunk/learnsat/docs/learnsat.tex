@@ -68,6 +68,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 
 \vspace*{\fill}
 
+\setcounter{tocdepth}{1}
 \tableofcontents
 
 \thispagestyle{empty}
@@ -125,7 +126,8 @@ Download and unzip the archive \p{learnsat-N.zip}. The \pl{} source code
 is in the directory \p{src} and the documentation is in the directory
 \p{docs}.
 
-Download and install \sw{}:
+Download and install \sw{}:\footnote{For possible portability problems,
+see Section~\ref{s.port}.}
 \begin{center}
 \url{http://www.swi-prolog.org/}.
 \end{center}
@@ -207,7 +209,8 @@ assigned in lexicographic order.
 
 \begin{figure}[tbp]
 \begin{verbatim}
-LearnSAT v1.1.2. Copyright 2012 by Moti Ben-Ari. GNU GPL.
+1 ?- hole2.
+LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Decision assignment: p11=0
 Propagate unit: p12 derived from: 1. [p11,p12]
 Propagate unit: ~p22 derived from: 7. [~p12,~p22]
@@ -216,10 +219,13 @@ Propagate unit: ~p31 derived from: 6. [~p21,~p31]
 Propagate unit: p32 derived from: 3. [p31,p32]
 Conflict clause: 8. [~p12,~p32]
 Decision assignment: p11=1
-                ...
+Propagate unit: ~p21 derived from: 4. [~p11,~p21]
+Propagate unit: p22 derived from: 2. [p21,p22]
+Propagate unit: ~p31 derived from: 5. [~p11,~p31]
+Propagate unit: p32 derived from: 3. [p31,p32]
+Conflict clause: 9. [~p22,~p32]
 Unsatisfiable:
-Statistics: Clauses=9, variables=6, units=56, decisions=12, conflicts=12
-
+Statistics: clauses=9, variables=6, units=9, decisions=2, conflicts=2
 true.
 \end{verbatim}
 \caption{Running the program for the pigeon-hole principle}\label{fig.pigeon}
@@ -238,12 +244,6 @@ The trace output can be directed to a file:
 \ls{} can run in one of three modes set by the predicate \p{set\_mode}
 (Table~\ref{tab.modes}).
 
-The program for the pigeon-hole principle runs more efficiently in
-\p{cdcl} mode:
-\begin{verbatim}
-Statistics: clauses=9, variables=6, units=29, decisions=12, conflicts=12
-\end{verbatim}
-
 \begin{table}[*hb]
 \begin{center}
 \begin{tabular}{|l|l|}
@@ -259,6 +259,14 @@ Statistics: clauses=9, variables=6, units=29, decisions=12, conflicts=12
 \end{center}
 \end{table}
 
+
+For the three-layer grid-pebbling problem, the statistics for the three
+modes are:
+\begin{verbatim}
+         dpll: units=74, decisions=50, conflicts=26
+         cdcl: units=25, decisions=14, conflicts=8
+         ncb:  units=17, decisions=9,  conflicts=3
+\end{verbatim}
 \subsection{Display options}
 
 \ls{} writes extensive trace output as it executes the algorithms. Each
@@ -267,16 +275,17 @@ postprocess the output. The content of the trace is controlled using
 \p{set\_display} and \p{clear\_display}. The argument to these
 predicates can be \p{all} or \p{default} or a single option or a list of
 options taken from Table~\ref{tab.display}, where * denotes the default
-options.\footnote{The options \p{literal} and \p{uip} are relevant only
-if \p{resolvent} is also selected.}
+options.
+
+The options \p{literal} and \p{uip} are relevant only if \p{resolvent}
+is also selected. Selecting the incremental implications graphs also
+selects the final graphs.
 
 In \p{cdcl} and \p{ncb} modes, the assignments are written together with
 their levels in the format \p{p1=0@3} used in \cite{mlm}.
 By selecting \p{antecedent}, the antecedent clause can be displayed with
 assignment forced by unit propagation:
 \verb+p1@3/[~p1,p3]+.
-
-\pagebreak[3]
 
 If you need to change the mode and options frequently, you
 can write a predicate to do so:
@@ -300,7 +309,7 @@ ncb_mode :-
 \p{conflict} * &  conflict clauses                           \\
 \p{decision} * &  decision assignments                       \\
 \p{dominator} &  learned clause computed from a dominator   \\
-\p{dot}       &  implication graphs in dot format           \\
+\p{dot}       &  implication graphs (final) in dot format           \\
 \p{dot\_inc}  &  implication graphs (incremental) in dot format\\
 \p{evaluate}  &  evaluation of clauses for an assignment    \\
 \p{graph}     &  implication graphs (final)                 \\
@@ -312,6 +321,7 @@ ncb_mode :-
 \p{resolvent} * &  resolvents created during CDCL             \\
 \p{result} *   &  result of the algorithm with statistics    \\
 \p{skipped} *  &  assignments skipped when backtracking      \\
+\p{tree}       &  tree of assignments in dot format\\
 \p{uip} *       &  unique implication points                  \\
 \p{unit} *     &  unit clauses                               \\
 \p{variables} &  variables that are not assigned so far     \\
@@ -330,8 +340,8 @@ current display options can be shown by running \p{show\_config}.
 \subsection{Changing defaults}
 
 The file \p{config.pro} can be edited to change: the default mode and
-display options and---for the implication graphs---the \dt{} prologue and
-the decoration of the decision nodes.
+display options and---for the implication graphs and semantic
+trees---the \dt{} prologue and the decoration of the decision nodes.
 
 
 \subsection{Rendering the implication graphs}\label{s.impl}
@@ -346,18 +356,36 @@ which can be rendered using
 \textsc{GraphViz}:\footnote{\url{http://www.graphviz.org/}.}
 
 \begin{verbatim}
-dot -Tpng examples-00.dot > examples-00.png
+dot -Tpng examples-ig-00.dot > examples-ig-00.png
 \end{verbatim}
 
 If the display option \p{label} is selected, the edges are labeled with
 the clauses and not just their numbers.
 
-A script can run \dt{} on all the files of the incremental graphs; in Windows, the batch
-command is:
+A script can run \dt{} on all the files of the incremental graphs; in
+Windows, the batch command is:
 
 \begin{verbatim}
 for %%F in (*.dot) do c:\"program files"\graphviz\bin\dot -Tpng %%F > %%~nF.png
 \end{verbatim}
+
+
+\subsection{Generating the semantic trees}
+
+The semantic trees showing the sequences of assignments to variables can
+be generated by selecting \p{tree} (Figure~\ref{fig.tree}). Trees are
+shown in an unusual form: as directed acyclic graphs whose nodes are
+assignments rather than variables. There is a separate tree for each new
+assignment, whether a decision assignment or an implied assignment. The
+former are decorated with a red border. Conflict nodes are decorated
+with a double red border and a double green border indicates the node
+(if any) that causes the formula to become satisfiable.
+
+
+The rendering of the \dt{} files is as described above for the
+implication graphs.
+
+\newpage
 
 \section{Test programs included in \ls{}}
 
@@ -372,7 +400,7 @@ $K_{3,3}$ and the example from \cite[Section 4.5]{mlcs}.
 
 \item \p{pigeon.pro}: The pigeon-hole principle for 2 and 3 holes.
 
-\item \p{pebbles.pro}: Grid pebbling for depth 2 and 3.
+\item \p{pebbles.pro}: Grid pebbling for 2 and 3 layers.
 \end{itemize}
 
 
@@ -466,6 +494,38 @@ Satisfying assignments:
 Statistics: clauses=6, variables=8, units=9, decisions=9, conflicts=2
 \end{verbatim}
 
+\section{Semantic trees}
+
+The semantics tress are shown in
+Figures~\ref{fig.tree1}--\ref{fig.tree3}. In DPLL mode, backtracking is
+to the most recent decision mode and evaluation and unit propagation
+proceed normally. In CDCL mode, backtracking is the same but the
+satisfying assignment without additional decisions because of the effect
+of the learned clause. In NCB mode, backtracking is to the first
+decision node.
+
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio=true,width=.9\textwidth]{tree1}
+\caption{Semantic tree in DPLL mode}\label{fig.tree1}
+
+\bigskip
+\bigskip
+\bigskip
+
+\includegraphics[keepaspectratio=true,width=.9\textwidth]{tree2}
+\caption{Semantic tree in CDCL mode}\label{fig.tree2}
+
+\bigskip
+\bigskip
+\bigskip
+
+\includegraphics[keepaspectratio=true,width=.9\textwidth]{tree3}
+\end{center}
+\caption{Semantic tree in NCB mode}\label{fig.tree3}
+\end{figure}
+
+\clearpage
 
 \section{Conflict-driven clause learning}
 
@@ -594,8 +654,6 @@ Satisfying assignments:
 Statistics: clauses=6, variables=8, units=8, decisions=6, conflicts=1
 \end{verbatim}
 
-\pagebreak[4]
-
 \section{Non-chronological backtracking}
 
 Let us now select the NCB mode:
@@ -638,11 +696,8 @@ conversion.}
 
 \begin{itemize}
 \item \p{dpll.pro}: Main module for the DPLL algorithms.\\
-The negation operator is defined as \verb+op(610, fy, ~)+ and exported.
 
 \item \p{auxpred.pro}: Auxiliary predicates for the DPLL algorithms. 
-
-\item \p{dominator.pro}: Computing dominators in the implication graph. 
 
 \item \p{io.pro}: Predicates for writing assignments, clauses and
 implication graphs.
@@ -666,6 +721,10 @@ display option \p{none} is used to distinguish between the initial state
 (no options, so set the default options) and a state where all options
 have been cleared.
 
+\item \p{dominator.pro}: Computing dominators in the implication graph. 
+
+\item \p{dot.pro}: Generating the \dt{} files of the implication graphs
+and the semantic trees.
 \end{itemize}
 
 \newpage
@@ -791,11 +850,22 @@ sorted set of the variables corresponding to the literals.
 literal and an assignment expressed as a term \p{assign(Variable, Value,
 Level, Decision)}.
 
-\item \p{to\_clause} converts a list of assignments to a clause, that
-is, a list of literals. It can optionally complement each literal.
-
 \end{itemize}
 
+
+\section{Portability}\label{s.port}
+
+\ls{} was developed on \sw{} but an effort was made to use only portable
+constructs. The possible exceptions are:
+
+\begin{itemize}
+\item Modules: \p{module}, \p{use\_module}, \p{reexport}.
+\item The following predicate to obtain the file name from the command
+line:
+\begin{verbatim}
+  current_prolog_flag(argv, [_, File | _])
+\end{verbatim}
+\end{itemize}
 
 \bibliographystyle{plain}
 \bibliography{learnsat}

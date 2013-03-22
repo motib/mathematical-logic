@@ -14,7 +14,7 @@
 :- module(dpll, [op(610, fy,  ~), dpll/2]).
 
 %  Modules directly used by dpll
-:- use_module([counters,modes,display,auxpred,io,dominator]).
+:- use_module([counters,modes,display,dot,auxpred,io,dominator]).
 
 %  Make housekeeping predicates visible after consulting dpll
 :- reexport(modes, 
@@ -62,6 +62,7 @@ dpll(Clauses, Decisions) :-
   get_mode(_),
   init_display,
   init_counters,
+  init_tree,
   retractall(learned(_)),
   assert(learned([])),
   retractall(backtrack(_)),
@@ -89,7 +90,8 @@ dpll(_, []) :-
 %      Decisions  - return decisions
 
 %  No more variables need to be assigned so the set is satisfiable
-dpll(_, [], _, Decisions, _, Decisions) :- !.
+dpll(_, [], _, Decisions, _, Decisions) :- !,
+  display(tree, Decisions, sat).
 
 %  Attempt unit propagation
 dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
@@ -99,16 +101,17 @@ dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   add_learned_clauses(Clauses, Clauses1),
   find_unit(Clauses1, Level, SoFar, Unit, Assignment), !,
       % Increment the unit counter, convert the Assignment to a Literal
+  New_Assignment = [Assignment | SoFar],
   increment(unit),
   to_literal(Assignment, Literal),
   display(unit, Literal, Unit, Clauses1),
   display(caused, SoFar),
-  display(partial, [Assignment | SoFar]),
+  display(partial, New_Assignment),
       % Evaluate the set of Clauses using the assignments SoFar
       %   together with the Assignment returned by find_unit
       % Return the Result (ok or conflict),
       %   and the Conflict clause if the result is a conflict
-  evaluate(Clauses1, [Assignment | SoFar], Conflict, Result),
+  evaluate(Clauses1, New_Assignment, Conflict, Result),
       % Get the new implication Graph1, adding the new Assignment
       %   that was forced by the unit clause
       % The antecedent or the Number of the antecedent
@@ -121,7 +124,7 @@ dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
       %   the Conflict clause, the new Graph1 and add the new Assignment
   ok_or_conflict(
     Result, Variables, Clauses1,
-    [Assignment | SoFar], Level, Graph1, Conflict, Decisions).
+    New_Assignment, Level, Graph1, Conflict, Decisions).
 
 %  Choose a decision assignment
 dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
@@ -131,21 +134,22 @@ dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
   assert(backtrack(Level1)),
       % Choose a decision Assignment and increment the decision counter
   choose_assignment(Variables, Level1, Assignment),
+  New_Assignment = [Assignment | SoFar],
   increment(decision),
   display(variable, Variables),
   display(decision, Assignment),
-  display(partial, [Assignment | SoFar]),
+  display(partial, New_Assignment),
       % Evaluate the set of Clauses including the learned clauses
       %   using the assignments SoFar and the chosen Assignment
       % Return the Result (ok or conflict),
       %   and the Conflict clause if the result is a conflict
   add_learned_clauses(Clauses, Clauses1),
-  evaluate(Clauses1, [Assignment | SoFar], Conflict, Result),
+  evaluate(Clauses1, New_Assignment, Conflict, Result),
       % Call ok_or_conflict with the Result of the evaluation,
       %   the Conflict clause, the new Graph1 and add the new Assignment
   ok_or_conflict(
     Result, Variables, Clauses1,
-    [Assignment | SoFar], Level1, Graph, Conflict, Decisions).
+    New_Assignment, Level1, Graph, Conflict, Decisions).
 
 
 %  ok_or_conflict/7
@@ -165,6 +169,7 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
   increment(conflict),
   display(conflict, Conflict, Clauses),
   display(assignment, SoFar),
+  display(tree, SoFar, conflict),
       % Add the "kappa" node for the conflict clause to the graph
   nth1(Number, Clauses, Conflict),
   extend_graph(Conflict, Number, kappa, SoFar, Graph, Graph1),
@@ -179,6 +184,7 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
 %  OK: delete the assigned variable from the unassigned Variables
 %      and recurse on dpll/6
 ok_or_conflict(ok, Variables, Clauses, SoFar, Level, Graph, _, Decisions) :-
+  display(tree, SoFar, ok),
   SoFar = [assign(V, _, _, _) | _], 
   delete(Variables, V, Variables1),
   dpll(Clauses, Variables1, Level, SoFar, Graph, Decisions).
@@ -279,20 +285,16 @@ evaluate_clause([Head | Tail], Original, Assignment, _, Head, Result) :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Choose a decision assignment
 %  When backtracking, another one will be chosen
-%  The list of variables is sorted and the assignments are made in
-%    the order they appear in the list
 
 %  choose_assignment/3
 %      Variables  - list of unassigned variables
+%                   the first unassigned variable is assigned
 %      Level      - record the decision level in the assignment
 %      Assignment - return the decision assignment
 
-choose_assignment(Variables, Level, Assignment) :-
+choose_assignment([V | _], Level, Assignment) :-
       % Build the Assignment term as a Decision assignment (yes)
   Assignment = assign(V, N, Level, yes),
-      % Choose a variable from the list of unassigned variables
-      %   "member" will choose again upon backtracking
-  member(V, Variables),
       % Choose a value for the assignment, first 0 and then 1
   (N = 0 ; N = 1),
       % Non-chronological backtracking when mode is "ncb"

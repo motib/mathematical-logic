@@ -15,6 +15,10 @@ hole2 :-
   [~p12, ~p22], [~p12, ~p32], [~p22, ~p32]
   ], _).
 
+% dpll: units=49, decisions=16, conflicts=9
+% cdcl: units=42, decisions=16, conflicts=9
+% ncb:  units=25, decisions=10, conflicts=3
+  
 hole3 :-
   dpll(
   [

@@ -6,7 +6,7 @@
 
 :- module(config,
   [version/1, years/1, default_mode/1, default_display/1,
-   dot_prologue/1, dot_decorate/1]).
+   dot_prologue/2, dot_decorate/2]).
 
 version('1.3.0').
 
@@ -18,8 +18,14 @@ default_display(
   [backtrack, conflict, decision, learned,
   resolvent, result, skipped, uip, unit]).
 
-dot_prologue('digraph G {\n  rankdir=LR;\n').
+% dot prologue:
+%   lr - left to right for implication graphs
+%   tb - top to bottom for semantic trees
+dot_prologue(lr, 'digraph G {\n  rankdir=LR;\n').
+dot_prologue(tb, 'digraph G {\n  rankdir=TB ranksep=equally;\n').
 
-dot_decorate(' [color="red"];\n').
-
-%dot_decorate(' [style="bold"];\n').
+% dot decorations for the semantic trees
+%   decision is also used for implication graphs
+dot_decorate(decision, ' [color="red"]').
+dot_decorate(conflict, ' [color="red" peripheries="2"]').
+dot_decorate(sat,      ' [color="green" peripheries="2"]').

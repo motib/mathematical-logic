@@ -19,10 +19,9 @@ grid2 :-
     
   ], _).
 
-%  In dpll mode, this takes forever!
-%  dpll: units=1135104, decisions=477344, conflicts=425024
-%  cdcl: units=117, decisions=80, conflicts=76
-%  ncb:  units=53, decisions=29, conflicts=22
+%  dpll: units=74, decisions=50, conflicts=26
+%  cdcl: units=25, decisions=14, conflicts=8
+%  ncb:  units=17, decisions=9,  conflicts=3
 
 grid3 :-
   dpll(

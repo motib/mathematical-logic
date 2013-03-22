@@ -2,17 +2,17 @@
 
 :- module(counters,
   [show_counters/0, increment/1, init_counters/0,
-   init_input_counters/2, get_file_counter/1]).
+   init_input_counters/2, get_file_counter/2]).
 
 %  Counters for:
 %    clauses, variables, units propagated,
 %    decisions made, conflicts encountered,
-%    generating file names for implication graphs
+%    generating file names for implication graphs and semantic trees
 
 :- dynamic
      clause_counter/1, variable_counter/1, unit_counter/1, 
      decision_counter/1, conflict_counter/1,
-     file_counter/1.
+     ig_file_counter/1, st_file_counter/1.
 
 %  Initialization - set counters to 0
 %  Initialization - number of Clauses and Variables
@@ -21,7 +21,8 @@ init_counters :-
   retractall(unit_counter(_)),      assert(unit_counter(0)),
   retractall(decision_counter(_)),  assert(decision_counter(0)),
   retractall(conflict_counter(_)),  assert(conflict_counter(0)),
-  retractall(file_counter(_)),      assert(file_counter(0)).
+  retractall(ig_file_counter(_)),   assert(ig_file_counter(0)),
+  retractall(st_file_counter(_)),   assert(st_file_counter(0)).
 
 init_input_counters(Number_of_Clauses, Number_of_Variables) :-
   retractall(clause_counter(_)),
@@ -43,10 +44,14 @@ increment(conflict) :-
   retract(conflict_counter(N)),
   N1 is N + 1,
   assert(conflict_counter(N1)).
-increment(file) :-
-  retract(file_counter(N)),
+increment(ig) :-
+  retract(ig_file_counter(N)),
   N1 is N + 1,
-  assert(file_counter(N1)).
+  assert(ig_file_counter(N1)).
+increment(st) :-
+  retract(st_file_counter(N)),
+  N1 is N + 1,
+  assert(st_file_counter(N1)).
 
 
 %  show_counters/2    - write the counters
@@ -69,7 +74,9 @@ show_counters :-
   write(Conflict_Count), nl.
 
 
-%  get_file_counter/1 - return the file counter
+%  get_file_counter/2 - return the file counter
+%    Counter - ig for implication graph, st for semantic tree
+%    N - returned value
 
-get_file_counter(N) :-
-  file_counter(N).
+get_file_counter(ig, N) :- ig_file_counter(N).
+get_file_counter(st, N) :- st_file_counter(N).
