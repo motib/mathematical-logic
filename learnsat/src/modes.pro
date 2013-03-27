@@ -63,8 +63,8 @@ check_mode(X) :-
 all_display([
   antecedent, assignment, backtrack, clause, conflict, decision,
   dominator, dot, dot_inc, evaluate, graph, incremental, label,
-  learned, literal, none, partial, resolvent, result, skipped, tree,
-  uip, unit, variable]).
+  learned, literal, none, partial, resolvent, result, skipped, sorted,
+  tree, uip, unit, variable]).
 
 
 %  init_display/0
@@ -198,8 +198,16 @@ show_config :-
   findall(D, display_option(D), List),
   write('Current display options:\n'),
   sort(List, List1),
-  write(List1), nl.
+  write(List1), nl,
+  write('Variable order:'),
+  get_order(Order),
+  write_order(Order).
 show_config.
+
+write_order(default) :- !,
+  write(' default').
+write_order(Order) :-
+  nl, write(Order).
 
 
 %  usage/0 - print usage documentation
@@ -221,6 +229,9 @@ usage :-
   write('  dpll: DPLL algorithm (default)\n'),
   write('  cdcl: DPLL with conflict-directed clause learning\n'),
   write('  ncb:  DPLL with CDCL and non-chronological backtracking\n\n'),
+  write('set_order(List), clear_order\n'),
+  write('  Variables are assigned in the order of their appearance\n'),
+  write('    in List (default is lexicographical order)\n\n'),
   write('set_display(D), clear_display(D), where D can be a list\n'),
   write('  all          all the display options\n'),
   write('  default      default display options (marked *)\n\n'),
@@ -243,6 +254,7 @@ usage :-
   write('  resolvent *  resolvents created during CDCL\n'),
   write('  result *     result of the algorithm with statistics\n'),
   write('  skipped *    assignments skipped when backtracking\n'),
+  write('  sorted *     assignments displayed in sorted order\n'),
   write('  tree         tree of assignments in dot format\n'),
   write('  uip *        unique implication points\n'),
   write('  unit *       unit clauses\n'),

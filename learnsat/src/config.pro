@@ -8,7 +8,7 @@
   [version/1, years/1, default_mode/1, default_display/1,
    dot_prologue/2, dot_decorate/2]).
 
-version('1.3.0').
+version('1.3.1').
 
 years('2012-13').
 
@@ -16,7 +16,7 @@ default_mode(dpll).
 
 default_display(
   [backtrack, conflict, decision, learned,
-  resolvent, result, skipped, uip, unit]).
+  resolvent, result, skipped, sorted, uip, unit]).
 
 % dot prologue:
 %   lr - left to right for implication graphs

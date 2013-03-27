@@ -36,15 +36,20 @@ write_clause(C, Clauses) :-
 
 
 %  write_assignments/1
-%    Sort and then write a list of assignments using write_assignment/1
+%    Write a list of assignments using write_assignment/1
 %      Assignments - a list of assignments
 %  write_assignments1/1
 %    Auxiliary predicate; write three assignments per line
+%  sort_assignments/2
+%    By default, display a sorted list of assignments
+%    Alternatively, display in reverse order of assignment
+%  break_line/2
+%    Line break after writing four assignments
 
 write_assignments([]) :- !,
   write('[]').
 write_assignments(A) :-
-  sort(A, A1),
+  sort_assignments(A, A1),
   write('['),
   write_assignments1(A1, 0),
   write(']').
@@ -56,6 +61,11 @@ write_assignments1([H|T], N) :-
   write(','),
   break_line(N, N1),
   write_assignments1(T, N1).
+
+sort_assignments(A, A1) :-
+  check_option(sorted), !,
+  sort(A, A1).
+sort_assignments(A, A).
 
 break_line(3, 0) :- !,
   write('\n ').

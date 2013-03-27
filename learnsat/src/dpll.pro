@@ -20,6 +20,8 @@
 :- reexport(modes, 
   [show_config/0, usage/0, set_display/1, clear_display/1, set_mode/1]).
 
+:- reexport(auxpred, [set_order/1, clear_order/0, get_order/1]).
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Data structures
@@ -73,8 +75,8 @@ dpll(Clauses, Decisions) :-
   display(clause, Clauses),
 
       % Call dpll/6, initially with Level 0, no assignments, empty graph
-   dpll(Clauses, Variables_Set, 0, [], graph([],[]), Decisions),
-   display(result, Decisions).
+  dpll(Clauses, Variables_Set, 0, [], graph([],[]), Decisions),
+  display(result, Decisions).
 
 %  dpll/6 failed so return unsatisfiable: empty list of assignments
 dpll(_, []) :-
@@ -186,7 +188,7 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
 ok_or_conflict(ok, Variables, Clauses, SoFar, Level, Graph, _, Decisions) :-
   display(tree, SoFar, ok),
   SoFar = [assign(V, _, _, _) | _], 
-  delete(Variables, V, Variables1),
+  delete_variable(Variables, V, Variables1),
   dpll(Clauses, Variables1, Level, SoFar, Graph, Decisions).
 
 
@@ -291,12 +293,18 @@ evaluate_clause([Head | Tail], Original, Assignment, _, Head, Result) :-
 %                   the first unassigned variable is assigned
 %      Level      - record the decision level in the assignment
 %      Assignment - return the decision assignment
+%
+%  choose_value/2
+%      Variable - variable to assign to
+%      N - value returned 0 or 1
+%    If Variable is a negated literal, choose 1 first and then 0
 
 choose_assignment([V | _], Level, Assignment) :-
       % Build the Assignment term as a Decision assignment (yes)
-  Assignment = assign(V, N, Level, yes),
-      % Choose a value for the assignment, first 0 and then 1
-  (N = 0 ; N = 1),
+  to_variable(V, V1),
+  Assignment = assign(V1, N, Level, yes),
+      % Choose a value for the assignment
+  choose_parity(V, N),
       % Non-chronological backtracking when mode is "ncb"
       %   if the current Level is greater than the backtrack level, fail
       % Cut within "if->then;else" is local and does _not_ destroy the
@@ -307,6 +315,11 @@ choose_assignment([V | _], Level, Assignment) :-
     display(skipped, Assignment), !, fail ;
     true).
 
+choose_parity(~_, N) :- !,
+  (N = 1 ; N = 0).
+choose_parity(_, N) :-
+  (N = 0 ; N = 1).
+  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
