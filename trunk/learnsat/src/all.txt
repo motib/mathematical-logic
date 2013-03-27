@@ -2,7 +2,7 @@
 ******************************************
 *            Example from MLM            *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x031,~x2],
@@ -301,7 +301,7 @@ Statistics: clauses=6, variables=8, units=10, decisions=6, conflicts=1
 ******************************************
 *            Example from MZ             *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [ax1,x4],
@@ -560,7 +560,7 @@ Statistics: clauses=8, variables=10, units=8, decisions=9, conflicts=1
 ******************************************
 *            Example from MS             *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x2],
@@ -913,7 +913,7 @@ Statistics: clauses=9, variables=13, units=10, decisions=12, conflicts=1
 ******************************************
 *              Pigeonhole 2              *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12],
@@ -1233,7 +1233,7 @@ Statistics: clauses=9, variables=6, units=9, decisions=2, conflicts=2
 ******************************************
 *                Queens 4                *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12,p13,p14],
@@ -2187,7 +2187,7 @@ Statistics: clauses=80, variables=16, units=25, decisions=5, conflicts=1
 ******************************************
 *       Tseitin example from MLCS        *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -2391,7 +2391,7 @@ Statistics: clauses=12, variables=5, units=6, decisions=4, conflicts=2
 ******************************************
 *    Tseitin example from MLCS (sat)     *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -2595,7 +2595,7 @@ Statistics: clauses=12, variables=5, units=6, decisions=4, conflicts=2
 ******************************************
 *              Tseitin K2,2              *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -2779,7 +2779,7 @@ Statistics: clauses=8, variables=4, units=6, decisions=2, conflicts=2
 ******************************************
 *           Tseitin K2,2 (sat)           *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -2924,7 +2924,7 @@ Statistics: clauses=8, variables=4, units=6, decisions=2, conflicts=1
 ******************************************
 *           Tseitin K3,3 (sat)           *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1,p2],
@@ -3579,7 +3579,7 @@ Statistics: clauses=24, variables=9, units=18, decisions=11, conflicts=3
 ******************************************
 *            Grid pebbling 2             *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p1],
@@ -3817,20 +3817,431 @@ Statistics: clauses=8, variables=6, units=7, decisions=2, conflicts=2
 ******************************************
 *              Pigeonhole 3              *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
 Statistics: clauses=22, variables=12, units=25, decisions=10, conflicts=3
 
 ******************************************
 *              Tseitin K3,3              *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
 Statistics: clauses=24, variables=9, units=36, decisions=22, conflicts=8
 
 ******************************************
 *            Grid pebbling 3             *
 ******************************************
-LearnSAT v1.3.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
 Statistics: clauses=17, variables=12, units=17, decisions=9, conflicts=3
+
+******************************************
+*        Tseitin K3,3 (ordering)         *
+******************************************
+LearnSAT v1.3.1. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+Variables: [p0,p1,p2,~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p0=0
+Assignments so far:
+[p0=0]
+Variables: [p1,p2,~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p1=0
+Assignments so far:
+[p1=0,p0=0]
+Propagate unit: p2 derived from: 4. [p0,p1,p2]
+Assignments so far:
+[p2=1,p1=0,p0=0]
+Variables: [~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p4=1
+Assignments so far:
+[p4=1,p2=1,p1=0,p0=0]
+Propagate unit: p7 derived from: 18. [p1,~p4,p7]
+Assignments so far:
+[p7=1,p4=1,p2=1,p1=0,
+ p0=0]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=1
+Assignments so far:
+[p3=1,p7=1,p4=1,p2=1,
+ p1=0,p0=0]
+Propagate unit: ~p5 derived from: 8. [~p3,~p4,~p5]
+Assignments so far:
+[p5=0,p3=1,p7=1,p4=1,
+ p2=1,p1=0,p0=0]
+Propagate unit: p6 derived from: 14. [p0,~p3,p6]
+Assignments so far:
+[p6=1,p5=0,p3=1,p7=1,
+ p4=1,p2=1,p1=0,p0=0]
+Propagate unit: ~p8 derived from: 12. [~p6,~p7,~p8]
+Assignments so far:
+[p8=0,p6=1,p5=0,p3=1,
+ p7=1,p4=1,p2=1,p1=0,
+ p0=0]
+Conflict clause: 21. [~p2,p5,p8]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=0
+Assignments so far:
+[p3=0,p7=1,p4=1,p2=1,
+ p1=0,p0=0]
+Propagate unit: p5 derived from: 6. [p3,~p4,p5]
+Assignments so far:
+[p5=1,p3=0,p7=1,p4=1,
+ p2=1,p1=0,p0=0]
+Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
+Assignments so far:
+[p6=0,p5=1,p3=0,p7=1,
+ p4=1,p2=1,p1=0,p0=0]
+Propagate unit: p8 derived from: 10. [p6,~p7,p8]
+Assignments so far:
+[p8=1,p6=0,p5=1,p3=0,
+ p7=1,p4=1,p2=1,p1=0,
+ p0=0]
+Conflict clause: 24. [~p2,~p5,~p8]
+Variables: [~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p4=0
+Assignments so far:
+[p4=0,p2=1,p1=0,p0=0]
+Propagate unit: ~p7 derived from: 19. [p1,p4,~p7]
+Assignments so far:
+[p7=0,p4=0,p2=1,p1=0,
+ p0=0]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=1
+Assignments so far:
+[p3=1,p7=0,p4=0,p2=1,
+ p1=0,p0=0]
+Propagate unit: p5 derived from: 5. [~p3,p4,p5]
+Assignments so far:
+[p5=1,p3=1,p7=0,p4=0,
+ p2=1,p1=0,p0=0]
+Propagate unit: p6 derived from: 14. [p0,~p3,p6]
+Assignments so far:
+[p6=1,p5=1,p3=1,p7=0,
+ p4=0,p2=1,p1=0,p0=0]
+Propagate unit: p8 derived from: 9. [~p6,p7,p8]
+Assignments so far:
+[p8=1,p6=1,p5=1,p3=1,
+ p7=0,p4=0,p2=1,p1=0,
+ p0=0]
+Conflict clause: 24. [~p2,~p5,~p8]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=0
+Assignments so far:
+[p3=0,p7=0,p4=0,p2=1,
+ p1=0,p0=0]
+Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
+Assignments so far:
+[p5=0,p3=0,p7=0,p4=0,
+ p2=1,p1=0,p0=0]
+Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
+Assignments so far:
+[p6=0,p5=0,p3=0,p7=0,
+ p4=0,p2=1,p1=0,p0=0]
+Propagate unit: ~p8 derived from: 11. [p6,p7,~p8]
+Assignments so far:
+[p8=0,p6=0,p5=0,p3=0,
+ p7=0,p4=0,p2=1,p1=0,
+ p0=0]
+Conflict clause: 21. [~p2,p5,p8]
+Variables: [p1,p2,~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p1=1
+Assignments so far:
+[p1=1,p0=0]
+Propagate unit: ~p2 derived from: 3. [p0,~p1,~p2]
+Assignments so far:
+[p2=0,p1=1,p0=0]
+Variables: [~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p4=1
+Assignments so far:
+[p4=1,p2=0,p1=1,p0=0]
+Propagate unit: ~p7 derived from: 20. [~p1,~p4,~p7]
+Assignments so far:
+[p7=0,p4=1,p2=0,p1=1,
+ p0=0]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=1
+Assignments so far:
+[p3=1,p7=0,p4=1,p2=0,
+ p1=1,p0=0]
+Propagate unit: ~p5 derived from: 8. [~p3,~p4,~p5]
+Assignments so far:
+[p5=0,p3=1,p7=0,p4=1,
+ p2=0,p1=1,p0=0]
+Propagate unit: p6 derived from: 14. [p0,~p3,p6]
+Assignments so far:
+[p6=1,p5=0,p3=1,p7=0,
+ p4=1,p2=0,p1=1,p0=0]
+Propagate unit: p8 derived from: 9. [~p6,p7,p8]
+Assignments so far:
+[p8=1,p6=1,p5=0,p3=1,
+ p7=0,p4=1,p2=0,p1=1,
+ p0=0]
+Conflict clause: 23. [p2,p5,~p8]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=0
+Assignments so far:
+[p3=0,p7=0,p4=1,p2=0,
+ p1=1,p0=0]
+Propagate unit: p5 derived from: 6. [p3,~p4,p5]
+Assignments so far:
+[p5=1,p3=0,p7=0,p4=1,
+ p2=0,p1=1,p0=0]
+Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
+Assignments so far:
+[p6=0,p5=1,p3=0,p7=0,
+ p4=1,p2=0,p1=1,p0=0]
+Propagate unit: ~p8 derived from: 11. [p6,p7,~p8]
+Assignments so far:
+[p8=0,p6=0,p5=1,p3=0,
+ p7=0,p4=1,p2=0,p1=1,
+ p0=0]
+Conflict clause: 22. [p2,~p5,p8]
+Variables: [~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p4=0
+Assignments so far:
+[p4=0,p2=0,p1=1,p0=0]
+Propagate unit: p7 derived from: 17. [~p1,p4,p7]
+Assignments so far:
+[p7=1,p4=0,p2=0,p1=1,
+ p0=0]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=1
+Assignments so far:
+[p3=1,p7=1,p4=0,p2=0,
+ p1=1,p0=0]
+Propagate unit: p5 derived from: 5. [~p3,p4,p5]
+Assignments so far:
+[p5=1,p3=1,p7=1,p4=0,
+ p2=0,p1=1,p0=0]
+Propagate unit: p6 derived from: 14. [p0,~p3,p6]
+Assignments so far:
+[p6=1,p5=1,p3=1,p7=1,
+ p4=0,p2=0,p1=1,p0=0]
+Propagate unit: ~p8 derived from: 12. [~p6,~p7,~p8]
+Assignments so far:
+[p8=0,p6=1,p5=1,p3=1,
+ p7=1,p4=0,p2=0,p1=1,
+ p0=0]
+Conflict clause: 22. [p2,~p5,p8]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=0
+Assignments so far:
+[p3=0,p7=1,p4=0,p2=0,
+ p1=1,p0=0]
+Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
+Assignments so far:
+[p5=0,p3=0,p7=1,p4=0,
+ p2=0,p1=1,p0=0]
+Propagate unit: ~p6 derived from: 15. [p0,p3,~p6]
+Assignments so far:
+[p6=0,p5=0,p3=0,p7=1,
+ p4=0,p2=0,p1=1,p0=0]
+Propagate unit: p8 derived from: 10. [p6,~p7,p8]
+Assignments so far:
+[p8=1,p6=0,p5=0,p3=0,
+ p7=1,p4=0,p2=0,p1=1,
+ p0=0]
+Conflict clause: 23. [p2,p5,~p8]
+Variables: [p0,p1,p2,~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p0=1
+Assignments so far:
+[p0=1]
+Variables: [p1,p2,~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p1=0
+Assignments so far:
+[p1=0,p0=1]
+Propagate unit: ~p2 derived from: 2. [~p0,p1,~p2]
+Assignments so far:
+[p2=0,p1=0,p0=1]
+Variables: [~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p4=1
+Assignments so far:
+[p4=1,p2=0,p1=0,p0=1]
+Propagate unit: p7 derived from: 18. [p1,~p4,p7]
+Assignments so far:
+[p7=1,p4=1,p2=0,p1=0,
+ p0=1]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=1
+Assignments so far:
+[p3=1,p7=1,p4=1,p2=0,
+ p1=0,p0=1]
+Propagate unit: ~p5 derived from: 8. [~p3,~p4,~p5]
+Assignments so far:
+[p5=0,p3=1,p7=1,p4=1,
+ p2=0,p1=0,p0=1]
+Propagate unit: ~p6 derived from: 16. [~p0,~p3,~p6]
+Assignments so far:
+[p6=0,p5=0,p3=1,p7=1,
+ p4=1,p2=0,p1=0,p0=1]
+Propagate unit: p8 derived from: 10. [p6,~p7,p8]
+Assignments so far:
+[p8=1,p6=0,p5=0,p3=1,
+ p7=1,p4=1,p2=0,p1=0,
+ p0=1]
+Conflict clause: 23. [p2,p5,~p8]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=0
+Assignments so far:
+[p3=0,p7=1,p4=1,p2=0,
+ p1=0,p0=1]
+Propagate unit: p5 derived from: 6. [p3,~p4,p5]
+Assignments so far:
+[p5=1,p3=0,p7=1,p4=1,
+ p2=0,p1=0,p0=1]
+Propagate unit: p6 derived from: 13. [~p0,p3,p6]
+Assignments so far:
+[p6=1,p5=1,p3=0,p7=1,
+ p4=1,p2=0,p1=0,p0=1]
+Propagate unit: ~p8 derived from: 12. [~p6,~p7,~p8]
+Assignments so far:
+[p8=0,p6=1,p5=1,p3=0,
+ p7=1,p4=1,p2=0,p1=0,
+ p0=1]
+Conflict clause: 22. [p2,~p5,p8]
+Variables: [~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p4=0
+Assignments so far:
+[p4=0,p2=0,p1=0,p0=1]
+Propagate unit: ~p7 derived from: 19. [p1,p4,~p7]
+Assignments so far:
+[p7=0,p4=0,p2=0,p1=0,
+ p0=1]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=1
+Assignments so far:
+[p3=1,p7=0,p4=0,p2=0,
+ p1=0,p0=1]
+Propagate unit: p5 derived from: 5. [~p3,p4,p5]
+Assignments so far:
+[p5=1,p3=1,p7=0,p4=0,
+ p2=0,p1=0,p0=1]
+Propagate unit: ~p6 derived from: 16. [~p0,~p3,~p6]
+Assignments so far:
+[p6=0,p5=1,p3=1,p7=0,
+ p4=0,p2=0,p1=0,p0=1]
+Propagate unit: ~p8 derived from: 11. [p6,p7,~p8]
+Assignments so far:
+[p8=0,p6=0,p5=1,p3=1,
+ p7=0,p4=0,p2=0,p1=0,
+ p0=1]
+Conflict clause: 22. [p2,~p5,p8]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=0
+Assignments so far:
+[p3=0,p7=0,p4=0,p2=0,
+ p1=0,p0=1]
+Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
+Assignments so far:
+[p5=0,p3=0,p7=0,p4=0,
+ p2=0,p1=0,p0=1]
+Propagate unit: p6 derived from: 13. [~p0,p3,p6]
+Assignments so far:
+[p6=1,p5=0,p3=0,p7=0,
+ p4=0,p2=0,p1=0,p0=1]
+Propagate unit: p8 derived from: 9. [~p6,p7,p8]
+Assignments so far:
+[p8=1,p6=1,p5=0,p3=0,
+ p7=0,p4=0,p2=0,p1=0,
+ p0=1]
+Conflict clause: 23. [p2,p5,~p8]
+Variables: [p1,p2,~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p1=1
+Assignments so far:
+[p1=1,p0=1]
+Propagate unit: p2 derived from: 1. [~p0,~p1,p2]
+Assignments so far:
+[p2=1,p1=1,p0=1]
+Variables: [~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p4=1
+Assignments so far:
+[p4=1,p2=1,p1=1,p0=1]
+Propagate unit: ~p7 derived from: 20. [~p1,~p4,~p7]
+Assignments so far:
+[p7=0,p4=1,p2=1,p1=1,
+ p0=1]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=1
+Assignments so far:
+[p3=1,p7=0,p4=1,p2=1,
+ p1=1,p0=1]
+Propagate unit: ~p5 derived from: 8. [~p3,~p4,~p5]
+Assignments so far:
+[p5=0,p3=1,p7=0,p4=1,
+ p2=1,p1=1,p0=1]
+Propagate unit: ~p6 derived from: 16. [~p0,~p3,~p6]
+Assignments so far:
+[p6=0,p5=0,p3=1,p7=0,
+ p4=1,p2=1,p1=1,p0=1]
+Propagate unit: ~p8 derived from: 11. [p6,p7,~p8]
+Assignments so far:
+[p8=0,p6=0,p5=0,p3=1,
+ p7=0,p4=1,p2=1,p1=1,
+ p0=1]
+Conflict clause: 21. [~p2,p5,p8]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=0
+Assignments so far:
+[p3=0,p7=0,p4=1,p2=1,
+ p1=1,p0=1]
+Propagate unit: p5 derived from: 6. [p3,~p4,p5]
+Assignments so far:
+[p5=1,p3=0,p7=0,p4=1,
+ p2=1,p1=1,p0=1]
+Propagate unit: p6 derived from: 13. [~p0,p3,p6]
+Assignments so far:
+[p6=1,p5=1,p3=0,p7=0,
+ p4=1,p2=1,p1=1,p0=1]
+Propagate unit: p8 derived from: 9. [~p6,p7,p8]
+Assignments so far:
+[p8=1,p6=1,p5=1,p3=0,
+ p7=0,p4=1,p2=1,p1=1,
+ p0=1]
+Conflict clause: 24. [~p2,~p5,~p8]
+Variables: [~p4,~p3,p5,p6,p7,p8]
+Decision assignment: p4=0
+Assignments so far:
+[p4=0,p2=1,p1=1,p0=1]
+Propagate unit: p7 derived from: 17. [~p1,p4,p7]
+Assignments so far:
+[p7=1,p4=0,p2=1,p1=1,
+ p0=1]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=1
+Assignments so far:
+[p3=1,p7=1,p4=0,p2=1,
+ p1=1,p0=1]
+Propagate unit: p5 derived from: 5. [~p3,p4,p5]
+Assignments so far:
+[p5=1,p3=1,p7=1,p4=0,
+ p2=1,p1=1,p0=1]
+Propagate unit: ~p6 derived from: 16. [~p0,~p3,~p6]
+Assignments so far:
+[p6=0,p5=1,p3=1,p7=1,
+ p4=0,p2=1,p1=1,p0=1]
+Propagate unit: p8 derived from: 10. [p6,~p7,p8]
+Assignments so far:
+[p8=1,p6=0,p5=1,p3=1,
+ p7=1,p4=0,p2=1,p1=1,
+ p0=1]
+Conflict clause: 24. [~p2,~p5,~p8]
+Variables: [~p3,p5,p6,p8]
+Decision assignment: p3=0
+Assignments so far:
+[p3=0,p7=1,p4=0,p2=1,
+ p1=1,p0=1]
+Propagate unit: ~p5 derived from: 7. [p3,p4,~p5]
+Assignments so far:
+[p5=0,p3=0,p7=1,p4=0,
+ p2=1,p1=1,p0=1]
+Propagate unit: p6 derived from: 13. [~p0,p3,p6]
+Assignments so far:
+[p6=1,p5=0,p3=0,p7=1,
+ p4=0,p2=1,p1=1,p0=1]
+Propagate unit: ~p8 derived from: 12. [~p6,~p7,~p8]
+Assignments so far:
+[p8=0,p6=1,p5=0,p3=0,
+ p7=1,p4=0,p2=1,p1=1,
+ p0=1]
+Conflict clause: 21. [~p2,p5,p8]
+Unsatisfiable:
+Statistics: clauses=24, variables=9, units=60, decisions=30, conflicts=16

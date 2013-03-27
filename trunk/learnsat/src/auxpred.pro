@@ -2,15 +2,53 @@
 
 :- module(auxpred,
   [is_assigned/3, literals_to_variables/3, get_variables_of_clauses/2,
-   to_variable/2, to_complement/2, to_assignment/4, to_literal/2]).  
+   to_variable/2, to_complement/2, to_assignment/4, to_literal/2,
+   set_order/1, clear_order/0, get_order/1, delete_variable/3]).  
 
 :- use_module([counters]).
 
 :- op(610, fy,  ~).
 
+:- dynamic variables_list/1.
+
 %  Auxiliary predicates concerned with assignments, variables, literals
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%     Order of assignment to variables
+%  set_order/1
+%    Variables are assigned in the order of their appearance in List
+%    The variables can be literals: if negative assign 1 before 0
+%  clear_order/0
+%    Restore default: lexicographical order
+%  get_order/1
+%    Return order to display configuration
+
+set_order(List) :-
+  retractall(variables_list(_)),
+  assert(variables_list(List)).
+
+clear_order :-
+  retractall(variables_list(_)).
+
+get_order(List) :-
+  variables_list(List), !.
+get_order(default).
+
+
+%  delete_variable/3
+%      Variables - list of variables
+%      V - variable to delete
+%      Variables1 - list of variables after deletion of V
+%    The list of "variables" includes literals if the order is specified
+%      so check to delete both V and ~V 
+
+delete_variable(Variables, V, Variables1) :-
+  member(V, Variables), !,
+  delete(Variables, V, Variables1).
+delete_variable(Variables, V, Variables1) :-
+  member(~V, Variables), !,
+  delete(Variables, ~V, Variables1).
+
 
 %  is_assigned/3
 %    Check if a literal is assigned and if so return its value
@@ -35,10 +73,21 @@ is_assigned(Variable, Assignments, Value) :-
 get_variables_of_clauses(Clauses, Variables) :-
   flatten(Clauses, Literals_List),
   literals_to_variables(Literals_List, [], Variables_List),
-  sort(Variables_List, Variables),
+  sort(Variables_List, Sorted_Variables_List),
+  order_variables(Sorted_Variables_List, Variables),
   length(Clauses, Number_of_Clauses),
   length(Variables, Number_of_Variables),
   init_input_counters(Number_of_Clauses, Number_of_Variables).
+
+order_variables(Variables_List, Variables) :-
+  variables_list(Variables),
+  literals_to_variables(Variables, [], Variables1),
+  permutation(Variables_List, Variables1), !.
+order_variables(_, Variables) :-
+  variables_list(Variables), !,
+  write('Ordered list of variables not a permutation of the variables in the clauses\n'),
+  abort.
+order_variables(Variables_List, Variables_List).
 
 
 %  literals_to_variables/3
