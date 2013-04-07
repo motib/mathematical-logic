@@ -105,6 +105,7 @@ write_node(Node) :-
   write(Variable), write('='),
   write(Value), 
   write_level(Level),
+  write_reason(Node),
   write('"] '),
   decorate_node(Node),
   write(';\n').
@@ -121,11 +122,22 @@ write_level(Level) :-
 write_level(_).
 
 
+%  write_reason/2
+%    For propagated noes, add the antecedent clause to the label
+
+write_reason(Node) :-
+  arg(4, Node, yes), !.
+write_reason(Node) :-
+  arg(4, Node, Antecedent), !,
+  write('\\n'),
+  write(Antecedent).
+
+
 %  decorate_node/1
 %    Decorate decision, conflict and sat nodes
 
 decorate_node(Node) :-
-  Node = assign(_, _, _, yes), !,
+  arg(4, Node, yes), !,
   dot_decorate(decision, D),
   write(D).
 decorate_node(Node) :-
@@ -182,7 +194,7 @@ write_dot1([edge(From, N, To) | Tail], Clauses) :-
 %    Decorate a decision node of the implication graph
 
 decorate_decision_node(Node) :-
-  Node = assign(_, _, _, yes), !,
+  arg(4, Node, yes), !,
   write('"'),
   write_assignment(Node, no),
   write('"'),
