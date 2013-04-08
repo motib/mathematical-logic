@@ -123,30 +123,34 @@ write_level(_).
 
 
 %  write_reason/2
-%    For propagated noes, add the antecedent clause to the label
+%    For propagated nodes, add the antecedent clause to the label
 
 write_reason(Node) :-
   arg(4, Node, yes), !.
 write_reason(Node) :-
+  check_option(label),
   arg(4, Node, Antecedent), !,
   write('\\n'),
   write(Antecedent).
+write_reason(_).
 
 
 %  decorate_node/1
 %    Decorate decision, conflict and sat nodes
+%    Make sure that sat is before conflict
+%      so that a node which is both is marked sat
 
 decorate_node(Node) :-
-  arg(4, Node, yes), !,
-  dot_decorate(decision, D),
+  node(Node, sat), !,
+  dot_decorate(sat, D),
   write(D).
 decorate_node(Node) :-
   node(Node, conflict), !,
   dot_decorate(conflict, D),
   write(D).
 decorate_node(Node) :-
-  node(Node, sat), !,
-  dot_decorate(sat, D),
+  arg(4, Node, yes), !,
+  dot_decorate(decision, D),
   write(D).
 decorate_node(_).
 

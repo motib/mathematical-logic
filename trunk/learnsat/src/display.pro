@@ -117,6 +117,14 @@ display(tree, Assignments, Conflict) :-
   check_option(tree), !,
   write_tree(Assignments, Conflict).
 
+display(tree, Assignments, Conflict) :-
+  check_option(tree_inc), !,
+  write_tree(Assignments, Conflict).
+
+display(tree_inc, Assignments, Conflict) :-
+  check_option(tree_inc), !,
+  write_tree(Assignments, Conflict).
+
 %  Display uip only if resolvent is also chosen
 display(uip, no, Level) :-
   check_option_not_dpll(uip),

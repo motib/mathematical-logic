@@ -10,7 +10,7 @@
 all :-
   set_mode(ncb),
   set_display(all),
-  clear_display([evaluate,dot,dot_inc,tree]),
+  clear_display([evaluate,dot,dot_inc,tree,tree_inc]),
   tell('all.txt'),
   print_test('Example from MLM'),
   mlm,

@@ -64,7 +64,7 @@ all_display([
   antecedent, assignment, backtrack, clause, conflict, decision,
   dominator, dot, dot_inc, evaluate, graph, incremental, label,
   learned, literal, none, partial, resolvent, result, skipped, sorted,
-  tree, uip, unit, variable]).
+  tree, tree_inc, uip, unit, variable]).
 
 
 %  init_display/0
@@ -255,7 +255,8 @@ usage :-
   write('  result *     result of the algorithm with statistics\n'),
   write('  skipped *    assignments skipped when backtracking\n'),
   write('  sorted *     assignments displayed in sorted order\n'),
-  write('  tree         tree of assignments in dot format\n'),
+  write('  tree         assignment tree in dot format\n'),
+  write('  tree         assignment tree (incremental) in dot format\n'),
   write('  uip *        unique implication points\n'),
   write('  unit *       unit clauses\n'),
   write('  variable     variables that are not assigned so far\n').

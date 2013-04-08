@@ -186,7 +186,7 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
 %  OK: delete the assigned variable from the unassigned Variables
 %      and recurse on dpll/6
 ok_or_conflict(ok, Variables, Clauses, SoFar, Level, Graph, _, Decisions) :-
-  display(tree, SoFar, ok),
+  display(tree_inc, SoFar, ok),
   SoFar = [assign(V, _, _, _) | _], 
   delete_variable(Variables, V, Variables1),
   dpll(Clauses, Variables1, Level, SoFar, Graph, Decisions).
