@@ -2,7 +2,8 @@
 
 :- module(auxpred,
   [is_assigned/3, literals_to_variables/3, get_variables_of_clauses/2,
-   to_variable/2, to_complement/2, to_assignment/4, to_literal/2,
+   to_variable/2, to_complement/2, to_assignment/4,
+   to_literal/2, is_negative/2, to_complemented_clause/2,
    set_order/1, clear_order/0, get_order/1, delete_variable/3]).  
 
 :- use_module([counters]).
@@ -133,6 +134,11 @@ to_assignment(~ Variable, Level, Decision,
 to_assignment(Variable,   Level, Decision,
               assign(Variable, 1, Level, Decision)).
 
+%  is_negative/2
+%    Is a Literal negative?
+%    If so, return Variable; if not, fail
+is_negative(~ Variable, Variable).
+
 
 %  to_literal/2
 %    Assignment - an assignment
@@ -141,3 +147,22 @@ to_assignment(Variable,   Level, Decision,
 
 to_literal(assign(V, 0, _, _), ~V).
 to_literal(assign(V, 1, _, _), V).
+
+%  to_complemented_clause/2
+%    List of assignments to a list of complemented literals
+%      Assignments - a list of assignments
+%      Clause      - the corresponding clause
+
+to_complemented_clause([], []).
+to_complemented_clause([Head1 | Tail1], [Head2 | Tail2]) :-
+  to_complemented_literal(Head1, Head2),
+  to_complemented_clause(Tail1, Tail2).
+
+%  to_complemented_literal/2
+%    Assignment - an assignment
+%    Literal    - the assignment as a literal after complementing
+%  Example: assign(p1, 1, 3, no) becomes ~p1
+
+to_complemented_literal(assign(V, 0, _, _), V).
+to_complemented_literal(assign(V, 1, _, _), ~V).
+

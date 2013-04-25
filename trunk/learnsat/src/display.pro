@@ -3,7 +3,7 @@
 :- module(display,
           [display/2, display/3, display/4, display/5, display/6]).
 
-:- use_module([config,counters,dot,io,modes]).
+:- use_module([auxpred,config,counters,dot,io,modes]).
 
 
 %  display/2,3,4,5
@@ -78,26 +78,12 @@ display(conflict, Conflict, Clauses) :-
   write('Conflict clause: '),
   write_clause(Conflict, Clauses), nl.
 
-display(dot, Graph, Clauses) :-
-  check_option_not_dpll(dot), !,
-  display_dot(Graph, Clauses).
-
-% Generate dot graph also if dot_inc is selected
-display(dot, Graph, Clauses) :-
-  check_option_not_dpll(dot_inc), !,
-  display_dot(Graph, Clauses).
-
 display(dot_inc, Graph, Clauses) :-
   check_option_not_dpll(dot_inc), !,
-  display_dot(Graph, Clauses).
+  display_dot(Graph, Clauses, no, no).
 
 display(graph, Graph, Clauses) :-
   check_option_not_dpll(graph), !,
-  display_graph(Graph, Clauses).
-
-% Display graph also if incremental is selected
-display(graph, Graph, Clauses) :-
-  check_option_not_dpll(incremental), !,
   display_graph(Graph, Clauses).
 
 display(incremental, Graph, Clauses) :-
@@ -115,10 +101,6 @@ display(literal, Literal, Level) :-
 
 display(tree, Assignments, Conflict) :-
   check_option(tree), !,
-  write_tree(Assignments, Conflict).
-
-display(tree, Assignments, Conflict) :-
-  check_option(tree_inc), !,
   write_tree(Assignments, Conflict).
 
 display(tree_inc, Assignments, Conflict) :-
@@ -152,19 +134,18 @@ display(evaluate, Clause, Reason, Literal) :-
   write(Reason),
   display_deleted_literal(Literal).
 
-display(unit, Literal, Unit, Clauses) :-
+display(unit, Assignment, Unit, Clauses) :-
   check_option(unit), !,
   write('Propagate unit: '),
-  write(Literal),
-  write(' derived from: '),
+  to_literal(Assignment, Literal),
+  write_literal(Literal),
+  write(' ('),
+  write_assignment(Assignment, no),
+  write(') derived from: '),
   write_clause(Unit, Clauses), nl.
 
 display(_, _, _, _).
 
-display_deleted_literal(none) :- nl, !.
-display_deleted_literal(Literal) :-
-  write(Literal),
-  write(' deleted\n').
 
 %  Five arguments
 
@@ -172,13 +153,17 @@ display(resolvent, Literal, Clause, Clause1, Clause2) :-
   check_option_not_dpll(resolvent), !,
   write('Clause: '),
   write(Clause),
-  write(' unsatisfied'), nl,
+  write(' unsatisfiable'), nl,
   write('Complement of: '), write(Literal),
   write(' assigned true in the unit clause: '),
   write(Clause1), nl,
   write('Resolvent of the two clauses: '),
   write(Clause2),
-  write(' is also unsatisfiable'), nl.
+  write(' also unsatisfiable'), nl.
+
+display(dot, Graph, Clauses, Level, Dominator) :-
+  check_option_not_dpll(dot), !,
+  display_dot(Graph, Clauses, Level, Dominator).
 
 display(_, _, _, _, _).
 
@@ -189,15 +174,24 @@ display(dominator, Path_List, Dominator, Decisions, Result, Learned) :-
   write('Paths from the decision node at this level to kappa:\n'),
   write_paths(Path_List),
   write('A dominator is: '),
-  write_assignment(Dominator), nl, 
+  write_assignment(Dominator, no), nl, 
   write('Decisions at a lower level: '),
-  write(Decisions), nl,
+  write_assignments(Decisions), nl,
   write('Decisions not dominated: '),
-  write(Result), nl,
+  write_assignments(Result), nl,
   write('Learned clause from dominator: '),
   write(Learned), nl.
 
 display(_, _, _, _, _, _).
+
+
+% display_deleted_literal/1
+%   For evaluate option, display the deleted literal, if any
+
+display_deleted_literal(none) :- nl, !.
+display_deleted_literal(Literal) :-
+  write(Literal),
+  write(' deleted\n').
 
 
 %  check_option_not_dpll/1
@@ -208,21 +202,24 @@ check_option_not_dpll(Option) :-
   Mode \= dpll,
   check_option(Option).
 
-% display_dot/2
+% display_dot/4
 %   Common processing for display dot and dot_inc
-%   When label option is set, pass the list of clauses to write_dot
+%     Graph - the graph database
+%     Clauses - the set of clauses (used when label option set)
+%     Level - for dominator, emphasis the decision at this Level
+%     Dominator - the dominator to emphasize
 
-display_dot(Graph, Clauses) :-
+display_dot(Graph, Clauses, Level, Dominator) :-
   check_option(label), !,
-  display_dot1(Graph, Clauses).
-display_dot(Graph, _) :-
-  display_dot1(Graph, []).
+  display_dot1(Graph, Clauses, Level, Dominator).
+display_dot(Graph, _, Level, Dominator) :-
+  display_dot1(Graph, [], Level, Dominator).
 
-display_dot1(Graph, Clauses) :-
+display_dot1(Graph, Clauses, Level, Dominator) :-
   get_file_counter(ig, N),
   write('Writing dot graph: '),
   write(N), nl,
-  write_dot(Graph, Clauses).
+  write_dot(Graph, Clauses, Level, Dominator).
 
 
 % display_graph/2
