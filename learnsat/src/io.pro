@@ -2,11 +2,11 @@
 
 :- module(io, [
   write_assignment/1, write_assignment/2, write_assignments/1,
-  write_clause/2, write_clauses/2, write_arrow_label/2,
-  write_paths/1, write_graph/2
+  write_literal/1, write_clause/2, write_clauses/2,
+  write_arrow_label/2, write_paths/1, write_graph/2
   ]).
 
-:- use_module([counters, modes, config]).
+:- use_module([auxpred,counters, modes, config]).
   
 %  IO predicates for displaying clauses and assignments
 %    and for displaying implication and dominator graphs 
@@ -55,9 +55,9 @@ write_assignments(A) :-
   write(']').
 
 write_assignments1([H], _) :- !,
-  write_assignment(H).
+  write_assignment(H, no).
 write_assignments1([H|T], N) :-
-  write_assignment(H),
+  write_assignment(H, no),
   write(','),
   break_line(N, N1),
   write_assignments1(T, N1).
@@ -67,7 +67,7 @@ sort_assignments(A, A1) :-
   sort(A, A1).
 sort_assignments(A, A).
 
-break_line(3, 0) :- !,
+break_line(7, 0) :- !,
   write('\n ').
 break_line(N, N1) :- N1 is N + 1.
 
@@ -112,6 +112,18 @@ write_antecedent1(yes) :- !.
 write_antecedent1(Unit) :-
   write('/'),
   write(Unit).
+  
+%  write_literal/1
+%    Write a literal with a leading blank for positive literals
+%      and a leading ~ for negative literals
+write_literal(Literal) :-
+  is_negative(Literal, Variable), !,
+  write('~'),
+  write(Variable).
+write_literal(Literal) :-
+  write(' '),
+  write(Literal).
+  
 
 %  write_graph/2
 %    graph(Nodes, Edges) - where Nodes and Edges are lists
@@ -179,6 +191,6 @@ write_paths([Head | Tail]) :-
 write_one_path([kappa]) :- !,
   write('kappa\n').
 write_one_path([Assignment | Tail]) :-
-  write_assignment(Assignment),
+  write_assignment(Assignment, no),
   write(' --> '),
   write_one_path(Tail).

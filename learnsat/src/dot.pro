@@ -2,7 +2,7 @@
 
 %  Generation of dot files for implications graphs and semantic trees
 
-:- module(do, [write_dot/2, write_tree/2, init_tree/0]).
+:- module(do, [write_dot/4, write_tree/2, init_tree/0]).
 
 %  Prologues and decorations for the dot files are in config.pro
 
@@ -30,7 +30,7 @@ init_tree :-
 %   Result - conflict or sat for decorating nodes
 write_tree(Assignments, Result) :-
     % Create file name, tell and write dot prologue
-  create_file_name(st, Name),
+  create_file_name(at, Name),
   tell(Name),
   dot_prologue(tb, D),
   write(D),
@@ -155,32 +155,32 @@ decorate_node(Node) :-
 decorate_node(_).
 
 
-%  write_dot/2
-%      Graph - the graph to be written
-%      Clauses - edges are labeled by clause numbers but the antecedent
-%                clauses can be displayed instead
-%                this variable contains the set of clauses
+%  write_dot/4
+%      Graph - the graph database
+%      Clauses - the set of clauses, used when label option set:
+%                the edges are labeled with antecedent clauses
+%                instead of just clause numbers
+%      Level - for dominator, emphasis the decision at this Level
+%      Dominator - the dominator to emphasize
 %    Write the implication graph to a file in dot format for GraphViz
 %    Only the edges are needed as dot takes the nodes from them
 %    Call write_assignment to write each node (including kappa)
 
-write_dot(graph(_, Edges), Clauses) :-
+write_dot(graph(_, Edges), Clauses, Level, Dominator) :-
   create_file_name(ig, Name),
   tell(Name),
   dot_prologue(lr, D),
   write(D),
-  write_dot1(Edges, Clauses),
+  write_dot1(Edges, Clauses, Level, Dominator),
   write('}'),
   told.
 
-%  write_dot1/2
-%      Graph - the graph to be written
-%      Clauses - list of clauses
+%  write_dot1/4
+%    Arguments as above
 %    Write each edge from Graph
-%      labeled with the number or name of the antecedent clause
 
-write_dot1([], _).
-write_dot1([edge(From, N, To) | Tail], Clauses) :-
+write_dot1([], _, _, _).
+write_dot1([edge(From, N, To) | Tail], Clauses, Level, Dominator) :-
   write('"'),
   write_assignment(From, no),
   write('"  ->  "'),
@@ -190,26 +190,65 @@ write_dot1([edge(From, N, To) | Tail], Clauses) :-
   write(N),
   write_arrow_label(N, Clauses),
   write('"];\n'),
-  decorate_decision_node(From),
-  write_dot1(Tail, Clauses).
+  decorate_decision_node(From, Level),
+  decorate_dominator(To, Dominator),
+  write_dot1(Tail, Clauses, Level, Dominator).
 
 
-%  decorate_decision_node/1
+%  decorate_decision_node/2
+%      Node - the node to decorate
+%      Level - the current level
 %    Decorate a decision node of the implication graph
+%    For dominator option, use a different decoration for the node
+%      at the highest level
 
-decorate_decision_node(Node) :-
+decorate_decision_node(Node, Level) :-
+  check_option(dominator),
+  Node = assign(_, _, Level, yes), !,
+  dot_decorate(decision_level, D),
+  decorate_node(Node, D).
+decorate_decision_node(Node, _) :-
   arg(4, Node, yes), !,
+  dot_decorate(decision, D),
+  decorate_node(Node, D).
+decorate_decision_node(_, _).
+
+
+%  decorate_dominator/2
+%  decorate_dominator1/2
+%      Node - the node to decorate
+%      Dominator - the dominator node
+%    For dominator option, decorate also the dominator and kappa nodes
+
+decorate_dominator(To, Dominator) :-
+  check_option(dominator), !,
+  decorate_dominator1(To, Dominator).
+decorate_dominator(_, _).
+
+decorate_dominator1(kappa, _) :- !,
+  dot_decorate(dominator, D),
+  decorate_node(kappa, D).
+decorate_dominator1(To, Dominator) :-
+  To == Dominator, !,
+  dot_decorate(dominator, D),
+  decorate_node(To, D).
+decorate_dominator1(_, _).
+
+
+%  decorate_node/2
+%      Node - the node to decorate
+%      Decoration - the decoration
+
+decorate_node(Node, Decoration) :-
   write('"'),
   write_assignment(Node, no),
   write('"'),
-  dot_decorate(decision, D),
-  write(D),
+  write(Decoration),
   write(';\n').
-decorate_decision_node(_).
 
 
 %  create_file_name/2
-%    Graph - ig for implication graph, st for semantic tree
+%    Graph - ig for implication graph, at for semantic tree
 %    The File name is taken from the file argument of the program
 %      remove the extension from the name and add "-NN.dot"
 %  NOTE: The use of current_prolog_flag to obtain the file name

@@ -1,26 +1,24 @@
 % Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
-
-%  Export main predicate dpll/2 and the negation operator
-:- module(dominator, [compute_learned_clause_by_dominator/2]).
+%  Export main predicate dpll/2
+:- module(dominator, [compute_learned_clause_by_dominator/3]).
 
 %  Modules directly used by dpll
-:- use_module([modes,display]).
-
-:- op(610, fy,  ~).
+:- use_module([auxpred,modes,display]).
 
 %  Compute a learned clause by locating a dominator
 %  This is used only for display and the result is ignored
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%  compute_learned_clause_by_dominator/2
+%  compute_learned_clause_by_dominator/3
 %    Graph - the implication graph
 %    Level - the highest level in the graph
+%    Dominator - return the dominator for emphasis on dot graph
 
-compute_learned_clause_by_dominator(graph(Nodes, Edges), Level) :-
+compute_learned_clause_by_dominator(graph(Nodes, Edges), Level, Dominator) :-
       % Run only if the display option dominator is set
-  check_option(dominator),
+  check_option(dominator), !,
       % From the decision assignment at the highest level
   N = assign(_, _, Level, yes),
   member(N, Nodes),
@@ -38,26 +36,7 @@ compute_learned_clause_by_dominator(graph(Nodes, Edges), Level) :-
       % Convert to clause form and complement each literal
   to_complemented_clause(Learned, Clause),
   display(dominator, Path_List, Dominator, Decisions, Result, Clause).
-compute_learned_clause_by_dominator(_, _).
-
-
-%  to_complemented_clause/2
-%    List of assignments to a list of complemented literals
-%      Assignments - a list of assignments
-%      Clause      - the corresponding clause
-
-to_complemented_clause([], []).
-to_complemented_clause([Head1 | Tail1], [Head2 | Tail2]) :-
-  to_complemented_literal(Head1, Head2),
-  to_complemented_clause(Tail1, Tail2).
-
-%  to_complemented_literal/2
-%    Assignment - an assignment
-%    Literal    - the assignment as a literal after complementing
-%  Example: assign(p1, 1, 3, no) becomes ~p1
-
-to_complemented_literal(assign(V, 0, _, _), V).
-to_complemented_literal(assign(V, 1, _, _), ~V).
+compute_learned_clause_by_dominator(_, _, no).
 
 
 %  get_path/5

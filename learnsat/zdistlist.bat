@@ -1,0 +1,11 @@
+src\*.pro
+docs\learnsat-ug.tex
+docs\learnsat.bib
+docs\learnsat-ug.pdf
+readme.txt
+docs\copyright.txt
+docs\gpl.txt
+docs\learnsat-release.html
+docs\graph.png
+docs\dom.png
+docs\tree1.png

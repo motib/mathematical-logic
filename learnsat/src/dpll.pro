@@ -105,8 +105,7 @@ dpll(Clauses, Variables, Level, SoFar, Graph, Decisions) :-
       % Increment the unit counter, convert the Assignment to a Literal
   New_Assignment = [Assignment | SoFar],
   increment(unit),
-  to_literal(Assignment, Literal),
-  display(unit, Literal, Unit, Clauses1),
+  display(unit, Assignment, Unit, Clauses1),
   display(caused, SoFar),
   display(partial, New_Assignment),
       % Evaluate the set of Clauses using the assignments SoFar
@@ -175,11 +174,13 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
       % Add the "kappa" node for the conflict clause to the graph
   nth1(Number, Clauses, Conflict),
   extend_graph(Conflict, Number, kappa, SoFar, Graph, Graph1),
-      % Display the graph and write the dot file
+      % Display the implication graph
   display(graph, Graph1, Clauses),
-  display(dot, Graph1, Clauses),
       % Compute the learned clause and save in the database
-  compute_learned_clause(Graph1, Clauses, Level),
+  compute_learned_clause(Graph1, Clauses, Level, Dominator),
+      % Write the implication graph to the dot file
+      %   using the Level and Dominator for emphasis
+  display(dot, Graph1, Clauses, Level, Dominator),
       % Fail on conflict
   fail.
 
@@ -364,18 +365,19 @@ extend_graph([], _, Assignment, _,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%  compute_learned_clause/3
+%  compute_learned_clause/4
 %    compute_learned_clause_by_dominator
 %      For display only (if display option dominator is set)
+%      Return the Dominator for emphasis on the dot graph (if generated)
 %    compute_learned_clause_by_resolution
 %      Compute a learned clause by resolving backwards from the conflict
 
-compute_learned_clause(Graph1, Clauses, Level) :-
+compute_learned_clause(Graph1, Clauses, Level, Dominator) :-
   get_mode(Mode),
   Mode \= dpll, !,
-  compute_learned_clause_by_dominator(Graph1, Level),
+  compute_learned_clause_by_dominator(Graph1, Level, Dominator),
   compute_learned_clause_by_resolution(Graph1, Clauses, Level).
-compute_learned_clause(_, _, _).
+compute_learned_clause(_, _, _, no).
 
 
 %  compute_learned_clause_by_resolution/3
@@ -391,7 +393,7 @@ compute_learned_clause_by_resolution(Graph, Clauses, Level) :-
   member(edge(_, N, kappa), Edges), !,
   nth1(N, Clauses, Clause),
       % Compute the Learned clause backwards from this clause
-  compute_learned_clause(Graph, Clauses, Level, Clause, Learned),
+  learn_clause_from_antecedents(Graph, Clauses, Level, Clause, Learned),
   display(learned, Learned),
       % Compute the backtrack Level from the Learned clause
   compute_backtrack_level(Learned, Level, 0, Nodes),
@@ -401,7 +403,7 @@ compute_learned_clause_by_resolution(Graph, Clauses, Level) :-
   assert(learned(List1)).
 
 
-%  compute_learned_clause/5
+%  learn_clause_from_antecedents/5
 %    Construct the learned clause from the antecedents
 %      Graph   - the implication graph
 %      Clauses - the set of clauses
@@ -410,11 +412,11 @@ compute_learned_clause_by_resolution(Graph, Clauses, Level) :-
 %      Learned - return the learned clause
 
 %  Terminate if a unique implication point (uip) has been reached
-compute_learned_clause(graph(Nodes, _), _, Level, Clause, Clause) :-
+learn_clause_from_antecedents(graph(Nodes, _), _, Level, Clause, Clause) :-
   check_uip(Clause, Nodes, Level, 0), !.
 
 %  Resolve the current clause (if possible)
-compute_learned_clause(Graph, Clauses, Level, Clause, Learned) :-
+learn_clause_from_antecedents(Graph, Clauses, Level, Clause, Learned) :-
   Graph = graph(_, Edges),
       % Find a literal in the Clause
   member(Literal, Clause),
@@ -429,10 +431,10 @@ compute_learned_clause(Graph, Clauses, Level, Clause, Learned) :-
       % Resolve and recurse
   resolve(Literal, Clause, Clause1, Clause2),
   display(resolvent, Literal, Clause, Clause1, Clause2),
-  compute_learned_clause(Graph, Clauses, Level, Clause2, Learned).
+  learn_clause_from_antecedents(Graph, Clauses, Level, Clause2, Learned).
 
 % If no more such clause pairs exist, return the learned clause
-compute_learned_clause(_, _, _, Clause, Clause).
+learn_clause_from_antecedents(_, _, _, Clause, Clause).
 
 
 %  check_uip/4

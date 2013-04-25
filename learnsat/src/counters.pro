@@ -7,12 +7,12 @@
 %  Counters for:
 %    clauses, variables, units propagated,
 %    decisions made, conflicts encountered,
-%    generating file names for implication graphs and semantic trees
+%    generating file names for implication graphs and assignment trees
 
 :- dynamic
      clause_counter/1, variable_counter/1, unit_counter/1, 
      decision_counter/1, conflict_counter/1,
-     ig_file_counter/1, st_file_counter/1.
+     ig_file_counter/1, at_file_counter/1.
 
 %  Initialization - set counters to 0
 %  Initialization - number of Clauses and Variables
@@ -22,7 +22,7 @@ init_counters :-
   retractall(decision_counter(_)),  assert(decision_counter(0)),
   retractall(conflict_counter(_)),  assert(conflict_counter(0)),
   retractall(ig_file_counter(_)),   assert(ig_file_counter(0)),
-  retractall(st_file_counter(_)),   assert(st_file_counter(0)).
+  retractall(at_file_counter(_)),   assert(at_file_counter(0)).
 
 init_input_counters(Number_of_Clauses, Number_of_Variables) :-
   retractall(clause_counter(_)),
@@ -48,10 +48,10 @@ increment(ig) :-
   retract(ig_file_counter(N)),
   N1 is N + 1,
   assert(ig_file_counter(N1)).
-increment(st) :-
-  retract(st_file_counter(N)),
+increment(at) :-
+  retract(at_file_counter(N)),
   N1 is N + 1,
-  assert(st_file_counter(N1)).
+  assert(at_file_counter(N1)).
 
 
 %  show_counters/2    - write the counters
@@ -75,8 +75,8 @@ show_counters :-
 
 
 %  get_file_counter/2 - return the file counter
-%    Counter - ig for implication graph, st for semantic tree
+%    Counter - ig for implication graph, at for assignment tree
 %    N - returned value
 
 get_file_counter(ig, N) :- ig_file_counter(N).
-get_file_counter(st, N) :- st_file_counter(N).
+get_file_counter(at, N) :- at_file_counter(N).

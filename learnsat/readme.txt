@@ -16,5 +16,8 @@ Download and install SWI-Prolog: http://www.swi-prolog.org/.
 LearnSAT can be obtained from http://code.google.com/p/mlcs/ as an
 archive learnsat-N.zip. Download and upzip the archive.
  
-The file learnsat.pdf contains a user's guide, a tutorial and
-documentation of the software.
+The file learnsat-ug.pdf contains a user's guide and documentation of
+the software.
+
+A separate distribution learnsat-tutorial-N.zip contains a tutorial on
+SAT solving with LearnSAT.
