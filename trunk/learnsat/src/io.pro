@@ -95,15 +95,13 @@ write_assignment(kappa, _) :-
   write(kappa).
 
 write_level(assign(_, _, Depth, _)) :- 
-  get_mode(Mode), 
-  Mode \= dpll, !,
+  not_dpll_mode, !,
   write('@'),
   write(Depth).
 write_level(_).
 
 write_antecedent(assign(_, _, _, Unit), yes) :-
-  get_mode(Mode),
-  Mode \= dpll,
+  not_dpll_mode,
   check_option(antecedent), !,
   write_antecedent1(Unit).
 write_antecedent(_, _).

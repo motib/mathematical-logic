@@ -115,8 +115,7 @@ write_node(Node) :-
 %    The level is not written for dpll mode
 
 write_level(Level) :-
-  get_mode(Mode),
-  Mode \= dpll, !,
+  not_dpll_mode, !,
   write('/'),
   write(Level).
 write_level(_).

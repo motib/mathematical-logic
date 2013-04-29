@@ -2,7 +2,7 @@
 ******************************************
 *            Example from MLM            *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x031,~x2],
@@ -149,22 +149,22 @@ x1=0@3 --> x3=0@3 --> x4=1@3 --> x6=0@3 --> kappa
 A dominator is: x4=1@3
 Decisions at a lower level: [x021=0@1,x031=0@2]
 Decisions not dominated: [x021=0@1]
-Learned clause from dominator: [x021,~x4]
+Learned clause from dominator (not used): [x021,~x4]
 Literal: x5 assigned at level: 3
 Literal: x6 assigned at level: 3
 Not a UIP: two literals are assigned at level: 3
 Clause: [x5,x6] unsatisfiable
-Complement of: x5 assigned true in the unit clause: [~x4,~x5]
+Complement of: x5 assigned true in the unit clause: 4. [~x4,~x5]
 Resolvent of the two clauses: [x6,~x4] also unsatisfiable
 Literal: x6 assigned at level: 3
 Literal: ~x4 assigned at level: 3
 Not a UIP: two literals are assigned at level: 3
 Clause: [x6,~x4] unsatisfiable
-Complement of: x6 assigned true in the unit clause: [x021,~x4,~x6]
+Complement of: x6 assigned true in the unit clause: 5. [x021,~x4,~x6]
 Resolvent of the two clauses: [x021,~x4] also unsatisfiable
 Literal: ~x4 assigned at level: 3
 UIP: one literal is assigned at level: 3
-Learned clause: [x021,~x4]
+Learned clause from resolution (used): [x021,~x4]
 Non-chronological backtracking to level: 1
 Skip decision assignment: x1=1@3
 Skip decision assignment: x031=1@2
@@ -275,7 +275,7 @@ Statistics: clauses=6, variables=8, units=10, decisions=6, conflicts=1
 ******************************************
 *            Example from MZ             *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [ax1,x4],
@@ -446,7 +446,7 @@ Statistics: clauses=8, variables=10, units=5, decisions=7, conflicts=1
 ******************************************
 *            Example from MS             *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x2],
@@ -616,22 +616,22 @@ x1=0@6 --> x3=1@6 --> x4=1@6 --> x6=1@6 --> kappa
 A dominator is: x4=1@6
 Decisions at a lower level: [ax9=0@1,bx10=0@2,cx11=0@3]
 Decisions not dominated: [bx10=0@2,cx11=0@3]
-Learned clause from dominator: [bx10,cx11,~x4]
+Learned clause from dominator (not used): [bx10,cx11,~x4]
 Literal: ~x5 assigned at level: 6
 Literal: ~x6 assigned at level: 6
 Not a UIP: two literals are assigned at level: 6
 Clause: [~x5,~x6] unsatisfiable
-Complement of: ~x5 assigned true in the unit clause: [~x4,x5,bx10]
+Complement of: ~x5 assigned true in the unit clause: 4. [~x4,x5,bx10]
 Resolvent of the two clauses: [~x6,~x4,bx10] also unsatisfiable
 Literal: ~x6 assigned at level: 6
 Literal: ~x4 assigned at level: 6
 Not a UIP: two literals are assigned at level: 6
 Clause: [~x6,~x4,bx10] unsatisfiable
-Complement of: ~x6 assigned true in the unit clause: [~x4,x6,cx11]
+Complement of: ~x6 assigned true in the unit clause: 5. [~x4,x6,cx11]
 Resolvent of the two clauses: [bx10,~x4,cx11] also unsatisfiable
 Literal: ~x4 assigned at level: 6
 UIP: one literal is assigned at level: 6
-Learned clause: [bx10,~x4,cx11]
+Learned clause from resolution (used): [bx10,~x4,cx11]
 Non-chronological backtracking to level: 3
 Skip decision assignment: x1=1@6
 Skip decision assignment: dx13=1@5
@@ -763,7 +763,7 @@ Statistics: clauses=9, variables=13, units=10, decisions=12, conflicts=1
 ******************************************
 *              Pigeonhole 2              *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12],
@@ -883,46 +883,46 @@ p11=0@1 --> p12=1@1 --> kappa
 A dominator is: p12=1@1
 Decisions at a lower level: []
 Decisions not dominated: []
-Learned clause from dominator: [~p12]
+Learned clause from dominator (not used): [~p12]
 Literal: ~p12 assigned at level: 1
 Literal: ~p32 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
 Clause: [~p12,~p32] unsatisfiable
-Complement of: ~p12 assigned true in the unit clause: [p11,p12]
+Complement of: ~p12 assigned true in the unit clause: 1. [p11,p12]
 Resolvent of the two clauses: [~p32,p11] also unsatisfiable
 Literal: ~p32 assigned at level: 1
 Literal: p11 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
 Clause: [~p32,p11] unsatisfiable
-Complement of: ~p32 assigned true in the unit clause: [p31,p32]
+Complement of: ~p32 assigned true in the unit clause: 3. [p31,p32]
 Resolvent of the two clauses: [p11,p31] also unsatisfiable
 Literal: p11 assigned at level: 1
 Literal: p31 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
 Clause: [p11,p31] unsatisfiable
-Complement of: p31 assigned true in the unit clause: [~p21,~p31]
+Complement of: p31 assigned true in the unit clause: 6. [~p21,~p31]
 Resolvent of the two clauses: [p11,~p21] also unsatisfiable
 Literal: p11 assigned at level: 1
 Literal: ~p21 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
 Clause: [p11,~p21] unsatisfiable
-Complement of: ~p21 assigned true in the unit clause: [p21,p22]
+Complement of: ~p21 assigned true in the unit clause: 2. [p21,p22]
 Resolvent of the two clauses: [p11,p22] also unsatisfiable
 Literal: p11 assigned at level: 1
 Literal: p22 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
 Clause: [p11,p22] unsatisfiable
-Complement of: p22 assigned true in the unit clause: [~p12,~p22]
+Complement of: p22 assigned true in the unit clause: 7. [~p12,~p22]
 Resolvent of the two clauses: [p11,~p12] also unsatisfiable
 Literal: p11 assigned at level: 1
 Literal: ~p12 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
 Clause: [p11,~p12] unsatisfiable
-Complement of: ~p12 assigned true in the unit clause: [p11,p12]
+Complement of: ~p12 assigned true in the unit clause: 1. [p11,p12]
 Resolvent of the two clauses: [p11] also unsatisfiable
 Literal: p11 assigned at level: 1
 UIP: one literal is assigned at level: 1
-Learned clause: [p11]
+Learned clause from resolution (used): [p11]
 Non-chronological backtracking to level: 0
 Variables: [p11,p12,p21,p22,p31,p32]
 Decision assignment: p11=1@1
@@ -1010,7 +1010,7 @@ Statistics: clauses=9, variables=6, units=9, decisions=2, conflicts=2
 ******************************************
 *                Queens 4                *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12,p13,p14],
@@ -1507,46 +1507,46 @@ p21=0@4 --> p22=1@4 --> kappa
 A dominator is: p22=1@4
 Decisions at a lower level: [p11=0@1,p12=0@2,p13=0@3]
 Decisions not dominated: []
-Learned clause from dominator: [~p22]
+Learned clause from dominator (not used): [~p22]
 Literal: ~p22 assigned at level: 4
 Literal: ~p31 assigned at level: 4
 Not a UIP: two literals are assigned at level: 4
 Clause: [~p22,~p31] unsatisfiable
-Complement of: ~p22 assigned true in the unit clause: [p21,p22,p23,p24]
+Complement of: ~p22 assigned true in the unit clause: 2. [p21,p22,p23,p24]
 Resolvent of the two clauses: [~p31,p21,p23,p24] also unsatisfiable
 Literal: ~p31 assigned at level: 4
 Literal: p21 assigned at level: 4
 Not a UIP: two literals are assigned at level: 4
 Clause: [~p31,p21,p23,p24] unsatisfiable
-Complement of: ~p31 assigned true in the unit clause: [p31,p32,p33,p34]
+Complement of: ~p31 assigned true in the unit clause: 3. [p31,p32,p33,p34]
 Resolvent of the two clauses: [p21,p23,p24,p32,p33,p34] also unsatisfiable
 Literal: p21 assigned at level: 4
 Literal: p33 assigned at level: 4
 Not a UIP: two literals are assigned at level: 4
 Clause: [p21,p23,p24,p32,p33,p34] unsatisfiable
-Complement of: p33 assigned true in the unit clause: [~p33,~p43]
+Complement of: p33 assigned true in the unit clause: 46. [~p33,~p43]
 Resolvent of the two clauses: [p21,p23,p24,p32,p34,~p43] also unsatisfiable
 Literal: p21 assigned at level: 4
 Literal: ~p43 assigned at level: 4
 Not a UIP: two literals are assigned at level: 4
 Clause: [p21,p23,p24,p32,p34,~p43] unsatisfiable
-Complement of: ~p43 assigned true in the unit clause: [p41,p42,p43,p44]
+Complement of: ~p43 assigned true in the unit clause: 4. [p41,p42,p43,p44]
 Resolvent of the two clauses: [p21,p23,p24,p32,p34,p41,p42,p44] also unsatisfiable
 Literal: p21 assigned at level: 4
 Literal: p42 assigned at level: 4
 Not a UIP: two literals are assigned at level: 4
 Clause: [p21,p23,p24,p32,p34,p41,p42,p44] unsatisfiable
-Complement of: p42 assigned true in the unit clause: [~p22,~p42]
+Complement of: p42 assigned true in the unit clause: 39. [~p22,~p42]
 Resolvent of the two clauses: [p21,p23,p24,p32,p34,p41,p44,~p22] also unsatisfiable
 Literal: p21 assigned at level: 4
 Literal: ~p22 assigned at level: 4
 Not a UIP: two literals are assigned at level: 4
 Clause: [p21,p23,p24,p32,p34,p41,p44,~p22] unsatisfiable
-Complement of: ~p22 assigned true in the unit clause: [p21,p22,p23,p24]
+Complement of: ~p22 assigned true in the unit clause: 2. [p21,p22,p23,p24]
 Resolvent of the two clauses: [p32,p34,p41,p44,p21,p23,p24] also unsatisfiable
 Literal: p21 assigned at level: 4
 UIP: one literal is assigned at level: 4
-Learned clause: [p32,p34,p41,p44,p21,p23,p24]
+Learned clause from resolution (used): [p32,p34,p41,p44,p21,p23,p24]
 Non-chronological backtracking to level: 3
 Skip decision assignment: p21=1@4
 Variables: [p13,p14,p21,p22,p23,p24,p31,p32,p33,p34,p41,p42,p43,p44]
@@ -1888,7 +1888,7 @@ Statistics: clauses=80, variables=16, units=25, decisions=5, conflicts=1
 ******************************************
 *       Tseitin example from MLCS        *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -2168,7 +2168,7 @@ Statistics: clauses=12, variables=5, units=10, decisions=6, conflicts=4
 ******************************************
 *    Tseitin example from MLCS (sat)     *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -2428,7 +2428,7 @@ Statistics: clauses=12, variables=5, units=10, decisions=6, conflicts=3
 ******************************************
 *              Tseitin K2,2              *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -2568,7 +2568,7 @@ Statistics: clauses=8, variables=4, units=6, decisions=2, conflicts=2
 ******************************************
 *           Tseitin K2,2 (sat)           *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -2691,7 +2691,7 @@ Statistics: clauses=8, variables=4, units=6, decisions=2, conflicts=1
 ******************************************
 *           Tseitin K3,3 (sat)           *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1,p2],
@@ -3450,7 +3450,7 @@ Statistics: clauses=24, variables=9, units=23, decisions=12, conflicts=5
 ******************************************
 *            Grid pebbling 2             *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p1],
@@ -3568,22 +3568,22 @@ q1=0@1 --> q2=1@1 --> r2=0@1 --> kappa
 A dominator is: q2=1@1
 Decisions at a lower level: []
 Decisions not dominated: []
-Learned clause from dominator: [~q2]
+Learned clause from dominator (not used): [~q2]
 Literal: r1 assigned at level: 1
 Literal: r2 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
 Clause: [r1,r2] unsatisfiable
-Complement of: r1 assigned true in the unit clause: [~q2,~r1,p1,p2]
+Complement of: r1 assigned true in the unit clause: 5. [~q2,~r1,p1,p2]
 Resolvent of the two clauses: [r2,~q2,p1,p2] also unsatisfiable
 Literal: r2 assigned at level: 1
 Literal: ~q2 assigned at level: 1
 Not a UIP: two literals are assigned at level: 1
 Clause: [r2,~q2,p1,p2] unsatisfiable
-Complement of: r2 assigned true in the unit clause: [~q2,~r2,p1,p2]
+Complement of: r2 assigned true in the unit clause: 6. [~q2,~r2,p1,p2]
 Resolvent of the two clauses: [~q2,p1,p2] also unsatisfiable
 Literal: ~q2 assigned at level: 1
 UIP: one literal is assigned at level: 1
-Learned clause: [~q2,p1,p2]
+Learned clause from resolution (used): [~q2,p1,p2]
 Non-chronological backtracking to level: 0
 Variables: [q1,q2,r1,r2]
 Decision assignment: q1=1@1
@@ -3651,28 +3651,28 @@ Statistics: clauses=8, variables=6, units=7, decisions=2, conflicts=2
 ******************************************
 *              Pigeonhole 3              *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
 Statistics: clauses=22, variables=12, units=25, decisions=10, conflicts=3
 
 ******************************************
 *              Tseitin K3,3              *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
-Statistics: clauses=24, variables=9, units=36, decisions=22, conflicts=8
+Statistics: clauses=24, variables=9, units=60, decisions=30, conflicts=16
 
 ******************************************
 *            Grid pebbling 3             *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
 Statistics: clauses=17, variables=12, units=17, decisions=9, conflicts=3
 
 ******************************************
 *        Tseitin K3,3 (ordering)         *
 ******************************************
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Variables: [p0,p1,p2,~p4,~p3,p5,p6,p7,p8]
 Decision assignment: p0=0
 Assignments so far:

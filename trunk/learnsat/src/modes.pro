@@ -1,44 +1,41 @@
 % Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
-%  Set/clear display options and algorithm mode
+%  Set/clear display options and algorithm modes
 %  Show the configuration
 %  Show the "usage" message
 
 :- module(modes, [
   set_display/1, clear_display/1, init_display/0, check_option/1,
-  set_mode/1, get_mode/1,
+  set_mode/1, alg_mode/1, not_dpll_mode/0, init_modes/0,
+  set_learn_mode/1, learn_mode/1,
   usage/0, display_copyright_notice/0,
   show_config/0]).
 
-:- use_module([config,io]).
+:- use_module([config, io]).
+
+% Algorithmic mode and learn mode
+%   These are exported
+
+:- dynamic alg_mode/1, learn_mode/1.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%    Algorithmic modes
+%    Algorithmic and clause-learning modes
 
 %  LearnSAT can be run in three modes;
 %    dpll -   DPLL algorithm
 %    cdcl -   DPLL with conflict-directed clause learning (CDCL)
 %    ncb  -   DPLL with CDCL and non-chronological backtracking (NCB)
 
-:- dynamic mode/1.
-
-
-%  get_mode/1 - Get the mode, or set and return default. 
-%    Mode - dpll (default) or cdcl or ncb
-
-get_mode(Mode) :-
-  mode(Mode), !.
-get_mode(Mode) :-
-  default_mode(Mode),
-  assert(mode(Mode)).
-
-%  set_mode/1 - Set a new mode, checking that it is a legal one
+%  set_mode/1 - Set a new mode
 
 set_mode(Mode) :-
-  retractall(mode(_)),
+  retractall(alg_mode(_)),
   check_mode(Mode),
-  assert(mode(Mode)).
+  assert(alg_mode(Mode)).
+
+
+%  check_mode/1 - Check that the mode is legal or write error
 
 check_mode(dpll).
 check_mode(cdcl).
@@ -46,6 +43,54 @@ check_mode(ncb).
 check_mode(X) :-
   write('Mode "'), write(X), write('" not recognized\n'),
   write('Run "usage" for a list of modes\n').
+
+%  not_dpll_mode/0
+%    Succeeds if not dpll mode
+
+not_dpll_mode :-
+  alg_mode(Mode),
+  Mode \= dpll, !.
+
+
+%  Clauses can be learned by finding a dominator or by resolution
+%    They might not be the same depending on the order of resolution
+%    learn_mode determines which algorithm is used
+
+%  set_learn_mode/1 - Set a new learn mode
+
+set_learn_mode(Mode) :-
+  retractall(learn_mode(_)),
+  check_learn_mode(Mode),
+  assert(learn_mode(Mode)).
+
+
+%  check_learn_mode/1 - Check that the mode is legal or write error
+
+check_learn_mode(resolution).
+check_learn_mode(dominator).
+check_learn_mode(X) :-
+  write('Learn mode "'), write(X), write('" not recognized\n'),
+  write('Run "usage" for a list of learn modes\n').
+
+
+%  init_modes/0, init_mode/0, init_learn_mode/0
+%    If no mode or learn_mode, assert the defaults from config
+
+init_modes :-
+  init_mode,
+  init_learn_mode.
+
+init_mode :-
+  alg_mode(_), !.
+init_mode :-
+  default_alg_mode(Default),
+  assert(alg_mode(Default)).
+
+init_learn_mode :-
+  learn_mode(_), !.
+init_learn_mode :-
+  default_learn_mode(Default),
+  assert(learn_mode(Default)).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -81,11 +126,13 @@ init_display1 :-
   default_display(List),
   set_display(List).
 
+
 %  check_display/1
 %    Check if a display option is set, otherwise fail
 
 check_option(Option) :-
   display_option(Option).
+
 
 %  set_display/1, clear_display/1
 %    Set or clear display options
@@ -104,6 +151,11 @@ set_display(default) :- !,
   clear_display(all),
   default_display(List),
   set_display(List).
+
+%  Default can also be (the first) element in a list of options
+set_display([default | Tail]) :- !,
+  set_display(default),
+  set_display(Tail).
 
 set_display([Head | Tail]) :- !,
   set_display1(Head),
@@ -158,15 +210,18 @@ clear_display(X) :-
 clear_display1(Option) :-
   retract(display_option(Option)), !.
 
+
 %  If retract doesn't succeed, check that the option
 %    exists in all_display
 clear_display1(Option) :-
   all_display(List),
   member(Option, List), !.
 
+
 %  Otherwise, report that the option not recognized
 clear_display1(Option) :-
   not_recognized(Option).
+
 
 %  not_recognized/1
 %    Print an error message if the option is not recognized
@@ -180,21 +235,27 @@ not_recognized(X) :-
 %   Display configuration and usage
 
 %  show_config/0
-%    Display version, default mode and display options
-%      and current mode and display options
+%    Display version, default mode, learn mode and display options
+%      and current mode, learn mode and display options
 
 show_config :-
   display_copyright_notice,
-  default_mode(M1),
+  default_alg_mode(M1),
   write('Default mode: '),
   write(M1), nl,
+  default_learn_mode(M2),
+  write('Default learn mode: '),
+  write(M2), nl,
   default_display(D1),
   write('Default display options:\n'),
   sort(D1, D2),
   write(D2), nl,
-  get_mode(M2),
+  alg_mode(M3),
   write('Current mode: '),
-  write(M2), nl,
+  write(M3), nl,
+  learn_mode(M4),
+  write('Current learn mode: '),
+  write(M4), nl,
   findall(D, display_option(D), List),
   write('Current display options:\n'),
   sort(List, List1),
@@ -203,6 +264,10 @@ show_config :-
   get_order(Order),
   write_order(Order).
 show_config.
+
+
+%  write_order/1
+%    Write the order of the variables if not the default lexicographic
 
 write_order(default) :- !,
   write(' default').
@@ -229,9 +294,12 @@ usage :-
   write('  dpll: DPLL algorithm (default)\n'),
   write('  cdcl: DPLL with conflict-directed clause learning\n'),
   write('  ncb:  DPLL with CDCL and non-chronological backtracking\n\n'),
-  write('set_order(List), clear_order\n'),
-  write('  Variables are assigned in the order of their appearance\n'),
-  write('    in List (default is lexicographical order)\n\n'),
+  write('set_learn_mode(Mode)\n'),
+  write('  resolution: Learn clauses by resolution (default)\n'),
+  write('  dominator:  Learn clauses from dominator\n\n'),
+  write('set_order(Order)\n'),
+  write('  default: variables assigned in lexicographical order\n'),
+  write('  [...]:   variables assigned in the order [...]\n\n'),
   write('set_display(D), clear_display(D), where D can be a list\n'),
   write('  all          all the display options\n'),
   write('  default      default display options (marked *)\n\n'),
@@ -241,14 +309,14 @@ usage :-
   write('  clause       clauses to be checked for satisfiability\n'),
   write('  conflict *   conflict clauses\n'),
   write('  decision *   decision assignments\n'),
-  write('  dominator    compute a learned clause from the dominator\n'),
+  write('  dominator    learned clause from dominator\n'),
   write('  dot          implication graphs (final) in dot format\n'),
   write('  dot_inc      implication graphs (incremental) in dot format\n'),
   write('  evaluate     evaluation of clauses for an assignment\n'),
   write('  graph        implication graphs (final) in textual format\n'),
   write('  incremental  implication graphs (incremental) in textual format\n'),
   write('  label        graphs and trees labeled with clauses\n'),
-  write('  learned *    learned clauses\n'),
+  write('  learned *    learned clause by resolution\n'),
   write('  literal      literals found assigned during CDCL\n'),
   write('  partial      partial assignments so far\n'),
   write('  resolvent *  resolvents created during CDCL\n'),

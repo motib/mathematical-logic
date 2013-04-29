@@ -1,7 +1,9 @@
 %
+%
 %                        LearnSat
 %
 %    Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
+
 
 %  Davis-Putnam-Logemann-Loveland (DPLL) algorithm with
 %    conflict-driven clause learning (CDCL) and
@@ -14,13 +16,14 @@
 :- module(dpll, [op(610, fy,  ~), dpll/2]).
 
 %  Modules directly used by dpll
-:- use_module([counters,modes,display,dot,auxpred,io,dominator]).
+:- use_module([cdcl,counters,modes,display,dot,auxpred,io]).
 
 %  Make housekeeping predicates visible after consulting dpll
 :- reexport(modes, 
-  [show_config/0, usage/0, set_display/1, clear_display/1, set_mode/1]).
+  [show_config/0, usage/0, set_display/1, clear_display/1,
+   set_mode/1, set_learn_mode/1]).
 
-:- reexport(auxpred, [set_order/1, clear_order/0, get_order/1]).
+:- reexport(auxpred, [set_order/1, get_order/1]).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,13 +40,14 @@
 %          edge(source assignment, clause number, target assignment)
 %
 %    Learned clauses are stored as a dynamic list
-%      learned(list of clauses)
+%      learned(list of clauses) in cdcl.pro
 %
 %    Non-chronological backtracking level is stored as a dynamic integer
-%      backtrack(Level) 
-
-:- dynamic learned/1.
-:- dynamic backtrack/1.
+%      backtrack(Level) in cdcl.pro
+%
+%    List of variables in the clause is stored as a dynamic list
+%      variables_list(list of variables) in auxpred.pro
+%      to enable the user to change the order of the variables
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -61,7 +65,7 @@
 
 dpll(Clauses, Decisions) :-
       % Initialization
-  get_mode(_),
+  init_modes,
   init_display,
   init_counters,
   init_tree,
@@ -193,6 +197,15 @@ ok_or_conflict(ok, Variables, Clauses, SoFar, Level, Graph, _, Decisions) :-
   dpll(Clauses, Variables1, Level, SoFar, Graph, Decisions).
 
 
+%  add_learned_clauses(Clauses, Clauses1)
+%    Add the learned clauses to the set of clauses
+%      Clauses  - the given set of clauses
+%      Clauses1 - the set together with the learned clauses
+add_learned_clauses(Clauses, Clauses1) :-
+  learned(Learned),
+  union(Clauses, Learned, Clauses1).
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Finding a unit and evaluating a clause
 %
@@ -310,7 +323,7 @@ choose_assignment([V | _], Level, Assignment) :-
       %   if the current Level is greater than the backtrack level, fail
       % Cut within "if->then;else" is local and does _not_ destroy the
       %   choice points for "member" and ";" above
-  get_mode(Mode),
+  alg_mode(Mode),
   backtrack(L),
   (Mode = ncb, Level > L, Level > 1 ->
     display(skipped, Assignment), !, fail ;
@@ -320,201 +333,3 @@ choose_parity(~_, N) :- !,
   (N = 1 ; N = 0).
 choose_parity(_, N) :-
   (N = 0 ; N = 1).
-  
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%  extend_graph/6
-%    Extend the implication graph for a unit clause
-%    The assignment implied by the unit clause will be a new target node
-%    Add edges from each assignment to the other literals in the clause
-%    The edges are labeled with the number of this clause
-%        Clause     - a clause determined to be unit
-%        Number     - number of this clause
-%        Assignment - current assignment
-%        SoFar      - assignments so far
-%        Graph      - current implication graph
-%        Graph1     - return the new implication graph
-
-%  If the Assignment is to this literal, don't add to graph
-extend_graph([Head | Tail], Number, Assignment, SoFar, Graph, Graph1) :-
-  to_variable(Head, Variable),
-  Assignment = assign(Variable, _, _, _), !, 
-  extend_graph(Tail, Number, Assignment, SoFar, Graph, Graph1).
-
-%  Otherwise, search for an assignment to this literal
-%    which will become a new source node with an edge to Assignment
-extend_graph([Head | Tail], Number, Assignment, SoFar, 
-          graph(Nodes, Edges), Graph1) :-
-  to_variable(Head, Variable),
-  Source = assign(Variable, _, _, _),
-  member(Source, SoFar), !,
-      % If found, add this assignment as a source node
-      % and add the (Number of the) antecedent unit clause as a new edge
-  extend_graph(Tail, Number, Assignment, SoFar,
-    graph([Source | Nodes],
-          [edge(Source, Number, Assignment) | Edges]), Graph1).
-
-%  End of the clause, add Assignment as a target node
-%  Sort the nodes and edges (this removes duplicates, if any)
-extend_graph([], _, Assignment, _, 
-          graph(Nodes, Edges), graph(Nodes1, Edges1)) :-
-  sort([Assignment | Nodes], Nodes1),
-  sort(Edges, Edges1).
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%  compute_learned_clause/4
-%    compute_learned_clause_by_dominator
-%      For display only (if display option dominator is set)
-%      Return the Dominator for emphasis on the dot graph (if generated)
-%    compute_learned_clause_by_resolution
-%      Compute a learned clause by resolving backwards from the conflict
-
-compute_learned_clause(Graph1, Clauses, Level, Dominator) :-
-  get_mode(Mode),
-  Mode \= dpll, !,
-  compute_learned_clause_by_dominator(Graph1, Level, Dominator),
-  compute_learned_clause_by_resolution(Graph1, Clauses, Level).
-compute_learned_clause(_, _, _, no).
-
-
-%  compute_learned_clause_by_resolution/3
-%    Compute a learned clause from an implication graph
-%        by resolving backwards from the conflict clause
-%      Graph   - an implication graph
-%      Clauses - the set of clauses
-%      Level   - the current (highest) level
-
-compute_learned_clause_by_resolution(Graph, Clauses, Level) :-
-  Graph = graph(Nodes, Edges),
-      % Search for the antecedent of the kappa node
-  member(edge(_, N, kappa), Edges), !,
-  nth1(N, Clauses, Clause),
-      % Compute the Learned clause backwards from this clause
-  learn_clause_from_antecedents(Graph, Clauses, Level, Clause, Learned),
-  display(learned, Learned),
-      % Compute the backtrack Level from the Learned clause
-  compute_backtrack_level(Learned, Level, 0, Nodes),
-      % Add the Learned clause to the list of learned clauses
-  retract(learned(List)),
-  union([Learned], List, List1),
-  assert(learned(List1)).
-
-
-%  learn_clause_from_antecedents/5
-%    Construct the learned clause from the antecedents
-%      Graph   - the implication graph
-%      Clauses - the set of clauses
-%      Level   - the current (highest) level
-%      Clause  - the current clause
-%      Learned - return the learned clause
-
-%  Terminate if a unique implication point (uip) has been reached
-learn_clause_from_antecedents(graph(Nodes, _), _, Level, Clause, Clause) :-
-  check_uip(Clause, Nodes, Level, 0), !.
-
-%  Resolve the current clause (if possible)
-learn_clause_from_antecedents(Graph, Clauses, Level, Clause, Learned) :-
-  Graph = graph(_, Edges),
-      % Find a literal in the Clause
-  member(Literal, Clause),
-      %   and a clause that contains its complement which is
-      %   assigned at the same Level and is not a decision node
-  to_complement(Literal, Literal1),
-  to_assignment(Literal1, Level, Decision, Assignment),
-  member(edge(_, N, Assignment), Edges),
-      %   Check that Decision has not been unified with yes
-  Decision \= yes, !,
-  nth1(N, Clauses, Clause1),
-      % Resolve and recurse
-  resolve(Literal, Clause, Clause1, Clause2),
-  display(resolvent, Literal, Clause, Clause1, Clause2),
-  learn_clause_from_antecedents(Graph, Clauses, Level, Clause2, Learned).
-
-% If no more such clause pairs exist, return the learned clause
-learn_clause_from_antecedents(_, _, _, Clause, Clause).
-
-
-%  check_uip/4
-%    A UIP has exactly one literal assigned at the current level
-%      Clause  - the current clause
-%      Nodes   - the nodes of the implication graph
-%      Level   - the current (highest) level
-%      Number  - the number of literals assigned at this level
-
-%  If two literals are assigned at this level, the clause is not a uip
-check_uip(_, _, Level, 2) :- !,
-  display(uip, no, Level),
-  fail.
-
-%  End of the clause reached
-%  If one literal is assigned at this level, the clause is a uip
-check_uip([], _, Level, 1) :-
-  display(uip, yes, Level).
-
-%  Check if the next literal is assigned at this level
-%  If so, increment the number of literals assigned and recurse
-check_uip([Head | Tail], Nodes, Level, N) :-
-  to_variable(Head, Variable),
-  member(assign(Variable, _, Level, _), Nodes), !,
-  display(literal, Head, Level),
-  N1 is N+1,
-  check_uip(Tail, Nodes, Level, N1).
-
-% The variable of the literal was not assigned at this level, recurse
-check_uip([_ | Tail], Nodes, Level, N) :-
-  check_uip(Tail, Nodes, Level, N).
-
-
-%  resolve/4
-%    Resolve two clauses on a given literal
-%      Literal   - literal from Clause1 to resolve on
-%      Clause1   - first clause
-%      Clause2   - second clause with complement of Literal
-%      Resolvent - return resolvent clause
-resolve(Literal, Clause1, Clause2, Resolvent) :-
-  delete(Clause1, Literal, Clause11),
-  to_complement(Literal, Literal1),
-  delete(Clause2, Literal1, Clause21),
-  union(Clause11, Clause21, Resolvent).
-
-
-%  add_learned_clauses(Clauses, Clauses1)
-%    Add the learned clauses to the set of clauses
-%      Clauses  - the given set of clauses
-%      Clauses1 - the set together with the learned clauses
-add_learned_clauses(Clauses, Clauses1) :-
-  learned(Learned),
-  union(Clauses, Learned, Clauses1).
-
-
-%  compute_backtrack_level/4
-%    Compute the non-chronological backtrack level as the highest
-%      level of an assignment for the learned clause
-%      except for the current level
-%        Learned  - learned clause
-%        Level    - current level
-%        Highest  - highest level so far
-%        Nodes    - nodes with assignments in the implication graph
-
-%  At end of learned clause, save the highest level
-compute_backtrack_level([], _, Highest, _) :-
-  display(backtrack, Highest),
-  retract(backtrack(_)),
-  assert(backtrack(Highest)).
-
-%  Check each literal of the learned clause
-%  Search for an assignment to the complement of the literal
-%  Save if higher than seen so far (but not the current level)
-compute_backtrack_level([Head | Tail], Level, Highest, Nodes) :-
-  to_complement(Head, Head1),
-  to_assignment(Head1, L, _, Assignment),
-  member(Assignment, Nodes),
-  L =\= Level, L > Highest, !,
-  compute_backtrack_level(Tail, Level, L, Nodes).
-
-%  Otherwise, recurse
-compute_backtrack_level([_ | Tail], Level, Highest, Nodes) :-
-  compute_backtrack_level(Tail, Level, Highest, Nodes).

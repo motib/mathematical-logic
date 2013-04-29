@@ -5,14 +5,17 @@
 %    dot prologue and decorations
 
 :- module(config,
-  [version/1, years/1, default_mode/1, default_display/1,
+  [version/1, years/1,
+   default_alg_mode/1, default_display/1, default_learn_mode/1,
    dot_prologue/2, dot_decorate/2]).
 
-version('1.3.3').
+version('1.3.4').
 
 years('2012-13').
 
-default_mode(dpll).
+default_alg_mode(dpll).
+
+default_learn_mode(resolution).
 
 default_display(
   [backtrack, conflict, decision, learned,
