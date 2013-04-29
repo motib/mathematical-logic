@@ -49,7 +49,7 @@ all :-
   print_test('Tseitin K3,3 (ordering)'),
   set_order([p0,p1,p2,~p4,~p3,p5,p6,p7,p8]),
   k33,
-  clear_order,
+  set_order(default),
   clear_display(all),
   set_display(default),
   told.

@@ -21,7 +21,7 @@
 \parindent=0pt
 
 \title{\bfseries \ls --- Tutorial\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.0}
+\bfseries\normalsize Version 1.1}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
@@ -89,7 +89,7 @@ When the DPLL algorithm is run on the set of clauses, it assigns
 
 \begin{verbatim}
 ?- mlm.
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Decision assignment: x021=0
 Decision assignment: x031=0
 Decision assignment: x1=0
@@ -295,7 +295,7 @@ a satisfying assignment:
 \begin{verbatim}
 Conflict clause: 6. [x5,x6]
   . . .
-Learned clause: [x021,~x4]
+Learned clause from resolution (used): [x021,~x4]
 Decision assignment: x1=1@3
 Propagate unit: ~x4 (x4=0@3) derived from: 7. [x021,~x4]
 Decision assignment: x2=0@4
@@ -398,20 +398,32 @@ computation.
 
 Unfortunately, there is no advantage to learning a clause based only on
 these decision assignments, because the same set of decisions at levels
-1, 2 and 3 will never occur again after backtracking. In
-Sections~\ref{learned.dom}--\ref{learned.res}, we present algorithms for
-finding \emph{shorter} learned clauses that are more likely to become
-conflict clauses as the algorithm continues.
+1, 2 and 3 will never occur again after backtracking.
 
+Sections~\ref{learned.dom}--\ref{learned.res} present algorithms for
+finding \emph{shorter} learned clauses that are more likely to become
+conflict clauses as the algorithm continues. Section~\ref{learned.dom}
+describes how to learn a clause by computing a dominator in the
+implication graph. Section~\ref{learned.res} describes how to learn a
+clause resolving backwards from the conflict node.
+
+\emph{The two algorithms are always run one after the other.} You can
+trace either one or both of the algorithms. Display option \p{dominator}
+traces the computation of a dominator, and the option \p{learned}
+(together with \p{resolvent}, \p{uip}, \p{literal}) traces the
+computation by resolution.
+
+\emph{Learn mode} selects which learned clause will be remembered and
+subsequently used:
+\begin{verbatim}
+set learn_mode(dominator)    set learn_mode(resolution)
+\end{verbatim}
+This mode exists because the results of the two algorithms might be
+different.
 
 \newpage
 
 \section{Learning a clause from a dominator}\label{learned.dom}
-
-Select display option \p{dominator} to learn a clause by computing a
-dominator.\footnote{The clause learned by this method is for display purposes
-only. The learned clause used by the algorithm is that computed by the
-method described in Section~\ref{learned.res}.} 
 
 From the implication graph, we saw that a learned clause can be defined
 by the decision assignments at the source nodes. However, consider all
@@ -449,7 +461,7 @@ x1=0@3 --> x3=0@3 --> x4=1@3 --> x6=0@3 --> kappa
 A dominator is: x4=1@3
 Decisions at a lower level: [x021=0@1,x031=0@2]
 Decisions not dominated: [x021=0@1]
-Learned clause from dominator: [x021,~x4]
+Learned clause from dominator (not used): [x021,~x4]
 \end{verbatim}
 
 \newpage
@@ -484,17 +496,17 @@ Literal: x5 assigned at level: 3
 Literal: x6 assigned at level: 3
 Not a UIP: two literals are assigned at level: 3
 Clause: [x5,x6] unsatisfiable
-Complement of: x5 assigned true in the unit clause: [~x4,~x5]
-Resolvent of the two clauses: [x6,~x4] is also unsatisfiable
+Complement of: x5 assigned true in the unit clause: 4. [~x4,~x5]
+Resolvent of the two clauses: [x6,~x4] also unsatisfiable
 Literal: x6 assigned at level: 3
 Literal: ~x4 assigned at level: 3
 Not a UIP: two literals are assigned at level: 3
 Clause: [x6,~x4] unsatisfiable
-Complement of: x6 assigned true in the unit clause: [x021,~x4,~x6]
-Resolvent of the two clauses: [x021,~x4] is also unsatisfiable
+Complement of: x6 assigned true in the unit clause: 5. [x021,~x4,~x6]
+Resolvent of the two clauses: [x021,~x4] also unsatisfiable
 Literal: ~x4 assigned at level: 3
 UIP: one literal is assigned at level: 3
-Learned clause: [x021,~x4]
+Learned clause from resolution (used): [x021,~x4]
 \end{verbatim}
 
 Recall \cite[Theorem~4.17]{mlcs} that a resolvent $C$ is satisfiable if

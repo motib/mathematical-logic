@@ -20,8 +20,7 @@ display(assignment, Assignments) :-
   write_assignments(Assignments), nl.
 
 display(backtrack, Highest) :-
-  get_mode(Mode),
-  Mode = ncb,
+  alg_mode(ncb),
   check_option(backtrack), !,
   write('Non-chronological backtracking to level: '),
   write(Highest), nl.
@@ -36,10 +35,10 @@ display(decision, Assignment) :-
   write('Decision assignment: '),
   write_assignment(Assignment, no), nl.
 
+%  Clause learned by resolution
 display(learned, Learned) :-
   check_option_not_dpll(learned), !,
-  write('Learned clause: '),
-  write(Learned), nl.
+  display_learned_clause(resolution, Learned).
 
 display(partial, Assignments) :-
   check_option(partial), !,
@@ -58,7 +57,7 @@ display(result, Assignments) :-
   show_counters.
 
 display(skipped, Assignment) :-
-  get_mode(Mode), Mode = ncb,
+  alg_mode(ncb),
   check_option(skipped), !,
   write('Skip decision assignment: '),
   write_assignment(Assignment, no), nl.
@@ -149,23 +148,12 @@ display(_, _, _, _).
 
 %  Five arguments
 
-display(resolvent, Literal, Clause, Clause1, Clause2) :-
-  check_option_not_dpll(resolvent), !,
-  write('Clause: '),
-  write(Clause),
-  write(' unsatisfiable'), nl,
-  write('Complement of: '), write(Literal),
-  write(' assigned true in the unit clause: '),
-  write(Clause1), nl,
-  write('Resolvent of the two clauses: '),
-  write(Clause2),
-  write(' also unsatisfiable'), nl.
-
 display(dot, Graph, Clauses, Level, Dominator) :-
   check_option_not_dpll(dot), !,
   display_dot(Graph, Clauses, Level, Dominator).
 
 display(_, _, _, _, _).
+
 
 %  Six arguments
 
@@ -179,10 +167,42 @@ display(dominator, Path_List, Dominator, Decisions, Result, Learned) :-
   write_assignments(Decisions), nl,
   write('Decisions not dominated: '),
   write_assignments(Result), nl,
-  write('Learned clause from dominator: '),
-  write(Learned), nl.
+  display_learned_clause(dominator, Learned).
+
+display(resolvent, Clauses, Literal, Clause, Clause1, Clause2) :-
+  check_option_not_dpll(resolvent), !,
+  write('Clause: '),
+  write(Clause),
+  write(' unsatisfiable'), nl,
+  write('Complement of: '), write(Literal),
+  write(' assigned true in the unit clause: '),
+  write_clause(Clause1, Clauses), nl,
+  write('Resolvent of the two clauses: '),
+  write(Clause2),
+  write(' also unsatisfiable'), nl.
 
 display(_, _, _, _, _, _).
+
+
+%  display_learned_clause/2
+%  display_learned_clause1/1
+%      Mode - dominator or resolution
+%      Learned - the learned clause
+%    Display the learned clause and from which algorithm it was learned
+%    If the Mode is the same as the current learned mode,
+%      display "(used)", otherwise display "(not used)"
+
+display_learned_clause(Mode, Learned) :-
+  write('Learned clause from '),
+  write(Mode),
+  display_learned_clause1(Mode),
+  write(Learned), nl.
+
+display_learned_clause1(Mode) :-
+ learn_mode(Mode), !,
+  write(' (used): ').
+display_learned_clause1(_) :-
+  write(' (not used): ').
 
 
 % display_deleted_literal/1
@@ -198,9 +218,9 @@ display_deleted_literal(Literal) :-
 %    Check option and also that the mode is not dpll
 
 check_option_not_dpll(Option) :-
-  get_mode(Mode),
-  Mode \= dpll,
+  not_dpll_mode,
   check_option(Option).
+
 
 % display_dot/4
 %   Common processing for display dot and dot_inc

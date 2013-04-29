@@ -21,7 +21,7 @@
 \parindent=0pt
 
 \title{\bfseries \ls{} --- User's Guide\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.3.3}
+\bfseries\normalsize Version 1.3.4}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
@@ -141,10 +141,10 @@ predicates which are the only predicates that you need to run \ls{}:
 \p{usage}&Show the predicates, modes and display options \\
 \p{show\_config}&Show the current mode and display options\\
 \p{set\_mode}&Set the algorithmic mode\\
+\p{set\_learn\_mode}&Set the mode for learning clauses\\
 \p{set\_display}&Set display options\\
 \p{clear\_display}&Clear display options\\
 \p{set\_order}&Set variable assignment order\\
-\p{clear\_order}&Clear variable assignment order\\
 \hline
 \end{tabular}
 \end{center}
@@ -189,7 +189,7 @@ algorithm:
 
 \begin{verbatim}
 1 ?- hole2.
-LearnSAT v1.3.3. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Decision assignment: p11=0
 Propagate unit:  p12 (p12=1) derived from: 1. [p11,p12]
 Propagate unit: ~p22 (p22=0) derived from: 7. [~p12,~p22]
@@ -218,6 +218,8 @@ The trace output can be directed to a file:
 
 \section{Controlling the algorithm}
 
+\subsection{Algorithmic mode}
+
 \ls{} can run in one of three modes set by the predicate \p{set\_mode}:
 
 \begin{center}
@@ -240,17 +242,19 @@ cdcl: units=25, decisions=14, conflicts=8
 ncb:  units=17, decisions=9,  conflicts=3
 \end{verbatim}
 
+\subsection{Order of the variables}
 
 By default, decision assignments are made in lexicographical order of
 the atomic propositions. The order can be specified by using the
-predicate \p{set\_order}; the predicate \p{clear\_order} resets the
-default order. The list argument to \p{set\_order} must be a permutation
-of the variables in the clauses.\footnote{Suggestion: First run a
-program with the display option \p{variable} set; the list of variables
-will be printed out in the correct syntax for \p{set\_order}. You can
-now copy and paste the list, permuting the order as needed.} Negated
-variables can be given; these variables are assigned 1 before they are
-assigned 0.
+predicate \p{set\_order}. The list argument to \p{set\_order} must be a
+permutation of the variables in the clauses.\footnote{Suggestion: First
+run a program with the display option \p{variable} set; the list of
+variables will be printed out in the correct syntax for \p{set\_order}.
+You can now copy and paste the list, permuting the order as needed.}
+Negated variables can be given; these variables are assigned 1 before
+they are assigned 0.
+
+To restore the default order run \p{set\_order(default)}.
 
 The \p{mlm} example finds a satisfying assignment \emph{without}
 conflicts if the default order is changed:
@@ -258,6 +262,15 @@ conflicts if the default order is changed:
 \begin{verbatim}
 set_order([x1,x2,x021,x031,x3,x4,x5,x6]).
 \end{verbatim}
+
+\subsection{Clause learning mode}
+
+There are two algorithms for conflict-driven clause learning: finding a
+dominator and by resolution backwards from a conflict node to a unique
+implication point. Select: \p{set\_learn\_mode(dominator)} or
+\p{set\_learn\_mode(resolution)} (the default). Both algorithms are
+always run in order to display the dominator in the implication graph.
+The mode determines which result is subsequently used.
 
 \newpage
 
@@ -277,37 +290,34 @@ options):
 \hline
 \multicolumn{2}{|c|}{\textbf{\large Display options}}\\
 \hline
-\p{antecedent}&  antecedents of the implied literals\\
-\p{assignment}& assignments that caused a conflict         \\
-\p{backtrack} *&  level of non-chronological backtracking    \\
-\p{clause}   &  clauses to be checked for satisfiability   \\
-\p{conflict} * &  conflict clauses                           \\
-\p{decision} * &  decision assignments                       \\
-\p{dominator} &  compute a learned clause from the dominator  \\
-\p{dot}       &  implication graphs (final) in dot format           \\
-\p{dot\_inc}  &  implication graphs (incremental) in dot format\\
-\p{evaluate}  &  evaluation of clauses for an assignment    \\
-\p{graph}     &  implication graphs (final) in textual format                \\
-\p{incremental}& implication graphs (incremental) in textual format          \\
-\p{label}     &  graphs and trees labeled with clauses\\
-\p{learned} *  &  learned clauses                            \\
-\p{literal}   &  literals found assigned during CDCL        \\
-\p{partial}   &  partial assignments so far                  \\
+\p{antecedent}  &  antecedents of the implied literals\\
+\p{assignment}  &  assignments that caused a conflict         \\
+\p{backtrack} * &  level of non-chronological backtracking    \\
+\p{clause}      &  clauses to be checked for satisfiability   \\
+\p{conflict} *  &  conflict clauses                           \\
+\p{decision} *  &  decision assignments                       \\
+\p{dominator}   &  learned clause from dominator  \\
+\p{dot}         &  implication graphs (final) in dot format           \\
+\p{dot\_inc}    &  implication graphs (incremental) in dot format\\
+\p{evaluate}    &  evaluation of clauses for an assignment    \\
+\p{graph}       &  implication graphs (final) in textual format                \\
+\p{incremental} &  implication graphs (incremental) in textual format          \\
+\p{label}       &  graphs and trees labeled with clauses\\
+\p{learned} *   &  learned clause by resolution  \\
+\p{literal}     &  literals found assigned during CDCL        \\
+\p{partial}     &  partial assignments so far                  \\
 \p{resolvent} * &  resolvents created during CDCL             \\
-\p{result} *   &  result of the algorithm with statistics    \\
-\p{skipped} *  &  assignments skipped when backtracking      \\
-\p{sorted} *   & assignments displayed in sorted order\\
-\p{tree}       & trees of assignments (final) in dot format\\
-\p{tree\_inc}  & trees of assignments (incremental) in dot format\\
+\p{result} *    &  result of the algorithm with statistics    \\
+\p{skipped} *   &  assignments skipped when backtracking      \\
+\p{sorted} *    &  assignments displayed in sorted order\\
+\p{tree}        &  trees of assignments (final) in dot format\\
+\p{tree\_inc}   &  trees of assignments (incremental) in dot format\\
 \p{uip} *       &  unique implication points                  \\
-\p{unit} *     &  unit clauses                               \\
-\p{variables} &  variables that are not assigned so far     \\
+\p{unit} *      &  unit clauses                               \\
+\p{variables}   &  variables that are not assigned so far     \\
 \hline
 \end{tabular}
 \end{center}
-
-\p{literal} and \p{uip} are relevant only if \p{resolvent} is also
-selected.
 
 In \p{cdcl} and \p{ncb} modes, the assignments are written together with
 their levels in the format \p{p1=0@3}.
@@ -319,10 +329,11 @@ If you need to change the mode and options frequently, you can write a
 predicate to do so:
 
 \begin{verbatim}
-ncb_mode :- set_mode(ncb),
-            set_display(default),
-            set_display([antecedent, graph]).
+ncb_mode :- set_mode(ncb), 
+            set_display([default, antecedent, graph]).
 \end{verbatim}
+If \p{default} appears first in a list of display options, the
+others options will be added to the default ones.
 
 \section{Implication graphs}\label{s.impl}
 
@@ -396,12 +407,13 @@ implication graphs.
 
 \section{Configuration}
 
-\p{show\_config} displays the: version, default and current mode
-display options, variable order.
+\p{config.pro} contains: the default algorithmic mode, the default
+clause-learning mode, the default display options, and the \dt{}
+prologue and decorations.
 
-\p{config.pro} contains the default mode and
-display options, and the \dt{} prologue and decorations.
-
+\p{show\_config} displays: the version and copyright notice, the
+defaults from \p{config.pro}, changes from the default values, and the
+variable order.
 
 
 \section{Test programs included in \ls{}}
@@ -459,7 +471,9 @@ the test programs and the program for DIMACS conversion):
 \begin{itemize}
 \item \p{dpll.pro}: Main module for the DPLL algorithms.
 
-\item \p{auxpred.pro}: Auxiliary predicates for the DPLL algorithms. 
+\item \p{cdcl.pro}: Algorithms for CDCL and the implication graph.
+
+\item \p{auxpred.pro}: Auxiliary predicates for the algorithms. 
 
 \item \p{io.pro}: Predicates for writing assignments, clauses and
 implication graphs.
@@ -483,8 +497,6 @@ display option \p{none} is used to distinguish between the initial state
 (no options, so set the default options) and a state where all options
 have been cleared.
 
-\item \p{dominator.pro}: Compute dominators in the implication graph. 
-
 \item \p{dot.pro}: Generate the \dt{} files of the implication graphs
 and the assignment trees.
 \end{itemize}
@@ -493,10 +505,10 @@ and the assignment trees.
 
 The following dynamic predicates are used:
 \begin{itemize}
-\item In \p{dpll.pro}: The non-chronological backtracking level in the
+\item In \p{cdcl.pro}: The non-chronological backtracking level in the
 predicate \p{backtrack}.
 
-\item In \p{dpll.pro}: The learned clauses are stored as a list of
+\item In \p{cdcl.pro}: The learned clauses are stored as a list of
 clauses in the predicate \p{learned}.
 
 \item In \p{auxpred.pro}: If the user specifies the order of assignment
@@ -506,8 +518,8 @@ to variables, the list is stored in \p{variables\_list}.
 assignment trees. They store the paths leading to previous conflict
 nodes and are updated with each new path.
 
-\item In \p{mode.pro}: The current mode and display options are stored
-in \p{mode} and \p{display\_option}. 
+\item In \p{mode.pro}: The current modes (\p{alg\_mode} and
+\p{learn\_mode}) and display options (\p{display\_option}).
 
 \end{itemize}
 
@@ -573,39 +585,36 @@ target of the edges) and the graph constructed so far. For each literal
 (except the one implied), a new edge is created and when the list of
 literals has been traversed, the new node is created. When a conflict is
 encountered, the \p{kappa} node and its incoming edges are added and the
-graph is passed to \p{compute\_learned\_clause}. This first calls
-\p{compute\_learned\_clause\_by\_dominator}, if requested, and then
-\p{compute\_learned\_clause\_by\_resolution}. 
+graph is passed to \p{compute\_learned\_clause}, which calls predicates
+to compute a learned clause in two ways.
 
-\p{compute\_learned\_clause\_by\_dominator} computes a learned clause by
-locating a dominator of the highest-level decision assignment node
-relative to the \p{kappa} node. \p{findall} with \p{get\_path} returns a
-list of all paths from the decision node to the \p{kappa} node. This
-list is an argument to \p{get\_dominator} which finds a node that
-appears on all the paths. \p{findall} with
-\p{lower\_decision\_assignment} creates a list of all decision nodes at
-lower levels and then \p{findall} is called with \p{no\_path} to extract
-those nodes with no path to the dominator. The learned clause is the
-complement of the assignment at the dominator, together with the
-complements of decision assignments labeling nodes that are not
-dominated.
+\p{compute\_learned\_clause\_by\_dominator} locates a dominator of the
+highest-level decision assignment node relative to the \p{kappa} node.
+\p{findall} with \p{get\_path} returns a list of all paths from the
+decision node to the \p{kappa} node. This list is an argument to
+\p{get\_dominator} which finds a node that appears on all the paths.
+\p{findall} with \p{lower\_decision\_assignment} creates a list of all
+decision nodes at lower levels and then \p{findall} is called with
+\p{no\_path} to extract those nodes with no path to the dominator. The
+learned clause is the complement of the assignment at the dominator,
+together with the complements of decision assignments labeling nodes
+that are not dominated.
 
-The predicate \p{compute\_learned\_clause\_by\_resolution} starts with
-the conflict clause (the antecedent clause of the \p{kappa} node) as the
-current clause. In \p{learn\_clause\_from\_antecedents}, a search is made
-for a clause that contains the complement of a literal in the current
-clause and which is assigned at the current level by unit propagation,
-that is, it is not a decision node. \p{resolve} computes the resolvent
-of the two clauses and \p{learn\_clause\_from\_antecedents} is called
-with the resolvent as the new current clause. The resolution terminates
-when \p{check\_uip} identifies the current clauses as a UIP. This clause
-is the learned clause and the predicate
-\p{compute\_learned\_clause\_by\_resolution} adds it to the list that is
-the argument of the fact \p{learned}.
+\p{compute\_learned\_clause\_by\_resolution} starts with the conflict
+clause (the antecedent clause of the \p{kappa} node) as the current
+clause. \p{learn\_clause\_from\_antecedents} searches for a clause that
+contains the complement of a literal in the current clause and which is
+assigned at the current level by unit propagation. \p{resolve} resolves
+the two clauses and \p{learn\_clause\_from\_antecedents} is called with
+the resolvent as the new current clause. The algorithm terminates when
+\p{check\_uip} identifies the current clause as a UIP and this clause
+becomes the learned clause.
 
-When a learned clause has been obtained, \p{compute\_backtrack\_level}
-returns the highest level of an assignment in the learned clause except
-for the current level.
+According to the value of \p{learn\_mode} (\p{dominator} or
+\p{resolution}), \p{remember\_learned\_clause} adds the learned clause
+to the list in the dynamic predicate \p{learned}.
+\p{compute\_backtrack\_level} returns the highest level of an assignment
+in the learned clause except for the current level.
 
 
 \section{Auxiliary predicates}\label{s.aux}

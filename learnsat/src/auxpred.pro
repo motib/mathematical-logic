@@ -4,7 +4,7 @@
   [is_assigned/3, literals_to_variables/3, get_variables_of_clauses/2,
    to_variable/2, to_complement/2, to_assignment/4,
    to_literal/2, is_negative/2, to_complemented_clause/2,
-   set_order/1, clear_order/0, get_order/1, delete_variable/3]).  
+   set_order/1, get_order/1, delete_variable/3]).  
 
 :- use_module([counters]).
 
@@ -19,17 +19,15 @@
 %  set_order/1
 %    Variables are assigned in the order of their appearance in List
 %    The variables can be literals: if negative assign 1 before 0
-%  clear_order/0
-%    Restore default: lexicographical order
 %  get_order/1
 %    Return order to display configuration
+
+set_order(default) :- !,
+  retractall(variables_list(_)).
 
 set_order(List) :-
   retractall(variables_list(_)),
   assert(variables_list(List)).
-
-clear_order :-
-  retractall(variables_list(_)).
 
 get_order(List) :-
   variables_list(List), !.
@@ -165,4 +163,3 @@ to_complemented_clause([Head1 | Tail1], [Head2 | Tail2]) :-
 
 to_complemented_literal(assign(V, 0, _, _), V).
 to_complemented_literal(assign(V, 1, _, _), ~V).
-
