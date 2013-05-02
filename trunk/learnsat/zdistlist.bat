@@ -5,7 +5,7 @@ docs\learnsat-ug.pdf
 readme.txt
 docs\copyright.txt
 docs\gpl.txt
-docs\learnsat-release.html
 docs\graph.png
 docs\dom.png
 docs\tree1.png
+dist\learnsat-release.html
