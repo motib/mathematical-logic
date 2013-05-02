@@ -9,7 +9,7 @@
    default_alg_mode/1, default_display/1, default_learn_mode/1,
    dot_prologue/2, dot_decorate/2]).
 
-version('1.3.4').
+version('1.4.0').
 
 years('2012-13').
 

@@ -108,7 +108,7 @@ init_learn_mode :-
 all_display([
   antecedent, assignment, backtrack, clause, conflict, decision,
   dominator, dot, dot_inc, evaluate, graph, incremental, label,
-  learned, literal, none, partial, resolvent, result, skipped, sorted,
+  learned, none, partial, resolvent, result, skipped, sorted,
   tree, tree_inc, uip, unit, variable]).
 
 
@@ -317,7 +317,6 @@ usage :-
   write('  incremental  implication graphs (incremental) in textual format\n'),
   write('  label        graphs and trees labeled with clauses\n'),
   write('  learned *    learned clause by resolution\n'),
-  write('  literal      literals found assigned during CDCL\n'),
   write('  partial      partial assignments so far\n'),
   write('  resolvent *  resolvents created during CDCL\n'),
   write('  result *     result of the algorithm with statistics\n'),

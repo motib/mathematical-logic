@@ -1,7 +1,7 @@
 % Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(display,
-          [display/2, display/3, display/4, display/5, display/6]).
+          [display/2, display/3, display/4, display/5]).
 
 :- use_module([auxpred,config,counters,dot,io,modes]).
 
@@ -89,15 +89,6 @@ display(incremental, Graph, Clauses) :-
   check_option_not_dpll(incremental), !,
   display_graph(Graph, Clauses).
 
-%  Display literal assignment levels only if resolvent is also chosen
-display(literal, Literal, Level) :-
-  check_option_not_dpll(literal),
-  check_option(resolvent), !,
-  write('Literal: '),
-  write(Literal),
-  write(' assigned at level: '),
-  write(Level), nl.
-
 display(tree, Assignments, Conflict) :-
   check_option(tree), !,
   write_tree(Assignments, Conflict).
@@ -105,19 +96,6 @@ display(tree, Assignments, Conflict) :-
 display(tree_inc, Assignments, Conflict) :-
   check_option(tree_inc), !,
   write_tree(Assignments, Conflict).
-
-%  Display uip only if resolvent is also chosen
-display(uip, no, Level) :-
-  check_option_not_dpll(uip),
-  check_option(resolvent), !,
-  write('Not a UIP: two literals are assigned at level: '),
-  write(Level), nl.
-
-display(uip, yes, Level) :-
-  check_option_not_dpll(uip),
-  check_option(resolvent), !,
-  write('UIP: one literal is assigned at level: '),
-  write(Level), nl.
 
 display(_, _, _).
 
@@ -132,6 +110,32 @@ display(evaluate, Clause, Reason, Literal) :-
   write(Clause),
   write(Reason),
   display_deleted_literal(Literal).
+
+display(resolvent, Clause1, Clause2, Resolvent) :-
+  check_option_not_dpll(resolvent), !,
+  write('Resolvent: of '),
+  write(Clause1),
+  write(' and antecedent '),
+  write(Clause2),
+  write(' is '),
+  write(Resolvent), nl.
+
+%  Display uip only if resolvent is also chosen
+display(uip, no, Literals, Level) :-
+  check_option_not_dpll(uip),
+  check_option(resolvent), !,
+  write('Not a UIP: two literals '),
+  write(Literals),
+  write(' are assigned at level: '),
+  write(Level), nl.
+
+display(uip, yes, [Literal], Level) :-
+  check_option_not_dpll(uip),
+  check_option(resolvent), !,
+  write('UIP: one literal '),
+  write(Literal),
+  write(' is assigned at level: '),
+  write(Level), nl.
 
 display(unit, Assignment, Unit, Clauses) :-
   check_option(unit), !,
@@ -152,36 +156,17 @@ display(dot, Graph, Clauses, Level, Dominator) :-
   check_option_not_dpll(dot), !,
   display_dot(Graph, Clauses, Level, Dominator).
 
-display(_, _, _, _, _).
-
-
-%  Six arguments
-
-display(dominator, Path_List, Dominator, Decisions, Result, Learned) :-
+display(dominator, Path_List, Dominator, No_Dominator, Learned) :-
   check_option_not_dpll(dominator), !,
   write('Paths from the decision node at this level to kappa:\n'),
   write_paths(Path_List),
   write('A dominator is: '),
   write_assignment(Dominator, no), nl, 
-  write('Decisions at a lower level: '),
-  write_assignments(Decisions), nl,
-  write('Decisions not dominated: '),
-  write_assignments(Result), nl,
+  write('Paths from decision nodes at lower levels to kappa:\n'),
+  write_paths(No_Dominator),
   display_learned_clause(dominator, Learned).
 
-display(resolvent, Clauses, Literal, Clause, Clause1, Clause2) :-
-  check_option_not_dpll(resolvent), !,
-  write('Clause: '),
-  write(Clause),
-  write(' unsatisfiable'), nl,
-  write('Complement of: '), write(Literal),
-  write(' assigned true in the unit clause: '),
-  write_clause(Clause1, Clauses), nl,
-  write('Resolvent of the two clauses: '),
-  write(Clause2),
-  write(' also unsatisfiable'), nl.
-
-display(_, _, _, _, _, _).
+display(_, _, _, _, _).
 
 
 %  display_learned_clause/2

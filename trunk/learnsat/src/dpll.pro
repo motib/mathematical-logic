@@ -181,7 +181,8 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
       % Display the implication graph
   display(graph, Graph1, Clauses),
       % Compute the learned clause and save in the database
-  compute_learned_clause(Graph1, Clauses, Level, Dominator),
+  compute_learned_clause_by_dominator(Graph1, Level, Dominator),
+  compute_learned_clause_by_resolution(Graph1, Conflict, SoFar, Level),
       % Write the implication graph to the dot file
       %   using the Level and Dominator for emphasis
   display(dot, Graph1, Clauses, Level, Dominator),
