@@ -21,7 +21,7 @@
 \parindent=0pt
 
 \title{\bfseries \ls{} --- User's Guide\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.3.4}
+\bfseries\normalsize Version 1.4.0}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
@@ -304,7 +304,6 @@ options):
 \p{incremental} &  implication graphs (incremental) in textual format          \\
 \p{label}       &  graphs and trees labeled with clauses\\
 \p{learned} *   &  learned clause by resolution  \\
-\p{literal}     &  literals found assigned during CDCL        \\
 \p{partial}     &  partial assignments so far                  \\
 \p{resolvent} * &  resolvents created during CDCL             \\
 \p{result} *    &  result of the algorithm with statistics    \\
@@ -584,35 +583,36 @@ label the new edges), the assignment it implies (to create the new
 target of the edges) and the graph constructed so far. For each literal
 (except the one implied), a new edge is created and when the list of
 literals has been traversed, the new node is created. When a conflict is
-encountered, the \p{kappa} node and its incoming edges are added and the
-graph is passed to \p{compute\_learned\_clause}, which calls predicates
-to compute a learned clause in two ways.
+encountered, the \p{kappa} node and its incoming edges are added.
+Two predicates for computing a learned clause are now called.
 
 \p{compute\_learned\_clause\_by\_dominator} locates a dominator of the
 highest-level decision assignment node relative to the \p{kappa} node.
-\p{findall} with \p{get\_path} returns a list of all paths from the
-decision node to the \p{kappa} node. This list is an argument to
-\p{get\_dominator} which finds a node that appears on all the paths.
-\p{findall} with \p{lower\_decision\_assignment} creates a list of all
-decision nodes at lower levels and then \p{findall} is called with
-\p{no\_path} to extract those nodes with no path to the dominator. The
-learned clause is the complement of the assignment at the dominator,
-together with the complements of decision assignments labeling nodes
-that are not dominated.
+The predicate \p{findall} is frequently used but is encapsulated in
+other predicates. \p{get\_paths\_to\_kappa} returns a list of all paths
+from the decision node to the \p{kappa} node. This list is an argument
+to \p{get\_dominator} which finds a node that appears on all the paths.
+\p{get\_paths\_to\_kappa} is called again to find paths from decision
+assignments at \textit{lower} levels to \p{kappa} and then paths that go
+through the dominator are removed. From the remaining paths, edges are
+located that go from nodes of lower level to nodes of the highest level.
+The complements of the assignments at the source nodes of these edges,
+together with the complement of the assignment at the dominator, define
+the learned clause.
 
 \p{compute\_learned\_clause\_by\_resolution} starts with the conflict
 clause (the antecedent clause of the \p{kappa} node) as the current
-clause. \p{learn\_clause\_from\_antecedents} searches for a clause that
-contains the complement of a literal in the current clause and which is
-assigned at the current level by unit propagation. \p{resolve} resolves
-the two clauses and \p{learn\_clause\_from\_antecedents} is called with
-the resolvent as the new current clause. The algorithm terminates when
-\p{check\_uip} identifies the current clause as a UIP and this clause
-becomes the learned clause.
+clause. \p{learn\_clause\_from\_antecedents} uses the list of
+assignments so far to locate the antecedent of the assignment associated
+with the current clause. \p{resolve} resolves the two clauses and
+\p{learn\_clause\_from\_antecedents} is called with the resolvent as the
+new current clause. The algorithm terminates when \p{check\_uip}
+identifies the current clause as a UIP and this clause becomes the
+learned clause.
 
 According to the value of \p{learn\_mode} (\p{dominator} or
-\p{resolution}), \p{remember\_learned\_clause} adds the learned clause
-to the list in the dynamic predicate \p{learned}.
+\p{resolution}), the learned clause is added to the list of learned
+clauses in the dynamic predicate \p{learned}.
 \p{compute\_backtrack\_level} returns the highest level of an assignment
 in the learned clause except for the current level.
 

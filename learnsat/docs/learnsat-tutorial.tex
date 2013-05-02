@@ -21,7 +21,7 @@
 \parindent=0pt
 
 \title{\bfseries \ls --- Tutorial\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.1}
+\bfseries\normalsize Version 1.2}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
@@ -89,7 +89,7 @@ When the DPLL algorithm is run on the set of clauses, it assigns
 
 \begin{verbatim}
 ?- mlm.
-LearnSAT v1.3.4. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Decision assignment: x021=0
 Decision assignment: x031=0
 Decision assignment: x1=0
@@ -409,17 +409,15 @@ clause resolving backwards from the conflict node.
 
 \emph{The two algorithms are always run one after the other.} You can
 trace either one or both of the algorithms. Display option \p{dominator}
-traces the computation of a dominator, and the option \p{learned}
-(together with \p{resolvent}, \p{uip}, \p{literal}) traces the
-computation by resolution.
+traces the computation of a dominator, and the options \p{learned},
+\p{resolvent} and \p{uip} trace the computation by resolution.
 
 \emph{Learn mode} selects which learned clause will be remembered and
 subsequently used:
 \begin{verbatim}
 set learn_mode(dominator)    set learn_mode(resolution)
 \end{verbatim}
-This mode exists because the results of the two algorithms might be
-different.
+
 
 \newpage
 
@@ -437,21 +435,9 @@ the antecedent clauses because the display option \p{label} was
 \includegraphics[keepaspectratio=true,width=\textwidth]{dom}
 \end{center}
 
-A node (here, the node labeled \p{x4=1@3}) is called a \emph{dominator}
+A node (here, the node \p{x4=1@3}) is called a \emph{dominator}
 of a decision node if it appears on all the paths from the decision node
-to \p{kappa}. A dominator is a \emph{unique implication point (UIP)}
-because its assignment participates in the conflict in the same way as
-do \emph{all} the decision assignments that it dominates. Here, the
-assignment \p{x4=1@3} is implied by the \emph{two} assignments
-\p{x031=0@2} and \p{x1=0@3}, so \verb+~x4+ can replace \p{x031} and
-\p{x1} in the learned clause \verb+[x021,x031,x1]+ to obtain a shorter
-learned clause \verb+[x021,~x4]+.
-
-The learned clause is therefore composed of the literal that is assigned
-0 by the assignment at the UIP, together with the literals assigned at
-decision assignments at \emph{lower} levels that are not dominated by
-the UIP. The trace of \ls{} is:
-
+to \p{kappa}. \ls{} computes the paths and finds a dominator:
 \begin{verbatim}
 Paths from the decision node at this level to kappa:
 x1=0@3 --> x2=0@3 --> x4=1@3 --> x5=0@3 --> kappa
@@ -459,10 +445,34 @@ x1=0@3 --> x2=0@3 --> x4=1@3 --> x6=0@3 --> kappa
 x1=0@3 --> x3=0@3 --> x4=1@3 --> x5=0@3 --> kappa
 x1=0@3 --> x3=0@3 --> x4=1@3 --> x6=0@3 --> kappa
 A dominator is: x4=1@3
-Decisions at a lower level: [x021=0@1,x031=0@2]
-Decisions not dominated: [x021=0@1]
+\end{verbatim}
+
+A dominator is a \emph{unique implication point (UIP)} because its
+assignment participates in the conflict in the same way as do \emph{all}
+the decision assignments that it dominates. Here, the assignment
+\p{x4=1@3} is implied by the \emph{two} assignments \p{x031=0@2} and
+\p{x1=0@3}, so \verb+~x4+ can replace \p{x031} and \p{x1} in the learned
+clause \verb+[x021,x031,x1]+ to obtain a shorter learned clause
+\verb+[x021,~x4]+.
+
+There remains one path from a decision node to \p{kappa} that does not
+contain the dominator:
+\begin{verbatim}
+Paths from decision nodes at lower levels to kappa:
+x021=0@1 --> x6=0@3 --> kappa
+\end{verbatim}
+
+The learned clause is therefore composed of the complement of the
+assignment at the UIP, together with the complements of assignments at
+\emph{lower} levels that are not dominated by the UIP. The literal
+chosen for this path is the one just before the path joins an assignment
+at the highest level; in this case, it is the decision assignment to
+\verb+x021+:
+
+\begin{verbatim}
 Learned clause from dominator (not used): [x021,~x4]
 \end{verbatim}
+
 
 \newpage
 
@@ -471,41 +481,26 @@ Learned clause from dominator (not used): [x021,~x4]
 The learned clause can be obtained by resolution starting with the
 conflict clause---the antecedent clause of the \p{kappa} node---and
 terminating when a UIP is found. Define the conflict clause as the
-initial \emph{current clause}.
-
-At each step, the clause to be resolved with the current clause is one
-that clashes with the current clause on a literal that is assigned at
-the current level by unit propagation. For example, given the initial
-current clause \verb+[x5,x6]+, \p{x5} was assigned by unit propagation
-at this level, so we can resolve \verb+[x5,x6]+ with the antecedent
-clause \verb+[~x4,~x5]+ to obtain the resolvent \verb+[~x4,x6]+ which
-becomes the current clause. The next step is to resolve this clause with
-\verb+[x021,~x4,~x6]+, the antecedent of the assignment to \p{x6}, to
-obtain \verb+[x021,~x4]+. The resolution now terminates because clause
-is associated with a UIP: there is one (implied) literal assigned at the
-current level and the other literals were assigned by decision
-assignments at lower levels.
-
-The \ls{} output is:\footnote{The display option \p{literal} was
-selected to display the level of the literals that are examined to find
-the UIP.}
+initial \emph{current clause}. At each step, the antecedent clause at
+the current node clashes with the current clause on the literal that is
+assigned at that node by unit propagation. For example, given the
+initial current clause \verb+[x5,x6]+, \p{x5} was assigned by unit
+propagation at this level, so we can resolve \verb+[x5,x6]+ with the
+antecedent clause \verb+[~x4,~x5]+ to obtain the resolvent
+\verb+[~x4,x6]+ which becomes the current clause. The next step is to
+resolve this clause with \verb+[x021,~x4,~x6]+, the antecedent of the
+assignment to \p{x6}, to obtain \verb+[x021,~x4]+. The resolution now
+terminates because clause is associated with a UIP: there is one
+(implied) literal assigned at the current level and the other literals
+were assigned by decision assignments at lower levels.
 
 \begin{verbatim}
 Conflict clause: 6. [x5,x6]
-Literal: x5 assigned at level: 3
-Literal: x6 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [x5,x6] unsatisfiable
-Complement of: x5 assigned true in the unit clause: 4. [~x4,~x5]
-Resolvent of the two clauses: [x6,~x4] also unsatisfiable
-Literal: x6 assigned at level: 3
-Literal: ~x4 assigned at level: 3
-Not a UIP: two literals are assigned at level: 3
-Clause: [x6,~x4] unsatisfiable
-Complement of: x6 assigned true in the unit clause: 5. [x021,~x4,~x6]
-Resolvent of the two clauses: [x021,~x4] also unsatisfiable
-Literal: ~x4 assigned at level: 3
-UIP: one literal is assigned at level: 3
+Not a UIP: two literals [x6,x5] are assigned at level: 3
+Resolvent: of [x5,x6] and antecedent [x021,~x4,~x6] is [x5,x021,~x4]
+Not a UIP: two literals [~x4,x5] are assigned at level: 3
+Resolvent: of [x5,x021,~x4] and antecedent [~x4,~x5] is [x021,~x4]
+UIP: one literal ~x4 is assigned at level: 3
 Learned clause from resolution (used): [x021,~x4]
 \end{verbatim}
 
@@ -516,18 +511,16 @@ current set of decision assignments, so is the set consisting of it and
 its clashing clause, and therefore their resolvent---the next current
 clause---is also unsatisfiable.
 
-Let us look at the example: \verb+[x5,x6]+ is a conflict clause because
-it evaluates to 0 under the assignments. The antecedent clause
-\verb+[~x4,~x5]+ is a unit clause and therefore exactly one literal is
-assigned 1. Since both literals in the conflict clause \verb+[x5,x6]+,
-in particular \verb+x5+, are assigned 0, its complement \verb+~x5+ is
-assigned 1, so it must be \emph{the single literal} in the antecedent
-clause \verb+[~x4,~x5]+ that is assigned 1. Therefore, \verb+~x4+ is
-assigned 0 and we can conclude that all literals in the resolvent
-\verb+[~x4,x6]+ are assigned 0. In general, any resolvent generated by
-resolving the conflict clause and the antecedent clauses must evaluate
-to 0. We can add any of them as learned clauses without making the DPLL
-algorithm incorrect.
+For example, \verb+[x5,x6]+ is a conflict clause because it evaluates to
+0. The antecedent clause \verb+[~x4,~x5]+ is a unit clause and therefore
+exactly one literal is assigned 1. Since both literals in the conflict
+clause \verb+[x5,x6]+, are assigned 0, \verb+~x5+, the complement of
+\verb+x5+, is assigned 1, so it must be the \emph{only} literal in the
+antecedent clause \verb+[~x4,~x5]+ that is assigned 1. Therefore,
+\verb+~x4+ is assigned 0 and we conclude that all literals in the
+resolvent \verb+[~x4,x6]+ are assigned 0. In general, any resolvent
+generated by resolving the conflict clause and the antecedent clauses
+must evaluate to 0 and we can add it as learned clause.
 
 Which of these clauses should we learn? Successive resolution steps will
 eventually lead back to the clause defined by the decision nodes (here,
