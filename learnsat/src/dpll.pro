@@ -20,8 +20,7 @@
 
 %  Make housekeeping predicates visible after consulting dpll
 :- reexport(modes, 
-  [show_config/0, usage/0, set_display/1, clear_display/1,
-   set_mode/1, set_learn_mode/1]).
+  [show_config/0, usage/0, set_display/1, clear_display/1, set_mode/1]).
 
 :- reexport(auxpred, [set_order/1, get_order/1]).
 
@@ -65,7 +64,7 @@
 
 dpll(Clauses, Decisions) :-
       % Initialization
-  init_modes,
+  init_mode,
   init_display,
   init_counters,
   init_tree,
@@ -182,10 +181,10 @@ ok_or_conflict(conflict, _, Clauses, SoFar, Level, Graph, Conflict, _) :-
   display(graph, Graph1, Clauses),
       % Compute the learned clause and save in the database
   compute_learned_clause_by_dominator(Graph1, Level, Dominator),
-  compute_learned_clause_by_resolution(Graph1, Conflict, SoFar, Level),
+  compute_learned_clause_by_resolution(Graph1, Conflict, SoFar, Level, Learned),
       % Write the implication graph to the dot file
       %   using the Level and Dominator for emphasis
-  display(dot, Graph1, Clauses, Level, Dominator),
+  display(dot, Graph1, Clauses, Level, Dominator, Learned),
       % Fail on conflict
   fail.
 

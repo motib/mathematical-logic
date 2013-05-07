@@ -2,11 +2,11 @@
 
 %  Generation of dot files for implications graphs and semantic trees
 
-:- module(do, [write_dot/4, write_tree/2, init_tree/0]).
+:- module(do, [write_dot/5, write_tree/2, init_tree/0]).
 
 %  Prologues and decorations for the dot files are in config.pro
 
-:- use_module([counters, io, config, modes]).
+:- use_module([auxpred, counters, io, config, modes]).
 
 %  Generate the semantic tree of assignments
 %    The tree is actually a DAG and the nodes are assignments
@@ -154,32 +154,33 @@ decorate_node(Node) :-
 decorate_node(_).
 
 
-%  write_dot/4
+%  write_dot/5
 %      Graph - the graph database
 %      Clauses - the set of clauses, used when label option set:
 %                the edges are labeled with antecedent clauses
 %                instead of just clause numbers
-%      Level - for dominator, emphasis the decision at this Level
+%      Level - for dominator, emphasize the decision at this Level
 %      Dominator - the dominator to emphasize
+%      Learned - the learned clause for displaying the cut
 %    Write the implication graph to a file in dot format for GraphViz
 %    Only the edges are needed as dot takes the nodes from them
 %    Call write_assignment to write each node (including kappa)
 
-write_dot(graph(_, Edges), Clauses, Level, Dominator) :-
+write_dot(graph(_, Edges), Clauses, Level, Dominator, Learned) :-
   create_file_name(ig, Name),
   tell(Name),
   dot_prologue(lr, D),
   write(D),
-  write_dot1(Edges, Clauses, Level, Dominator),
+  write_dot1(Edges, Clauses, Level, Dominator, Learned),
   write('}'),
   told.
 
-%  write_dot1/4
+%  write_dot1/5
 %    Arguments as above
 %    Write each edge from Graph
 
-write_dot1([], _, _, _).
-write_dot1([edge(From, N, To) | Tail], Clauses, Level, Dominator) :-
+write_dot1([], _, _, _, _).
+write_dot1([edge(From, N, To) | Tail], Clauses, Level, Dominator, Learned) :-
   write('"'),
   write_assignment(From, no),
   write('"  ->  "'),
@@ -188,10 +189,27 @@ write_dot1([edge(From, N, To) | Tail], Clauses, Level, Dominator) :-
   write('  [label="'),
   write(N),
   write_arrow_label(N, Clauses),
-  write('"];\n'),
+  write('" '),
+  decorate_cut(From, Learned),
+  write('];\n'),
   decorate_decision_node(From, Level),
   decorate_dominator(To, Dominator),
-  write_dot1(Tail, Clauses, Level, Dominator).
+  write_dot1(Tail, Clauses, Level, Dominator, Learned).
+
+
+%  decorate_cut/2
+%      From - the source of the edge
+%      Level - the current level
+%    Decorate a cut in the implication graph
+%    if the source node is in the learned clause
+
+decorate_cut(Assignment, Learned) :-
+  to_literal(Assignment, Literal),
+  to_complement(Literal, Literal1),
+  member(Literal1, Learned), !,
+  dot_decorate(cut, D),
+  write(D).
+decorate_cut(_, _).
 
 
 %  decorate_decision_node/2

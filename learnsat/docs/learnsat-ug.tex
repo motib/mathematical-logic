@@ -21,7 +21,7 @@
 \parindent=0pt
 
 \title{\bfseries \ls{} --- User's Guide\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.4.0}
+\bfseries\normalsize Version 1.4.1}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
@@ -141,7 +141,6 @@ predicates which are the only predicates that you need to run \ls{}:
 \p{usage}&Show the predicates, modes and display options \\
 \p{show\_config}&Show the current mode and display options\\
 \p{set\_mode}&Set the algorithmic mode\\
-\p{set\_learn\_mode}&Set the mode for learning clauses\\
 \p{set\_display}&Set display options\\
 \p{clear\_display}&Clear display options\\
 \p{set\_order}&Set variable assignment order\\
@@ -176,16 +175,17 @@ The result (a satisfying assignment or \p{[]} if unsatisfiable) is
 returned as the second argument, but can be left anonymous if only
 the trace is of interest.
 
-\newpage
-
 Once this file has been loaded (by double-clicking or by consulting
 \p{[pigeon]}), the query:
 \begin{verbatim}
 ?- hole2. 
 \end{verbatim}
 can be run. After it terminates with \p{true} you must press
-return to get a new prompt. The output will be a trace of the DPLL
-algorithm:
+return to get a new prompt.
+
+\newpage
+
+The output will be a trace of the DPLL algorithm:
 
 \begin{verbatim}
 1 ?- hole2.
@@ -263,16 +263,6 @@ conflicts if the default order is changed:
 set_order([x1,x2,x021,x031,x3,x4,x5,x6]).
 \end{verbatim}
 
-\subsection{Clause learning mode}
-
-There are two algorithms for conflict-driven clause learning: finding a
-dominator and by resolution backwards from a conflict node to a unique
-implication point. Select: \p{set\_learn\_mode(dominator)} or
-\p{set\_learn\_mode(resolution)} (the default). Both algorithms are
-always run in order to display the dominator in the implication graph.
-The mode determines which result is subsequently used.
-
-\newpage
 
 \section{Display options}
 
@@ -291,29 +281,29 @@ options):
 \multicolumn{2}{|c|}{\textbf{\large Display options}}\\
 \hline
 \p{antecedent}  &  antecedents of the implied literals\\
-\p{assignment}  &  assignments that caused a conflict         \\
-\p{backtrack} * &  level of non-chronological backtracking    \\
-\p{clause}      &  clauses to be checked for satisfiability   \\
-\p{conflict} *  &  conflict clauses                           \\
-\p{decision} *  &  decision assignments                       \\
-\p{dominator}   &  learned clause from dominator  \\
-\p{dot}         &  implication graphs (final) in dot format           \\
+\p{assignment}  &  assignments that caused a conflict\\
+\p{backtrack} * &  level of non-chronological backtracking\\
+\p{clause}      &  clauses to be checked for satisfiability \\
+\p{conflict} *  &  conflict clauses\\
+\p{decision} *  &  decision assignments \\
+\p{dominator}   &  computation of the dominator\\
+\p{dot}         &  implication graphs (final) in dot format \\
 \p{dot\_inc}    &  implication graphs (incremental) in dot format\\
-\p{evaluate}    &  evaluation of clauses for an assignment    \\
-\p{graph}       &  implication graphs (final) in textual format                \\
-\p{incremental} &  implication graphs (incremental) in textual format          \\
+\p{evaluate}    &  evaluation of clauses for an assignment\\
+\p{graph}       &  implication graphs (final) in textual format \\
+\p{incremental} &  implication graphs (incremental) in textual format\\
 \p{label}       &  graphs and trees labeled with clauses\\
-\p{learned} *   &  learned clause by resolution  \\
-\p{partial}     &  partial assignments so far                  \\
-\p{resolvent} * &  resolvents created during CDCL             \\
-\p{result} *    &  result of the algorithm with statistics    \\
-\p{skipped} *   &  assignments skipped when backtracking      \\
+\p{learned} *   &  learned clause by resolution\\
+\p{partial}     &  partial assignments so far \\
+\p{resolvent} * &  resolvents created during CDCL \\
+\p{result} *    &  result of the algorithm with statistics\\
+\p{skipped} *   &  assignments skipped when backtracking \\
 \p{sorted} *    &  assignments displayed in sorted order\\
 \p{tree}        &  trees of assignments (final) in dot format\\
 \p{tree\_inc}   &  trees of assignments (incremental) in dot format\\
-\p{uip} *       &  unique implication points                  \\
-\p{unit} *      &  unit clauses                               \\
-\p{variables}   &  variables that are not assigned so far     \\
+\p{uip} *       &  unique implication points \\
+\p{unit} *      &  unit clauses \\
+\p{variables}   &  variables that are not assigned so far\\
 \hline
 \end{tabular}
 \end{center}
@@ -328,34 +318,39 @@ If you need to change the mode and options frequently, you can write a
 predicate to do so:
 
 \begin{verbatim}
-ncb_mode :- set_mode(ncb), 
-            set_display([default, antecedent, graph]).
+ncb_mode :-
+  set_mode(ncb), 
+  set_display([default, dominator, dot, label]).
 \end{verbatim}
+
 If \p{default} appears first in a list of display options, the
 others options will be added to the default ones.
+
+\newpage
 
 \section{Implication graphs}\label{s.impl}
 
 When a conflict clause is encountered, \ls{} generates the implication
 graph. Display option \p{graph} generates a textual representation,
-while \p{dot} generates a graphical representation:
+while \p{dot} generates a graphical representation. Display option
+\p{label} displays the antecedent clauses on each edge, not just their
+numbers. Display option \p{dominator} emphasized the following nodes:
+the decision assignment at the current level, the dominator and
+\p{kappa}.
 
 \begin{center}
-\includegraphics[keepaspectratio=true,width=.9\textwidth]{graph}
+\includegraphics[keepaspectratio=true,width=.9\textwidth]{graph-color}
+
+\bigskip
+
+\includegraphics[keepaspectratio=true,width=.9\textwidth]{graph-bw}
 \end{center}
 
-Decision assignments are decorated in red.
-
-If the display option \p{dominator} is selected, the following nodes are
-emphasized with a double border: the decision assignment at the current
-level, the dominator and \p{kappa}:
-
-\begin{center}
-\includegraphics[keepaspectratio=true,width=.9\textwidth]{dom}
-\end{center}
-
-In this graph the display option \p{label} was not selected, so the
-edges are labeled with just the numbers of the antecedent clauses.
+The graph can be displayed with color or black-and-white decoration.
+Decision assignments are decorated in red or bold; the decision
+assignment at the highest level, the \p{kappa} node and the dominator
+are decorated with two peripheries; the cut is decorated with blue or
+dashed lines.
 
 Display options \p{incremental} and \p{dot\_inc} generate graphs after
 each step of the algorithm.
@@ -367,9 +362,6 @@ The graphics files in \dt{} format are rendered using
 dot -Tpng examples-ig-00.dot > examples-ig-00.png
 \end{verbatim}
 
-The \dt{} prologue and the decorations can be changed in the file
-\p{config.pro}. 
-
 A script can be used to run \dt{} on all the generated files; in
 Windows, the batch command is:
 
@@ -377,38 +369,36 @@ Windows, the batch command is:
 for %%F in (*.dot) do c:\"program files"\graphviz\bin\dot -Tpng %%F > %%~nF.png
 \end{verbatim}
 
-\newpage
+%\newpage
 
 \section{Trees of assignments}
 
 A tree showing the assignments to variables is generated by selecting
-display option \p{tree}:
+display option \p{tree} (next page). Trees are shown as directed acyclic
+graphs whose nodes are assignments rather than variables. Decision nodes
+are decorated with a red (or bold) periphery and conflict nodes with a
+double red (or bold) periphery. A double green (or triple) periphery
+indicates the node (if any) that causes the formula to become
+satisfiable. The rendering of the \dt{} files is as described above for
+the implication graphs.
+
+\newpage
+
+\vfill
 
 \begin{center}
 \includegraphics[keepaspectratio=true,height=.7\textheight]{tree1}
-
 \end{center}
 
-Trees are shown as directed acyclic graphs whose nodes are assignments
-rather than variables. Decision nodes are decorated with a red border
-and conflict nodes with a double red border. A double green border
-indicates the node (if any) that causes the formula to become
-satisfiable.
-
-The \dt{} prologue and the decorations can be changed in the file
-\p{config.pro}.
-
-The rendering of the \dt{} files is as described above for the
-implication graphs.
-
+\vfill
 
 \newpage
 
 \section{Configuration}
 
 \p{config.pro} contains: the default algorithmic mode, the default
-clause-learning mode, the default display options, and the \dt{}
-prologue and decorations.
+display options, and the \dt{} prologue and decorations. The predicate
+\p{decorate\_mode} determines which family of decorations will be used.
 
 \p{show\_config} displays: the version and copyright notice, the
 defaults from \p{config.pro}, changes from the default values, and the
@@ -426,7 +416,7 @@ $K_{3,3}$ and the example from \cite[Section 4.5]{mlcs}.
 
 \item \p{queens.pro}: The 4-queens problem.
 
-\item \p{pigeon.pro}: The pigeon-hole principle for 2 and 3 holes.
+\item \p{pigeon.pro}: The pigeonhole principle for 2 and 3 holes.
 
 \item \p{pebbles.pro}: Grid pebbling for 2 and 3 layers.
 \end{itemize}
@@ -481,9 +471,7 @@ implication graphs.
 where the first argument is a display option and the additional
 arguments supply the data to be displayed.
 
-\item \p{config.pro}: Default configuration data. The module contains
-the facts: \p{version}, \p{years}, \p{default\_mode},
-\p{default\_display}, \p{dot\_prologue}, \p{dot\_decorate}.
+\item \p{config.pro}: Default configuration data.
 
 \item \p{counters.pro}: Maintains and displays counters for units,
 decisions and conflicts. Stores the number of clauses and variables for
@@ -517,8 +505,8 @@ to variables, the list is stored in \p{variables\_list}.
 assignment trees. They store the paths leading to previous conflict
 nodes and are updated with each new path.
 
-\item In \p{mode.pro}: The current modes (\p{alg\_mode} and
-\p{learn\_mode}) and display options (\p{display\_option}).
+\item In \p{mode.pro}: The current mode \p{alg\_mode} and display
+options \p{display\_option}. 
 
 \end{itemize}
 
@@ -610,9 +598,9 @@ new current clause. The algorithm terminates when \p{check\_uip}
 identifies the current clause as a UIP and this clause becomes the
 learned clause.
 
-According to the value of \p{learn\_mode} (\p{dominator} or
-\p{resolution}), the learned clause is added to the list of learned
-clauses in the dynamic predicate \p{learned}.
+\emph{The clause learned by resolution is added to the list of learned
+clauses in the dynamic predicate \p{learned}.}
+
 \p{compute\_backtrack\_level} returns the highest level of an assignment
 in the learned clause except for the current level.
 
