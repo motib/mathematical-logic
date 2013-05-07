@@ -1,12 +1,12 @@
 % Copyright 2012-13 by M. Ben-Ari. GNU GPL. See copyright.txt.
 
 :- module(display,
-          [display/2, display/3, display/4, display/5]).
+     [display/2, display/3, display/4, display/5, display/6]).
 
 :- use_module([auxpred,config,counters,dot,io,modes]).
 
 
-%  display/2,3,4,5
+%  display
 %    For each option there is a separate definition of display
 %    Check that the option is set before displaying
 %    These predicates will not fail; at worst they do nothing
@@ -38,7 +38,8 @@ display(decision, Assignment) :-
 %  Clause learned by resolution
 display(learned, Learned) :-
   check_option_not_dpll(learned), !,
-  display_learned_clause(resolution, Learned).
+  write('Learned clause from resolution: '),
+  write(Learned), nl.
 
 display(partial, Assignments) :-
   check_option(partial), !,
@@ -79,7 +80,7 @@ display(conflict, Conflict, Clauses) :-
 
 display(dot_inc, Graph, Clauses) :-
   check_option_not_dpll(dot_inc), !,
-  display_dot(Graph, Clauses, no, no).
+  display_dot(Graph, Clauses, no, no, []).
 
 display(graph, Graph, Clauses) :-
   check_option_not_dpll(graph), !,
@@ -152,10 +153,6 @@ display(_, _, _, _).
 
 %  Five arguments
 
-display(dot, Graph, Clauses, Level, Dominator) :-
-  check_option_not_dpll(dot), !,
-  display_dot(Graph, Clauses, Level, Dominator).
-
 display(dominator, Path_List, Dominator, No_Dominator, Learned) :-
   check_option_not_dpll(dominator), !,
   write('Paths from the decision node at this level to kappa:\n'),
@@ -164,30 +161,18 @@ display(dominator, Path_List, Dominator, No_Dominator, Learned) :-
   write_assignment(Dominator, no), nl, 
   write('Paths from decision nodes at lower levels to kappa:\n'),
   write_paths(No_Dominator),
-  display_learned_clause(dominator, Learned).
+  write('Learned clause from dominator: '),
+  write(Learned), nl.
 
 display(_, _, _, _, _).
 
+%  Six arguments
 
-%  display_learned_clause/2
-%  display_learned_clause1/1
-%      Mode - dominator or resolution
-%      Learned - the learned clause
-%    Display the learned clause and from which algorithm it was learned
-%    If the Mode is the same as the current learned mode,
-%      display "(used)", otherwise display "(not used)"
+display(dot, Graph, Clauses, Level, Dominator, Learned) :-
+  check_option_not_dpll(dot), !,
+  display_dot(Graph, Clauses, Level, Dominator, Learned).
 
-display_learned_clause(Mode, Learned) :-
-  write('Learned clause from '),
-  write(Mode),
-  display_learned_clause1(Mode),
-  write(Learned), nl.
-
-display_learned_clause1(Mode) :-
- learn_mode(Mode), !,
-  write(' (used): ').
-display_learned_clause1(_) :-
-  write(' (not used): ').
+display(_, _, _, _, _, _).
 
 
 % display_deleted_literal/1
@@ -207,24 +192,25 @@ check_option_not_dpll(Option) :-
   check_option(Option).
 
 
-% display_dot/4
+% display_dot/5
 %   Common processing for display dot and dot_inc
 %     Graph - the graph database
 %     Clauses - the set of clauses (used when label option set)
 %     Level - for dominator, emphasis the decision at this Level
 %     Dominator - the dominator to emphasize
+%     Learned - the learned clause for displaying cut
 
-display_dot(Graph, Clauses, Level, Dominator) :-
+display_dot(Graph, Clauses, Level, Dominator, Learned) :-
   check_option(label), !,
-  display_dot1(Graph, Clauses, Level, Dominator).
-display_dot(Graph, _, Level, Dominator) :-
-  display_dot1(Graph, [], Level, Dominator).
+  display_dot1(Graph, Clauses, Level, Dominator, Learned).
+display_dot(Graph, _, Level, Dominator, Learned) :-
+  display_dot1(Graph, [], Level, Dominator, Learned).
 
-display_dot1(Graph, Clauses, Level, Dominator) :-
+display_dot1(Graph, Clauses, Level, Dominator, Learned) :-
   get_file_counter(ig, N),
   write('Writing dot graph: '),
   write(N), nl,
-  write_dot(Graph, Clauses, Level, Dominator).
+  write_dot(Graph, Clauses, Level, Dominator, Learned).
 
 
 % display_graph/2

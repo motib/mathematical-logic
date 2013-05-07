@@ -1,0 +1,9 @@
+src\*.pro
+src\all1.txt
+docs\*.tex
+docs\*.bib
+docs\copyright.txt
+docs\*.png
+dist\learnsat-release.html
+readme.txt
+*.bat

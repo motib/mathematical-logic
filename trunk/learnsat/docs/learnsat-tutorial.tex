@@ -1,8 +1,8 @@
-\documentclass[11pt]{article}
+\documentclass[11pt]{report}
 
 \usepackage{mathptmx}
 \usepackage{url}
-\usepackage{graphicx}
+\usepackage{graphicx,pict2e,epic}
 
 \newcommand*{\p}[1]{\textup{\texttt{#1}}}
 \newcommand*{\ls}{\textsc{LearnSAT}}
@@ -21,7 +21,7 @@
 \parindent=0pt
 
 \title{\bfseries \ls --- Tutorial\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.2}
+\bfseries\normalsize Version 1.3}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
@@ -45,7 +45,7 @@ California, 94105, USA.
 
 \newpage
 
-\section{Overview}
+\chapter*{Overview}
 
 \ls{} is a program for learning about SAT solving. It implements the
 classic \emph{Davis-Putnam-Logemann-Loveland (DPLL)} algorithm, together
@@ -61,6 +61,8 @@ distribution.
 This document is a tutorial on SAT solving with \ls{}. The algorithms
 and notation follow \cite{mlm}. Some printouts have been reformatted or
 edited.
+
+\chapter{A detailed example}
 
 \section{The DPLL algorithm}
 
@@ -374,7 +376,7 @@ that implied the assignment labeling that node. For example, the
 decision assignments \p{x1=0@3}, \p{x031=0@2} cause \verb+[x1,x031,~x2]+
 to become a unit clause and therefore this clause implies the assignment
 of 0 to \p{x2}. The assignment receives the same level as the last
-decision assignment so its node is labled \p{x2=0@3}.
+decision assignment so its node is labeled \p{x2=0@3}.
 
 For each non-source node, there is an incoming edge for each literal in
 the unit clause except the one whose assignment is being implied.
@@ -558,6 +560,14 @@ Skip decision assignment: x1=1@3
 Skip decision assignment: x031=1@2
 \end{verbatim}
 
+Once 0 is assigned to \p{x021}, the clause \verb+[x021,~x4]+ becomes
+a unit clause \verb+[~x4]+ which forces the assignment of 1 to \p{x4}.
+But we already know (cf. the implication graph) that those two
+assignments are sufficient to cause a conflict. It follows that there is
+no point in exploring the other assignments to \p{x031} and \p{x1}: the
+decision assignment to \p{x021} and the implied assignment to \p{x4} are
+sufficient by themselves to cause a conflict.
+
 NCB can be seen in the tree of assignments (Figure~\ref{tree3}). The
 graph is no longer a tree but a DAG (directed acyclic graph) because
 once \p{x021} is assigned (0 or 1), the assignments of 0 to \p{x031} and
@@ -572,8 +582,244 @@ clause and the other to a satisfying assignment.
 \caption{Tree of assignments for the DPLL algorithm with CDCL and NCB}\label{tree3}
 \end{figure}
 
+\clearpage
+
+\chapter{The pigeonhole problem}
+
+The pigeonhole principle states that if we place $n+1$ pigeons in $n$
+holes then one hole contains at least two pigeons. Therefore, the
+formula stating that all pigeons are in different holes must be
+unsatisfiable. Let \p{pij} be an atomic proposition whose intended
+meaning is that pigeon \p{i} is in hole \p{j}; for two holes and three
+pigeons, the set of clauses is:
+
+\begin{verbatim}
+  [p11, p12],   [p21, p22],   [p31, p32],   % Each pigeon in hole 1 or 2 
+  [~p11, ~p21], [~p11, ~p31], [~p21, ~p31], % No pair is in hole 1
+  [~p12, ~p22], [~p12, ~p32], [~p22, ~p32], % No pair is in hole 2
+\end{verbatim}
+
+and for three holes and four pigeons the formula is:
+
+\begin{verbatim}
+  % Each pigeon in at least hole
+  [p11, p12, p13], [p21, p22, p23],
+  [p31, p32, p33], [p41, p42, p43], 
+  % Each hole has at most one pigeon
+  [~p11, ~p21], [~p11, ~p31], [~p11, ~p41],
+  [~p21, ~p31], [~p21, ~p41], [~p31, ~p41],
+  [~p12, ~p22], [~p12, ~p32], [~p12, ~p42],
+  [~p22, ~p32], [~p22, ~p42], [~p32, ~p42],
+  [~p13, ~p23], [~p13, ~p33], [~p13, ~p43],
+  [~p23, ~p33], [~p23, ~p43], [~p33, ~p43]
+\end{verbatim}
+
+The different modes make no difference for the two-hole formula, but for
+the three-hole formula the improvements are significant:
+
+\begin{verbatim}
+dpll: units=49, decisions=16, conflicts=9
+cdcl: units=42, decisions=16, conflicts=9
+ncb:  units=25, decisions=10, conflicts=3
+\end{verbatim}
+
+If you look at the trace, in NCB mode, the following clauses are
+learned:
+
+\begin{verbatim}
+[p43,p33,~p22],   [p42,p32,~p23],  [p41,p31,~p23]
+\end{verbatim}
+
+Six decision assignments are skipped, so there are only three conflict
+clauses instead of nine.
+
+Let us look now at the implication graphs. The graph for the two-hole
+formula is shown in Figure~\ref{pigeon2} (shown top-to-bottom instead of
+left-to-right). The conflict clause is \verb+[~p12,~p32]+ and the
+dominator is the nodes labeled \verb+p12=1@1+. Since \emph{all} nodes
+are assigned at level~1, by resolving backwards we should be able to
+learn the clause \verb+~p12+.
+
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio=true,height=.9\textheight]{pigeon2-graph-tb}
+\end{center}
+\caption{Implication graph for two-hole pigeonhole}\label{pigeon2}
+\end{figure}
+
+However, we must be careful. According to \cite[p.~137]{mlm}: ``at each
+step $i$, a literal $l$ assigned at the current decision level $d$ is
+selected and the intermediate clause (\ldots) is resolved with the
+antecedent of $l$.'' If we \emph{select} \verb+~p12+ and resolve it with
+\verb+[p11,p12]+, the antecedent of the second node from the top, the
+result is \verb+[p11,~p32]+, which is actually worse than just taking
+the decision node \verb+[p11]+. When selecting the literal to resolve,
+we must be careful to choose the \emph{last} one that was assigned, here
+\verb+~p32+. If this is done, the sequence of resolvents is:
+
+\begin{verbatim}
+[~p12,~p32],    [~p12,p31],    [~p12,~p21],    [~p12,p22],    [~p12]
+\end{verbatim}
+
+and the learned clause (with only one literal assigned at this level is
+\verb+[~p12]+.
+
+The implication graph for the three-hole formula is shown in
+Figure~\ref{pigeon3} (with only numbers for the antecedent clauses).
+The node labeled \verb+p22=1@3+ is easily seen to be a dominator and the
+clause learned by resolution is \verb+[p43,p33,~p22]+. The bold line
+shows the \emph{cut}: it is sufficient to assign to the three literals
+before the cut in order to obtain a conflict and the complements of
+these literals form the learned clause.
+
+Unlike the implication graphs in the examples given in the literature
+such as \cite{mlm}, the literals assigned at lower levels (here,
+\verb+p43+ and \verb+p33+ assigned at level~2) are \emph{not} decision
+assignments, but assignments implied by unit propagation.
+
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio=true,height=.9\textheight]{pigeon3-graph-tb-cut}
+\end{center}
+\caption{Implication graph for three-hole pigeonhole}\label{pigeon3}
+\end{figure}
+
+\clearpage
+
+\chapter{The Four-Queens Problem}
+
+The $n$-queens problem is to place $n$ queens on a chess board such that
+no queen can capture another. It is usually posed in the context of an
+standard $8\times 8$ board, but for simplicity we look at a $4\times 4$
+board. A solution is: 
+
+\begin{center}
+\unitlength=1.0pt
+\begin{picture}(100,100)
+\put(0,0){
+  \multiputlist(20,0)(20,0){1,2,3,4}
+  \multiputlist(0,20)(0,20){4,3,2,1}
+}
+\put(10,10){
+  \put(0,0){\grid(80,80)(20,20)}
+  \put( 0, 20){\makebox(20,20){Q}}
+  \put(20, 60){\makebox(20,20){Q}}
+  \put(40,  0){\makebox(20,20){Q}}
+  \put(60, 40){\makebox(20,20){Q}}
+}
+\end{picture}
+\end{center}
+
+The problem can be encoded in clausal form using 80 clauses on 16
+variables \cite[Section~6.4]{mlcs}. Other encodings are discussed in
+\cite[Section 2.3.1]{cnf} based on \cite{nadel}. The 4-queens problem
+has a solution (in fact, two solutions), so the formula will be
+satisfiable and the satisfying assignments provides the solution:
+
+\begin{verbatim}
+[p11=0,p12=0,p13=1,p14=0,p21=1,p22=0,p23=0,p24=0,
+ p31=0,p32=0,p33=0,p34=1,p41=0,p42=1,p43=0,p44=0]
+\end{verbatim}
+where \p{pij} is true if a queen is place in column \p{i} and row \p{j}. 
+
+The statistics for the various algorithms are:
+\begin{verbatim}
+dpll: units=30, decisions=6, conflicts=2
+cdcd: units=30, decisions=6, conflicts=2
+ncb:  units=25, decisions=5, conflicts=1
+\end{verbatim}
 
 \newpage
+
+If you examine the assignment tree for the DPLL algorithm (not shown),
+you will see the effectiveness of unit propagation. Just three decision
+assignments (\p{p11=0}, \p{p12=0}, \p{p13=0}) imply the assignment
+\p{p14=1}, which in turn implies more assignments of 0 along its row and
+diagonal. The placements of the first queen is shown on the left of
+Figure~\ref{queens} where the subscripts denote the assignment level and
+primes denote the inferred assignments.
+
+\begin{figure}[tb]
+\begin{center}
+\begin{tabular}{l@{\hspace{.2\textwidth}}r}
+\unitlength=1.0pt
+\begin{picture}(100,100)
+\put(0,0){
+  \multiputlist(20,0)(20,0){1,2,3,4}
+  \multiputlist(0,20)(0,20){4,3,2,1}
+}
+\put(10,10){
+  \put(0,0){\grid(80,80)(20,20)}
+  \put( 0, 20){\makebox(20,20){$0_3$}}
+  \put( 0, 40){\makebox(20,20){$0_2$}}
+  \put( 0, 60){\makebox(20,20){$0_1$}}
+  \put( 0, 0){\makebox(20,20){$1'_3$}}
+  \put(20, 0){\makebox(20,20){$0'_3$}}
+  \put(40, 0){\makebox(20,20){$0'_3$}}
+  \put(60, 0){\makebox(20,20){$0'_3$}}
+  \put(20,20){\makebox(20,20){$0'_3$}}
+  \put(40,40){\makebox(20,20){$0'_3$}}
+  \put(60,60){\makebox(20,20){$0'_3$}}
+}
+\end{picture}
+&
+\begin{picture}(100,100)
+\put(0,0){
+  \multiputlist(20,0)(20,0){1,2,3,4}
+  \multiputlist(0,20)(0,20){4,3,2,1}
+}
+\put(10,10){
+  \put(0,0){\grid(80,80)(20,20)}
+  \put( 0, 20){\makebox(20,20){$0_3$}}
+  \put( 0, 40){\makebox(20,20){$0_2$}}
+  \put( 0, 60){\makebox(20,20){$0_1$}}
+  \put( 0, 0){\makebox(20,20){$1'_3$}}
+  \put(20, 0){\makebox(20,20){$0'_3$}}
+  \put(40, 0){\makebox(20,20){$0'_3$}}
+  \put(60, 0){\makebox(20,20){$0'_3$}}
+  \put(20,20){\makebox(20,20){$0'_3$}}
+  \put(40,40){\makebox(20,20){$0'_3$}}
+  \put(60,60){\makebox(20,20){$0'_3$}}
+  \put(20,60){\makebox(20,20){$0_4$}}
+  \put(20,40){\makebox(20,20){$1'_4$}}
+  \put(60,40){\makebox(20,20){$0'_4$}}
+  \put(60,20){\makebox(20,20){$1'_4$}}
+  \put(40,20){\makebox(20,20){$0'_4$}}
+  \put(40,60){\makebox(20,20){$1'_4$}}
+}
+\end{picture}
+\end{tabular}
+\caption{Decisions and implications for the four-queens
+problem}\label{queens}
+\end{center}
+\end{figure}
+
+The next decision assignment is \p{p21=0} or \p{p21=1}, both of which
+lead to conflicts. Let us look at \p{p21=0}. \p{p21=0} implies \p{p22=1}
+because there has to be a queen in the second column. The next
+implications are \p{p42=0}, \p{p43=1}, \p{p33=0}, \p{p31=1} (see the
+right of Figure~\ref{queens}). We leave it to the reader to examine the
+sequence of assignments following the decision assignment \p{p21} and to
+show that it too leads to a conflict.
+
+Figure~\ref{queens-ig} shows the implication graph with the dominator node
+\verb+p22=1@4+ and the cut that defines the learned clause
+\verb+[~p22,p32,p34,p41,p44]+. (The image is too small to read, but
+you can find the original image in the archive or you can regenerate it
+yourself.) The learned clause is such that the decision assignments at
+the lower levels (\verb+p11=0@1+, \verb+p12=0@2+, \verb+p13=0@3+) make
+it a unit clause \verb+~p22+ and force the assignment of 1 to \p{p22},
+regardless of the assignment to \p{p21}. Therefore, non-chronological
+backtracking can skip that assignment and continue with the previous
+decision assignment. Assigning 1 instead of 0 to \p{p13} leads to a
+satisfying assignment by unit propagation alone!
+ 
+\begin{figure}[b]
+\begin{center}
+\includegraphics[keepaspectratio=true,width=.9\textwidth]{queens-graph-lr-cut}
+\end{center}
+\caption{Implication graph for the four-queens}\label{queens-ig}
+\end{figure}
 
 \bibliographystyle{plain}
 \bibliography{learnsat}

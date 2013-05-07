@@ -6,17 +6,15 @@
 
 :- module(modes, [
   set_display/1, clear_display/1, init_display/0, check_option/1,
-  set_mode/1, alg_mode/1, not_dpll_mode/0, init_modes/0,
-  set_learn_mode/1, learn_mode/1,
+  set_mode/1, alg_mode/1, not_dpll_mode/0, init_mode/0,
   usage/0, display_copyright_notice/0,
   show_config/0]).
 
 :- use_module([config, io]).
 
-% Algorithmic mode and learn mode
-%   These are exported
+% Algorithmic mode (exported)
 
-:- dynamic alg_mode/1, learn_mode/1.
+:- dynamic alg_mode/1.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -52,45 +50,14 @@ not_dpll_mode :-
   Mode \= dpll, !.
 
 
-%  Clauses can be learned by finding a dominator or by resolution
-%    They might not be the same depending on the order of resolution
-%    learn_mode determines which algorithm is used
-
-%  set_learn_mode/1 - Set a new learn mode
-
-set_learn_mode(Mode) :-
-  retractall(learn_mode(_)),
-  check_learn_mode(Mode),
-  assert(learn_mode(Mode)).
-
-
-%  check_learn_mode/1 - Check that the mode is legal or write error
-
-check_learn_mode(resolution).
-check_learn_mode(dominator).
-check_learn_mode(X) :-
-  write('Learn mode "'), write(X), write('" not recognized\n'),
-  write('Run "usage" for a list of learn modes\n').
-
-
-%  init_modes/0, init_mode/0, init_learn_mode/0
-%    If no mode or learn_mode, assert the defaults from config
-
-init_modes :-
-  init_mode,
-  init_learn_mode.
+%  init_mode/0
+%    If no mode assert the defaults from config
 
 init_mode :-
   alg_mode(_), !.
 init_mode :-
   default_alg_mode(Default),
   assert(alg_mode(Default)).
-
-init_learn_mode :-
-  learn_mode(_), !.
-init_learn_mode :-
-  default_learn_mode(Default),
-  assert(learn_mode(Default)).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -243,26 +210,24 @@ show_config :-
   default_alg_mode(M1),
   write('Default mode: '),
   write(M1), nl,
-  default_learn_mode(M2),
-  write('Default learn mode: '),
+  init_mode,
+  alg_mode(M2),
+  write('Current mode: '),
   write(M2), nl,
+  write('Variable order:'),
+  get_order(Order),
+  write_order(Order), nl,
   default_display(D1),
   write('Default display options:\n'),
   sort(D1, D2),
   write(D2), nl,
-  alg_mode(M3),
-  write('Current mode: '),
-  write(M3), nl,
-  learn_mode(M4),
-  write('Current learn mode: '),
-  write(M4), nl,
   findall(D, display_option(D), List),
   write('Current display options:\n'),
   sort(List, List1),
   write(List1), nl,
-  write('Variable order:'),
-  get_order(Order),
-  write_order(Order).
+  decorate_mode(D3),
+  write('Decoration: '),
+  write(D3), nl.
 show_config.
 
 
@@ -294,9 +259,6 @@ usage :-
   write('  dpll: DPLL algorithm (default)\n'),
   write('  cdcl: DPLL with conflict-directed clause learning\n'),
   write('  ncb:  DPLL with CDCL and non-chronological backtracking\n\n'),
-  write('set_learn_mode(Mode)\n'),
-  write('  resolution: Learn clauses by resolution (default)\n'),
-  write('  dominator:  Learn clauses from dominator\n\n'),
   write('set_order(Order)\n'),
   write('  default: variables assigned in lexicographical order\n'),
   write('  [...]:   variables assigned in the order [...]\n\n'),
@@ -309,7 +271,7 @@ usage :-
   write('  clause       clauses to be checked for satisfiability\n'),
   write('  conflict *   conflict clauses\n'),
   write('  decision *   decision assignments\n'),
-  write('  dominator    learned clause from dominator\n'),
+  write('  dominator    computation of the dominator\n'),
   write('  dot          implication graphs (final) in dot format\n'),
   write('  dot_inc      implication graphs (incremental) in dot format\n'),
   write('  evaluate     evaluation of clauses for an assignment\n'),
