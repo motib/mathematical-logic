@@ -8,6 +8,7 @@
 
 :- use_module([auxpred, counters, io, config, modes]).
 
+
 %  Generate the semantic tree of assignments
 %    The tree is actually a DAG and the nodes are assignments
 %    rather than the usual variable names
@@ -18,11 +19,15 @@
 
 :- dynamic edge/2, node/2.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % init_tree/0
 %   Initialize by retract existing databases
 init_tree :-
   retractall(edge(_, _)),
   retractall(node(_, _)).
+
 
 % write_tree/2
 %   Assignments so far
@@ -71,6 +76,7 @@ assert_edges(Previous, [Head | Tail]) :-
   assert_edges(Head, Tail).
 assert_edges(_, [Head | Tail]) :-
   assert_edges(Head, Tail).
+
 
 %  get_edges/1
 %    Return the set of edges
@@ -134,25 +140,7 @@ write_reason(Node) :-
 write_reason(_).
 
 
-%  decorate_node/1
-%    Decorate decision, conflict and sat nodes
-%    Make sure that sat is before conflict
-%      so that a node which is both is marked sat
-
-decorate_node(Node) :-
-  node(Node, sat), !,
-  dot_decorate(sat, D),
-  write(D).
-decorate_node(Node) :-
-  node(Node, conflict), !,
-  dot_decorate(conflict, D),
-  write(D).
-decorate_node(Node) :-
-  arg(4, Node, yes), !,
-  dot_decorate(decision, D),
-  write(D).
-decorate_node(_).
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %  write_dot/5
 %      Graph - the graph database
@@ -175,6 +163,7 @@ write_dot(graph(_, Edges), Clauses, Level, Dominator, Learned) :-
   write('}'),
   told.
 
+
 %  write_dot1/5
 %    Arguments as above
 %    Write each edge from Graph
@@ -195,6 +184,50 @@ write_dot1([edge(From, N, To) | Tail], Clauses, Level, Dominator, Learned) :-
   decorate_decision_node(From, Level),
   decorate_dominator(To, Dominator),
   write_dot1(Tail, Clauses, Level, Dominator, Learned).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  dot_decorate/2
+%      What - what to decorate
+%      Decorations - the decoration
+%    Decorate according to mode: color or bw
+
+dot_decorate(What, Decoration) :-
+  decorate_mode(Mode),
+  dot_decorate(Mode, What, Decoration).
+
+
+%  decorate_node/1
+%    Decorate decision, conflict and sat nodes
+%    Make sure that sat is before conflict
+%      so that a node which is both is marked sat
+
+decorate_node(Node) :-
+  node(Node, sat), !,
+  dot_decorate(sat, D),
+  write(D).
+decorate_node(Node) :-
+  node(Node, conflict), !,
+  dot_decorate(conflict, D),
+  write(D).
+decorate_node(Node) :-
+  arg(4, Node, yes), !,
+  dot_decorate(decision, D),
+  write(D).
+decorate_node(_).
+
+
+%  decorate_node/2
+%      Node - the node to decorate
+%      Decoration - the decoration
+
+decorate_node(Node, Decoration) :-
+  write('"'),
+  write_assignment(Node, no),
+  write('"'),
+  write(Decoration),
+  write(';\n').
 
 
 %  decorate_cut/2
@@ -252,17 +285,8 @@ decorate_dominator1(To, Dominator) :-
 decorate_dominator1(_, _).
 
 
-%  decorate_node/2
-%      Node - the node to decorate
-%      Decoration - the decoration
 
-decorate_node(Node, Decoration) :-
-  write('"'),
-  write_assignment(Node, no),
-  write('"'),
-  write(Decoration),
-  write(';\n').
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %  create_file_name/2
 %    Graph - ig for implication graph, at for semantic tree
@@ -281,6 +305,7 @@ create_file_name(Graph, Name1) :-
   atom_concat(Base2, Counter1, Name),
   atom_concat(Name, '.dot', Name1),
   increment(Graph).
+
 
 %  pad_file_number(F, F1)
 %    If F is a single digit, pad on left with 0

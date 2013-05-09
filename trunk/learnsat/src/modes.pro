@@ -7,30 +7,51 @@
 :- module(modes, [
   set_display/1, clear_display/1, init_display/0, check_option/1,
   set_mode/1, alg_mode/1, not_dpll_mode/0, init_mode/0,
-  usage/0, display_copyright_notice/0,
-  show_config/0]).
+  usage/0, display_copyright_notice/0, show_config/0,
+  set_decorate_mode/1, decorate_mode/1]).
 
 :- use_module([config, io]).
 
-% Algorithmic mode (exported)
+% Algorithm and decorate modes (exported)
 
-:- dynamic alg_mode/1.
+:- dynamic alg_mode/1, decorate_mode/1.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%    Algorithmic and clause-learning modes
+%    Algorithm and decorate modes
+
+%  init_mode/0
+%    If no modes assert the defaults from config
+
+init_mode :-
+  init_alg_mode,
+  init_decorate_mode.
+
+init_alg_mode :-
+  alg_mode(_), !.
+init_alg_mode :-
+  default_alg_mode(Default),
+  assert(alg_mode(Default)).
+
+init_decorate_mode :-
+  decorate_mode(_), !.
+init_decorate_mode :-
+  default_decorate_mode(Default),
+  assert(decorate_mode(Default)).
+
 
 %  LearnSAT can be run in three modes;
 %    dpll -   DPLL algorithm
 %    cdcl -   DPLL with conflict-directed clause learning (CDCL)
 %    ncb  -   DPLL with CDCL and non-chronological backtracking (NCB)
 
-%  set_mode/1 - Set a new mode
+%  set_mode/1 - Set a new algorithm mode
 
 set_mode(Mode) :-
+  check_mode(Mode), !,
   retractall(alg_mode(_)),
-  check_mode(Mode),
   assert(alg_mode(Mode)).
+set_mode(_).
 
 
 %  check_mode/1 - Check that the mode is legal or write error
@@ -40,7 +61,8 @@ check_mode(cdcl).
 check_mode(ncb).
 check_mode(X) :-
   write('Mode "'), write(X), write('" not recognized\n'),
-  write('Run "usage" for a list of modes\n').
+  write('Run "usage" for a list of modes\n'),
+  fail.
 
 %  not_dpll_mode/0
 %    Succeeds if not dpll mode
@@ -50,14 +72,23 @@ not_dpll_mode :-
   Mode \= dpll, !.
 
 
-%  init_mode/0
-%    If no mode assert the defaults from config
+%  set_decorate_mode/1 - Set a new decorate mode
 
-init_mode :-
-  alg_mode(_), !.
-init_mode :-
-  default_alg_mode(Default),
-  assert(alg_mode(Default)).
+set_decorate_mode(Mode) :-
+  check_decorate_mode(Mode), !,
+  retractall(decorate_mode(_)),
+  assert(decorate_mode(Mode)).
+set_decorate_mode(_).
+
+
+%  check_decorate_mode/1 - Check that the mode is legal or write error
+
+check_decorate_mode(color).
+check_decorate_mode(bw).
+check_decorate_mode(X) :-
+  write('Decorate mode "'), write(X), write('" not recognized\n'),
+  write('Run "usage" for a list of decorate modes\n'),
+  fail.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -259,6 +290,9 @@ usage :-
   write('  dpll: DPLL algorithm (default)\n'),
   write('  cdcl: DPLL with conflict-directed clause learning\n'),
   write('  ncb:  DPLL with CDCL and non-chronological backtracking\n\n'),
+  write('set_decorate_mode(Mode)\n'),
+  write('  color: color decorations (default)\n'),
+  write('  bw:    black-and-white decorations\n\n'),
   write('set_order(Order)\n'),
   write('  default: variables assigned in lexicographical order\n'),
   write('  [...]:   variables assigned in the order [...]\n\n'),

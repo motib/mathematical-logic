@@ -3,12 +3,14 @@
 \usepackage{mathptmx}
 \usepackage{url}
 \usepackage{graphicx,pict2e,epic}
+\usepackage{verbatim}
 
 \newcommand*{\p}[1]{\textup{\texttt{#1}}}
 \newcommand*{\ls}{\textsc{LearnSAT}}
 \newcommand*{\pl}{\textsc{Prolog}}
 \newcommand*{\sw}{\textsc{SWI-Prolog}}
 \newcommand*{\dt}{\textsc{dot}}
+\newcommand*{\ngg}{\mathop{\neg}}
 
 \textwidth=15cm
 \textheight=21cm
@@ -43,6 +45,8 @@ License. To view a copy of this license, visit
 to Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.
 
+\vspace*{\fill}
+
 \newpage
 
 \chapter*{Overview}
@@ -50,10 +54,7 @@ California, 94105, USA.
 \ls{} is a program for learning about SAT solving. It implements the
 classic \emph{Davis-Putnam-Logemann-Loveland (DPLL)} algorithm, together
 with modern extensions of the algorithm: \emph{conflict-driven clause
-learning (CDCL)} and \emph{non-chronological backtracking (NCB)}. For a
-gentle introduction to SAT solvers, see \cite[Chapter~6]{mlcs}. The
-comprehensive reference is the \emph{Handbook of Satisfiability}
-\cite{SAT}.
+learning (CDCL)} and \emph{non-chronological backtracking (NCB)}.
 
 For instructions on how to run \ls{} see the User's Guide in the \ls{}
 distribution.
@@ -62,7 +63,190 @@ This document is a tutorial on SAT solving with \ls{}. The algorithms
 and notation follow \cite{mlm}. Some printouts have been reformatted or
 edited.
 
-\chapter{A detailed example}
+The tutorial assumes a basic knowledge of propositional logic such as
+presented in Chapters~2 and~3 of \cite{mlcs}. The material is
+summarized in Chapter~\ref{ch.intro} of the tutorial. For an
+introduction to SAT solvers, see \cite[Chapter~6]{mlcs}. The
+comprehensive reference is the \emph{Handbook of Satisfiability}
+\cite{SAT}.
+
+Chapter~\ref{ch.mlm} demonstrates \ls{} in great detail on the example
+in \cite{mlm}. This is followed by several chapters using other examples
+to demonstrate specific aspects of the algorithms:
+Chapter~\ref{ch.pigeon} on the pigeonhole principle,
+Chapter~\ref{ch.queens} on the four-queens problem.
+
+\begin{center}
+\framebox[.9\textwidth]{\parbox{.85\textwidth}{\ls{} can generate graphs in both color and
+black-and-white. This document uses the black-and-white images for
+printing. Color images of the same graphs can be found in the \ls{}
+archive.}}
+\end{center}
+
+\chapter{Propositional logic}\label{ch.intro}
+
+\begin{center}
+\textbf{Definitions}
+\end{center}
+
+\begin{itemize}
+\item There is an unbounded set $\mathcal{P}$ of propositional
+\emph{variables}, \emph{atomic propositions} or \emph{atoms}.
+\item There is one unary operator \emph{negation}, denoted $\ngg$.
+\item A \emph{literal} is an atom or the negation of an atom.
+\item An atom is a \emph{positive literal} and the negation of an atom
+is a \emph{negative literal}.
+\item Let $l$ be a literal. $l^c$, the complement of $l$, is $\ngg p$ if
+$l=p$ for some atom p and is $p$ if $l=\ngg p$.
+\item $\{l,l^c\}$ is a \emph{complementary pair of literals}.
+\item A \emph{clause} is a set of literals.
+\item The \emph{empty clause} is a clause that is the empty set.
+\item A \emph{formula} (in \emph{clausal form}) is a set of clauses.
+\item The \emph{empty formuala} is a formula that is the empty set.
+
+\item An \emph{interpretation} is a map $\mathcal{I}: \mathcal{P}
+\rightarrow \{T,F\}$.
+
+\item $\mathcal{I}(l)=T$, a literal $l$ is \emph{true} in an
+interpretation, if: $l$ is an atom $p$ and $\mathcal{I}(p)=T$, or $l$ is
+the negation of an atom $p$ and $\mathcal{I}(p)=F$. Otherwise,
+$\mathcal{I}(l)=F$, $l$ is \emph{false}.
+
+\item $\mathcal{I}(C)=T$, a clause $C$ is \emph{true} in an
+interpretation $\mathcal{I}$, if: for \emph{at least one} $l\in C$,
+$\mathcal{I}(l)=T$; otherwise, if $\mathcal{I}(l)=F$ for \emph{all}
+$l\in C$, $\mathcal{I}(C)=F$, $C$ is \emph{false}.
+
+\item $\mathcal{I}(A)=T$, a formula $A$ is \emph{true} in an
+interpretation, if: for \emph{all} $C\in A$, $\mathcal{I}(C)=T$;
+otherwise, if $\mathcal{I}(C)=F$ for \emph{all} $C\in A$,
+$\mathcal{I}(A)=F$, $A$ is \emph{false}.
+
+\item A formula $A$ is \emph{satisfiable} if there exists an
+interpretation $\mathcal{I}$ such that $\mathcal{I}(A)=T$; otherwise $A$
+is \emph{unsatisfiable}.
+
+\item $\mathcal{I}$ is a \emph{partial interpretation} for $A$ if it
+maps \emph{some but not necessarily all} of the atoms in $A$ into
+$\{T,F\}$.
+
+\item Let $A$ be a formula and let $\mathcal{I}$ be a partial
+interpretation for $A$. $A'=\mathcal{I}(A)$, the formula obtained by
+\emph{evaluating $A$ under $\mathcal{I}$}, is obtained by removing all
+clauses $C\in A$ such that for some $l\in C$, $\mathcal{I}(l)=T$, and by
+removing from the remaining clauses all literals $l'$ such
+$\mathcal{I}(l')=F$.
+
+\item (Syntactical) A clause $C$ is a \emph{unit clause} if the clause
+has exactly one literal.
+
+\item (Semantical) A clause $C$ is a \emph{unit clause} under a partial
+interpretation $\mathcal{I}$ if for some $l'\in C$, $\mathcal{I}(l')=T$
+and for all $l\in C, l\neq l'$, $\mathcal{I}(l)=F$.
+
+\end{itemize}
+
+\bigskip
+
+\begin{center}
+\textbf{Algorithms}
+\end{center}
+
+\textbf{Unit clause rule} Let $A$ be a formula and $\mathcal{I}$ a
+partial interpretation. Construct $A'$ from $A$ by deleting every clause
+containing $l$ and by deleting $l^{c}$ from every (remaining) clause.
+Construct $\mathcal{I}'$ as the partial interpretation obtained by
+adding $\mathcal{I}(l)=T$.
+
+\textbf{Unit propagation} Repeat the unit clause rule obtaining $A',
+A'', A''', \ldots$, and
+$\mathcal{I}',\mathcal{I}'',\mathcal{I}''',\ldots$, until the unit
+clause rule no longer applies.
+
+\textbf{Resolution rule}
+Let $C_{1},C_{2}$ be clauses such that $l\in C_{1},l^{c}\in C_{2}$. $C$,
+the \emph{resolvent} of $C_{1}$ and $C_{2}$, is the clause:
+$Res(C_{1},C_{2})=(C_{1}-\{l\})  \cup (C_{2}-\{l^{c}\})$.
+$C_{1}$ and $C_{2}$ are the \emph{parent clauses} of $C$.
+
+\bigskip
+
+\begin{center}
+\textbf{Theorems}
+\end{center}
+
+\begin{itemize}
+\item Let $A$ be a formula and let $\mathcal{I}$ be a partial
+interpretation. The set $A'$ obtained by evaluating $A$ under
+$\mathcal{I}$ is satisfiable if and only if $A$ is satisfiable.
+
+\item Let $A'$ be obtained by the unit clause rule from a formula $A$
+and a partial interpretation $\mathcal{I}$. $A'$ is satisfiable if and
+only if $A$ is satisfiable.
+
+\item Let $C$ be the resolvent of $C_1$ and $C_2$. $C$ is satisfiable if
+and only if $C_1$ and $C_2$ are satisfiable under the same
+interpretation.
+
+\item The empty clause is unsatisfiable. The empty formula is
+satisfiable.\footnote{Actually, it is valid but we did not define
+validilty.}
+
+\end{itemize}
+
+\newpage
+
+\begin{center}
+\textbf{Davis-Putnam-Logemann-Loveland (DPLL) algorithm}
+\end{center}
+
+\textbf{Input}: A formula $A$.\\
+\textbf{Output}: Return \emph{unsatisfiable} or a partial interpretation
+that satisfies $A$.
+
+The algorithm is expressed as the recursive function
+$\textit{DPLL}(B,\mathcal{I})$ with parameters: a formula $B$ and a
+partial interpretation $\mathcal{I}$. The initial call is
+$\textit{DPLL}(A,\{\})$. 
+
+\medskip
+
+\noindent $\textit{DPLL}(B,\mathcal{I})$
+\begin{itemize}
+
+\item Perform unit propagation on $B$; let $B'$ and $\mathcal{I}'$ be
+the final formula and partial interpretation.
+
+\begin{itemize}
+\item If $B'$ contains the empty clause return \emph{unsatisfiable};
+\item If $B'$ is the empty formula return $\mathcal{I}'$;
+\item (otherwise, continue).
+\end{itemize}
+\item \emph{Choose} an atom $p$ in $B'$, \emph{choose} a truth value
+$\textit{val}$ as $T$ or $F$, and let $\mathcal{I}_1$ be the
+partial interpretation obtained by adding the assignment of
+$p\rightarrow \textit{val}$  to $\mathcal{I}'$. 
+
+\item \textit{result} $\leftarrow$ $\textit{DPLL}(B',\mathcal{I}_1)$.
+\begin{itemize}
+\item If \textit{result} is not \emph{unsatisfiable} return \textit{result};
+\item (otherwise, continue).
+\end{itemize}
+
+\item Let $\mathcal{I}_2$ be the partial interpretation obtained by
+adding the assignment of $p\rightarrow \textit{val}^c$ to
+$\mathcal{I}'$, where $\textit{val}^c = F$ if $\textit{val} = T$ and
+$\textit{val}^c = T$ if $\textit{val} = F$.
+
+\item \textit{result} $\leftarrow$ $\textit{DPLL}(B',\mathcal{I}_2)$.
+\begin{itemize}
+\item Return \textit{result}.
+\end{itemize}
+\end{itemize}
+
+
+
+\chapter{A detailed example}\label{ch.mlm}
 
 \section{The DPLL algorithm}
 
@@ -155,7 +339,7 @@ Statistics: clauses=6, variables=8, units=9, decisions=9, conflicts=2
 \section{Display options}
 
 The trace of the algorithm shown in the previous section resulted from
-the following display options (that are selected by default):
+the following display options that are selected by default:
 \p{conflict}, \p{decision}, \p{result}, \p{sorted}, \p{unit}. The option
 \p{sorted} displays the assignments as a sorted list; if the option is
 cleared, the assignments will be displayed in the reverse order in which
@@ -242,7 +426,7 @@ Evaluate: [x1,x031,~x2] is true
 Evaluate: [x1,~x3] has literal x1 deleted
 Evaluate: [x1,~x3] is a unit clause
 \end{verbatim}
-\emph{Warning}: This display option results in extremely verbose output
+\textbf{Warning}: This display option results in extremely verbose output
 and would only be used in the initial stages of learning about DPLL.
 
 \end{itemize}
@@ -255,30 +439,28 @@ Select \p{tree} to see a tree of the assignments
 (Figure~\ref{tree1}).\footnote{This tree is different from the standard
 semantic tree where the nodes are the variables and the edges are the
 assignments. Here, the nodes are the assignments and the edges are not
-labeled.} The display option \p{label} adds the antecedent clauses to
-nodes that implied by unit propagation.
+labeled.} The display option \p{label} was also selected to add the
+antecedent clauses to nodes that implied by unit propagation. Select
+\p{tree\_inc} to generate the trees incrementally, whenever a conflict
+is reached.
 
 \begin{figure}
 \begin{center}
-\includegraphics[keepaspectratio=true,height=.9\textheight]{tree1}
+\includegraphics[keepaspectratio=true,height=.9\textheight]{tree1-bw}
 \end{center}
 \caption{Tree of assignments for the DPLL algorithm}\label{tree1}
 \end{figure}
 
-Decision assignments are in red; assignments implied by unit propagation
-are in black; conflict nodes have a double red border; the node where
-the satisfying assignments are found has a double green border.
-You can see that the DPLL search backtracked to try assigning 1 to
-\p{x1} after trying 0 and to try assigning 1 to \p{x3} after trying 0.
-
-You can select \p{tree\_inc} to generate the trees incrementally,
-whenever a conflict is reached.
-
-%\clearpage
+Decision assignments are in bold; assignments implied by unit
+propagation are in black; conflict nodes have a double border; the node
+where the satisfying assignments are found has a triple border. The
+search backtracked to assign 1 to \p{x1} after trying 0 and to assign 1
+to \p{x3} after trying 0.
 
 \section{Improving efficiency with learned clauses}
 
-Let us run the same example with conflict-directed clause learning by setting the mode:
+Let us run the same example with conflict-directed clause learning by
+setting the mode:
 
 \begin{verbatim}
 ?- set_mode(cdcl).
@@ -288,11 +470,10 @@ The display options relevant to this mode selected by default are:
 \p{learned}, \p{resolvent}, \p{uip}.
 
 After encountering the conflict clause \verb+[x5,x6]+, the algorithm
-\emph{learns} the clause \verb+[x021,~x4]+ as described in
-Section~\ref{learned.res}. Now, when backtracking to try the assignment
-of 1 to \p{x3}, the learned clause becomes a unit clause based upon the
-previous assignment of 0 to \p{x021}. Unit propagation quickly leads to
-a satisfying assignment:
+\emph{learns} the clause \verb+[x021,~x4]+ (Section~\ref{learned.res}).
+When backtracking to assign 1 to \p{x3}, the learned clause becomes a
+unit clause based upon the previous assignment of 0 to \p{x021}. Unit
+propagation leads to a satisfying assignment:
 
 \begin{verbatim}
 Conflict clause: 6. [x5,x6]
@@ -318,7 +499,7 @@ the tree of assignments (Figure~\ref{tree2}).
 
 \begin{figure}
 \begin{center}
-\includegraphics[keepaspectratio=true,height=.9\textheight]{tree2}
+\includegraphics[keepaspectratio=true,height=.9\textheight]{tree2-bw}
 \end{center}
 \caption{Tree of assignments for the DPLL algorithm with CDCL}\label{tree2}
 \end{figure}
@@ -329,7 +510,10 @@ the tree of assignments (Figure~\ref{tree2}).
 
 When a conflict clause is found, an \emph{implication graph} is
 constructed and used to learn a clause. Select \p{graph} to display a
-textual representation of an graph (first the nodes and then the edges):
+textual representation of an graph: a list of nodes and a list of
+edges labeled with the antecedent clauses (because \p{label} was also
+selected):
+
 \begin{verbatim}
 Implication graph:
 [kappa, x021=0@1, x031=0@2, x1=0@3, x2=0@3, x3=0@3, x4=1@3, x5=0@3, x6=0@3]
@@ -348,16 +532,11 @@ x6=0@3 --6.[x5,x6]--> kappa
 \end{verbatim}
 
 Select \p{dot} to generate a \dt{} representation of the
-graph:\footnote{Edges are labeled with the antecedent clauses because
-the display option \p{label} was selected.}
+graph:
 
 \begin{center}
-\includegraphics[keepaspectratio=true,width=\textwidth]{graph}
+\includegraphics[keepaspectratio=true,width=\textwidth]{graph-bw}
 \end{center}
-
-For both the textual and the \dt{} graphs, the option \p{label} was
-selected to label edges with clauses and not just with their sequence
-numbers.
 
 Options \p{incremental} and \p{dot\_inc} generate the graphs after each
 step of the algorithm, not just when a conflict clause is reached.
@@ -379,13 +558,12 @@ of 0 to \p{x2}. The assignment receives the same level as the last
 decision assignment so its node is labeled \p{x2=0@3}.
 
 For each non-source node, there is an incoming edge for each literal in
-the unit clause except the one whose assignment is being implied.
-The source nodes of these edges are labeled the assignments to those
-literals. Since the clause \verb+[x1,x031,~x2]+ with three literals
-implied the assignment \p{x2=0@3}, the node labeled \p{x2=0@3} has
-two incoming edges: one from the node \p{x1=0@3} that assigned 0 to
-\p{x1} and one from the node \p{x031@2} that assigned 0 to \p{x031},
-leaving \verb+~x2+ as the unit clause that implies $x2=0@3$.
+the unit clause except the one whose assignment is being implied. The
+source nodes of these edges are the ones labeled with the assignments to
+those literals. Since the clause \verb+[x1,x031,~x2]+ with three
+literals implied the assignment \p{x2=0@3}, the node labeled \p{x2=0@3}
+has two incoming edges: one from the node \p{x1=0@3} that assigned 0 to
+\p{x1} and one from the node \p{x031@2} that assigned 0 to \p{x031}.
 
 The implication graph shows that the decision assignments \p{x021=0@1},
 \p{x031=0@2}, \p{x1=0@3} cause a conflict. Clearly, if
@@ -395,51 +573,42 @@ would be evaluated when the decisions were made. Since it evaluates to
 would be no need to carry out unit propagation. Therefore, by
 \emph{learning} this clause---adding it to our original set of
 clauses---any subsequent decision assignments that include these three
-would immediately lead to the discovery of a conflict and shorten the
-computation.
+would \emph{immediately} lead to the discovery of a conflict.
 
 Unfortunately, there is no advantage to learning a clause based only on
 these decision assignments, because the same set of decisions at levels
 1, 2 and 3 will never occur again after backtracking.
 
-Sections~\ref{learned.dom}--\ref{learned.res} present algorithms for
-finding \emph{shorter} learned clauses that are more likely to become
+Sections~\ref{learned.dom}--\ref{learned.res} present algorithms that
+can find \emph{shorter} learned clauses that are more likely to become
 conflict clauses as the algorithm continues. Section~\ref{learned.dom}
 describes how to learn a clause by computing a dominator in the
 implication graph. Section~\ref{learned.res} describes how to learn a
 clause resolving backwards from the conflict node.
 
-\emph{The two algorithms are always run one after the other.} You can
-trace either one or both of the algorithms. Display option \p{dominator}
-traces the computation of a dominator, and the options \p{learned},
-\p{resolvent} and \p{uip} trace the computation by resolution.
-
-\emph{Learn mode} selects which learned clause will be remembered and
-subsequently used:
-\begin{verbatim}
-set learn_mode(dominator)    set learn_mode(resolution)
-\end{verbatim}
-
+The two algorithms are always run one after the other, but only the
+clause learned by resolution is actually learned. You can trace either
+one or both of the algorithms. Display option \p{dominator} traces the
+computation of a dominator, and the options \p{learned}, \p{resolvent}
+and \p{uip} trace the computation by resolution.
 
 \newpage
 
 \section{Learning a clause from a dominator}\label{learned.dom}
 
-From the implication graph, we saw that a learned clause can be defined
-by the decision assignments at the source nodes. However, consider all
-the (four) paths from the \emph{last} decision assignment (here,
-\p{x1=0@3}) to the node labeled \p{kappa} whose antecedent is the
-conflict clause:\footnote{Edges are labeled with the \emph{numbers} of
-the antecedent clauses because the display option \p{label} was
-\emph{not} selected.}
+Here again is the implication graph:
 
 \begin{center}
-\includegraphics[keepaspectratio=true,width=\textwidth]{dom}
+\includegraphics[keepaspectratio=true,width=\textwidth]{graph-bw}
 \end{center}
 
-A node (here, the node \p{x4=1@3}) is called a \emph{dominator}
-of a decision node if it appears on all the paths from the decision node
-to \p{kappa}. \ls{} computes the paths and finds a dominator:
+Consider all the (four) paths from the \emph{last} decision assignment
+(\p{x1=0@3} with a double border) to the node labeled \p{kappa} (also
+with a double border). A node (\p{x4=1@3} with a double border) is
+called a \emph{dominator} of a decision node if it appears on all the
+paths from the decision node to \p{kappa}. \ls{} computes the paths and
+finds a dominator:
+
 \begin{verbatim}
 Paths from the decision node at this level to kappa:
 x1=0@3 --> x2=0@3 --> x4=1@3 --> x5=0@3 --> kappa
@@ -475,6 +644,12 @@ at the highest level; in this case, it is the decision assignment to
 Learned clause from dominator (not used): [x021,~x4]
 \end{verbatim}
 
+The dotted lines form a \emph{cut}: their source nodes are the
+assignments that define the literals in the learned clause. The source
+nodes of any cut can define a learned clause because assignments to
+these literals necessarily lead to the conflict. The cut we chose is
+from the UIP and includes an edge on each path from a decision node that
+is not dominated by the UIP.
 
 \newpage
 
@@ -484,7 +659,7 @@ The learned clause can be obtained by resolution starting with the
 conflict clause---the antecedent clause of the \p{kappa} node---and
 terminating when a UIP is found. Define the conflict clause as the
 initial \emph{current clause}. At each step, the antecedent clause at
-the current node clashes with the current clause on the literal that is
+the current node clashes with the current clause on the literal that was
 assigned at that node by unit propagation. For example, given the
 initial current clause \verb+[x5,x6]+, \p{x5} was assigned by unit
 propagation at this level, so we can resolve \verb+[x5,x6]+ with the
@@ -506,12 +681,10 @@ UIP: one literal ~x4 is assigned at level: 3
 Learned clause from resolution (used): [x021,~x4]
 \end{verbatim}
 
-Recall \cite[Theorem~4.17]{mlcs} that a resolvent $C$ is satisfiable if
-and only if its parent clauses $C_1$ and $C_2$ are (simultaneously)
-satisfiable. Since the conflict clause is unsatisfiable under the
-current set of decision assignments, so is the set consisting of it and
-its clashing clause, and therefore their resolvent---the next current
-clause---is also unsatisfiable.
+Since the conflict clause is unsatisfiable under the current set of
+decision assignments, so is the set consisting of it and its clashing
+clause, and therefore their resolvent---the next current clause---is
+also unsatisfiable.
 
 For example, \verb+[x5,x6]+ is a conflict clause because it evaluates to
 0. The antecedent clause \verb+[~x4,~x5]+ is a unit clause and therefore
@@ -520,19 +693,16 @@ clause \verb+[x5,x6]+, are assigned 0, \verb+~x5+, the complement of
 \verb+x5+, is assigned 1, so it must be the \emph{only} literal in the
 antecedent clause \verb+[~x4,~x5]+ that is assigned 1. Therefore,
 \verb+~x4+ is assigned 0 and we conclude that all literals in the
-resolvent \verb+[~x4,x6]+ are assigned 0. In general, any resolvent
-generated by resolving the conflict clause and the antecedent clauses
-must evaluate to 0 and we can add it as learned clause.
+resolvent \verb+[~x4,x6]+ are assigned 0.
 
 Which of these clauses should we learn? Successive resolution steps will
-eventually lead back to the clause defined by the decision nodes (here,
-\verb+[x021,x031,x1]+), but, as we saw above, there is no advantage to
-learning this clause. However, the resolvent clause associated with a
-UIP (here, \verb+[x021,~x4]+) contains only a single literal at the
-current level (here, \verb+~x4+), so it can replace the decision literal
-at the same level (here, \verb+x1+), as well as any decision variables
-at a lower level that are dominated by the assignment's node (here,
-\verb+x031+).
+eventually lead back to the clause defined by the decision nodes
+(\verb+[x021,x031,x1]+), but there is no advantage to learning this
+clause. However, the resolvent clause associated with a UIP
+(\verb+[x021,~x4]+) contains only a single literal at the current level
+(\verb+~x4+), so it can replace the decision literal at the same level
+(\verb+x1+), as well as any decision variables at lower levels that are
+dominated by the UIP (\verb+x031+).
 
 
 \clearpage
@@ -549,7 +719,7 @@ non-chronological backtracking is computed. This is the highest level of
 an assignment in the learned clause except for the current level. In the
 example, the learned clause is \verb+[x021,~x4]+, where \p{x4} was
 assigned at level 3, the current level, and \p{x021} was assigned at
-level 1 which becomes the backtrack level. When backtracking, we can
+level 1, which becomes the backtrack level. When backtracking, we can
 skip decision assignments whose level is at a lower level than the
 backtrack level, in the example, the decision assignments at levels 3
 and 2:
@@ -560,13 +730,13 @@ Skip decision assignment: x1=1@3
 Skip decision assignment: x031=1@2
 \end{verbatim}
 
-Once 0 is assigned to \p{x021}, the clause \verb+[x021,~x4]+ becomes
-a unit clause \verb+[~x4]+ which forces the assignment of 1 to \p{x4}.
-But we already know (cf. the implication graph) that those two
-assignments are sufficient to cause a conflict. It follows that there is
-no point in exploring the other assignments to \p{x031} and \p{x1}: the
-decision assignment to \p{x021} and the implied assignment to \p{x4} are
-sufficient by themselves to cause a conflict.
+Once 0 is assigned to \p{x021}, the clause \verb+[x021,~x4]+ becomes a
+unit clause \verb+[~x4]+ which forces the assignment of 1 to \p{x4}. But
+we already know (cf. the implication graph) that those two assignments
+are sufficient to cause a conflict. It follows that there is no point in
+exploring the other assignments to \p{x031} and \p{x1}: \emph{the
+assignments to \p{x021} and \p{x4} are sufficient by themselves to cause
+a conflict}.
 
 NCB can be seen in the tree of assignments (Figure~\ref{tree3}). The
 graph is no longer a tree but a DAG (directed acyclic graph) because
@@ -577,17 +747,17 @@ clause and the other to a satisfying assignment.
 
 \begin{figure}
 \begin{center}
-\includegraphics[keepaspectratio=true,height=.9\textheight]{tree3}
+\includegraphics[keepaspectratio=true,height=.9\textheight]{tree3-bw}
 \end{center}
 \caption{Tree of assignments for the DPLL algorithm with CDCL and NCB}\label{tree3}
 \end{figure}
 
 \clearpage
 
-\chapter{The pigeonhole problem}
+\chapter{The pigeonhole principle}\label{ch.pigeon}
 
 The pigeonhole principle states that if we place $n+1$ pigeons in $n$
-holes then one hole contains at least two pigeons. Therefore, the
+holes then one hole contains at least two pigeons. Therefore, a
 formula stating that all pigeons are in different holes must be
 unsatisfiable. Let \p{pij} be an atomic proposition whose intended
 meaning is that pigeon \p{i} is in hole \p{j}; for two holes and three
@@ -603,8 +773,7 @@ and for three holes and four pigeons the formula is:
 
 \begin{verbatim}
   % Each pigeon in at least hole
-  [p11, p12, p13], [p21, p22, p23],
-  [p31, p32, p33], [p41, p42, p43], 
+  [p11, p12, p13], [p21, p22, p23], [p31, p32, p33], [p41, p42, p43], 
   % Each hole has at most one pigeon
   [~p11, ~p21], [~p11, ~p31], [~p11, ~p41],
   [~p21, ~p31], [~p21, ~p41], [~p31, ~p41],
@@ -614,8 +783,8 @@ and for three holes and four pigeons the formula is:
   [~p23, ~p33], [~p23, ~p43], [~p33, ~p43]
 \end{verbatim}
 
-The different modes make no difference for the two-hole formula, but for
-the three-hole formula the improvements are significant:
+For the two-hole formula, the mode chosen makes no difference, but for
+the three-hole formula, NCB makes a significant improvement:
 
 \begin{verbatim}
 dpll: units=49, decisions=16, conflicts=9
@@ -623,26 +792,27 @@ cdcl: units=42, decisions=16, conflicts=9
 ncb:  units=25, decisions=10, conflicts=3
 \end{verbatim}
 
-If you look at the trace, in NCB mode, the following clauses are
+If you look at the trace in NCB mode, the following clauses are
 learned:
 
 \begin{verbatim}
 [p43,p33,~p22],   [p42,p32,~p23],  [p41,p31,~p23]
 \end{verbatim}
 
-Six decision assignments are skipped, so there are only three conflict
-clauses instead of nine.
+Six decision assignments are skipped---both 0 and 1 for the variables
+\p{p12}, \p{p13} and \p{p22}---so there are only three conflict instead
+of nine.
 
 Let us look now at the implication graphs. The graph for the two-hole
 formula is shown in Figure~\ref{pigeon2} (shown top-to-bottom instead of
 left-to-right). The conflict clause is \verb+[~p12,~p32]+ and the
 dominator is the nodes labeled \verb+p12=1@1+. Since \emph{all} nodes
 are assigned at level~1, by resolving backwards we should be able to
-learn the clause \verb+~p12+.
+learn the (unit) clause \verb+[~p12]+.
 
 \begin{figure}
 \begin{center}
-\includegraphics[keepaspectratio=true,height=.9\textheight]{pigeon2-graph-tb}
+\includegraphics[keepaspectratio=true,height=.9\textheight]{pigeon2-bw}
 \end{center}
 \caption{Implication graph for two-hole pigeonhole}\label{pigeon2}
 \end{figure}
@@ -658,35 +828,39 @@ we must be careful to choose the \emph{last} one that was assigned, here
 \verb+~p32+. If this is done, the sequence of resolvents is:
 
 \begin{verbatim}
-[~p12,~p32],    [~p12,p31],    [~p12,~p21],    [~p12,p22],    [~p12]
+Conflict clause: 8. [~p12,~p32]
+Resolvent: of [~p12,~p32] and antecedent [p31,p32] is [~p12,p31]
+Resolvent: of [~p12,p31] and antecedent [~p21,~p31] is [~p12,~p21]
+Resolvent: of [~p12,~p21] and antecedent [p21,p22] is [~p12,p22]
+Resolvent: of [~p12,p22] and antecedent [~p12,~p22] is [~p12]
+UIP: one literal ~p12 is assigned at level: 1
+Learned clause from resolution: [~p12]
 \end{verbatim}
 
-and the learned clause (with only one literal assigned at this level is
-\verb+[~p12]+.
-
 The implication graph for the three-hole formula is shown in
-Figure~\ref{pigeon3} (with only numbers for the antecedent clauses).
+Figure~\ref{pigeon3}.
 The node labeled \verb+p22=1@3+ is easily seen to be a dominator and the
-clause learned by resolution is \verb+[p43,p33,~p22]+. The bold line
+clause learned by resolution is \verb+[p43,p33,~p22]+. The dashed line
 shows the \emph{cut}: it is sufficient to assign to the three literals
-before the cut in order to obtain a conflict and the complements of
+before the cut in order to obtain a conflict, and the complements of
 these literals form the learned clause.
 
 Unlike the implication graphs in the examples given in the literature
-such as \cite{mlm}, the literals assigned at lower levels (here,
-\verb+p43+ and \verb+p33+ assigned at level~2) are \emph{not} decision
-assignments, but assignments implied by unit propagation.
+such as \cite{mlm}, the literals that form part of the learned clause
+come from assignments at lower levels that are \emph{not} decision
+assignments, but assignments implied by unit propagation (\verb+p43+ and
+\verb+p33+ assigned at level~2).
 
 \begin{figure}
 \begin{center}
-\includegraphics[keepaspectratio=true,height=.9\textheight]{pigeon3-graph-tb-cut}
+\includegraphics[keepaspectratio=true,height=.9\textheight]{pigeon3-bw}
 \end{center}
 \caption{Implication graph for three-hole pigeonhole}\label{pigeon3}
 \end{figure}
 
 \clearpage
 
-\chapter{The Four-Queens Problem}
+\chapter{The Four-Queens Problem}\label{ch.queens}
 
 The $n$-queens problem is to place $n$ queens on a chess board such that
 no queen can capture another. It is usually posed in the context of an
@@ -714,15 +888,15 @@ The problem can be encoded in clausal form using 80 clauses on 16
 variables \cite[Section~6.4]{mlcs}. Other encodings are discussed in
 \cite[Section 2.3.1]{cnf} based on \cite{nadel}. The 4-queens problem
 has a solution (in fact, two solutions), so the formula will be
-satisfiable and the satisfying assignments provides the solution:
+satisfiable and the satisfying assignments provide a solution:
 
 \begin{verbatim}
 [p11=0,p12=0,p13=1,p14=0,p21=1,p22=0,p23=0,p24=0,
  p31=0,p32=0,p33=0,p34=1,p41=0,p42=1,p43=0,p44=0]
 \end{verbatim}
-where \p{pij} is true if a queen is place in column \p{i} and row \p{j}. 
+where \p{pij} is true if a queen is placed in column \p{i} and row \p{j}. 
 
-The statistics for the various algorithms are:
+The statistics for the different modes are:
 \begin{verbatim}
 dpll: units=30, decisions=6, conflicts=2
 cdcd: units=30, decisions=6, conflicts=2
@@ -733,10 +907,10 @@ ncb:  units=25, decisions=5, conflicts=1
 
 If you examine the assignment tree for the DPLL algorithm (not shown),
 you will see the effectiveness of unit propagation. Just three decision
-assignments (\p{p11=0}, \p{p12=0}, \p{p13=0}) imply the assignment
-\p{p14=1}, which in turn implies more assignments of 0 along its row and
-diagonal. The placements of the first queen is shown on the left of
-Figure~\ref{queens} where the subscripts denote the assignment level and
+assignments (\p{p11=0@1}, \p{p12=0@2}, \p{p13=0@3}) imply the assignment
+\p{p14=1@3}, which in turn implies more assignments of 0 along its row and
+diagonal. The placement of the first queen is shown on the left of
+Figure~\ref{queens}, where the subscripts denote the assignment level and
 primes denote the inferred assignments.
 
 \begin{figure}[tb]
@@ -794,29 +968,34 @@ problem}\label{queens}
 \end{center}
 \end{figure}
 
-The next decision assignment is \p{p21=0} or \p{p21=1}, both of which
-lead to conflicts. Let us look at \p{p21=0}. \p{p21=0} implies \p{p22=1}
-because there has to be a queen in the second column. The next
-implications are \p{p42=0}, \p{p43=1}, \p{p33=0}, \p{p31=1} (see the
-right of Figure~\ref{queens}). We leave it to the reader to examine the
-sequence of assignments following the decision assignment \p{p21} and to
-show that it too leads to a conflict.
+The next decision assignment is \p{p21=0@4} or \p{p21=1@4}, both of
+which lead to conflicts. Let us look at \p{p21=0@4}. \p{p21=0@4} implies
+\p{p22=1@4} because there has to be a queen in the second column. The
+next implications are \p{p42=0@4}, \p{p43=1@4}, \p{p33=0@4}, \p{p31=1@4}
+(see the right of Figure~\ref{queens}). Clearly, there is a conflict
+because the clause \verb+[~p22,~p31]+ is false. The intended meaning is
+that the queens on those squares can capture each other so this is not a
+solution.
 
-Figure~\ref{queens-ig} shows the implication graph with the dominator node
-\verb+p22=1@4+ and the cut that defines the learned clause
-\verb+[~p22,p32,p34,p41,p44]+. (The image is too small to read, but
-you can find the original image in the archive or you can regenerate it
+We leave it to the reader to examine the sequence of assignments
+following the decision assignment \p{p21=1@4} and to show that it too
+leads to a conflict.
+
+Figure~\ref{queens-ig} shows the implication graph with the dominator
+node \verb+p22=1@4+ and the cut that defines the learned clause
+\verb+[~p22,p32,p34,p41,p44]+. (The image is too small to read, but you
+can find the original image in the archive or you can regenerate it
 yourself.) The learned clause is such that the decision assignments at
 the lower levels (\verb+p11=0@1+, \verb+p12=0@2+, \verb+p13=0@3+) make
-it a unit clause \verb+~p22+ and force the assignment of 1 to \p{p22},
+it a unit clause \verb+[~p22]+ and force the assignment \p{p22=1@4},
 regardless of the assignment to \p{p21}. Therefore, non-chronological
-backtracking can skip that assignment and continue with the previous
-decision assignment. Assigning 1 instead of 0 to \p{p13} leads to a
-satisfying assignment by unit propagation alone!
+backtracking can skip the assignment \p{p21=1@4} and continue with the
+previous decision assignment. The assignment \p{p13=1@3} instead of
+\p{p13=0@3} leads to a satisfying assignment by unit propagation alone!
  
 \begin{figure}[b]
 \begin{center}
-\includegraphics[keepaspectratio=true,width=.9\textwidth]{queens-graph-lr-cut}
+\includegraphics[keepaspectratio=true,height=.9\textheight]{queens-bw}
 \end{center}
 \caption{Implication graph for the four-queens}\label{queens-ig}
 \end{figure}
