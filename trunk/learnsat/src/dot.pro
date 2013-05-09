@@ -122,7 +122,7 @@ write_node(Node) :-
 
 write_level(Level) :-
   not_dpll_mode, !,
-  write('/'),
+  write('@'),
   write(Level).
 write_level(_).
 
@@ -179,7 +179,7 @@ write_dot1([edge(From, N, To) | Tail], Clauses, Level, Dominator, Learned) :-
   write(N),
   write_arrow_label(N, Clauses),
   write('" '),
-  decorate_cut(From, Learned),
+  decorate_cut(From, To, Learned),
   write('];\n'),
   decorate_decision_node(From, Level),
   decorate_dominator(To, Dominator),
@@ -230,19 +230,24 @@ decorate_node(Node, Decoration) :-
   write(';\n').
 
 
-%  decorate_cut/2
+%  decorate_cut/3
 %      From - the source of the edge
+%      To - the target of the edge
 %      Level - the current level
 %    Decorate a cut in the implication graph
 %    if the source node is in the learned clause
+%    and the target node is not
 
-decorate_cut(Assignment, Learned) :-
-  to_literal(Assignment, Literal),
-  to_complement(Literal, Literal1),
-  member(Literal1, Learned), !,
+decorate_cut(From, To, Learned) :-
+  to_literal(From, From_Lit),
+  to_complement(From_Lit, From_Lit1),
+  member(From_Lit1, Learned),
+  to_literal(To, To_Lit),
+  to_complement(To_Lit, To_Lit1),
+  \+ member(To_Lit1, Learned), !,
   dot_decorate(cut, D),
   write(D).
-decorate_cut(_, _).
+decorate_cut(_, _, _).
 
 
 %  decorate_decision_node/2

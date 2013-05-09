@@ -284,21 +284,38 @@ edge_over_cut(Paths, Level, Assignment) :-
 %        Nodes    - nodes with assignments in the implication graph
 
 %  At end of learned clause, save the highest level
-compute_backtrack_level([], _, Highest, _) :-
-  display(backtrack, Highest),
+compute_backtrack_level([], Level, Highest, _) :-
   retract(backtrack(_)),
-  assert(backtrack(Highest)).
+  assert(backtrack(Highest)),
+  Highest < Level, !,
+  display(backtrack, Highest).
+
+compute_backtrack_level([], _, _, _).
 
 %  Check each literal of the learned clause
 %  Search for an assignment to the complement of the literal
-%  Save if higher than seen so far (but not the current level)
+%  Save if higher than seen so far,
+%  but not the current level unless the assignment at the current
+%  level is a decision assignment
+
 compute_backtrack_level([Head | Tail], Level, Highest, Nodes) :-
   to_complement(Head, Head1),
   to_assignment(Head1, L, _, Assignment),
   member(Assignment, Nodes),
-  L =\= Level, L > Highest, !,
+  L > Highest,
+  not_current_level(Assignment, Level), !,
   compute_backtrack_level(Tail, Level, L, Nodes).
 
 %  Otherwise, recurse
 compute_backtrack_level([_ | Tail], Level, Highest, Nodes) :-
   compute_backtrack_level(Tail, Level, Highest, Nodes).
+
+
+%  not_current_level/2
+%      Assignment - an assignment
+%      Level - current level
+%    Succeed if level of assignment is not equal to current Level
+%    or if it is equal and the assigment is a decision assignment
+
+not_current_level(assign(_, _, L, _),       Level) :- L =\= Level, !.
+not_current_level(assign(_, _, Level, yes), Level).

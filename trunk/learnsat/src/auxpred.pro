@@ -114,7 +114,9 @@ to_variable(Variable,   Variable).
 %    Get the complement of a literal
 %      Literal  - a literal
 %      Literal1 - the complement of Literal
+%    Called with kappa in decorate_cut
 
+to_complement(kappa, kappa) :- !.
 to_complement(~ Variable, Variable) :- !.
 to_complement(Variable,   ~ Variable).
 
@@ -142,9 +144,11 @@ is_negative(~ Variable, Variable).
 %    Assignment - an assignment
 %    Literal    - the assignment as a literal
 %  Example: assign(p1, 0, 3, no) becomes ~p1
+%  Called with kappa in decorate_cut
 
 to_literal(assign(V, 0, _, _), ~V).
 to_literal(assign(V, 1, _, _), V).
+to_literal(kappa, kappa).
 
 %  to_complemented_clause/2
 %    List of assignments to a list of complemented literals
