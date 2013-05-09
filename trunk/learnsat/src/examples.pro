@@ -21,14 +21,19 @@ mlm :-
 
 
 %  Example from Malik-Zhang paper in CACM 52(8), 2009.
+%  Figure 3 states: (~x3 v ~x7 v ~x8) is valid
+%  Should be: the learned clause (~x3 v ~x7 v x8) is false
+%    under this assignment
 
 mz :-
+  set_order([x1,~x3,x2,~x7,x4,x8,x9,x10,x11,x12]),
   dpll(
   [
-  [ax1, x4], [ax1, bx3, ~x8], [ax1, x8, x12], [cx2, x11],
-  [dx7, bx3, x9], [dx7, x8, ~x9], [dx7, x8, ~x10],
-  [dx7, x10, ~x12]
-  ], _).
+  [x1, x4], [x1, ~x3, ~x8], [x1, x8, x12], [x2, x11],
+  [~x7, ~x3, x9], [~x7, x8, ~x9], [x7, x8, ~x10],
+  [x7, x10, ~x12]
+  ], _),
+  set_order(default).
 
 
 %  Example from Marques-Silva and Sakallah GRASP paper

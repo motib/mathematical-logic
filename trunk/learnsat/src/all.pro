@@ -11,6 +11,7 @@ all :-
   set_mode(ncb),
   set_display(all),
   clear_display([evaluate,dot,dot_inc,tree,tree_inc]),
+  set_order(default),
   tell('all.txt'),
   print_test('Example from MLM'),
   mlm,
