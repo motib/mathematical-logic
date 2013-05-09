@@ -20,7 +20,8 @@
 
 %  Make housekeeping predicates visible after consulting dpll
 :- reexport(modes, 
-  [show_config/0, usage/0, set_display/1, clear_display/1, set_mode/1]).
+  [show_config/0, usage/0, set_display/1, clear_display/1,
+   set_mode/1, set_decorate_mode/1]).
 
 :- reexport(auxpred, [set_order/1, get_order/1]).
 

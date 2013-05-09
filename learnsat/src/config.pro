@@ -6,12 +6,14 @@
 
 :- module(config,
   [version/1, years/1,
-   default_alg_mode/1, default_display/1, dot_prologue/2,
-   dot_decorate/2, decorate_mode/1]).
+   default_alg_mode/1, default_display/1, default_decorate_mode/1,
+   dot_prologue/2, dot_decorate/3]).
 
-version('1.4.1').
+version('1.4.2').
 
 years('2012-13').
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 default_alg_mode(dpll).
 
@@ -19,9 +21,9 @@ default_display(
   [backtrack, conflict, decision, learned,
   resolvent, result, skipped, sorted, uip, unit]).
 
-decorate_mode(color).
-%decorate_mode(bw).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+default_decorate_mode(color).
 
 % dot prologue:
 %   lr - left to right for implication graphs
@@ -39,12 +41,6 @@ dot_prologue(tb, 'digraph G {\n  rankdir=TB ranksep=equally;\n').
 %   sat: leaf for satisfying assignment in a tree
 %   cut: edge that is part of a cut
 
-dot_decorate(What, Decoration) :-
-  decorate_mode(color), !,
-  dot_decorate(color, What, Decoration).
-dot_decorate(What, Decoration) :-
-  dot_decorate(bw, What, Decoration).
-
 dot_decorate(color, decision,       ' [color="red"]').
 dot_decorate(color, decision_level, ' [color="red"   peripheries="2"]').
 dot_decorate(color, dominator,      ' [peripheries="2"]').
@@ -53,7 +49,7 @@ dot_decorate(color, sat,            ' [color="green" peripheries="2"]').
 dot_decorate(color, cut,            ' color="blue"').
 
 dot_decorate(bw, decision,       ' [style="bold"]').
-dot_decorate(bw, decision_level, ' [color="bold" peripheries="2"]').
+dot_decorate(bw, decision_level, ' [style="bold" peripheries="2"]').
 dot_decorate(bw, dominator,      ' [style="bold" peripheries="2"]').
 dot_decorate(bw, conflict,       ' [style="bold" peripheries="2"]').
 dot_decorate(bw, sat,            ' [style="bold" peripheries="3"]').
