@@ -1000,6 +1000,79 @@ previous decision assignment. The assignment \p{p13=1@3} instead of
 \caption{Implication graph for the four-queens}\label{queens-ig}
 \end{figure}
 
+
+\chapter{Tseitin graph formulas}\label{ch.tseitin}
+
+G.S. Tseitin used formulas associated with graphs in his research on the
+complexity of resolution.\footnote{See \cite[Section 4.5]{mlcs} for a
+formal presentation of Tseitin formulas.} Consider the following
+connected, undirected graph whose vertices are labeled with 0 or 1 and
+whose edges are labeled with letters:
+
+\begin{center}
+\unitlength=1.0pt
+\begin{picture}(100,100)
+\put(10,10){\framebox(80,80){\ }}
+\put(10,10){\line(1,1){80}}
+\put(0,0){\makebox(10,10){$0$}}
+\put(45,0){\makebox(10,10)[b]{$t$}}
+\put(90,0){\makebox(10,10){$0$}}
+\put(0,45){\makebox(10,10)[l]{$q$}}
+\put(40,45){\makebox(10,10)[l]{$r$}}
+\put(90,45){\makebox(10,10)[r]{$s$}}
+\put(0,90){\makebox(10,10){$0$}}
+\put(45,90){\makebox(10,10)[t]{$p$}}
+\put(90,90){\makebox(10,10){$1$}}
+\end{picture}
+\end{center}
+
+The formula associated with this graph is defined as follows: for
+each vertices, construct the set of clauses whose atoms are the letters
+labeling the incident edges, such that the parity (sum modulo 2) of the
+number of negated literals is not equal to the label of the vertex:
+
+\begin{verbatim}
+[~p, q], [p, ~q],
+[p, r, s], [~p, ~r, s], [~p, r, ~s], [p, ~r, ~s],
+[~s, t], [s, ~t],
+[~q, r, t], [q, ~r, t], [q, r, ~t], [~q, ~r, ~t]
+\end{verbatim}
+
+For example, since $\{p, r, s\}$ are incident with a vertex labeled 1,
+the number of negated literals has to be 0 or 2. If the number of
+vertices labeled 1 is odd, the formula is unsatisfiable.
+
+\newpage
+
+Let us look at the implication graph:
+
+\begin{center}
+\includegraphics[keepaspectratio=true,width=\textwidth]{tseitin-ex-bw}
+\end{center}
+
+The only dominator of the highest-level decision node \verb+r=0@2+ is
+the decision node itself. Since it is not implied by other decision
+node, we cannot skip it in backtracking and the assignment \verb+r=1@2+
+will have to be tried.
+
+Another anomaly of this example is that the clause that would be learned
+from the dominator is not the same as the one learned by resolution. The
+former is \verb+[p,r]+, which is the complement of the dominator
+decision node \verb+r=0@2+ and the decision node at a lower level
+\verb+p=0@1+. The clause learned by resolution is obtained as follows:
+
+\begin{verbatim}
+Conflict clause: 11. [q,r,~t]
+Resolvent: of [q,r,~t] and antecedent [~s,t] is [q,r,~s]
+Resolvent: of [q,r,~s] and antecedent [p,r,s] is [q,p,r]
+UIP: one literal r is assigned at level: 2
+Learned clause from resolution: [q,p,r]
+\end{verbatim}
+
+This is a weaker clause than that defined by the dominator.
+
+\chapter{Pebblings}\label{ch.pebbling}
+
 \bibliographystyle{plain}
 \bibliography{learnsat}
 \end{document}

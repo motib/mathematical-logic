@@ -2,7 +2,7 @@
 ******************************************
 *            Example from MLM            *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x031,~x2],
@@ -266,7 +266,7 @@ Statistics: clauses=6, variables=8, units=10, decisions=6, conflicts=1
 ******************************************
 *            Example from MZ             *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [ax1,x4],
@@ -516,7 +516,7 @@ Statistics: clauses=8, variables=10, units=8, decisions=9, conflicts=1
 ******************************************
 *            Example from MS             *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [x1,x2],
@@ -825,7 +825,7 @@ Statistics: clauses=9, variables=13, units=10, decisions=12, conflicts=1
 ******************************************
 *              Pigeonhole 2              *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12],
@@ -1059,7 +1059,7 @@ Statistics: clauses=9, variables=6, units=9, decisions=2, conflicts=2
 ******************************************
 *                Queens 4                *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [p11,p12,p13,p14],
@@ -1919,7 +1919,7 @@ Statistics: clauses=80, variables=16, units=25, decisions=5, conflicts=1
 ******************************************
 *       Tseitin example from MLCS        *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -2117,7 +2117,7 @@ Statistics: clauses=12, variables=5, units=6, decisions=4, conflicts=2
 ******************************************
 *    Tseitin example from MLCS (sat)     *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p,q],
@@ -2315,7 +2315,7 @@ Statistics: clauses=12, variables=5, units=6, decisions=4, conflicts=2
 ******************************************
 *              Tseitin K2,2              *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -2485,7 +2485,7 @@ Statistics: clauses=8, variables=4, units=6, decisions=2, conflicts=2
 ******************************************
 *           Tseitin K2,2 (sat)           *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1],
@@ -2623,7 +2623,7 @@ Statistics: clauses=8, variables=4, units=6, decisions=2, conflicts=1
 ******************************************
 *           Tseitin K3,3 (sat)           *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p0,~p1,p2],
@@ -3251,7 +3251,7 @@ Statistics: clauses=24, variables=9, units=18, decisions=11, conflicts=3
 ******************************************
 *            Grid pebbling 2             *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Clauses to be checked for satisfiability:
 [
 1. [~p1],
@@ -3455,28 +3455,28 @@ Statistics: clauses=8, variables=6, units=7, decisions=2, conflicts=2
 ******************************************
 *              Pigeonhole 3              *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
 Statistics: clauses=22, variables=12, units=25, decisions=10, conflicts=3
 
 ******************************************
 *              Tseitin K3,3              *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
 Statistics: clauses=24, variables=9, units=36, decisions=22, conflicts=8
 
 ******************************************
 *            Grid pebbling 3             *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Unsatisfiable:
 Statistics: clauses=17, variables=12, units=17, decisions=9, conflicts=3
 
 ******************************************
 *        Tseitin K3,3 (ordering)         *
 ******************************************
-LearnSAT v1.4.0. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
+LearnSAT v1.4.2. Copyright 2012-13 by Moti Ben-Ari. GNU GPL.
 Variables: [p0,p1,p2,~p4,~p3,p5,p6,p7,p8]
 Decision assignment: p0=0
 Assignments so far:
