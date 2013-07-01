@@ -7,4 +7,5 @@ del docs\*.dvi
 del docs\*.blg
 del docs\*.toc
 del docs\*.synctex
+del src\bmc.pro
 pause

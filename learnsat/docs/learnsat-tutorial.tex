@@ -23,7 +23,7 @@
 \parindent=0pt
 
 \title{\bfseries \ls --- Tutorial\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.4}
+\bfseries\normalsize Version 1.5}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
@@ -73,9 +73,7 @@ comprehensive reference is the \emph{Handbook of Satisfiability}
 
 Chapter~\ref{ch.mlm} demonstrates \ls{} in great detail on the example
 in \cite{mlm}. This is followed by several chapters using other examples
-to demonstrate specific aspects of the algorithms:
-Chapter~\ref{ch.pigeon} on the pigeonhole principle,
-Chapter~\ref{ch.queens} on the four-queens problem.
+to demonstrate specific aspects of the algorithms.
 
 \begin{center}
 \framebox[.9\textwidth]{\parbox{.85\textwidth}{\ls{} can generate graphs in both color and
@@ -179,21 +177,24 @@ $C_{2}$ are the \emph{parent clauses} of $C$.
 \end{center}
 
 \begin{itemize}
-\item Let $A$ be a formula and let $\mathcal{I}$ be a partial
-interpretation. The set $A'$ obtained by evaluating $A$ under
-$\mathcal{I}$ is satisfiable if and only if $A$ is satisfiable.
-
 \item Let $A'$ be obtained by the unit clause rule from a formula $A$
 and a partial interpretation $\mathcal{I}$. $A'$ is satisfiable if and
-only if $A$ is satisfiable.
+only if $A$ is satisfiable. Therefore, the unit clause rule is sound.
 
 \item Let $C$ be the resolvent of $C_1$ and $C_2$. $C$ is satisfiable if
 and only if $C_1$ and $C_2$ are satisfiable under the same
-interpretation.
+interpretation. Therefore, the resolution rule is sound.
 
 \item The empty clause is unsatisfiable. The empty formula is
-satisfiable. (Actually, the empty clause is valid but we did not define
-validilty.)
+satisfiable. Proof outline: Consider the unsatisfiable formula $p \wedge
+\neg p$, which in clausal form is $\{\{p\}, \{\neg p\}\}$. Apply the
+unit clause rule to $\{p\}$: delete the clause $\{p\}$ and delete the
+literal $\neg p$ from the clause $\{\neg p\}$. The result is the formula
+with the single empty clause $\{\{\}\}$, so the unit clause is
+unsatisfiable. Now consider the satisfiable formula $p$, which in
+clausal form is $\{\{p\}\}$. Apply the unit clause rule to obtain the
+empty formula (empty set of clauses) $\{\}$. (Actually, the empty
+formula is valid but we did not define validity.)
 
 \end{itemize}
 
@@ -862,7 +863,7 @@ are assigned at level~2.
 
 \clearpage
 
-\chapter{The Four-Queens Problem}\label{ch.queens}
+\chapter{The four-queens problem}\label{ch.queens}
 
 The $n$-queens problem is to place $n$ queens on an $n \times n$ chess
 board such that no queen can capture another. It is usually posed in the
@@ -1075,6 +1076,203 @@ Learned clause from resolution: [q,p,r]
 \end{verbatim}
 
 This is a weaker clause than that defined by the dominator.
+
+\chapter{Bounded model checking}\label{ch.model}
+
+\section{Overview of model checking}
+
+Model checking a method for verifying the correctness of computer
+hardware and software. A model checker inputs a formal description of a
+system and a correctness claim and then searches for states in the
+execution of the system that falsify the claim.
+
+In \emph{explicit-state} model checkers, the reachable states of the
+system are generated one-by-one and the correctness claim is evaluated
+after each new state is evaluated. If the system has a finite number of
+states (and it is usually possible to construct a finite system by
+abstracting away detail), eventually the model checker will either find
+a state falsifying the claim or declare that the claim is true in all
+reachable states. Clever algorithms and optimized data structures ensure
+that many real systems can be completely checked. For an overview of
+explicit-state model checking (in particular, the \textsc{Spin} model
+checker), see \cite{primer}.
+
+\emph{Symbolic} model checkers represent the set of reachable states and
+a correctness claim in a data structure and then perform computations on
+this data structure, leading to a falsifying state or to a determination
+that the correctness claim holds. In \emph{bounded model checking}, the
+system and (the negation of) its correctness claim are represented by a
+formula in propositional logic. If a SAT solver finds that the formula
+is satisfiable, the exists a state that does not fulfil the correctness
+claim. The formula has subformulas for each step in the computation.
+Since a SAT solver expects to receive a finite formula, it is necessary
+to limit \textit{a priori} the number of execution steps, hence
+\emph{bounded} model checking. Fortunately, it is usually possibly to
+determine a bound such that if the system is not correct, a state that
+falsifies the correctness claim will be found within that bound. See
+\cite{bmc} for a survey of bounded model checking.
+
+\newpage
+
+\section{Encoding a concurrent program as a SAT problem}
+
+Consider the solution of the critical section problem using a semaphore:
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|c|}{s: semaphore := 1}\\\hline
+process p & process q\\\hline
+non-critical section & con-critical section \\
+wait(s) & wait(s) \\
+critical section & critical section \\
+signal(s) & signal(s)\\\hline
+\end{tabular}
+\end{center}
+
+There are four statements in each process, but the only statements that
+affect the synchronization are the semaphore operations. The algorithm
+can be represented as follows, where we agree that a process is in its
+critical section if it is about to execute the signal operation:
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|c|}{s: semaphore := 1}\\\hline
+process p & process q\\\hline
+wait(s) & wait(s) \\
+signal(s) & signal(s)\\\hline
+\end{tabular}
+\end{center}
+
+Each state can be represented by an atom composed of three letters:
+\p{w} or \p{s}---meaning \emph{at wait} or \emph{at signal}---for each
+of the two processes, and \p{o} or \p{z}---meaning that the value of
+\p{s} is one or zero. In addition, each atom will have a number: \p{0},
+\p{1}, \p{2}, \p{3}, \ldots, for the steps of the execution. The initial
+state is \p{wwo0}. The state \p{ssz5} means that after step 5 both
+processes are at their signal instructions and the value of the
+semaphore is zero. Of course, this means that mutual exclusion is does
+not hold so the program is not correct.
+
+Notation: \verb=^= is conjunction, \verb=<->= is equivalence, \verb=+= is
+exclusive or, \p{N} is a step, \p{N'} is the next step.
+
+The initial state requires that the following formula be true:
+\begin{verbatim}
+(wwo0 ^ ~wwz0 ^ ~swo0 ^ ~swz0 ^ ~wso0 ^ ~wsz0 ^ ~sso0 ^ ~ssz0)
+\end{verbatim}
+
+The transitions of the system are represented by the following formula:
+\begin{verbatim}
+((wwoN <-> swzN') + (wwoN <-> wszN')) ^
+(swoN <-> sszN') ^
+(swzN <-> wwoN') ^
+(wsoN <-> sszN') ^
+(wszN <-> wwoN') ^
+((sszN <-> wsoN') + (sszN <-> swoN'))
+\end{verbatim}
+
+The first formula says that in state \p{wwo}, \emph{either} process
+\p{p} executes the wait instruction and reduces the value of \p{s} to 0
+\emph{or} process \p{q} executes the wait instruction and reduces the
+value of \p{s} to 0, \emph{but not both} (because we are using an
+interleaving semantics of concurrency).\footnote{We assume a binary
+semaphore with values 0 and 1 only, so signal cannot be executed if
+the value of \p{s} is 1.}
+
+Let us now guess that if there is a state that does not fulfil mutual
+exclusion, there will be one within two steps. The formula representing
+the computation consists of the conjunction of the formula for the
+initial state and two copies of the formula for the transitions, one
+with \p{N} equal to 0 and \p{N'} equal to 1 and another with \p{N} equal
+to 1 and \p{N'} equal to 2.
+
+Finally, take the conjunction of that formula together with the formula
+representing the negation of the correctness claim: after 0, 1 or 2
+steps, both processes are in their critical sections:\footnote{The value
+of the semaphore is irrelevant.}
+
+\begin{verbatim}
+(ssz0 v sso0  v  ssz1 v sso1  v  ssz2 v sso2)
+\end{verbatim}
+
+The resulting formula is satisfiable if and only if mutual exclusion
+does not hold within two steps.
+
+The program \p{bmc-sem.pro} contains a predicate \p{generate} that takes
+the above formula, converts it to CNF and writes (on file \p{bmc.pro})
+the set of clauses in the correct form for running
+\p{dpll}.\footnote{The program uses files \p{cnf.pro} and \p{ops.pro}
+that were adapted from the program archive that accompanies
+\cite{mlcs}.}
+
+\section{Running the SAT solver on the encoding}
+
+Load the file \p{bmc.pro} in the \pl{} compiler and run the predicate
+\p{bmc}. The result is that the formula is unsatisfiable, meaning that a
+violation of mutual exclusion does not happen within the first two
+steps. Of course, it is possible that it occurs after step 3, or step 4,
+or step 100, but from the structure of the program that seems unlikely.
+
+The statistics for the three different modes are:
+\begin{verbatim}
+DPLL: units=25, decisions=12, conflicts=7
+CDCL: units=19, decisions=4,  conflicts=3
+NCB:  units=16, decisions=3,  conflicts=2
+\end{verbatim}
+showing that the advanced algorithms are more efficient.
+
+However, let us examine the trace in more detail. Since the original set
+of clauses contains many unit clauses, the execution starts with a
+series of unit propagations:
+\begin{verbatim}
+Propagate unit:  wwo0 (wwo0=1) derived from: 2. [wwo0]
+Propagate unit: ~wwz0 (wwz0=0) derived from: 3. [~wwz0]
+Propagate unit: ~swo0 (swo0=0) derived from: 4. [~swo0]
+Propagate unit: ~swz0 (swz0=0) derived from: 5. [~swz0]
+Propagate unit: ~wso0 (wso0=0) derived from: 6. [~wso0]
+Propagate unit: ~wsz0 (wsz0=0) derived from: 7. [~wsz0]
+Propagate unit: ~sso0 (sso0=0) derived from: 8. [~sso0]
+Propagate unit: ~ssz0 (ssz0=0) derived from: 9. [~ssz0]
+Propagate unit: ~ssz1 (ssz1=0) derived from: 14. [swo0,~ssz1]
+Propagate unit: ~wwo1 (wwo1=0) derived from: 16. [swz0,~wwo1]
+\end{verbatim}
+Next, two decision assignments are made:
+\begin{verbatim}
+Decision assignment: sso1=0
+Decision assignment: sso2=0
+\end{verbatim}
+but those seem strange. The initial state \p{wwo0} is one in which both
+processes are at their wait operations at step 0, so why does the
+algorithm start by assigning values to atoms associated with signal
+operations at steps 1 and 2? By default, the algorithm makes decisions
+assignment in lexicographic order of the atoms:\footnote{This list can
+be displayed by selecting display option \p{variable}.}
+\begin{verbatim}
+Variables: [sso0,sso1,sso2,ssz0,ssz1,ssz2,swo0,swo1,swo2,swz0,swz1,swz2,
+wso0,wso1,wso2,wsz0,wsz1,wsz2,wwo0,wwo1,wwo2,wwz0]
+\end{verbatim}
+By following our
+intuition, let us change the order of the atoms by putting atoms in the
+second line before those in the first line so that those beginning with
+\p{w} are first:
+\begin{verbatim}
+set_order(
+    [wso0,wso1,wso2,wsz0,wsz1,wsz2,wwo0,wwo1,wwo2,wwz0,
+     sso0,sso1,sso2,ssz0,ssz1,ssz2,swo0,swo1,swo2,swz0,swz1,swz2]).
+\end{verbatim}
+Now, the algorithm in DPLL mode is more efficient than it was in NCB
+mode!
+\begin{verbatim}
+DPLL: units=14, decisions=2, conflicts=2
+\end{verbatim}
+
+This demonstrates that there is an element of nondeterminism in these
+algorithms for SAT solving. Since it would not be tractable to try all
+permutations of the order of the variables, there remains an element of
+``luck'' when you choose an ordering arbitrarily, at random or using
+ heuristics.
 
 \bibliographystyle{plain}
 \bibliography{learnsat}
