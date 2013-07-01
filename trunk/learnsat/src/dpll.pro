@@ -77,6 +77,7 @@ dpll(Clauses, Decisions) :-
       % Create a set of variables from the list of clauses
   get_variables_of_clauses(Clauses, Variables_Set),
   display(clause, Clauses),
+  display(variable, Variables_Set),
 
       % Call dpll/6, initially with Level 0, no assignments, empty graph
   dpll(Clauses, Variables_Set, 0, [], graph([],[]), Decisions),
