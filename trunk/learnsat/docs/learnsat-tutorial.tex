@@ -23,12 +23,14 @@
 \parindent=0pt
 
 \title{\bfseries \ls --- Tutorial\\\mbox{}\\\mbox{}\\
-\bfseries\normalsize Version 1.5}
+\bfseries\normalsize Version 1.6}
 
 \author{\bfseries Mordechai (Moti) Ben-Ari\\\mbox{}\\
 \url{http: //www.weizmann.ac.il/sci-tea/benari/}}
 
 \begin{document}
+
+%\begin{comment}
 
 \maketitle
 
@@ -58,7 +60,7 @@ with modern extensions of the algorithm: \emph{conflict-driven clause
 learning (CDCL)} and \emph{non-chronological backtracking (NCB)}.
 
 For instructions on how to run \ls{} see the User's Guide in the \ls{}
-distribution.
+distribution, which can be downloaded from \url{https://code.google.com/p/mlcs/}.
 
 This document is a tutorial on SAT solving with \ls{}. The algorithms
 and notation follow \cite{mlm}. Some printouts have been reformatted or
@@ -89,15 +91,15 @@ archive.}}
 \end{center}
 
 \begin{itemize}
-\item There is an unbounded set $\mathcal{P}$, whose elements are called
-\emph{propositional variables} or \emph{atoms}.
+\item There is an unbounded set $\mathcal{P}$ whose elements are called
+\emph{variables} or \emph{atoms}.
 \item There is one unary operator \emph{negation}, denoted $\ngg$.
 \item A \emph{literal} is an atom or the negation of an atom.
 \item An atom is a \emph{positive literal} and the negation of an atom
 is a \emph{negative literal}.
 \item Let $l$ be a literal. $l^c$, the \emph{complement} of $l$, is $\ngg p$ if
 $l=p$ for some atom p and is $p$ if $l=\ngg p$.
-\item $\{l,l^c\}$ is a \emph{complementary pair of literals}.
+\item $l$ and $l^c$ are a \emph{complementary pair of literals}.
 \item A \emph{clause} is a set of literals.
 \item The \emph{empty clause} is a clause that is the empty set.
 \item A \emph{formula} (\emph{in clausal form}) is a set of clauses.
@@ -107,29 +109,33 @@ $l=p$ for some atom p and is $p$ if $l=\ngg p$.
 \rightarrow \{T,F\}$.
 
 \item $\mathcal{I}(l)=T$, a literal $l$ is \emph{true} in an
-interpretation, iff: $l$ is an atom $p$ and $\mathcal{I}(p)=T$, or $l$ is
-the negation of an atom $p$ and $\mathcal{I}(p)=F$.
-Otherwise, $\mathcal{I}(l)=F$, $l$ is \emph{false}.
+interpretation, iff: $l$ is an atom $p$ and $\mathcal{I}(p)=T$, or $l$
+is the negation of an atom $p$ and $\mathcal{I}(p)=F$. Otherwise,
+$\mathcal{I}(l)=F$, $l$ is \emph{false}.
+
+As a convenience, we say that an interpretation assigns $T$ to $l$ if it
+assigns a value to the atom of $l$ such that $\mathcal{I}(l)=T$ and,
+similarly, for $F$.
 
 \item $\mathcal{I}(C)=T$, a clause $C$ is \emph{true} in an
 interpretation $\mathcal{I}$, iff: for \emph{at least one} $l\in C$,
-$\mathcal{I}(l)=T$; otherwise ($\mathcal{I}(l)=F$ for \emph{all}
-$l\in C$), $\mathcal{I}(C)=F$, $C$ is \emph{false}.
+$\mathcal{I}(l)=T$; otherwise --- $\mathcal{I}(l)=F$ for \emph{all}
+$l\in C$ --- $\mathcal{I}(C)=F$, $C$ is \emph{false}.
 
 \item $\mathcal{I}(A)=T$, a formula $A$ is \emph{true} in an
 interpretation, iff: for \emph{all} $C\in A$, $\mathcal{I}(C)=T$;
-otherwise ($\mathcal{I}(C)=F$ for \emph{some} $C\in A$),
+otherwise --- $\mathcal{I}(C)=F$ for \emph{some} $C\in A$ ---
 $\mathcal{I}(A)=F$, $A$ is \emph{false}.
 
 \item A formula $A$ is \emph{satisfiable} if there exists an
-interpretation $\mathcal{I}$ such that $\mathcal{I}(A)=T$; $\mathcal{I}$
-\emph{satisfies} $A$. If there is no such interpretation, $A$ is
-\emph{unsatisfiable}.
+interpretation $\mathcal{I}$ such that $\mathcal{I}(A)=T$. If there is
+no such interpretation, $A$ is \emph{unsatisfiable}.
 
 \item $\mathcal{I}$ is a \emph{partial interpretation} for $A$ if it
 maps \emph{some} of the atoms in $A$ into $\{T,F\}$. A partial
-interpretation $\mathcal{I}$ satisfies $A$ if any extension of
-$\mathcal{I}$ satisfies $A$.
+interpretation $\mathcal{I}$ satisfies $A$ if $\mathcal{I}(A)=T$, using
+the definition above for a total interpretation, that is, if the partial
+interpretation maps at least one literal in each clause of $A$ to $T$.
 
 \item Let $A$ be a formula and let $\mathcal{I}$ be a partial
 interpretation for $A$. $A'=\mathcal{I}(A)$, the formula obtained by
@@ -142,12 +148,28 @@ $\mathcal{I}(l')=F$.
 has exactly one literal.
 
 \item (Semantical) A clause $C$ is a \emph{unit clause} under a partial
-interpretation $\mathcal{I}$ if for some $l'\in C$, $\mathcal{I}(l')=T$
-and for all $l\in C, l\neq l'$, $\mathcal{I}(l)=F$.
+interpretation $\mathcal{I}$ if for some $l\in C$, the atom of $l$
+is not in the domain of $\mathcal{I}$ and if for all $l'\in C, l'\neq l$,
+$\mathcal{I}(l')=F$.
+
+\item A decision procedure for satisfiability is an algorithm that
+answers \emph{yes, it is satisfiable} or \emph{no, it is unsatisfiable}
+when a formula is given as input to the procedure. A decision procedure
+is \emph{sound} if the output \emph{yes} is produced only for
+satisfiable formulas, and it is \emph{complete} if the output \emph{yes}
+is produced for every satisfiable formula that is input to the
+procedure.
+
+\item The \emph{SAT} problem is to construct a sound and complete
+decision procedure for satisfiability. SAT is known to be
+$\mathcal{NP}$-complete (see any textbook on computational models or
+algorithms for a definition), so there is unlikely to be an efficient
+algorithm for satisfiability. Nevertheless, there are algorithms that
+are efficient on formulas that represent practical problems.
 
 \end{itemize}
 
-\bigskip
+\newpage
 
 \begin{center}
 \textbf{Algorithms}
@@ -155,15 +177,15 @@ and for all $l\in C, l\neq l'$, $\mathcal{I}(l)=F$.
 
 \textbf{Unit clause rule} Let $A$ be a formula, $C=\{l\}$ a unit clause
 in $A$, and $\mathcal{I}$ a partial interpretation. Construct
-$\mathcal{I}'$ as the partial interpretation obtained by adding
-$\mathcal{I}(l)=T$. Construct $A'$ by evaluating $A$ under
-$\mathcal{I}'(l)$ (delete $C$ and delete $l^{c}$ from every clause in
-which it appears).
+$\mathcal{I}'$ as the partial interpretation obtained by adding an
+assignment to $l$ such that $\mathcal{I}'(l)=T$. Construct $A'$ by
+evaluating $A$ under $\mathcal{I}'(l)$: delete clause $C$ and delete
+$l^{c}$ from every clause in which it appears.
 
-\textbf{Unit propagation} Repeat the unit clause rule obtaining $A',
-A'', A''', \ldots$, and
-$\mathcal{I}',\mathcal{I}'',\mathcal{I}''',\ldots$, until the unit
-clause rule no longer applies.
+\textbf{Unit clause propagation} (also called \textbf{Boolean contraint
+propagation}): Repeat the unit clause rule obtaining $A', A'', A''',
+\ldots$, and $\mathcal{I}',\mathcal{I}'',\mathcal{I}''',\ldots$, until
+the unit clause rule no longer applies.
 
 \textbf{Resolution rule} Let $C_{1},C_{2}$ be clauses such that $l\in
 C_{1},l^{c}\in C_{2}$. $C$, the \emph{resolvent} of $C_{1}$ and $C_{2}$,
@@ -172,37 +194,7 @@ $C_{2}$ are the \emph{parent clauses} of $C$.
 
 \bigskip
 
-\begin{center}
-\textbf{Theorems}
-\end{center}
-
-\begin{itemize}
-\item Let $A'$ be obtained by the unit clause rule from a formula $A$
-and a partial interpretation $\mathcal{I}$. $A'$ is satisfiable if and
-only if $A$ is satisfiable. Therefore, the unit clause rule is sound.
-
-\item Let $C$ be the resolvent of $C_1$ and $C_2$. $C$ is satisfiable if
-and only if $C_1$ and $C_2$ are satisfiable under the same
-interpretation. Therefore, the resolution rule is sound.
-
-\item The empty clause is unsatisfiable. The empty formula is
-satisfiable. Proof outline: Consider the unsatisfiable formula $p \wedge
-\neg p$, which in clausal form is $\{\{p\}, \{\neg p\}\}$. Apply the
-unit clause rule to $\{p\}$: delete the clause $\{p\}$ and delete the
-literal $\neg p$ from the clause $\{\neg p\}$. The result is the formula
-with the single empty clause $\{\{\}\}$, so the unit clause is
-unsatisfiable. Now consider the satisfiable formula $p$, which in
-clausal form is $\{\{p\}\}$. Apply the unit clause rule to obtain the
-empty formula (empty set of clauses) $\{\}$. (Actually, the empty
-formula is valid but we did not define validity.)
-
-\end{itemize}
-
-\newpage
-
-\begin{center}
 \textbf{Davis-Putnam-Logemann-Loveland (DPLL) algorithm}
-\end{center}
 
 \textbf{Input}: A formula $A$.\\
 \textbf{Output}: Return \emph{unsatisfiable} or a (possibly partial)
@@ -211,15 +203,14 @@ interpretation that satisfies $A$.
 The algorithm is expressed as the recursive function
 $\textit{DPLL}(B,\mathcal{I})$ with parameters: a formula $B$ and a
 partial interpretation $\mathcal{I}$. The initial call is
-$\textit{DPLL}(A,\{\})$. 
-
-\medskip
+$\textit{DPLL}(A,\{\})$.
 
 \noindent $\textit{DPLL}(B,\mathcal{I})$
 \begin{itemize}
 
-\item Perform unit propagation on $B$; let $B'$ and $\mathcal{I}'$ be
-the final formula and partial interpretation.
+\item Perform unit clause propagation on $B$; let $B'$ be the final
+formula obtained and and let $\mathcal{I}'$ be the final partial
+interpretation.
 
 \begin{itemize}
 \item If $B'$ contains the empty clause, return \emph{unsatisfiable};
@@ -248,7 +239,60 @@ $\textit{val}^c = T$ if $\textit{val} = F$.
 \end{itemize}
 \end{itemize}
 
+\newpage
 
+\begin{center}
+\textbf{Theorems}
+\end{center}
+
+\begin{itemize}
+
+\item Let $A'$ be obtained by the unit clause rule from a formula $A$.
+$A'$ is satisfiable if and only if $A$ is satisfiable.
+
+Proof outline: For $A$ to be satisfiable, all clauses must evaluate to
+$T$, so the literal $l$ of the unit clause must be assigned a value so
+that $l$ evaluates to $T$. Therefore, since $l^c$ evaluates to $F$ it
+cannot be the literal that evaluates to $T$ in any clause in which it
+appears. Since the assignment to the literal $l$ is ``forced,'' $A$ is
+satisfiable if and only if $A'$ is.
+
+\item Let $C$ be the resolvent of $C_1$ and $C_2$. $C$ is satisfiable if
+and only if $C_1$ and $C_2$ are satisfiable under the same
+interpretation.
+
+Proof outline: If $C$ is satisfiable, some literal $l'\in C, l'\neq l,
+l' \neq l^c$ is assigned $T$. The literal $l'$ must be an element of
+$C_1$ or $C_2$ (or both); without loss of generality, assume that $l'\in
+C_1$ so that $C_1$ is satisfied. Since $l'\neq l^c$, assign $T$ to
+$l^c$, satisfying $C_2$. Conversely, if $C_1$ and $C_2$ are both
+satisfiable, at most one of $l,l^c$ can be assigned $T$; without loss of
+generality, assume that $l$ is assigned $T$. Then, some literal $l'\in
+C_2, l'\neq l^c$ must be assigned $T$. But $l'\in C$ so $C$ is also
+satisfiable.
+
+\item The empty clause is unsatisfiable. The empty formula is
+satisfiable.
+
+Proof outline: Consider the unsatisfiable formula $p \wedge \neg p$,
+which is $\{\{p\}, \{\neg p\}\}$ in clausal form. Apply the unit clause
+rule to $\{p\}$: delete the clause $\{p\}$ and delete the literal $\neg
+p$ from the clause $\{\neg p\}$. The result is the formula with the
+single empty clause $\{\{\}\}$, so the unit clause is unsatisfiable. Now
+consider the satisfiable formula $p$, which in clausal form is
+$\{\{p\}\}$. Apply the unit clause rule to obtain the empty formula
+(empty set of clauses) $\{\}$, which is therefore satisfiable.
+(Actually, the empty formula is valid but we did not define validity.)
+
+\item The DPLL algorithm is sound and complete.
+
+Proof outline: The algorithm performs an exhaustive search of
+assignments to a formula; such a search is sound and complete. The first
+theorem above shows that unit clause propagation maintains soundness.
+
+\end{itemize}
+
+\newpage
 
 \chapter{A detailed example}\label{ch.mlm}
 
@@ -714,7 +758,7 @@ dominated by the UIP (\verb+x031+).
 
 \section{Non-chronological backtracking}
 
-Let us now select the NCB mode:
+Let us select the NCB mode:
 \begin{verbatim}
 ?- set_mode(ncb).
 \end{verbatim}
@@ -735,13 +779,38 @@ Skip decision assignment: x1=1@3
 Skip decision assignment: x031=1@2
 \end{verbatim}
 
-Once 0 is assigned to \p{x021}, the clause \verb+[x021,~x4]+ becomes a
-unit clause \verb+[~x4]+ which forces the assignment of 1 to \p{x4}. But
-we already know (cf. the implication graph) that those two assignments
-are sufficient to cause a conflict. It follows that there is no point in
-exploring the other assignments to \p{x031} and \p{x1}: \emph{the
-assignments to \p{x021} and \p{x4} are sufficient by themselves to cause
-a conflict}.
+Once 0 is assigned to \p{x021} at level 1, the clause \verb+[x021,~x4]+
+becomes a unit clause \verb+[~x4]+ which forces the assignment of 0 to
+\p{x4}. Consider now the original set of clauses:
+
+\begin{verbatim}
+[[x1,x031,~x2], [x1,~x3], [x2,x3,x4], [~x4,~x5], [x021,~x4,~x6], [x5,x6]]
+\end{verbatim}
+Under these two assignments, the set becomes:
+\begin{verbatim}
+[[x1,x031,~x2], [x1,~x3], [x2,x3], [x5,x6]]
+\end{verbatim}
+The next decision assignment was 0 to \p{x031} giving:
+\begin{verbatim}
+[[x1,~x2], [x1,~x3], [x2,x3], [x5,x6]]
+\end{verbatim}
+
+If 0 is assigned to \p{x1}, \p{[x2,x3]} becomes a conflict clause. It
+follows that 1 must be assigned to \p{x1} and there is no need to
+\emph{flip} the variable (assign the other Boolean value to the
+variable); therefore, we can skip over \p{x1} when backtracking.
+
+Once we know that 1 is assigned to \p{x1}, the clause
+\verb+[x1,x031,~x2]+ becomes true and can be deleted. Since that clause
+contains the only occurence of the variable \p{x031}, it follows that if
+there exists a satisfying assignment, it is independent of the value
+assigned to \p{x031}, so, again, we can skip over \p{x031} when
+backtracking.
+
+From the learned clause, it follows that \emph{the assignment of 0
+to \p{x021} by itself makes it unnecessary to flip the variables
+\p{x031} and \p{x1}}. We can backtrack directly to flip the variable
+\p{x021}.
 
 NCB can be seen in the tree of assignments (Figure~\ref{tree3}). The
 graph is no longer a tree but a DAG (directed acyclic graph) because
@@ -1077,6 +1146,163 @@ Learned clause from resolution: [q,p,r]
 
 This is a weaker clause than that defined by the dominator.
 
+%\end{comment}
+
+
+\chapter{Pebbling formulas}
+
+A pebbling formula represents the scheduling of tasks. Each task is
+represented by a node in a directed acylic graph. In the following
+diagram the task represented by the topmost node can be performed by
+``machine'' $p_1$ \emph{or} by ``machine'' $p_2$; however, it can begin
+only when both of the two tasks below it have been completed. In turn,
+each of those tasks can be performed by one of two machines and can
+begin only after the previous tasks at the source of its incoming edges
+have been completed.
+
+\begin{center}
+\begin{picture}(193,105)
+%\put(0,0){\framebox(193,105){}}
+\put(0,0){
+\multiput(20,20)(76,0){3}{\circle*{4}}
+\put(10,0){\makebox(20,20){$s_1 \vee s_2$}}
+\put(86,0){\makebox(20,20){$t_1 \vee t_2$}}
+\put(162,0){\makebox(20,20){$u_1 \vee u_2$}}
+\put(22,22){\vector(1,1){32}}
+\put(94,22){\vector(-1,1){32}}
+\put(98,22){\vector(1,1){32}}
+\put(170,22){\vector(-1,1){32}}
+}
+\put(38,36){
+\multiput(20,20)(76,0){2}{\circle*{4}}
+\put(-15,12){\makebox(20,20){$q_1 \vee q_2$}}
+\put(110,12){\makebox(20,20){$r_1 \vee r_2$}}
+\put(22,22){\vector(1,1){32}}
+\put(94,22){\vector(-1,1){32}}
+}
+\put(76,72){
+\put(20,20){\circle*{4}}
+\put(-15,12){\makebox(20,20){$p_1 \vee p_2$}}
+}
+\end{picture}
+\end{center}
+
+The pebbling formula for a graph is composed of the following
+subformulas: (a) For each node, there is a disjunction of the atoms
+representing the machines that can carry out the task at that node. (b)
+The scheduling constraints for each non-leaf node are represented as
+implications; for the topmost node this is:
+
+\begin{displaymath}
+(q_1 \vee q_2) \wedge (r_1 \vee r_2) \rightarrow (p_1 \vee p_2),
+\end{displaymath}
+which in clausal form is:
+\begin{displaymath}
+\{\,\{\neg q_1, \neg r_1, p_1, p_2\},\, \{\neg q_1, \neg r_2, p_1,
+ p_2\},\, \{\neg q_2, \neg r_1, p_1, p_2\},\, \{\neg q_2, \neg r_2, p_1,
+ p_2\}\,\}.
+\end{displaymath}
+
+Clearly, the union of these sets of clauses is satisfiable simply by
+assigning true to each atom. However, if we add (c) the formula $\neg
+p_1 \wedge \neg p_2$ (the two unit clauses $\neg p_1$ and $\neg p_2$),
+the formula becomes unsatisfiable.
+
+The formula associated with the graph shown in the diagram is called the
+$3$-layer \emph{grid pebbling formula}; similar formula can be given for
+any $n$. Even for the small $3$-layer formula, clause learning makes a
+significant difference:
+
+\begin{verbatim}
+dpll: units=74, decisions=50, conflicts=26
+cdcl: units=25, decisions=14, conflicts=8
+ncb:  units=17, decisions=9,  conflicts=3
+\end{verbatim}
+
+Let us trace the computation in mode NCB. The clauses $\{\neg p_1\}$ and
+$\{\neg p_2\}$ are unit clauses and can be immediately propagated:
+
+\begin{verbatim}
+Propagate unit: ~p1 (p1=0@0) derived from: 1. [~p1]
+Propagate unit: ~p2 (p2=0@0) derived from: 2. [~p2]
+\end{verbatim}
+
+Next decision assignments are made for the four variables at the second
+layer:
+
+\begin{verbatim}
+Decision assignment: q1=0@1
+Decision assignment: q2=0@2
+Decision assignment: r1=0@3
+Decision assignment: r2=0@4
+\end{verbatim}
+
+When a decision is made for a variable at the third layer, additional
+unit propagations lead to a clause associated with a leaf becoming a
+conflict clause:
+
+\begin{verbatim}
+Decision assignment: s1=0@5
+Propagate unit:  s2 (s2=1@5) derived from: 15. [s1,s2]
+Propagate unit: ~t1 (t1=0@5) derived from: 9. [~s2,~t1,q1,q2]
+Propagate unit: ~t2 (t2=0@5) derived from: 10. [~s2,~t2,q1,q2]
+Conflict clause: 16. [t1,t2]
+\end{verbatim}
+
+From the implication graph:
+\begin{center}
+\includegraphics[keepaspectratio=true,width=\textwidth]{pebbles-bw}
+\end{center}
+we see that the learned clause is:
+\begin{verbatim}
+Learned clause from resolution: [~s2,q1,q2]
+\end{verbatim}
+
+After learning the clause, three levels of decision assignments are
+skipped:
+\begin{verbatim}
+Non-chronological backtracking to level: 2
+Writing dot graph: 0
+Skip decision assignment: s1=1@5
+Skip decision assignment: r2=1@4
+Skip decision assignment: r1=1@3
+\end{verbatim}
+(Clearly, the decision assignments for $r_1$ and $r_2$ are irrelevant to
+the conflict.)
+
+The subsequent decision assignments and unit propagation result in the
+same conflict clause and a new learned clause with backtracking again to
+level 2:
+
+\begin{verbatim}
+Conflict clause: 17. [u1,u2]
+Learned clause from resolution: [~t2,r1,r2]
+Non-chronological backtracking to level: 2
+\end{verbatim}
+
+The same conflict appears again, but after learning the clause, the set
+of clauses is immediately determined to be unsatisfiable because there
+are no longer any decisions that have not been made:
+
+\begin{verbatim}
+Conflict clause: 17. [u1,u2]
+Learned clause from resolution: [~q1,p1,p2]
+Unsatisfiable:
+\end{verbatim}
+
+The variable ordering is extremely important here. The default ordering
+is lexicographic and we happened to put the first variables at the apex
+of the graph. If we change the variable ordering to start with the
+leaves and work up the graph, proving the formula unsatisfiable is much
+less efficient even for mode NCB:
+
+\begin{verbatim}
+ncb:   units=26, decisions=21, conflicts=9
+\end{verbatim}
+
+
+%\begin{comment}
+
 \chapter{Bounded model checking}\label{ch.model}
 
 \section{Overview of model checking}
@@ -1276,4 +1502,5 @@ permutations of the order of the variables, there remains an element of
 
 \bibliographystyle{plain}
 \bibliography{learnsat}
+%\end{comment}
 \end{document}
