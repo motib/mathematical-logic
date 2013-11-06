@@ -30,8 +30,6 @@
 
 \begin{document}
 
-%\begin{comment}
-
 \maketitle
 
 \thispagestyle{empty}
@@ -83,6 +81,8 @@ black-and-white. This document uses the black-and-white images for
 printing. Color images of the same graphs can be found in the \ls{}
 archive.}}
 \end{center}
+
+\tableofcontents
 
 \chapter{Propositional logic}\label{ch.intro}
 
@@ -1146,9 +1146,6 @@ Learned clause from resolution: [q,p,r]
 
 This is a weaker clause than that defined by the dominator.
 
-%\end{comment}
-
-
 \chapter{Pebbling formulas}
 
 A pebbling formula represents the scheduling of tasks. Each task is
@@ -1299,9 +1296,6 @@ less efficient even for mode NCB:
 \begin{verbatim}
 ncb:   units=26, decisions=21, conflicts=9
 \end{verbatim}
-
-
-%\begin{comment}
 
 \chapter{Bounded model checking}\label{ch.model}
 
@@ -1500,7 +1494,143 @@ permutations of the order of the variables, there remains an element of
 ``luck'' when you choose an ordering arbitrarily, at random or using
  heuristics.
 
+
+\chapter{Seating Guests at a Table}
+
+\begin{center}
+These examples were contributed by Na'ama Tal and Nili Gilboa Luria.
+\end{center}
+
+Solving problems in the presence of constraints is an important
+application of SAT solving because constraints are easily expressed as
+logical formulas. The example we take is to compute a plan for seating
+guests at a round table, where the constraints are of one or two forms:
+Guest $g_1$ \emph{must} sit next to guest $g_2$ or guest $g_1$
+\emph{refuses} to sit next to guest $g_2$. The examples will use a table
+with six seats for six guests.
+
+\section{Encoding the problem}
+
+The atomic proposition \p{pij} is true iff guest $g_i$ sits in chair
+$c_j$, $1 \leq i,j \leq 6$.
+
+Each guest must sit in some chair, so we have six clauses of the form:
+\begin{verbatim}
+  [pi1, pi2, pi3, pi4, pi5, pi6]
+\end{verbatim}
+There is one clause for each $1 \leq i \leq 6$.
+
+Similarly, no more than one guest can sit in any chair, so we have six
+sets of clauses of the form:
+\begin{verbatim}
+  [~p1j, ~p2j], [~p1j, ~p3j], [~p1j, ~p4j], [~p1j, ~p5j], [~p1j, ~p6j], 
+  [~p2j, ~p3j], [~p2j, ~p4j], [~p2j, ~p5j], [~p2j, ~p6j],  
+  [~p3j, ~p4j], [~p3j, ~p5j], [~p3j, ~p6j], 
+  [~p4j, ~p5j], [~p4j, ~p6j], 
+  [~p5j, ~p6j]
+\end{verbatim}
+There is one set of clauses for each $1 \leq j \leq 6$.
+ 
+To encode that $g_i$ refuses sit next to guest $g_j$, use a clause for
+each of the two adjacent chairs $c_{k-1}$, $c_{k+1}$ (where addition are
+subtraction are modulo 6):
+
+\begin{displaymath}
+p_{ik} \rightarrow \ngg p_{j(k-1)} \wedge \ngg p_{j(k+1)} \equiv
+(\ngg p_{ik} \vee \ngg p_{j(k-1)} ) \wedge
+(\ngg p_{ik} \vee \ngg p_{j(k+1)} ) 
+\end{displaymath}
+For example, if $g_1$  next to $g_2$, then if $g_1$ sits
+in $c_1$, $g_2$ can't sit in $c_2$ or $c_6$:
+
+\begin{verbatim}
+  [~p11, ~p22], [~p11, ~p26]
+\end{verbatim}
+Each constraint gives rise to six pairs of clauses, one for each chair.
+
+There are two ways to encode the constraint that guest $g_i$ must sit
+next to guest $g_j$. One way is to take implications of the form:
+\begin{displaymath}
+p_{ik_{1}} \rightarrow \ngg p_{jk_{2}} \equiv
+\ngg p_{ik_{1}} \vee \ngg p_{jk_{2}}
+\end{displaymath}
+for every pair of chairs $k_1, k_2$ that are \emph{not} adjacent. For
+example, if $g_3$ must sit next to $g_4$, then if $g_3$ sits in $c_1$,
+$g_4$ must sit in $c_6$ or $c_2$, \emph{not} in $c_3$, $c_4$ or $c_5$:
+
+\begin{verbatim}
+  [~p31, ~p43], [~p31, ~p44], [~p31, ~p45] 
+\end{verbatim}
+There will be six sets of three clauses, one set for each chair.
+
+The second way is to directly encode the adjacency requirements; if
+$g_i$ sits in $c_{k}$ then $g_j$ must sit in $c_{k-1}$ or $c_{k+1}$:
+\begin{displaymath}
+p_{ik} \rightarrow p_{j(k-1)} \vee p_{j(k+1)} \equiv
+\ngg p_{ik} \vee p_{j(k-1)} \vee p_{j(k+1)}.
+\end{displaymath}
+In the example, if $g_3$ must sit next to $g_4$, then if $g_3$ sits in
+$c_1$, $g_4$ must sit in $c_2$ or $c_6$:
+\begin{verbatim}
+  [~p31, p42, p46]
+\end{verbatim}
+There is one three-literal clause for each of the six chairs.
+
+
+\section{Three problems}
+
+The archive contains three problems for seating guests.
+
+File \p{tablea.pro}. The constraints are:
+\begin{itemize}
+\item $g_1$ refuses to sit next to $g_2$
+\item $g_4$ refuses to sit next to $g_5$
+\item $g_3$ must  sit next to $g_4$ 
+\item $g_3$ must  sit next to $g_6$ 
+\end{itemize}
+and the first encoding of $g_i$ must sit next to guest $g_j$ is used.
+The problem is satisfiable under the assignment:
+\begin{verbatim}
+  p16=1, p24=1, p32=1, p43=1, p55=1, p61=1
+\end{verbatim}
+and is solved in \emph{all} modes with the statistics:
+\begin{verbatim}
+  clauses=156, variables=36, units=44, decisions=15, conflicts=2
+\end{verbatim}
+
+File \p{tableb.pro}. The constraints are:
+\begin{itemize}
+\item $g_1$ refuses to sit next to $g_2$
+\item $g_4$ refuses to sit next to $g_5$
+\item $g_3$ must  sit next to $g_1$
+\item $g_3$ must  sit next to $g_4$ 
+\item $g_3$ must  sit next to $g_6$ 
+\end{itemize}
+and the second, more efficient, encoding of $g_i$ must sit next to guest
+$g_j$ is used. The problem is unsatisfiable but there is still no
+difference in the statistics in the different modes:
+\begin{verbatim}
+  clauses=138, variables=36, units=759, decisions=120, conflicts=61
+\end{verbatim}
+
+File \p{tablec.pro}. The constraints are:
+\begin{itemize}
+\item $g_1$ refuses to sit next to $g_2$
+\item $g_3$ must  sit next to $g_4$
+\item $g_4$ must  sit next to $g_5$
+\item $g_5$ must  sit next to $g_6$ 
+\end{itemize}
+and the efficient encoding is used. This time, the three modes give
+significantly different results:
+\begin{verbatim}
+  clauses=126, variables=36, dpll: units=1187, decisions=286, conflicts=144
+  clauses=126, variables=36, cdcl: units=1016, decisions=232, conflicts=117
+  clauses=126, variables=36, ncb : units=926,  decisions=207, conflicts=92
+\end{verbatim}
+
+The examples show that it is hard to predict when the advanced
+algorithms improve performance.
+
 \bibliographystyle{plain}
 \bibliography{learnsat}
-%\end{comment}
 \end{document}
