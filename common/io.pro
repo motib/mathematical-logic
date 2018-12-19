@@ -1,4 +1,7 @@
-% Copyright 2000-2012 by M. Ben-Ari. GNU GPL. See prolog.pdf.
+% Copyright 2000-2018 by M. Ben-Ari. GNU GPL. See prolog.pdf.
+
+% Modified 2018 because of the change of the semantics of
+%   numbervars/4 in the current version of SWI Prolog
 
 %  module io
 
@@ -119,7 +122,8 @@ write_proof_line(Line, Fml, Reason) :-
 
 write_formula(Fml) :-
   copy_term(Fml, Fml1),          % Do not instantiate original formula.
-  numbervars(Fml1, x, 1, _),     % Instantiate variables for output.
+  numbervars(Fml1, 1, _, [functor_name(x)]),
+%  numbervars(Fml1, x, 1, _),     % Instantiate variables for output.
   write_formula1(Fml1).
 
 %  Quantifiers
@@ -247,7 +251,8 @@ write_clauses([]) :-
   write('[]').
 write_clauses(List) :-
   copy_term(List, List1),         % Do not instantiate original formula.
-  numbervars(List1, x, 1, _),     % Instantiate variables for output.
+  numbervars(List1, 1, _, [functor_name(x)]),
+%  numbervars(List1, x, 1, _),     % Instantiate variables for output.
   write('['),
   write_clauses1(List1).
 
@@ -274,7 +279,8 @@ write_clause([H|T]) :-
   write_clause(T).
 
 write_unified(L1, L2, Subst) :-
-  numbervars((L1, L2), x, 1, _),
+  numbervars((L1,L2), 1, _, [functor_name(x)]),
+%  numbervars((L1, L2), x, 1, _),
   write('Unify '),    write_formula(L1), nl,
   write(' and  '),    write_formula(L2), nl, nl,
   write_solved(Subst).
@@ -361,7 +367,8 @@ write_fulfil_result(_) :-
 
 write_latex(Fml) :-
   copy_term(Fml, Fml1),          % Do not instantiate original formula.
-  numbervars(Fml1, x, 1, _),     % Instantiate variables for output.
+  numbervars(Fml1, 1, _, [functor_name(x)]),
+%  numbervars(Fml1, x, 1, _),     % Instantiate variables for output.
   write_latex1(Fml1).
 
 %  Quantifiers
