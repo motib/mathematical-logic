@@ -1,0 +1,846 @@
+\documentclass[11pt]{article}
+
+\usepackage{mathptmx}
+\usepackage{url}
+
+\newcommand*{\p}[1]{\textup{\texttt{#1}}}
+
+\textwidth=15cm
+\textheight=22.5cm
+\topmargin=0pt
+\headheight=0pt
+\oddsidemargin=1cm
+\headsep=0pt
+\renewcommand{\baselinestretch}{1.1}
+\setlength{\parskip}{0.20\baselineskip plus 1pt minus 1pt}
+\parindent=0pt
+
+\author{\bfseries Mordechai Ben-Ari\\\mbox{}\\\url{http: //www.weizmann.ac.il/sci-tea/benari/}}
+\title{\bfseries Mathematical Logic for Computer Science\\\mbox{}\\
+\bfseries\large (Third Edition)\\\mbox{}\\
+\bfseries\Large Prolog Programs}
+
+%\date{}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\bigskip
+
+\begin{center}
+Copyright \copyright{} 2000--18 by Mordechai (Moti) Ben-Ari.
+\end{center}
+This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+License. To view a copy of this license, visit
+\url{http://creativecommons.org/licenses/by-sa/3.0/}; or, (b) send a letter
+to Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
+California, 94105, USA.
+
+\vfill
+ 
+\begin{center}
+The following copyright notice applies to the programs described in this
+document:\mbox{}\\\mbox{}\\
+Copyright 2000--18 by M. Ben-Ari.
+\end{center}
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+02111-1307, USA.
+
+\newpage
+
+\section{Source archive}\label{s.archive}
+
+The programs have been tested with SWI-Prolog Version 6.0.0
+\url{http://www.swi-prolog.org/}.
+
+The source files use the extension \p{pro} instead of
+\p{pl} to avoid conflict with program in Perl.
+
+The archive is a zip file structured into directories (see Appendix A
+for the list of files):
+
+\begin{itemize}
+\item \p{common} - modules and files used by other programs
+\item \p{prop}   - propositional logic
+\item \p{fol}    - first-order logic
+\item \p{tl}     - temporal logic
+\end{itemize}
+
+\textbf{The SAT solver programs have been moved to a separate project called LearnSAT.}
+
+\section{Common modules}\label{s.common}
+
+The operators in the logics are represented within the Prolog programs
+using the following operators defined in the file \p{ops}:
+
+\begin{verbatim}
+:- op(650, xfy, xor).        /* exclusive or */
+:- op(650, xfy, eqv).        /* equivalence  */
+:- op(650, xfy, nor).        /* nor          */
+:- op(650, xfy, nand).       /* nand         */
+:- op(640, xfy, imp).        /* implication  */
+:- op(630, xfy, or).         /* disjunction  */
+:- op(620, xfy, and).        /* conjunction  */
+:- op(610, fy,  neg).        /* negation     */
+:- op(600, xfy, eq).         /* equality     */
+:- op(610, fy,  always).     /* always       */
+:- op(610, fy,  eventually). /* eventually   */
+:- op(610, fy,  next).       /* next         */
+\end{verbatim}
+
+Formulas written with this notation are not easy to read or write.
+Instead, the following operators are used to for input and output:
+
+\begin{verbatim}
+:- op(650, xfy,+).          /* exclusive or */
+:- op(650, xfy,<->).        /* equivalence  */
+:- op(640, xfy,-->).        /* implication  */
+:- op(630, xfy,v).          /* disjunction  */
+:- op(620, xfy,^).          /* conjunction  */
+:- op(610, fy, ~).          /* negation     */
+:- op(610, fy, #).          /* always       */
+:- op(610, fy, <>).         /* eventually   */
+:- op(610, fy, @).          /* next         */
+\end{verbatim}
+
+Module \p{intext} contains predicates that translate between the
+notations.
+
+Other modules in the directory \p{common} are \p{defs} which contain the
+semantic definitions of the Boolean operators and \p{io} which performs
+input and output of the various logical formalisms. 
+
+The predicate \p{write\_latex} writes a formula in \LaTeX{}.
+
+Here is a formula in \LaTeX{} followed by its external and internal representations:
+\begin{itemize}
+\item $(p \oplus q)  \leftrightarrow (\neg (p \rightarrow q) \vee \neg (q\rightarrow p) )$.
+\item \verb+(p xor q)  eqv (neg (p imp q) or neg (q imp p))+
+\item \verb=(p + q) <-> (~(p -> q) v ~(q -> p))=
+\end{itemize}
+
+\section{Propositional logic}
+
+\subsection{Truth tables}\label{s.tt}
+
+The predicate \p{tt(Fml, V, TV)} returns the truth value \p{TV} of
+formula \p{Fml} under the assignment \p{V}. The assignment is a list of
+pairs \p{(A,TV)}, where \p{A} is an atom and \p{TV} is \p{t} or \p{f},
+for example, \p{[(p,f),(q,t)]}. \p{tt} recurses on the structure of the
+formula. For atoms, it returns the truth value by lookup in the list;
+for negations, \p{neg} is called to negate the value; for formulas with
+a binary operator, \p{opr} is called to compute the truth value from the
+truth values of the subformulas.
+
+\p{create\_tt(Fml)} prints the truth table for \p{Fml}.
+\begin{verbatim}
+create_tt(Fml) :-
+  to_internal(Fml, IFml),
+  get_atoms(IFml, Atoms),
+  write_tt_title(IFml, Atoms),
+  generate(Atoms, V),
+  tt(IFml, V, TV),
+  write_tt_line(IFml, V, TV),
+  fail.
+create_tt(_).
+\end{verbatim}
+
+\p{get\_atoms(Fml,Atoms)} returns a sorted list of the atoms occurring
+in \p{Fml}. The assignments for this set of atoms are generated by
+\p{generate(Atoms,V)}. As each assignment is generated, \p{tt(Fml, V,
+TV)} is called, the value of \p{TV} is printed and then the predicate
+\p{fail} causes backtracking into \p{generate} in order to print the
+entire truth table.
+
+
+
+\subsection{Semantic tableaux}\label{s.tabprop}
+
+A tableau will be represented by a predicate \p{t(Fmls, Left, Right)},
+where \p{Fmls} is a list of the formulas labeling the root of the
+tableau, and \p{Left} and \p{Right} are the subtrees of the root which
+recursively contain terms on the same predicate. \p{Right} is ignored
+for an $\alpha$-rule. Here is the term for the tableau for $p \wedge
+(\neg q \vee \neg p)$.
+
+\begin{verbatim}
+t([p and (neg q or neg p)],
+  t([p, neg q or neg p],
+    t([p,neg q],open,empty),
+    t([p,neg p],closed,empty)
+  ),
+  empty
+).
+\end{verbatim}
+
+The tableau for a formula \p{Fml} is created by starting with
+\p{t([Fml],\_,\_)} and then extending the tableau by instantiating the
+logical variables for the subtrees.
+
+\begin{verbatim}
+create_tableau(Fml, Tab) :-
+  Tab = t([Fml], _, _), 
+  extend_tableau(Tab).
+\end{verbatim}
+
+The predicate \p{extend\_tableau} performs one step of the tableau
+construction. First, it checks for a pair of contradictory formulas (an
+optimization, we don't wait until there are only literals) in \p{Fmls},
+and then it checks if \p{Fmls} contains only literals. Only then does it
+perform an alpha or a beta rule, with alpha rules given precedence. To
+check if a branch is open, check if all elements of the label are
+literals. To check if a branch is closed, a formula is chosen from the
+list of formulas labeling the node, and then a search is made for its
+complement. Backtracking will ensure that all possibilities are tried.
+
+\begin{verbatim}
+check_closed(Fmls) :-
+  member(F, Fmls), member(neg F, Fmls).
+\end{verbatim}
+
+To perform an $\alpha$- or $\beta$-rule, we nondeterministically select
+a formula, pattern-match it against the database of rules, delete the
+formula from the node and add the subformulas. The rule for double
+negation is implemented separately.
+
+
+
+\subsection{Proof checker}\label{s.checkprop}
+
+Just as we wrote a program to \emph{generate} a semantic tableau from a
+formula, it would be nice if we could write a program to generate a
+proof of a formula in $\mathcal{H}$. However, this is far from
+straightforward as quite a lot of ingenuity goes into producing a
+concise proof. In this section we present a \emph{proof checker}
+for $\mathcal{H}$: a program which receives a list of formulas and their
+assumptions as its input, and checks if the list is a correct proof. It
+checks that each element of the list is either an axiom or assumption,
+or follows from previous elements by \emph{MP} or deduction. The program
+writes out the justification of each element in the list.
+ 
+The axioms are facts with the axiom number as an additional argument.
+
+The data structure used is a list whose elements are of the form
+\p{deduce(A,F)}, where \p{A} is a list of formulas that is the current
+set of assumptions, and \p{F} is the formula that has been proved. The
+predicate \p{proof} has two additional arguments, a line number used on
+output and a list of the formulas proved so far.
+
+\begin{verbatim}
+proof(List) :- proof(List, 0, []).
+\end{verbatim}
+
+Checking an axiom or an assumption is trivial and involves just checking
+the database of axioms or the list of assumptions.
+
+To check if \p{A} can be justified by \emph{MP}, the predicate \p{nth1}
+nondeterministically searches \p{SoFar} for a formula of the form \p{B
+imp A} and then for the formula \p{B}. The head of List is the Line'th
+line in the proof, so the N'th element of the list is the Line-N'th
+line.
+
+\begin{verbatim}
+proof([Fml | Tail], Line, SoFar) :- 
+  Line1 is Line + 1,
+  Fml = deduce(_, A),
+  nth1(L1, SoFar, deduce(_, B imp A)), 
+  nth1(L2, SoFar, deduce(_, B)),
+  MP1 is Line1 - L1,
+  MP2 is Line1 - L2,
+  write_proof_line(Line1, Fml, ['MP ', MP1, ',', MP2]),
+  proof(Tail, Line1, [Fml | SoFar]).
+\end{verbatim}
+
+A formula can be justified by the deduction rule if it is an implication
+\p{A imp B}. Nondeterministically choose a formula from \p{SoFar} that
+has \p{B} as its formula, and check that \p{A} is in its list of
+assumptions. The formula \p{A} is deleted from \p{Assump}, the list of
+assumptions of \p{A imp B}.
+
+
+
+\subsection{Conversion to CNF}\label{s.cnf}
+
+There are two programs: \p{cnfprop} for propositional logic and
+\p{cnffol} that contains the additions for first-order logic.
+
+The program for conversion to CNF performs three steps one after
+another: elimination of operators other than negation, disjunction and
+conjunction, reducing the scope of negations using De Morgan's laws and
+double negation, and finally distribution of disjunction over
+conjunction.
+
+Elimination of operators is done by a recursive traversal of the
+formation tree. The first three clauses eliminate \p{imp}, \p{eqv} and
+\p{neqv}. The next four clauses simply traverse the tree for the other
+operators.
+
+The application of De Morgan's laws is similar. Two clauses apply the
+laws for negations of conjunction and disjunction and the next two
+clauses traverse the formula for non-negated formulas. The final two
+clauses eliminate double negation and terminate the recursion at a
+literal.
+
+Distribution of disjunction over conjunction is more tricky, because one
+step of the distribution may produce additional structures that must be
+handled. For example, one step of distribution applied to $p \vee
+((q\wedge r) \wedge r)$ gives $(p \vee (q\wedge r)) \wedge (p \vee r)$
+and the distribution rule called recursively not just on the subformulas
+but also on the new formula that results.
+
+The predicate \p{cnf\_to\_clausal} transforms from formulas as terms
+with operators to formulas as sets of sets. Both lists, clauses and
+sets of clauses, are converted are converted to sets to remove
+duplicates, and the literals in the clauses are sorted so that duplicate
+clauses can be identified.
+
+\subsection{Resolution}\label{s.resprop}
+
+To perform resolution we first convert a CNF formula to clausal form.
+Trivial clauses like $\{p,r,\bar{p}\}$ are discarded. First, a check is
+made if the set of clauses is empty (the formula is valid) or if the set
+contains the empty clause (the formula is unsatisfiable). Resolution is
+performed by nondeterministically selecting two clauses in the set,
+creating their resolvent, adding it to the set of clauses and
+recursively calling the predicate. The predicate will fail and backtrack
+in three cases: there are no clashing literals, the resolvent is
+trivial, the resolvent already exists in the set.
+
+\begin{verbatim}
+resolve(S) :-
+  member(C1, S),               % choose two clauses
+  member(C2, S),               
+  clashing(C1, L1, C2, L2),    % check that they clash
+  delete(C1, L1, C1P),         % delete the clashing literals
+  delete(C2, L2, C2P),         
+  union(C1P, C2P, C),          % new clause is their union
+  \+ clashing(C, _, C, _),     % don't add trivial clauses
+  \+ member(C, S),             % don't add an existing clause
+  write_clauses(S), nl,        
+  resolve([C | S]).            % add the resolvent to the set
+\end{verbatim}
+
+
+\subsection{Binary decision diagrams}\label{s.bdd}
+
+Atoms are represented by integers: \p{N} stands for the atom $p_{N}$.
+BDDs are represented by the predicate \p{bdd(N,False,True)}, where \p{N}
+is the atom labeling the root, \p{False} is the sub-BDD when \p{N} is
+assigned $F$ and \p{True} is the sub-BDD when \p{N} is assigned $T$.
+
+The module \p{bddwrite} contains predicates for formatting a BDD.
+
+\subsubsection{Reduce}
+
+Calling the predicate \p{reduce(B, BR)} with a BDD \p{B} returns the
+reduced BDD in \p{BR}. It does a recursive traversal of the BDD. A cache
+of reduced BDDs is maintained as a dynamic database, so that it is easy
+to check if a BDD already exists as required by the second type of
+reduction. \p{retractall} should be called before executing \p{reduce}
+in order to initialize the database.
+
+The first clause checks if the current BDD is in the cache; if so,
+it is returned.
+
+\begin{verbatim}
+reduce(B, B) :- B, !.
+\end{verbatim}
+
+Next we check if the BDD is a leaf; if so, it is placed into the cache
+and returned. The third clause recurses on the sub-BDDs, but before
+returning it calls \p{remove} to perform the first type of reduction. If
+the two edges from this node \p{N} point to the same subBDD, \p{N} must
+be removed and one copy of the subBDD returned instead. Otherwise, the
+new BDD formed by \p{N} and the subBDDs is returned after storing in the
+cache.
+
+\begin{verbatim}
+remove(bdd(_, SubBDD, SubBDD), SubBDD) :- !.
+remove(B, B) :- assert(B).
+\end{verbatim}
+
+\subsubsection{Apply}
+
+\p{apply(B1, Opr, B2, B} applies the operator \p{Opr} to
+the BDDs \p{B1} and \p{B2} and returns the result in \p{B}. A cache is
+used for optimization: the predicate \p{bdd\_pair(B1, B2, B)} is
+asserted if applying the operator to the pair of of BDDs \p{B1} and
+\p{B2} and returns the result \p{B}. An additional optimization is to
+integrate \p{reduce} with \p{apply} instead of first creating an
+unreduced BDD.
+
+\begin{verbatim}
+apply1(B1, _, B2, Result) :-
+  bdd_pair(B1, B2, Result), !.
+apply1(B1, Opr, B2, Result1) :-
+  create(B1, Opr, B2, Result),
+  check_reduced(Result, Result1),
+  assert(bdd_pair(B1, B2, Result1)).
+\end{verbatim}
+
+The algorithm requires a simultaneous recursive traversal of two BDDs.
+The base case is if both BDDs are leaves; in this case, simply apply the
+operator to the values in the leaves. If the same atom is at the root of
+both BDDs, a simultaneous recursion is done and the resultant BDD
+constructed from the BDDs that are returned.
+
+When one of the BDDs has an atom at the root and the other is a leaf, or
+when the roots are labeled with different atoms, the first clause is
+taken if the right-hand sub-BDD is a leaf or has a higher-numbered atom;
+in this case, the sub-BDDs of the left-hand node are applied to the
+\emph{entire} right-hand node \p{Node2}. The two cases can be treated
+together, using the \p{;} operator which succeeds if either of its
+operand does. The check that \p{N1} is not a leaf is not needed by the
+algorithm; it just ensures that we don't try to evaluate \p{leaf<N2}
+which is illegal.
+
+\begin{verbatim}
+create(bdd(N1, False1, True1), Opr,     % True node is leaf or smaller
+       Node2,
+       bdd(N1, FalseResult, TrueResult)) :-
+  Node2 = bdd(N2, _, _),                   
+  (N2 = leaf ;
+   (N1 \= leaf, N1 < N2)), !,           % Check N1\=leaf before "<"
+  apply1(False1,  Opr, Node2, FalseResult),
+  apply1(True1, Opr, Node2, TrueResult).
+\end{verbatim}
+
+There is another, symmetrical, clause if the left-hand node is a leaf or
+has a higher-numbered atom.
+
+Another optimization is to check for a \emph{controlling operand}
+for the operator if one of the BDDs is a leaf. A value is controlling if
+the result of the operation does not depend on the other operand. $T$ is
+controlling for $\vee$ and $F$ is controlling for $\wedge$.
+
+The restriction and quantification operations are also implemented.
+
+\section{First-order logic}
+
+\subsection{Semantic tableaux}\label{s.tabfol}
+
+The predicate \p{check\_closed} that checks if a node is closed must use
+the operator for syntactical identity \p{==} to prevent unification of
+atomic formulas.
+
+\begin{verbatim}
+check_closed(Fmls) :-
+  member(F1, Fmls), member(neg F2, Fmls), F1 == F2.
+\end{verbatim}
+
+To implement the systematic search, the rules are ordered so that rules
+for $\alpha$-, $\beta$- and $\delta$-formulas are performed before
+attempting the rule for a $\gamma$-formula. The tableau predicate has an
+extra argument \p{C} to hold the list of constants. This is updated
+whenever the rule for a $\delta$-formula is used.
+
+The rules for the $\alpha$- and $\beta$-formulas are straightforward.
+
+For a $\delta$-formula, \p{gensym} generates a new constant symbol.
+\p{instance(A1,A2,X,C)} returns in \p{A2} the instance of \p{A1} that
+can be obtained by replacing the variable \p{X} by the constant \p{C}.
+
+\begin{verbatim}
+delta_rule(Fmls, [A2 | Fmls1], C) :-
+  member(A, Fmls),
+  delta(A, X, A1), !,
+  gensym(a, C),
+  instance(A1, A2, X, C),
+  delete(Fmls, A, Fmls1).
+\end{verbatim}
+
+For a $\gamma$-formula, first we have to identify if there exists a
+$\gamma$-formula in the set of formulas. Then, each constant is used to
+instantiate the $\gamma$-formula. The list of formulas is re-ordered:
+the instantiated formulas are placed at the head of the list so that
+non-$\gamma$-rules can be used if possible and the $\gamma$-formula is
+placed at the end of the list so that other $\gamma$-formulas will be
+used.
+
+\begin{verbatim}
+gamma_rule(Fmls, Fmls4, C) :-
+  member(A, Fmls),
+  is_gamma(A), !,               % Check if gamma rule
+  gamma_all(C, A, AList),       % Apply gamma for all constants C
+  delete(Fmls, A, Fmls1),       % Re-order: gamma(c), Fmls, gamma
+  append(Fmls1, [A], Fmls2),    %   so that substitutions are taken
+  append(AList, Fmls2, Fmls3),  %   and universal fml is taken last
+  list_to_set(Fmls3, Fmls4).    % Remove duplicates introduced by gamma
+\end{verbatim}
+
+\p{gamma\_all(C, A, AList)} applies the predicate \p{gamma} to \p{A}
+with all of the constants in the list \p{C} and returns the list of
+formulas in \p{AList}. \p{gamma} recognizes the $\gamma$-formulas and
+returns instances using \p{instance(A, A1, X, C)} in module
+\p{instance}, where $A1$ is obtained from $A$ by instantiating $X$ by
+the constant $C$. To create an instance, the predicate \p{instance}
+recursively traverses the formula until an atomic formula is reached;
+then the substitution is performed. To implement substitution, the
+operator \p{==} must be used to prevent unification instead of
+substitution. \p{instance} is more complex than it needs to be here
+because it performs other tasks for proof checking.
+
+
+
+\subsection{Proof checker}\label{s.checkfol}
+
+The proof checker for the Hilbert system in propositional logic is
+extend to first-order logic by adding Axioms~4 and~5, and the
+generalization rule. Axiom~5 requires that the quantified variable not
+occur as a free variable in the antecedent.
+
+\begin{verbatim}
+axiom(all(X, A1) imp A2, 4) :-
+  instance(A1, A2, X, _).
+axiom(all(X, A imp B) imp (A imp all(X, B)), 5) :-
+  \+ free_in(A, X).
+\end{verbatim}
+
+Here, the predicate \p{instance(A, A1, X, C)}traverses the formulas
+\p{A} and \p{A1} \emph{together}; when an atomic formula is reached, the
+arguments are compared to see if they are the same variablev or if one
+is a constant and the other the variable \p{X}. To check if a variable
+is free in a formula, simply traverse the formula and for every
+quantifier, check that the variable is different from the quantified
+variable.
+
+An additional argument \p{Gens} is added to the predicate \p{proof} to
+store a list of the constants to which Generalization has been applied.
+When the deduction rule is used, two things must be checked: that the
+new set of assumptions is the same as the previous one without the
+formula \p{A} and the proviso that no constant of \p{A} appears in
+\p{Gens}. To check the proviso, the list of constants is traversed and a
+check is made that each one does not appear (free) in \p{A}.
+
+\begin{verbatim}
+proviso([], _).
+proviso([C|Rest], A) :-
+  \+ free_in(A,C),
+  proviso(Rest,A).
+\end{verbatim}
+
+
+
+
+\subsection{Conversion to CNF}
+
+For first-order logic, there are additional predicates to rename the
+bound variables and then extract the quantifiers, which is easy to do
+once the variables have been renamed.
+
+\p{rename} works by traversing the formula, keeping a list of variable
+substitutions. The call is \p{rename(A,List,List1,A1)}, where \p{A1} is
+\p{A} after the variables have been renamed, and \p{List} and \p{List1}
+are lists of pairs of variables. On the way down the recursive traverse,
+\p{List} stores all the variables that have been encountered and the new
+variable names. At the bottom, \p{List} is unified with the variable
+\p{List1} and the substitutions are made on the way up the recursive
+traverse. When a quantified variable is the same as one previously
+encountered, \p{copy\_term} is used to create a new variable. This is a
+predicate that makes a copy of its first argument with a fresh variable
+and places it in the second argument.
+
+\begin{verbatim}
+rename(all(X, A), List, List1, all(Y, A1)) :-
+  member_var((X, _), List), !,
+  copy_term(X, Y),
+  rename(A, [(X, Y) | List], List1, A1).
+\end{verbatim}
+
+When a quantified variable is encountered for the first time, an
+identity substitution is created. The clauses for \p{ex} are similar and
+the clauses for the Boolean operators are elementary. The clause
+terminating the recursion performs the substitution on the atomic
+formulas using \p{subst\_var}.
+
+A simple transversal is not sufficient for extracting quantifiers. A
+simple traversal of the formula $(p_{1} \vee \forall xq_{1}(x)) \wedge
+(p_{2} \vee \forall yq_{2}(y))$ will give $\forall x(p_{1} \vee
+q_{1}(x)) \wedge \forall y(p_{2} \vee q_{2}(y))$, but the extraction has
+to be applied again to this formula. To do this, the result of a
+traversal is checked to see if the formula has changed and if so the
+traversal is done again.
+
+
+
+
+\subsection{Skolemization}\label{s.skolem}
+
+The call to \p{skolem(A,A1)} first transforms the formula $A$ into CNF
+and then calls \p{skolem(A, ListA, ListE,A1)} to obtain \p{A1}, the
+Skolemized version of \p{A}. \p{ListA} is the list of universally
+quantified variables that have appeared so far (initially, the empty
+list) and \p{ListE} is a list of pairs: the first element is an
+existentially quantified variable and the second element is itself a
+pair that contains the Skolem function and a list of its arguments that
+are to be substituted for the existential variable. \p{gensym} is used
+to create new Skolem function symbols. Here are the clauses for
+quantified formulas.
+
+\begin{verbatim}
+skolem(all(X, A), ListA, ListE, all(X, B)) :- !,
+  skolem(A, [X | ListA], ListE, B).
+
+skolem(ex(X, A), ListA, ListE, B) :- !,
+  gensym(f, F),
+  Function =.. [F | ListA],    
+  skolem(A, ListA, [(X, Function) | ListE], B).
+\end{verbatim}
+
+The clauses for Boolean formulas are elementary. When an atomic
+proposition is encountered in the recursive traversal,
+the operator \p{=..} (read \emph{univ}) is used to decompose the formula
+into a predicate symbol and a list of variables. Then, \p{subst\_var} is
+called to replace existentially quantified variables by the Skolem
+functions, and \p{=..} is called again to recompose the formula.
+
+
+
+
+\subsection{Unification}\label{s.unif}
+
+To unify a pair of atomic propositions, check that the predicate
+symbols are identical, create a set of equations from the arguments and
+call \p{solve}.
+
+\begin{verbatim}
+unify(A1, A2, Subst) :-
+  A1 =.. [Pred | Args1],
+  A2 =.. [Pred | Args2],
+  create_equations(Args1, Args2, Eq),
+  solve(Eq, Subst).
+\end{verbatim}
+
+The predicate \p{solve} is called with a list of equations and returns a
+list of substitutions written as equations $x=t$, where $x$ is a
+variable and $t$ is a term. The list is traversed, attempting to apply
+each of the rules to the current equation. It is convenient to maintain
+the list in two parts, one to the left of the current equation and one
+that includes the current equation as its head and the rest of the
+equations as its tail. The \p{solve} predicate will have four
+parameters: two for the equation list, a third for status information
+and the fourth will return the solved set.
+
+The status is passed down the recursive calls to \p{solve} and is used
+to terminate the recursion as necessary, for example, if either rule~3
+or rule~4 fails. The equation that caused the failure is returned
+together with the failure indication for printing. Each rule is applied
+in turn; if successful, it sets the status to \p{modified} as an
+indication to the list traversal clauses described below.
+
+\begin{verbatim}
+solve(Head, [Current | Tail], _, Result) :-
+  rule1(Current, Current1), !,
+  solve(Head, [Current1 | Tail], modified, Result).
+
+solve(Head, [Current | Tail], _, Result) :-
+  rule2(Current), !,
+  solve(Head, Tail, modified, Result).
+
+solve(Head, [Current | Tail], _, Result) :-
+  rule3(Current, NewList, Status), !,
+  append(NewList, Tail, NewTail),
+  solve(Head, NewTail, Status, Result).
+\end{verbatim}
+
+The set of equations returned by rule~3 replaces the current equation
+and is appended in front of the remaining equations.
+
+When a substitution is performed in rule~4, it must be performed on
+\emph{all} the equations, including those that have already been
+checked.
+
+\begin{verbatim}
+solve(Head, [Current | Tail], _, Result) :-
+  append(Head, Tail, List),
+  rule4(Current, List, NewList, Status), !,
+  solve([Current], NewList, Status, Result).
+\end{verbatim}
+
+The next three clauses of \p{solve} traverse the list. If no equation
+applies, the traverse goes to the next one. When the end of the list is
+reached, another traversal is initiated if the previous one made any
+modifications to the list.
+
+In the rules, we must prevent confusion between the equality operator of
+the term equation and the Prolog equality operator, so the former is
+explicitly defined using the operator \p{eq}. Rules~1 and~2 are
+straightforward. Rule~3 compares the outermost functors and fails if
+they are not the same. Otherwise, it calls \p{new\_equations} to pair
+the subterms. Rule~4 reports failure if the occurs-check fails.
+Otherwise, it calls \p{subst\_list} to perform the substitutions. If
+nothing is changed, the predicate fails, initiating traversal to the
+next equation in the list.
+
+\p{occur(X,T)} traverses the list and succeeds as soon as it finds an
+occurrence of the variable \p{X} in the term \p{T}. \p{occur\_list} is
+used to check the list of subterms.
+
+
+
+
+\subsection{Resolution}\label{s.resfol}
+
+A formula is first transformed into a set of clauses using \p{skolem}
+and \p{skolem\_to\_clauses} and then resolution is performed.
+
+The empty set of clauses is valid and a set containing the empty clause
+is unsatisfiable. Otherwise, choose two \emph{different} clauses and
+resolve. \p{copy\_term} standardizes apart. After resolving a check is
+made that the clause is not trivial and that it is a new clause.
+\begin{verbatim}
+resolve(S)  :-
+  member(C1, S),
+  member(C2, S),
+  C1 \== C2,
+  copy_term(C2, C2_R),
+  clashing(C1, L1, C2_R, L2, Subst),
+  delete_lit(C1, L1, Subst, C1P),
+  delete_lit(C2_R, L2, Subst, C2P),
+  clause_union(C1P, C2P, Resolvent),
+  \+ clashing(Resolvent, _, Resolvent, _, _),
+  \+ member(Resolvent, S),
+  resolve([Resolvent | S]).
+\end{verbatim}
+
+The predicate \p{clashing(C1, L1, C2, L2, Subst)} checks if the clauses
+clash and if so it returns the clashing literals and the mgu that
+unifies them. \p{delete\_lit(Clause, Literal, Subst, Result)} deletes
+from \p{Clause} all the literals that are equal to \p{Literal} under the
+substitution \p{Subst} and returns the \p{Result}. \p{clause\_union(C1,
+C2, Result)} takes the union of the literals in the two clauses to form
+the resolvent.
+
+\section{Temporal logic}
+
+\subsection{Semantic tableaux}\label{s.tabtl}
+
+The decision predicate for
+satisfiability is implemented in four stages:
+\begin{itemize}
+\item \p{extend\_tableau} performs the tableau
+construction until it terminates.
+\item \p{check\_tableau} decides if the tableau is opened,
+closed or contains cycles.
+\item \p{create\_states} constructs the state diagram
+from the tableau.
+\item \p{check\_fulfillment}
+constructs the component graph and checks fulfillment.
+\end{itemize}
+
+Each node of the tableau contains five fields \p{t(Fmls, Left, Right, N,
+Path)}: the list of formulas and the links to the left and right
+children. A node number that is generated by \p{get\_num} when a new
+node is created and the ancestor path. This is used to check if a new
+state should be created or if a node should be connected to an ancestor.
+$\alpha$- and $\beta$-nodes add themselves to the ancestor path by
+appending the term \p{pt(Fmls,N)} to \p{Path}, where \p{Fmls} is the
+label and \p{N} is the node number. The rule for a $\beta$-formula is:
+
+\begin{verbatim}
+extend_tableau(t(Fmls, Left,   Right, N, Path)) :-
+  beta_rule(Fmls, Fmls1, Fmls2), !,
+  get_num(N1),
+  get_num(N2),
+  Left  = t(Fmls1, _, _, N1, [pt(Fmls,N)|Path]),
+  Right = t(Fmls2, _, _, N2, [pt(Fmls,N)|Path]),
+  extend_tableau(Left),
+  extend_tableau(Right).
+\end{verbatim}
+
+The predicate \p{next\_rule} is called to get the formulas in a node
+created by the rule for a next formula, but before the node is
+created, \p{search} is called to search the \p{Path} for a node with the
+same set of formulas in its label. If successful, it returns the node
+number \p{N}; this branch of the tableau is terminated and marked
+\p{connect(N)}. Otherwise, a new node is created.
+
+\begin{verbatim}
+extend_tableau(t(Fmls, connect(N), empty, _, Path)) :-
+  next_rule(Fmls, Fmls1),
+  search(Path, Fmls1, N), !.
+
+extend_tableau(t(Fmls, Left,   empty, N, Path)) :-
+  next_rule(Fmls, Fmls1), !,
+  get_num(N1),
+  Left = t(Fmls1, _, _, N1, [pt(Fmls,N)|Path]),
+  extend_tableau(Left).
+\end{verbatim}
+
+After the tableau construction terminates, \p{check\_tableau} is called.
+It traverses the tableau from the root down to the leaves and then
+returns back up, computing the status of the tableau: open, closed or
+with a cycle that must be checked for fulfillment.
+
+\p{create\_states} takes a tableau and constructs the structure: states,
+state paths which are transitions, and state labels which are the union
+of the labels on the state paths. It returns a list of terms
+\p{st(Fmls,~N)}, where \p{Fmls} is the state label and \p{N} the node
+number of the state, and a list of terms \p{tau(From,~To)}, where
+\p{From} and \p{To} are the node numbers of states.
+
+These lists are the input to \p{component\_graph}, which returns a list
+of MSCCs (a MSCC is a list of its states) and a list of edges of the
+form \p{e(From,To)}, where \p{From} and \p{To} are MSCCs. \p{fulfil1}
+selects a MSCC \p{S} with no outgoing edges and calls \p{self-fulfil} to
+check if \p{S} is self-fulfilling. If successful, it returns \p{ok(S)};
+if not, it deletes \p{S} from the list of MSCCs, adds
+\p{notok(S,Result)} to the list of results and calls itself recursively.
+\p{Result} is the future formula that could not be fulfilled in \p{S}.
+\p{self-fulfil} checks each future formula such as \p{<>F} to see if
+\p{F} occurs in some state in the SCC.
+
+
+\appendix
+\section{List of files}\label{s.list}
+
+For each program \p{p.pro}, there is a file \p{p-t.pro} which contains
+test programs. The programs use the predicate \p{file\_search\_path} to
+access the modules in the \p{common} directory.
+
+\smallskip
+
+\begin{tabular}{l@{\hspace{3em}}l}
+Directory \p{common}&\\
+\p{ops.pro}      & declaration of operators with precedence and
+associativity.\\
+\p{def.pro}      & correspondence between symbols and internal operators.\\
+            & semantic definition of Boolean operators.\\
+\p{intext.pro}   & conversion from external to internal format and conversely.\\
+\p{io.pro}       & display predicates for all programs (except BDDs and DPLL).\\
+\\
+Directory \p{prop} &  (propositional logic)\\
+\p{tt.pro}       & truth tables.\\
+\p{cnfpro.pro}   & conversion of a formula to CNF\\
+\p{tabl.pro}     & semantic tableaux.\\
+\p{check.pro}    & Hilbert proof checker.\\
+\p{resolv.pro}   & resolution.\\
+\p{bdd.pro}      & BDD algorithms.\\
+\p{bddwrite.pro} & display of BDDs.\\
+\\
+Directory \p{fol}  & (first-order logic)\\
+\p{cnffol.pro}   & conversion of a formula to CNF\\
+\p{tabl.pro}     & semantic tableaux.\\
+\p{check.pro}    & Hilbert proof checker.\\
+\p{skolem.pro}   & skolemize a formula.\\
+\p{unify.pro}    & unification algorithm.\\
+\p{resolv.pro}   & resolution.\\
+\p{instance.pro} & create an instance by substitution.\\
+\\
+Directory \p{tl}  &   (temporal logic)\\
+\p{tl.pro}       & semantic tableaux.\\
+\end{tabular}
+
+
+\end{document}
